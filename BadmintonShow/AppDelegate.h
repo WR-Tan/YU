@@ -13,9 +13,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)toMainCtl ;
+
 - (void)toLogin;
 - (void)toMain;
+
+- (void)toMainCtl ;
 
 @end
 

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "BSBaseTabBarController.h"
 #import "BSLoginController.h"
+#import "AppDelegate.h"
 
 #define kCount 4
 
@@ -138,7 +139,9 @@
 #pragma mark 登录
 - (void)share:(UIButton *)btn
 {
-    self.view.window.rootViewController = [[BSBaseTabBarController alloc] init] ;
+
+//    [(AppDelegate *)[UIApplication sharedApplication].delegate toMainCtl];
+    self.view.window.rootViewController = [[BSLoginController alloc] init] ;
 }
 
 #pragma mark - 滚动代理方法

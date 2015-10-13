@@ -6,14 +6,15 @@
 //  Copyright © 2015年 LZH. All rights reserved.
 //
 
-#import "BSChatListViewController.h"
-#import "BSAddContactsViewController.h"
+#import "BSFriendListViewController.h"
+#import "BSAddFriendViewController.h"
+#import "CDAddFriendVC.h"
 
-@interface BSChatListViewController ()
+@interface BSFriendListViewController ()
 
 @end
 
-@implementation BSChatListViewController
+@implementation BSFriendListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,10 +36,13 @@
 }
 
 - (void)addContact{
+//    
+    BSAddFriendViewController * add = [ [BSAddFriendViewController alloc] init ];
+    [[self navigationController] pushViewController:add animated:YES];
     
-    BSAddContactsViewController *addContacts = [[BSAddContactsViewController alloc] init];
-    [self.navigationController pushViewController:addContacts animated:YES];
     
+//    CDAddFriendVC *controller = [[CDAddFriendVC alloc] init];
+//    [[self navigationController] pushViewController:controller animated:YES];
 }
 
 /*

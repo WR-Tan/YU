@@ -36,11 +36,13 @@
 
 #pragma mark - 用户登录
 - (IBAction)loginAction:(id)sender {
+    
+//    _phoneNumTF.text = @"user001";
     [AVUser logInWithUsernameInBackground:_phoneNumTF.text password:_passwordTF.text block:^(AVUser *user, NSError *error) {
         
         if (user) {
             AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-            [delegate toMain];
+            [delegate toMainCtl];
             
         } else {
             

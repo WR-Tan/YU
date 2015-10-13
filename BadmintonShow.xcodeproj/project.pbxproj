@@ -410,7 +410,9 @@
 		0409DAC11BCA97BC00B659B8 /* weChatBubble_Sending_Cavern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0409D9B21BCA97BC00B659B8 /* weChatBubble_Sending_Cavern@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0409DAC21BCA97BC00B659B8 /* weChatBubble_Sending_LeanChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0409D9B31BCA97BC00B659B8 /* weChatBubble_Sending_LeanChat@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0409DAC31BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0409D9B41BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png */; settings = {ASSET_TAGS = (); }; };
-		04D716DD1BCC97B100C2D413 /* BSChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DC1BCC97B100C2D413 /* BSChatListViewController.m */; settings = {ASSET_TAGS = (); }; };
+		04D716DD1BCC97B100C2D413 /* BSFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DC1BCC97B100C2D413 /* BSFriendListViewController.m */; settings = {ASSET_TAGS = (); }; };
+		04D716E11BCCA67200C2D413 /* BSAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DF1BCCA67200C2D413 /* BSAddFriendViewController.m */; settings = {ASSET_TAGS = (); }; };
+		04D716E41BCCA85E00C2D413 /* BSAddFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D716E31BCCA85E00C2D413 /* BSAddFriendViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		234541D4C73354159C8CCDCE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F04F77C79960B37F45D59C5B /* libPods.a */; };
 		340628081B958B7B0023CA77 /* BSSkyLadderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340628071B958B7B0023CA77 /* BSSkyLadderViewController.m */; };
 		342EDF891B43F82300E1CC82 /* ManSymBol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 342EDF871B43F82300E1CC82 /* ManSymBol@2x.png */; };
@@ -421,7 +423,6 @@
 		3457AD071BB061DE00D3ACA6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3457AD061BB061DE00D3ACA6 /* CoreLocation.framework */; };
 		3457AD091BB061E600D3ACA6 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3457AD081BB061E600D3ACA6 /* libicucore.dylib */; };
 		3457AD0C1BB0739E00D3ACA6 /* user-green-128*128.png in Resources */ = {isa = PBXBuildFile; fileRef = 3457AD0B1BB0739E00D3ACA6 /* user-green-128*128.png */; };
-		3457AD121BB0765200D3ACA6 /* BSAddContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3457AD111BB0765200D3ACA6 /* BSAddContactsViewController.m */; };
 		345D35D81B2D0B1A004C226A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 345D35D71B2D0B1A004C226A /* main.m */; };
 		345D35DB1B2D0B1A004C226A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 345D35DA1B2D0B1A004C226A /* AppDelegate.m */; };
 		345D35E01B2D0B1A004C226A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345D35DE1B2D0B1A004C226A /* LaunchScreen.xib */; };
@@ -1099,8 +1100,11 @@
 		0409D9B31BCA97BC00B659B8 /* weChatBubble_Sending_LeanChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weChatBubble_Sending_LeanChat@2x.png"; sourceTree = "<group>"; };
 		0409D9B41BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weChatBubble_Sending_Solid@2x.png"; sourceTree = "<group>"; };
 		0409D9B51BCA97BC00B659B8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MessageDisplayKitString.strings"; sourceTree = "<group>"; };
-		04D716DB1BCC97B100C2D413 /* BSChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChatListViewController.h; sourceTree = "<group>"; };
-		04D716DC1BCC97B100C2D413 /* BSChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChatListViewController.m; sourceTree = "<group>"; };
+		04D716DB1BCC97B100C2D413 /* BSFriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFriendListViewController.h; sourceTree = "<group>"; };
+		04D716DC1BCC97B100C2D413 /* BSFriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFriendListViewController.m; sourceTree = "<group>"; };
+		04D716DE1BCCA67200C2D413 /* BSAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddFriendViewController.h; sourceTree = "<group>"; };
+		04D716DF1BCCA67200C2D413 /* BSAddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddFriendViewController.m; sourceTree = "<group>"; };
+		04D716E31BCCA85E00C2D413 /* BSAddFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSAddFriendViewController.xib; sourceTree = "<group>"; };
 		340628061B958B7B0023CA77 /* BSSkyLadderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderViewController.h; sourceTree = "<group>"; };
 		340628071B958B7B0023CA77 /* BSSkyLadderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderViewController.m; sourceTree = "<group>"; };
 		342EDF871B43F82300E1CC82 /* ManSymBol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ManSymBol@2x.png"; sourceTree = "<group>"; };
@@ -1111,8 +1115,6 @@
 		3457AD061BB061DE00D3ACA6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3457AD081BB061E600D3ACA6 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		3457AD0B1BB0739E00D3ACA6 /* user-green-128*128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-green-128*128.png"; sourceTree = "<group>"; };
-		3457AD101BB0765200D3ACA6 /* BSAddContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddContactsViewController.h; sourceTree = "<group>"; };
-		3457AD111BB0765200D3ACA6 /* BSAddContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddContactsViewController.m; sourceTree = "<group>"; };
 		345D35D21B2D0B1A004C226A /* BadmintonShow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BadmintonShow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		345D35D61B2D0B1A004C226A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		345D35D71B2D0B1A004C226A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -2680,10 +2682,11 @@
 				0409D6A71BC6B46D00B659B8 /* LeanChat */,
 				345D36711B2D0D4D004C226A /* BSChatController.h */,
 				345D36721B2D0D4D004C226A /* BSChatController.m */,
-				04D716DB1BCC97B100C2D413 /* BSChatListViewController.h */,
-				04D716DC1BCC97B100C2D413 /* BSChatListViewController.m */,
-				3457AD101BB0765200D3ACA6 /* BSAddContactsViewController.h */,
-				3457AD111BB0765200D3ACA6 /* BSAddContactsViewController.m */,
+				04D716DB1BCC97B100C2D413 /* BSFriendListViewController.h */,
+				04D716DC1BCC97B100C2D413 /* BSFriendListViewController.m */,
+				04D716DE1BCCA67200C2D413 /* BSAddFriendViewController.h */,
+				04D716DF1BCCA67200C2D413 /* BSAddFriendViewController.m */,
+				04D716E31BCCA85E00C2D413 /* BSAddFriendViewController.xib */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -3149,6 +3152,7 @@
 				349EF2A11B42901A003A1C4E /* BSDiscover.storyboard in Resources */,
 				0409DA7F1BCA97BC00B659B8 /* tusiji_9_cover@2x.png in Resources */,
 				0409DAB21BCA97BC00B659B8 /* sharemore_myfav@2x.png in Resources */,
+				04D716E41BCCA85E00C2D413 /* BSAddFriendViewController.xib in Resources */,
 				0409DA381BCA97BC00B659B8 /* rabbit_11_cover@2x.png in Resources */,
 				3487B2D71B3964ED00BB9843 /* BSLoginController.xib in Resources */,
 				0409D7B41BC6B46D00B659B8 /* rabbit_9.gif in Resources */,
@@ -3422,7 +3426,6 @@
 				0409DA151BCA97BC00B659B8 /* XHVoiceRecordHUD.m in Sources */,
 				34C490951B47F4440009AE93 /* BSNearbyHallCell.m in Sources */,
 				0409D7781BC6B46D00B659B8 /* CDBaseVC.m in Sources */,
-				3457AD121BB0765200D3ACA6 /* BSAddContactsViewController.m in Sources */,
 				345D36A51B2D2619004C226A /* BSGameRecordDetailController.m in Sources */,
 				0409DA061BCA97BC00B659B8 /* XHViewState.m in Sources */,
 				349EF2241B3D043C003A1C4E /* RegularExpressionUtils.m in Sources */,
@@ -3489,6 +3492,7 @@
 				0409D9E21BCA97BC00B659B8 /* XHCacheManager.m in Sources */,
 				0409D7F51BC6B46D00B659B8 /* CDLabelButtonTableCell.m in Sources */,
 				0409D9DF1BCA97BC00B659B8 /* XHDisplayMediaViewController.m in Sources */,
+				04D716E11BCCA67200C2D413 /* BSAddFriendViewController.m in Sources */,
 				345D36581B2D0BD0004C226A /* Util.m in Sources */,
 				0409D9EA1BCA97BC00B659B8 /* XHVideoOutputSampleBufferFactory.m in Sources */,
 				345D363C1B2D0BD0004C226A /* GeneralUtil.m in Sources */,
@@ -3551,7 +3555,7 @@
 				0409D78F1BC6B46D00B659B8 /* CDSettingVC.m in Sources */,
 				345D35DB1B2D0B1A004C226A /* AppDelegate.m in Sources */,
 				0409D9B81BCA97BC00B659B8 /* AVIMConversation+Custom.m in Sources */,
-				04D716DD1BCC97B100C2D413 /* BSChatListViewController.m in Sources */,
+				04D716DD1BCC97B100C2D413 /* BSFriendListViewController.m in Sources */,
 				0409D7EF1BC6B46D00B659B8 /* CDBadgeLabel.m in Sources */,
 				0409D9C41BCA97BC00B659B8 /* NSString+MessageInputView.m in Sources */,
 				0409D77A1BC6B46D00B659B8 /* MCMutipleSectionTC.m in Sources */,

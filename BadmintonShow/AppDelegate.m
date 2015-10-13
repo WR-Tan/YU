@@ -88,9 +88,6 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
     NSString *key = (NSString *)kCFBundleVersionKey;
     NSString *version = [NSBundle mainBundle].infoDictionary[key];
     NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    
-//    _tabBar = [[BSBaseTabBarController alloc] init];
-    
     if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
         
         application.statusBarHidden = NO;
@@ -100,16 +97,15 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
         
         if (currentUser) {
             self.window.rootViewController = self.tabBarCtl;
+            [self toMain]; // 主要是设置聊天
+            
+            
         } else {
             self.window.rootViewController = self.loginCtl;
-//            BSLoginController *login =  [[BSLoginController alloc] initWithNibName:@"BSLoginController" bundle:nil];
-//            BSBaseNavigationController *loginNav = [[BSBaseNavigationController alloc] initWithRootViewController:login];
-//            self.window.rootViewController = loginNav;
         }
     } else {// 将新版本号写入沙盒
         [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        // 显示新特性界面
         self.window.rootViewController = [[NewFeatureController alloc] init];
     }
 }
@@ -136,6 +132,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 - (void)toMainCtl
 {
 //    self.window.rootViewController = _tabBar;
+    self.window.rootViewController = self.tabBarCtl;
 }
 
 
@@ -188,10 +185,11 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 }
 
 - (void)toMain{
-    [iRate sharedInstance].applicationBundleID = @"com.avoscloud.leanchat";
+    //  更新版本
+    [iRate sharedInstance].applicationBundleID = @"BD.BadmintonShow";
     [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     [iRate sharedInstance].previewMode = NO;
-    [iVersion sharedInstance].applicationBundleID = @"com.avoscloud.leanchat";
+    [iVersion sharedInstance].applicationBundleID = @"BD.BadmintonShow";
     [iVersion sharedInstance].previewMode = NO;
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -206,13 +204,13 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
     
     [[CDChatManager manager] openWithClientId:[AVUser currentUser].objectId callback: ^(BOOL succeeded, NSError *error) {
         DLog(@"%@", error);
-        CDBaseTabC *tab = [[CDBaseTabC alloc] init];
-        [weakSelf addItemController:[[CDConvsVC alloc] init] toTabBarController:tab];
-        [weakSelf addItemController:[[CDFriendListVC alloc] init] toTabBarController:tab];
-        [weakSelf addItemController:[[CDProfileVC alloc] init] toTabBarController:tab];
-        
-        tab.selectedIndex = 0;
-        weakSelf.window.rootViewController = tab;
+//        CDBaseTabC *tab = [[CDBaseTabC alloc] init];
+//        [weakSelf addItemController:[[CDConvsVC alloc] init] toTabBarController:tab];
+//        [weakSelf addItemController:[[CDFriendListVC alloc] init] toTabBarController:tab];
+//        [weakSelf addItemController:[[CDProfileVC alloc] init] toTabBarController:tab];
+//        
+//        tab.selectedIndex = 0;
+//        weakSelf.window.rootViewController = tab;
     }];
 }
 

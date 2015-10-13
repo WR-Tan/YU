@@ -6,8 +6,9 @@
 //  Copyright © 2015年 LZH. All rights reserved.
 //
 
-#import "CDChatListVC.h"
+//#import "CDChatListVC.h"
+#import "CDFriendListVC.h"
 
-@interface BSChatListViewController : CDChatListVC
+@interface BSFriendListViewController : CDFriendListVC
 
 @end

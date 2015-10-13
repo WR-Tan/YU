@@ -4,11 +4,11 @@
 //
 //  Created by lzh on 15/6/14.
 //  Copyright (c) 2015年 LZH. All rights reserved.
-//
+//  聊天列表界面
 
 #import "BSChatController.h"
 #import <AVOSCloudIM.h>
-#import "BSChatListViewController.h"
+#import "BSFriendListViewController.h"
 
 
 @interface BSChatController () <AVIMClientDelegate>
@@ -23,12 +23,9 @@
     [super viewDidLoad];
     
     [self setupUI];
-//
 }
 
 - (void)setupUI{
-    
-//    self.title = @"羽秀";
     
     UIButton *rightItem = [UIButton buttonWithType:UIButtonTypeCustom];
     rightItem.frame = CGRectMake(0, 0, 20, 20);
@@ -40,7 +37,7 @@
 
 - (void)contacts{
     
-    BSChatListViewController *chatList = [[BSChatListViewController alloc] init];
+    BSFriendListViewController *chatList = [[BSFriendListViewController alloc] init];
     [self.navigationController pushViewController:chatList animated:YES];
     
 }
