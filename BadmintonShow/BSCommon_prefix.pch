@@ -1,0 +1,22 @@
+//
+//  BSCommon_prefix.pch
+//  BadmintonShow
+//
+//  Created by lzh on 15/6/14.
+//  Copyright (c) 2015年 LZH. All rights reserved.
+//
+
+#ifndef BadmintonShow_BSCommon_prefix_pch
+#define BadmintonShow_BSCommon_prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "CommonUtils.h"
+#import "CommonDefine.h"
+#import "UIKit+x.h"
+#import "MBProgressHUD+ZH.h"
+
+
+#endif
