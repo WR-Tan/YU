@@ -9,10 +9,16 @@
 #import "BSMineController.h"
 
 @interface BSMineController ()
+@property (nonatomic, strong) UIImageView *iconView;
+
+@property (weak, nonatomic) IBOutlet UIButton *iconBtn;
 
 @end
 
-@implementation BSMineController
+@implementation BSMineController{
+
+    CGRect  _iconOldFrame ;
+}
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -35,14 +41,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)iconAction:(id)sender {
+    
+    //  浏览图片
 }
-*/
+
+
+
+
 
 @end
