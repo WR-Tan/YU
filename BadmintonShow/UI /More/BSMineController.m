@@ -8,9 +8,12 @@
 
 #import "BSMineController.h"
 #import "BSProfileViewController.h"
+#import "CDUserManager.h"
+#import <LCUserFeedbackAgent.h>
+#import "UserDefaultManager.h"
+#import "BSProfileEditViewController.h"
 
-@interface BSMineController ()
-@property (nonatomic, strong) UIImageView *iconView;
+@interface BSMineController ()<BSProfileEditViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *iconBtn;
 
@@ -35,6 +38,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIImage *avatar = [UserDefaultManager avatar];
+    [_iconBtn setImage:avatar forState:UIControlStateNormal] ;
+    
+    [self loadIcon];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,9 +71,37 @@
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-
+    
+    if ([segue.identifier  isEqualToString:@"BSProfileEditViewControllerSegue"]) {
+        
+        BSProfileEditViewController *profileEditVC = (BSProfileEditViewController *)segue.destinationViewController ;
+        profileEditVC.delegate = self;
+    };
 
 }
+
+- (void)changeIcon:(UIImage *)image{
+    [_iconBtn setImage:image forState:UIControlStateNormal];
+}
+
+
+- (void)loadIcon {
+
+    [[CDUserManager manager] getBigAvatarImageOfUser:[AVUser currentUser] block:^(UIImage *image) {
+        [[LCUserFeedbackAgent sharedInstance] countUnreadFeedbackThreadsWithBlock:^(NSInteger number, NSError *error) {
+
+            [_iconBtn setImage:image forState:UIControlStateNormal];
+            
+            [UserDefaultManager saveAvatarImage:image];
+            
+            [self.tableView reloadData];
+        }];
+    }];
+}
+
+
+
+
 
 
 

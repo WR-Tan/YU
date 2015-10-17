@@ -8,8 +8,14 @@
 
 #import "BSBaseTableViewController.h"
 
+@protocol BSProfileEditViewControllerDelegate <NSObject>
+
+- (void)changeIcon:(UIImage *)image;
+
+@end
+
 @interface BSProfileEditViewController : BSBaseTableViewController
 
-
+@property (nonatomic , weak) id <BSProfileEditViewControllerDelegate> delegate ;
 
 @end
