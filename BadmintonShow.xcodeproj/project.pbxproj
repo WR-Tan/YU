@@ -413,6 +413,7 @@
 		04D716DD1BCC97B100C2D413 /* BSFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DC1BCC97B100C2D413 /* BSFriendListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04D716E11BCCA67200C2D413 /* BSAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DF1BCCA67200C2D413 /* BSAddFriendViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04D716E41BCCA85E00C2D413 /* BSAddFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D716E31BCCA85E00C2D413 /* BSAddFriendViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		04F71E4E1BD14BA6000EF5F8 /* BSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F71E4D1BD14BA6000EF5F8 /* BSProfileViewController.m */; settings = {ASSET_TAGS = (); }; };
 		234541D4C73354159C8CCDCE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F04F77C79960B37F45D59C5B /* libPods.a */; };
 		340628081B958B7B0023CA77 /* BSSkyLadderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340628071B958B7B0023CA77 /* BSSkyLadderViewController.m */; };
 		342EDF891B43F82300E1CC82 /* ManSymBol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 342EDF871B43F82300E1CC82 /* ManSymBol@2x.png */; };
@@ -1105,6 +1106,8 @@
 		04D716DE1BCCA67200C2D413 /* BSAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddFriendViewController.h; sourceTree = "<group>"; };
 		04D716DF1BCCA67200C2D413 /* BSAddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddFriendViewController.m; sourceTree = "<group>"; };
 		04D716E31BCCA85E00C2D413 /* BSAddFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSAddFriendViewController.xib; sourceTree = "<group>"; };
+		04F71E4C1BD14BA6000EF5F8 /* BSProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileViewController.h; sourceTree = "<group>"; };
+		04F71E4D1BD14BA6000EF5F8 /* BSProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProfileViewController.m; sourceTree = "<group>"; };
 		340628061B958B7B0023CA77 /* BSSkyLadderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderViewController.h; sourceTree = "<group>"; };
 		340628071B958B7B0023CA77 /* BSSkyLadderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderViewController.m; sourceTree = "<group>"; };
 		342EDF871B43F82300E1CC82 /* ManSymBol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ManSymBol@2x.png"; sourceTree = "<group>"; };
@@ -2708,6 +2711,8 @@
 			children = (
 				345D36771B2D0D6C004C226A /* BSMineController.h */,
 				345D36781B2D0D6C004C226A /* BSMineController.m */,
+				04F71E4C1BD14BA6000EF5F8 /* BSProfileViewController.h */,
+				04F71E4D1BD14BA6000EF5F8 /* BSProfileViewController.m */,
 				349EF2A21B429655003A1C4E /* BSMine.storyboard */,
 			);
 			path = More;
@@ -3021,6 +3026,7 @@
 				TargetAttributes = {
 					345D35D11B2D0B1A004C226A = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 23UCRX8JT2;
 					};
 					345D35E41B2D0B1A004C226A = {
 						CreatedOnToolsVersion = 6.1;
@@ -3527,6 +3533,7 @@
 				0409D9B71BCA97BC00B659B8 /* CDChatRoomVC.m in Sources */,
 				0409D77E1BC6B46D00B659B8 /* CDConvDetailVC.m in Sources */,
 				0409DA181BCA97BC00B659B8 /* XHEmotionManagerView.m in Sources */,
+				04F71E4E1BD14BA6000EF5F8 /* BSProfileViewController.m in Sources */,
 				0409DA001BCA97BC00B659B8 /* SETextMagnifierCaret.m in Sources */,
 				0409D7F11BC6B46D00B659B8 /* CDEntryActionButton.m in Sources */,
 				345D36B81B2D28CF004C226A /* BSGameRecordDetailCell.m in Sources */,
@@ -3745,6 +3752,7 @@
 			baseConfigurationReference = B188B1BC2BE8455C932E8A36 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
@@ -3758,6 +3766,7 @@
 			baseConfigurationReference = D1945C8900BD47FAC5384220 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;

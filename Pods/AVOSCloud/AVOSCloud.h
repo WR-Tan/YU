@@ -17,6 +17,7 @@
 #import "AVUser.h"
 #import "AVRole.h"
 #import "AVFile.h"
+#import "AVFileQuery.h"
 #import "AVAnonymousUtils.h"
 #import "AVACL.h"
 #import "AVInstallation.h"

@@ -7,6 +7,7 @@
 //
 
 #import "BSMineController.h"
+#import "BSProfileViewController.h"
 
 @interface BSMineController ()
 @property (nonatomic, strong) UIImageView *iconView;
@@ -47,6 +48,18 @@
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (indexPath.section == 3 && indexPath.row == 0) {
+        [self pushProfileVC];
+    }
+}
+
+- (void)pushProfileVC
+{
+    BSProfileViewController *profileVC = [[BSProfileViewController alloc] init];
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
 
 
 

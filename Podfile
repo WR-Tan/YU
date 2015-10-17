@@ -18,4 +18,3 @@ pod 'OpenShare', '0.0.1'
 pod 'PopMenu', '2.4'
 
 pod 'FMDB'
-pod "MWPhotoBrowser"

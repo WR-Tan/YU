@@ -26,6 +26,8 @@ extern NSString *const AVLoggerDomainStorage;
 + (void)addLoggerDomain:(NSString *)domain;
 + (void)removeLoggerDomain:(NSString *)domain;
 + (void)logFunc:(const char *)func domain:(NSString *)domain level:(AVLoggerLevel)level message:(NSString *)fmt, ... NS_FORMAT_FUNCTION(4, 5);
++ (BOOL)levelEnabled:(AVLoggerLevel)level;
++ (BOOL)containDomain:(NSString *)domain;
 @end
 
 #define _AVLoggerInfo(_domain, ...) [AVLogger logFunc:__func__ domain:_domain level:AVLoggerLevelInfo message:__VA_ARGS__]
