@@ -7,6 +7,8 @@
 //
 
 #import "BSProfileViewController.h"
+#import "CDChatManager.h"
+#import "AppDelegate.h"
 
 @interface BSProfileViewController ()
 
@@ -23,6 +25,26 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+/**
+ *  重写logout方法，看情况是否还需要退出AVOSCloud
+ */
+- (void)logout {
+    [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
+        DLog(@"%@", error);
+        [self deleteAuthDataCache];
+        [AVUser logOut];
+        //        CDAppDelegate *delegate = (CDAppDelegate *)[UIApplication sharedApplication].delegate;
+        //        [delegate toLogin];
+        
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        // delegate toLogin
+        
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation

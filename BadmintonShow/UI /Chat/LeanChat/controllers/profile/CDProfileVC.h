@@ -10,4 +10,7 @@
 
 @interface CDProfileVC : MCMutipleSectionTC
 
+/** 调用这个，下次 SNS 登录的时候会重新去第三方应用请求，而不会用本地缓存 */
+- (void)deleteAuthDataCache;
+
 @end

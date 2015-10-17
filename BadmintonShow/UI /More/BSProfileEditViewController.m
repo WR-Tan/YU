@@ -15,13 +15,15 @@
 
 @interface BSProfileEditViewController ()<UIActionSheetDelegate>
 @property (nonatomic, strong) MCPhotographyHelper *photographyHelper;
+@property (nonatomic, strong) AVObject *userInfo ;
+
+
 @end
 
 @implementation BSProfileEditViewController
 {
 
-
-    __weak IBOutlet UIButton *_iconBtn;
+        __weak IBOutlet UIButton *_iconBtn;
 }
 
 - (void)viewDidLoad {
@@ -30,21 +32,56 @@
     
     [self loadDataSource];
     
-    [self bodyInfo];
+    [self querryUserInfo ];
 }
 
 
-- (void)bodyInfo{
-    AVObject *post = [AVObject objectWithClassName:@"BodyInfo"];
-    post[@"name"] = @"每个 Objective-C 程序员必备的 8 个开发工具";
-    post[@"pubUser"] = @"LeanCloud官方客服";
-    post[@"pubTimestamp"] = @(1435541999);
+
+- (void)querryUserInfo
+{
+    AVQuery *query = [AVQuery queryWithClassName:@"UserInfo"];
+    [query whereKey:@"userObjectId" equalTo:[AVUser currentUser].objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // 检索成功
+            NSLog(@"Successfully retrieved %lu posts.", (unsigned long)objects.count);
+            AVObject *userInfo = [objects lastObject];
+            NSLog(@"address = %@",userInfo[@"address"]);
+            
+        } else {
+            // 输出错误信息
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
+
+/**
+ *  创建UserInfo这个类，存放选手/玩家信息
+ */
+- (void)setUserInfo{
+    AVObject *post = [AVObject objectWithClassName:@"UserInfo"];
+    post[@"userObjectId"] =  [AVUser currentUser].objectId;
+    post[@"name"] = @"神";
+    post[@"nickName"] = @"宙斯";
+    post[@"sex"] = @"female";
+    post[@"height"] =  @1.9;
+    post[@"weight"] =  @140;
+    post[@"birthday"] =  @"19901006";
+    post[@"city"] =  @"深圳";
+    post[@"address"] =  @"白石洲";
     [post save];
 }
 
 
 #pragma mark - 懒加载
 
+-(AVObject *)userInfo{
+    if (_userInfo == nil) {
+         _userInfo = [AVObject objectWithClassName:@"UserInfo"];
+    }
+    return  _userInfo;
+}
 
 - (MCPhotographyHelper *)photographyHelper {
     if (_photographyHelper == nil) {

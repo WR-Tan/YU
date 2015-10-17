@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,37 +11,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="319.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pY1-WI-imD">
-                        <rect key="frame" x="70" y="14" width="60" height="60"/>
-                        <color key="backgroundColor" red="0.97557607319999995" green="0.83599820039999995" blue="0.77134720960000003" alpha="1" colorSpace="calibratedRGB"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvW-QH-utW">
-                        <rect key="frame" x="190" y="14" width="60" height="60"/>
-                        <color key="backgroundColor" red="0.97557607319999995" green="0.83599820039999995" blue="0.77134720960000003" alpha="1" colorSpace="calibratedRGB"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwe-dS-CCZ">
-                        <rect key="frame" x="78" y="21" width="42" height="40"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eF4-er-CtI">
-                        <rect key="frame" x="200" y="21" width="42" height="40"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="林丹" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmG-rr-C0y">
                         <rect key="frame" x="70" y="82" width="60" height="21"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="李智华" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGN-5H-6JR">
                         <rect key="frame" x="190" y="82" width="60" height="21"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -50,78 +33,126 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="第一局：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PSW-ny-qHV">
                                 <rect key="frame" x="0.0" y="16" width="60" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h5K-kk-dg7">
                                 <rect key="frame" x="60" y="11" width="60" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mr4-Tv-FQa">
                                 <rect key="frame" x="180" y="11" width="60" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oQs-3b-S0a">
                                 <rect key="frame" x="62" y="50" width="180" height="1"/>
+                                <animations/>
                                 <color key="backgroundColor" red="0.59139744179999998" green="0.97557607319999995" blue="0.1209130636" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
+                        <animations/>
                     </view>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldG-5d-hR5">
                         <rect key="frame" x="10" y="185" width="300" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="第二局：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZr-2s-iv6">
                                 <rect key="frame" x="0.0" y="16" width="60" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AOl-Zj-avE">
                                 <rect key="frame" x="60" y="11" width="60" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="se8-F8-7ys">
                                 <rect key="frame" x="180" y="11" width="60" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ni-zI-jqU">
                                 <rect key="frame" x="62" y="50" width="180" height="1"/>
+                                <animations/>
                                 <color key="backgroundColor" red="0.59139744179999998" green="0.97557607319999995" blue="0.1209130636" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
+                        <animations/>
                     </view>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHG-HP-kGL">
                         <rect key="frame" x="10" y="253" width="300" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="第三局：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eab-HB-sWy">
                                 <rect key="frame" x="0.0" y="16" width="60" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kyn-Td-Krz">
                                 <rect key="frame" x="60" y="11" width="60" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AeW-G7-ida">
                                 <rect key="frame" x="180" y="11" width="60" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IMa-0e-JVx">
                                 <rect key="frame" x="62" y="50" width="180" height="1"/>
+                                <animations/>
                                 <color key="backgroundColor" red="0.59139744179999998" green="0.97557607319999995" blue="0.1209130636" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
+                        <animations/>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLt-Zr-6XH">
+                        <rect key="frame" x="70" y="24" width="50" height="50"/>
+                        <animations/>
+                        <state key="normal" image="LinDan-1.png"/>
+                        <connections>
+                            <action selector="playerAAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PVa-QW-fLq"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5Q-1L-Pa4">
+                        <rect key="frame" x="195" y="24" width="50" height="50"/>
+                        <animations/>
+                        <state key="normal" image="LinDan-1.png"/>
+                        <connections>
+                            <action selector="playerBAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cPv-GV-BW1"/>
+                        </connections>
+                    </button>
                 </subviews>
+                <animations/>
             </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="firstGameA_scoreTF" destination="h5K-kk-dg7" id="hd7-tW-hRC"/>
+                <outlet property="firstGameB_scoreTF" destination="mr4-Tv-FQa" id="UYD-1F-Cnv"/>
+                <outlet property="playerA_nameLabel" destination="SmG-rr-C0y" id="tRC-Bp-ujH"/>
+                <outlet property="playerB_nameLabel" destination="aGN-5H-6JR" id="Skc-K5-nK1"/>
+                <outlet property="secondGameA_scoreTF" destination="AOl-Zj-avE" id="e9X-dk-maO"/>
+                <outlet property="secondGameB_scoreTF" destination="se8-F8-7ys" id="3Wl-89-tC2"/>
+                <outlet property="secondGameView" destination="ldG-5d-hR5" id="kEa-oy-fbm"/>
+                <outlet property="thirdGameA_scoreTF" destination="kyn-Td-Krz" id="EiB-xD-b3l"/>
+                <outlet property="thirdGameB_scoreTF" destination="AeW-G7-ida" id="Us5-sh-YPK"/>
+                <outlet property="thirdGameView" destination="RHG-HP-kGL" id="k2q-jb-Ils"/>
+            </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="LinDan-1.png" width="331" height="380"/>
+    </resources>
 </document>

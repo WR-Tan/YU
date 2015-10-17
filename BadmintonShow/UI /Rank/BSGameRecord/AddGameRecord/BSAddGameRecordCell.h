@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BSAddGameRecordCellDelegate <NSObject>
+
+
+
+@end
+
 @interface BSAddGameRecordCell : UITableViewCell
 
 @end
