@@ -410,6 +410,7 @@
 		0409DAC11BCA97BC00B659B8 /* weChatBubble_Sending_Cavern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0409D9B21BCA97BC00B659B8 /* weChatBubble_Sending_Cavern@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0409DAC21BCA97BC00B659B8 /* weChatBubble_Sending_LeanChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0409D9B31BCA97BC00B659B8 /* weChatBubble_Sending_LeanChat@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0409DAC31BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0409D9B41BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png */; settings = {ASSET_TAGS = (); }; };
+		04C08E801BD1EA7800385888 /* BSProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C08E7F1BD1EA7800385888 /* BSProfileEditViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04D716DD1BCC97B100C2D413 /* BSFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DC1BCC97B100C2D413 /* BSFriendListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04D716E11BCCA67200C2D413 /* BSAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D716DF1BCCA67200C2D413 /* BSAddFriendViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04D716E41BCCA85E00C2D413 /* BSAddFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D716E31BCCA85E00C2D413 /* BSAddFriendViewController.xib */; settings = {ASSET_TAGS = (); }; };
@@ -1101,6 +1102,8 @@
 		0409D9B31BCA97BC00B659B8 /* weChatBubble_Sending_LeanChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weChatBubble_Sending_LeanChat@2x.png"; sourceTree = "<group>"; };
 		0409D9B41BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weChatBubble_Sending_Solid@2x.png"; sourceTree = "<group>"; };
 		0409D9B51BCA97BC00B659B8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MessageDisplayKitString.strings"; sourceTree = "<group>"; };
+		04C08E7E1BD1EA7800385888 /* BSProfileEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileEditViewController.h; sourceTree = "<group>"; };
+		04C08E7F1BD1EA7800385888 /* BSProfileEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProfileEditViewController.m; sourceTree = "<group>"; };
 		04D716DB1BCC97B100C2D413 /* BSFriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFriendListViewController.h; sourceTree = "<group>"; };
 		04D716DC1BCC97B100C2D413 /* BSFriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFriendListViewController.m; sourceTree = "<group>"; };
 		04D716DE1BCCA67200C2D413 /* BSAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddFriendViewController.h; sourceTree = "<group>"; };
@@ -2713,6 +2716,8 @@
 				345D36781B2D0D6C004C226A /* BSMineController.m */,
 				04F71E4C1BD14BA6000EF5F8 /* BSProfileViewController.h */,
 				04F71E4D1BD14BA6000EF5F8 /* BSProfileViewController.m */,
+				04C08E7E1BD1EA7800385888 /* BSProfileEditViewController.h */,
+				04C08E7F1BD1EA7800385888 /* BSProfileEditViewController.m */,
 				349EF2A21B429655003A1C4E /* BSMine.storyboard */,
 			);
 			path = More;
@@ -3511,6 +3516,7 @@
 				345D363E1B2D0BD0004C226A /* NSData+x.m in Sources */,
 				345D36591B2D0BD0004C226A /* WHFileType.m in Sources */,
 				0409D9F21BCA97BC00B659B8 /* XHStoreManager.m in Sources */,
+				04C08E801BD1EA7800385888 /* BSProfileEditViewController.m in Sources */,
 				345D366D1B2D0CCE004C226A /* BSRankController.m in Sources */,
 				345D36531B2D0BD0004C226A /* ProfileTool.m in Sources */,
 				0409D7F81BC6B46D00B659B8 /* CDPopMenuItem.m in Sources */,

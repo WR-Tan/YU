@@ -239,7 +239,7 @@
         <!--编辑资料-->
         <scene sceneID="kqP-TS-RDS">
             <objects>
-                <tableViewController id="94g-b5-qHX" sceneMemberID="viewController">
+                <tableViewController id="94g-b5-qHX" customClass="BSProfileEditViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="LHw-W6-HoL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,7 +248,7 @@
                         <sections>
                             <tableViewSection id="KNe-oF-wTm">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="80" id="srH-6F-y47">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="srH-6F-y47">
                                         <rect key="frame" x="0.0" y="99" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="srH-6F-y47" id="Inb-kI-Cd2">
@@ -262,11 +262,11 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LinDan-1@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="pjT-EF-MVm">
-                                                    <rect key="frame" x="227" y="10" width="60" height="60"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GoS-QI-n6M">
+                                                    <rect key="frame" x="238" y="8" width="53" height="56"/>
                                                     <animations/>
-                                                    <color key="backgroundColor" red="0.97557607319999995" green="0.83599820039999995" blue="0.77134720960000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                </imageView>
+                                                    <state key="normal" image="LinDan-1.png"/>
+                                                </button>
                                             </subviews>
                                             <animations/>
                                         </tableViewCellContentView>
@@ -491,7 +491,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ueI-xo-nER" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="424" y="-342"/>
+            <point key="canvasLocation" x="305" y="-224"/>
         </scene>
         <!--我的装备-->
         <scene sceneID="frI-Rc-xwb">
@@ -1055,6 +1055,5 @@
     </scenes>
     <resources>
         <image name="LinDan-1.png" width="331" height="380"/>
-        <image name="LinDan-1@2x.png" width="256" height="256"/>
     </resources>
 </document>
