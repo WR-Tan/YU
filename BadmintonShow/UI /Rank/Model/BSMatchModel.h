@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger,BSMatchType){ // 比赛类型
 @property (nonatomic, assign) BSMatchType matchType ; // 比赛赛制
 
 @property (nonatomic, strong) BSGameModel  *game1 ;
+@property (nonatomic, copy) NSString *game1_objectId ;
+
 
 
 @property (nonatomic, copy) NSString *winnerObjectId ;
@@ -45,8 +47,10 @@ typedef NS_ENUM(NSUInteger,BSMatchType){ // 比赛类型
 @interface BSThreeSetsMatch : BSMatchModel
 
 @property (nonatomic, strong) BSGameModel  *game2 ;
-@property (nonatomic, strong) BSGameModel  *game3 ;
+@property (nonatomic, copy) NSString *game2_objectId ;
 
+@property (nonatomic, strong) BSGameModel  *game3 ;
+@property (nonatomic, copy) NSString *game3_objectId ;
 @end
 
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BSMatchModel.h"
 
 @protocol BSAddGameRecordCellDelegate <NSObject>
 
@@ -15,5 +16,9 @@
 @end
 
 @interface BSAddGameRecordCell : UITableViewCell
+
+@property (nonatomic, assign) BSMatchType matchType ;
+
+
 
 @end
