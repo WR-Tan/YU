@@ -4,7 +4,14 @@
 //
 //  Created by mac on 15/10/17.
 //  Copyright © 2015年 LZH. All rights reserved.
-//  11/15/21分是一局比赛
+
+
+/**
+ *   11/15/21分是一局比赛
+ *   暂时还是要先做一场比赛的就行了。3场比赛中，如果赢一局输一局，然后第三局定胜负；
+ *   其实也就是第三局定的胜负，算是打破比赛的常规吧。
+ */
+
 
 #import <Foundation/Foundation.h>
 
@@ -23,6 +30,8 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
  *  比赛模型,基类
  */
 @interface BSGameModel : NSObject
+
+//  默认A是赢者 ，OK  2015.10.18
 
 @property (nonatomic, copy) NSString *playerA_score ;  //  玩家A的得分
 @property (nonatomic, copy) NSString *playerB_score ;  //  玩家B的得分

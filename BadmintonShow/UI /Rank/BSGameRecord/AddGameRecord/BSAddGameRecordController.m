@@ -8,8 +8,11 @@
 
 #import "BSAddGameRecordController.h"
 #import "BSAddGameRecordCell.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "CDFriendListVC.h"
+#import "BSChoosePlayerViewController.h"
 
-@interface BSAddGameRecordController ()
+@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate>
 
 @end
 
@@ -35,7 +38,8 @@
  
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 360;
+//    return 360;
+    return 250 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -45,13 +49,43 @@
     if (cell == nil) {
         cell = [[BSAddGameRecordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-     
+    
+    cell.delegate = self;
     
     return cell;
-    
 }
 
- 
+
+
+#pragma mark - Delegate
+
+-(void)presentFriendListVC{
+    BSChoosePlayerViewController *choosePlayVC = [[BSChoosePlayerViewController alloc] init];
+    choosePlayVC.title = @"选择对友/对手";
+    [self presentViewController:choosePlayVC animated:YES  completion:nil];
+}
+
+-(void)uploadGame:(BSGameModel *)game{
+    
+    AVObject *gameObject = [AVObject objectWithClassName:@"Game"];
+    
+    gameObject[@"playerA_score"] = game.playerA_score;//  玩家A的得分
+    gameObject[@"playerB_score"] = game.playerB_score;//  玩家B的得分
+    gameObject[@"gameType"] = @(game.gameType);  // 比赛的类型
+    gameObject[@"playerA_objectId"] = game.playerA_objectId;
+    gameObject[@"playerB_objectId"] = game.playerB_objectId;
+    
+    gameObject[@"winner_objectId"] = game.winner_objectId;
+    
+    gameObject[@"playerA_name"] = game.playerA_name;
+    gameObject[@"playerB_name"] = game.playerB_name;
+    
+    gameObject[@"playerC_name"] = @"谌龙";
+    
+    [gameObject save];
+}
+
+
 
 /*
 #pragma mark - Navigation

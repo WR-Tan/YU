@@ -9,6 +9,9 @@
 #import "BSProfileViewController.h"
 #import "CDChatManager.h"
 #import "AppDelegate.h"
+#import "CDUserManager.h"
+
+#import <LeanCloudFeedback/LeanCloudFeedback.h>
 
 @interface BSProfileViewController ()
 
@@ -24,6 +27,21 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)loadDataSource {
+    [self showProgress];
+    [[CDUserManager manager] getBigAvatarImageOfUser:[AVUser currentUser] block:^(UIImage *image) {
+        [[LCUserFeedbackAgent sharedInstance] countUnreadFeedbackThreadsWithBlock:^(NSInteger number, NSError *error) {
+            [self hideProgress];
+            self.dataSource = [NSMutableArray array];
+
+            [self.dataSource addObject:@[@{ kMutipleSectionTitleKey:@"消息通知", kMutipleSectionSelectorKey:NSStringFromSelector(@selector(goPushSetting)) }, @{ kMutipleSectionTitleKey:@"意见反馈", kMutipleSectionBadgeKey:@(number), kMutipleSectionSelectorKey:NSStringFromSelector(@selector(goFeedback)) }, @{ kMutipleSectionTitleKey:@"用户协议", kMutipleSectionSelectorKey:NSStringFromSelector(@selector(goTerms)) }, @{kMutipleSectionTitleKey:@"分享应用", kMutipleSectionSelectorKey:SELECTOR_TO_STRING(shareApp:)}]];
+            [self.dataSource addObject:@[@{ kMutipleSectionTitleKey:@"退出登录", kMutipleSectionLogoutKey:@YES, kMutipleSectionSelectorKey:NSStringFromSelector(@selector(logout)) }]];
+            [self.tableView reloadData];
+        }];
+    }];
 }
 
 

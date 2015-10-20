@@ -4,7 +4,9 @@
 //
 //  Created by mac on 15/10/17.
 //  Copyright © 2015年 LZH. All rights reserved.
+
 //  1/3/5局组成一场比赛。一般是3局比赛为一场
+//  暂时不用吧
 
 #import <Foundation/Foundation.h>
 #import "BSGameModel.h"

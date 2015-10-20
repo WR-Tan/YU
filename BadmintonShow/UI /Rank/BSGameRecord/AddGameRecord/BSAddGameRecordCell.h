@@ -7,18 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BSMatchModel.h"
+#import "BSGameModel.h"
 
 @protocol BSAddGameRecordCellDelegate <NSObject>
 
+// 上传比赛
+- (void)uploadGame:(BSGameModel *)game;
 
+//好友列表界面
+- (void)presentFriendListVC;
 
 @end
 
 @interface BSAddGameRecordCell : UITableViewCell
 
-@property (nonatomic, assign) BSMatchType matchType ;
+@property (nonatomic, weak) id <BSAddGameRecordCellDelegate> delegate ;
 
-
+- (void)setGameType:(BSGameType)gameType;
 
 @end

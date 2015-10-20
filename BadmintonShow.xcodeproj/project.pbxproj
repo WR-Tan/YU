@@ -523,6 +523,7 @@
 		34CE47091B39A16100C1612F /* BSRegisterWithPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CE47071B39A16100C1612F /* BSRegisterWithPhoneController.m */; };
 		34CE470A1B39A16100C1612F /* BSRegisterWithPhoneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CE47081B39A16100C1612F /* BSRegisterWithPhoneController.xib */; };
 		34CE470C1B39A6E000C1612F /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 34CE470B1B39A6E000C1612F /* eye.png */; };
+		34E51ED21BD3E5C000A1DA9A /* BSChoosePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E51ED11BD3E5C000A1DA9A /* BSChoosePlayerViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1294,6 +1295,8 @@
 		34CE47071B39A16100C1612F /* BSRegisterWithPhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSRegisterWithPhoneController.m; sourceTree = "<group>"; };
 		34CE47081B39A16100C1612F /* BSRegisterWithPhoneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSRegisterWithPhoneController.xib; sourceTree = "<group>"; };
 		34CE470B1B39A6E000C1612F /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
+		34E51ED01BD3E5C000A1DA9A /* BSChoosePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChoosePlayerViewController.h; sourceTree = "<group>"; };
+		34E51ED11BD3E5C000A1DA9A /* BSChoosePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChoosePlayerViewController.m; sourceTree = "<group>"; };
 		B188B1BC2BE8455C932E8A36 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D1945C8900BD47FAC5384220 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F04F77C79960B37F45D59C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2811,6 +2814,8 @@
 			children = (
 				345D36BB1B2D2EAE004C226A /* BSAddGameRecordController.h */,
 				345D36BC1B2D2EAE004C226A /* BSAddGameRecordController.m */,
+				34E51ED01BD3E5C000A1DA9A /* BSChoosePlayerViewController.h */,
+				34E51ED11BD3E5C000A1DA9A /* BSChoosePlayerViewController.m */,
 				345D36BE1B2D2ECF004C226A /* BSAddGameRecordCell.h */,
 				345D36BF1B2D2ECF004C226A /* BSAddGameRecordCell.m */,
 				345D36C01B2D2ECF004C226A /* BSAddGameRecordCell.xib */,
@@ -3541,6 +3546,7 @@
 				345D363E1B2D0BD0004C226A /* NSData+x.m in Sources */,
 				345D36591B2D0BD0004C226A /* WHFileType.m in Sources */,
 				0409D9F21BCA97BC00B659B8 /* XHStoreManager.m in Sources */,
+				34E51ED21BD3E5C000A1DA9A /* BSChoosePlayerViewController.m in Sources */,
 				04C08E801BD1EA7800385888 /* BSProfileEditViewController.m in Sources */,
 				345D366D1B2D0CCE004C226A /* BSRankController.m in Sources */,
 				345D36531B2D0BD0004C226A /* ProfileTool.m in Sources */,
