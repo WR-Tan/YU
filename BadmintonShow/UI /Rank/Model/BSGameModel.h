@@ -36,6 +36,9 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
 @property (nonatomic, copy) NSString *playerA_score ;  //  玩家A的得分
 @property (nonatomic, copy) NSString *playerB_score ;  //  玩家B的得分
 
+@property (nonatomic, copy) NSString *playerA_platformScore ;  //  玩家A的平台分数
+@property (nonatomic, copy) NSString *playerB_platformScore ;  //  玩家B的平台分数
+
 @property (nonatomic, copy) NSString *playerA_avatar ;  //  玩家A的队头像
 @property (nonatomic, copy) NSString *playerB_avatar ;  //  玩家B的队头像
 
@@ -50,6 +53,9 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
 @property (nonatomic, copy) NSString *playerB_objectId ;  //  玩家B的id
 
 @property (nonatomic, copy) NSString *winner_objectId ;
+
+@property (nonatomic, copy) NSString *startTime ; // 结束时间
+@property (nonatomic, copy) NSString *endTime ;   // 开始时间
 
 @end
 

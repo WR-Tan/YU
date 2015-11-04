@@ -420,6 +420,7 @@
 		04F71E4E1BD14BA6000EF5F8 /* BSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F71E4D1BD14BA6000EF5F8 /* BSProfileViewController.m */; settings = {ASSET_TAGS = (); }; };
 		234541D4C73354159C8CCDCE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F04F77C79960B37F45D59C5B /* libPods.a */; };
 		340628081B958B7B0023CA77 /* BSSkyLadderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340628071B958B7B0023CA77 /* BSSkyLadderViewController.m */; };
+		340C19621BDE806C0088C0AC /* BSPlayerScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 340C19611BDE806C0088C0AC /* BSPlayerScore.m */; settings = {ASSET_TAGS = (); }; };
 		342EDF891B43F82300E1CC82 /* ManSymBol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 342EDF871B43F82300E1CC82 /* ManSymBol@2x.png */; };
 		342EDF8A1B43F82300E1CC82 /* WomanSymBol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 342EDF881B43F82300E1CC82 /* WomanSymBol@2x.png */; };
 		3457AD011BB061AC00D3ACA6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3457AD001BB061AC00D3ACA6 /* SystemConfiguration.framework */; };
@@ -1123,6 +1124,8 @@
 		04F71E4D1BD14BA6000EF5F8 /* BSProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProfileViewController.m; sourceTree = "<group>"; };
 		340628061B958B7B0023CA77 /* BSSkyLadderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderViewController.h; sourceTree = "<group>"; };
 		340628071B958B7B0023CA77 /* BSSkyLadderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderViewController.m; sourceTree = "<group>"; };
+		340C19601BDE806C0088C0AC /* BSPlayerScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPlayerScore.h; sourceTree = "<group>"; };
+		340C19611BDE806C0088C0AC /* BSPlayerScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPlayerScore.m; sourceTree = "<group>"; };
 		342EDF871B43F82300E1CC82 /* ManSymBol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ManSymBol@2x.png"; sourceTree = "<group>"; };
 		342EDF881B43F82300E1CC82 /* WomanSymBol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WomanSymBol@2x.png"; sourceTree = "<group>"; };
 		3457AD001BB061AC00D3ACA6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -2459,6 +2462,8 @@
 				04C08E8D1BD2933000385888 /* BSGameModel.m */,
 				04C08E8F1BD299C200385888 /* BSMatchModel.h */,
 				04C08E901BD299C200385888 /* BSMatchModel.m */,
+				340C19601BDE806C0088C0AC /* BSPlayerScore.h */,
+				340C19611BDE806C0088C0AC /* BSPlayerScore.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3651,6 +3656,7 @@
 				0409D7891BC6B46D00B659B8 /* CDAddFriendVC.m in Sources */,
 				0409DA161BCA97BC00B659B8 /* XHEmotionCollectionViewCell.m in Sources */,
 				0409DA141BCA97BC00B659B8 /* XHMessageTextView.m in Sources */,
+				340C19621BDE806C0088C0AC /* BSPlayerScore.m in Sources */,
 				0409D7931BC6B46D00B659B8 /* CDUserManager.m in Sources */,
 				0409D9F91BCA97BC00B659B8 /* SELinkText.m in Sources */,
 				345D36511B2D0BD0004C226A /* ImageCache.m in Sources */,
@@ -3726,6 +3732,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3767,6 +3774,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3795,6 +3803,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingan.FFProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -3809,6 +3818,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingan.FFProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

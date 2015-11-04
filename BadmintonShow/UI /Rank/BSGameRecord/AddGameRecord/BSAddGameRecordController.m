@@ -80,11 +80,23 @@
     gameObject[@"playerA_name"] = game.playerA_name;
     gameObject[@"playerB_name"] = game.playerB_name;
     
-    gameObject[@"playerC_name"] = @"谌龙";
+    gameObject[@"startTime"] = game.startTime = @"2015.10.26";
+    gameObject[@"endTime"] = game.endTime = @"2015.10.26";
+    
+    gameObject[@"playerA_platformScore"] = game.playerA_platformScore = @"2400";
+    gameObject[@"playerB_platformScore"] = game.playerB_platformScore = @"2343";
+    
+    gameObject[@"winner_objectId"] = game.winner_objectId = game.playerA_objectId;
+    
     
     [gameObject save];
 }
 
+
+- (void)saveScore
+{
+     ;
+}
 
 
 /*
