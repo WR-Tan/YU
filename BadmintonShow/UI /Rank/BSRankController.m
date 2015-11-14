@@ -62,7 +62,7 @@
 
 - (void)loadData
 {
-    _data = [@[@"比赛记录",@"圈子排名",@"羽秀天梯"] mutableCopy];
+    _data = [@[@"比赛记录"/*,@"圈子排名"*/,@"羽秀天梯"] mutableCopy];
 
 }
 
@@ -74,7 +74,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 3;
+    return 2;
 }
 
 #pragma mark - Header
@@ -119,8 +119,11 @@
         BSGameRecordController *gameRecord = [[BSGameRecordController  alloc] initWithStyle:UITableViewStylePlain];
         [self.navigationController pushViewController:gameRecord animated:YES];
     }else if(indexPath.section == 1) {
-        BSGameRankController *rank = [[BSGameRankController alloc ]init ];
-        [self.navigationController pushViewController:rank animated:YES];
+        BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]initWithStyle:UITableViewStylePlain];
+        [self.navigationController pushViewController:tech animated:YES];
+        
+//        BSGameRankController *rank = [[BSGameRankController alloc ]init ];
+//        [self.navigationController pushViewController:rank animated:YES];
     }else{
         BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]initWithStyle:UITableViewStylePlain];
         [self.navigationController pushViewController:tech animated:YES];

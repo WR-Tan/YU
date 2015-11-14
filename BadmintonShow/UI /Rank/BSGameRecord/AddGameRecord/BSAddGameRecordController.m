@@ -11,9 +11,12 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "CDFriendListVC.h"
 #import "BSChoosePlayerViewController.h"
+#import "SVProgressHUD.h"
 
 @interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate>
 
+@property (nonatomic , strong) NSDateFormatter * dateFormatter;
+@property (nonatomic , weak ) UIButton *btn ;
 @end
 
 @implementation BSAddGameRecordController
@@ -65,33 +68,115 @@
     [self presentViewController:choosePlayVC animated:YES  completion:nil];
 }
 
--(void)uploadGame:(BSGameModel *)game{
+-(void)uploadGame:(BSGameModel *)game button:(UIButton *)btn{
     
-    AVObject *gameObject = [AVObject objectWithClassName:@"Game"];
+    if (!game.playerA_score || !game.playerB_score) {
+        [SVProgressHUD showWithStatus:@"请填写比分"];
+        return ;
+    }
     
-    gameObject[@"playerA_score"] = game.playerA_score;//  玩家A的得分
-    gameObject[@"playerB_score"] = game.playerB_score;//  玩家B的得分
-    gameObject[@"gameType"] = @(game.gameType);  // 比赛的类型
-    gameObject[@"playerA_objectId"] = game.playerA_objectId;
-    gameObject[@"playerB_objectId"] = game.playerB_objectId;
+    if (!game.playerA_objectId || !game.playerB_objectId) {
+        [SVProgressHUD showWithStatus:@"请选择对手"];
+        return ;
+    }
     
-    gameObject[@"winner_objectId"] = game.winner_objectId;
+    self.btn = btn ;
     
-    gameObject[@"playerA_name"] = game.playerA_name;
-    gameObject[@"playerB_name"] = game.playerB_name;
+    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
+    btn.enabled = !btn.enabled ;
     
-    gameObject[@"startTime"] = game.startTime = @"2015.10.26";
-    gameObject[@"endTime"] = game.endTime = @"2015.10.26";
+    AVObject *gameObj = [AVObject objectWithClassName:@"TempGame"];
     
-    gameObject[@"playerA_platformScore"] = game.playerA_platformScore = @"2400";
-    gameObject[@"playerB_platformScore"] = game.playerB_platformScore = @"2343";
+    //  1. 本地基本信息
+    gameObj[@"playerA_score"] = game.playerA_score;//  玩家A的每场比赛得分
+    gameObj[@"playerB_score"] = game.playerB_score;//  玩家B的每场比赛得分
+    gameObj[@"gameType"] = @(game.gameType);  // 比赛的类型
+    gameObj[@"playerA_objectId"] = game.playerA_objectId;
+    gameObj[@"playerB_objectId"] = game.playerB_objectId;
+    gameObj[@"winner_objectId"] = game.winner_objectId;
+    gameObj[@"playerA_name"] = game.playerA_name;
+    gameObj[@"playerB_name"] = game.playerB_name;
+    gameObj[@"startTime"] = game.startTime = self.currentDateString;
+    gameObj[@"endTime"]   = game.endTime = self.currentDateString ;
+    gameObj[@"winner_objectId"] = game.winner_objectId = game.playerA_objectId;
     
-    gameObject[@"winner_objectId"] = game.winner_objectId = game.playerA_objectId;
+    //  getRankScore backGround
     
+    //  2. 获取现在的比分
+    NSString *CQLString = @"";
+    [AVQuery doCloudQueryInBackgroundWithCQL:CQLString callback:^(AVCloudQueryResult *result, NSError *error) {
+        
+        //  1. aRankScore
+        
+        //  2. bRankScore
+        
+        //  3. 上传比分
+        [self saveGame:gameObj ];
+    }];
     
-    [gameObject save];
 }
 
+
+
+
+
+
+- (void)saveGame:(AVObject *)gameObj
+{
+    __weak typeof(self) weakself = self ;
+    
+    [gameObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+            self.btn.enabled = !self.btn.enabled ;
+            [weakself turnBack];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"上传失败，请检查网络"];
+        }
+    }];
+}
+
+
+
+- (void)handleBeforeSave
+{
+    
+    
+    // 这个分数应该由后台获取，不应该在这里上传
+    /**
+     *  1.上传保存之前，在后台Class的PlayerInfo，取出2个人的currentPlatformScore
+        2. 发送消息给对手！同时保存gameModel 到 TempGame中去
+            2.1 确认分数：
+                根据ELO排名算法，得到2个人的重排名后的分数，重新赋值。
+                gameModel存储到Game（最终的Class）
+            2.2 对手不确认：
+                就不做操作。
+     *  3.更新排名
+     */
+
+    ;
+}
+
+
+
+- (void)turnBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (NSString *)currentDateString{
+    NSString *currentDateStr = [self.dateFormatter stringFromDate:[NSDate date]];
+    return currentDateStr;
+}
+
+-(NSDateFormatter *)dateFormatter{
+    if (!_dateFormatter ) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    }
+    return _dateFormatter;
+}
 
 - (void)saveScore
 {

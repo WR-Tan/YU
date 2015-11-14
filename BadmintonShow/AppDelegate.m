@@ -38,8 +38,10 @@
 #import <OpenShare/OpenShareHeader.h>
 
 //  自己的appID和key
+//  羽秀
 static  NSString *kAVOSCloudID = @"6RUURXEoKPYQ3MCf3eX30tQI";
 static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
+
 
 //  公共的key，请替换成自己的id和key ，或用 leancloud@163.com/Public123  登录，来查看后台数据
 #define AVOSCloudAppID  @"ohqhxu3mgoj2eyj6ed02yliytmbes3mwhha8ylnc215h0bgk"
@@ -193,6 +195,14 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
     [iVersion sharedInstance].previewMode = NO;
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
+    self.window.rootViewController = self.tabBarCtl;
+    
+    
+    if (![AVUser currentUser]) {
+        return ;
+    }
+    
     [[CDCacheManager manager] registerUsers:@[[AVUser currentUser]]];
     WEAKSELF
     [CDChatManager manager].userDelegate = [CDIMService service];
@@ -202,14 +212,10 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
     [CDChatManager manager].useDevPushCerticate = YES;
 #endif
     
+
+    
     [[CDChatManager manager] openWithClientId:[AVUser currentUser].objectId callback: ^(BOOL succeeded, NSError *error) {
         DLog(@"%@", error);
-//        CDBaseTabC *tab = [[CDBaseTabC alloc] init];
-//        [weakSelf addItemController:[[CDConvsVC alloc] init] toTabBarController:tab];
-//        [weakSelf addItemController:[[CDFriendListVC alloc] init] toTabBarController:tab];
-//        [weakSelf addItemController:[[CDProfileVC alloc] init] toTabBarController:tab];
-//        
-//        tab.selectedIndex = 0;
 //        weakSelf.window.rootViewController = tab;
     }];
 }

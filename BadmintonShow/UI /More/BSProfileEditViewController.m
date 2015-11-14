@@ -16,7 +16,7 @@
 @interface BSProfileEditViewController ()<UIActionSheetDelegate>
 @property (nonatomic, strong) MCPhotographyHelper *photographyHelper;
 @property (nonatomic, strong) AVObject *userInfo ;
-
+@property (nonatomic, strong) AVFile   *icon ;
 
 @end
 
@@ -33,6 +33,8 @@
     [self loadDataSource];
     
     [self querryUserInfo ];
+    
+    [self setUserInfo] ;
 }
 
 
@@ -70,7 +72,16 @@
     post[@"birthday"] =  @"19901006";
     post[@"city"] =  @"深圳";
     post[@"address"] =  @"白石洲";
-    [post save];
+    
+    UIImage *image = [UIImage imageNamed:@"eye.png"];
+    NSData *data = UIImagePNGRepresentation(image);
+    AVFile *file = [AVFile fileWithName:@"resume.png" data:data];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    
+        [post setObject:file  forKey:@"icon"];
+        [post save];
+    }];
+    
 }
 
 

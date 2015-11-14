@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -18,21 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l1x-93-fhG">
-                    <rect key="frame" x="85" y="472" width="150" height="40"/>
-                    <animations/>
-                    <color key="backgroundColor" red="0.97557607319999995" green="0.83599820039999995" blue="0.77134720960000003" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="NwD-iA-1Oy"/>
-                        <constraint firstAttribute="width" constant="150" id="bZY-aX-aX0"/>
-                    </constraints>
-                    <state key="normal" title="跳过注册">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="skipRegisterOrLogin:" destination="-1" eventType="touchUpInside" id="3dz-AL-H4u"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Roa-h5-To4">
                     <rect key="frame" x="10" y="100" width="300" height="50"/>
                     <subviews>
@@ -205,6 +190,17 @@
                         <constraint firstAttribute="centerY" secondItem="wM5-1W-GGe" secondAttribute="centerY" id="afb-Oa-h1D"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0X3-lj-nzr">
+                    <rect key="frame" x="80" y="458" width="160" height="30"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="mi6-IM-d7u"/>
+                    </constraints>
+                    <state key="normal" title="跳过注册"/>
+                    <connections>
+                        <action selector="skipRegisterOrLoginAction:" destination="-1" eventType="touchUpInside" id="DkA-tO-duo"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -217,16 +213,17 @@
                 <constraint firstAttribute="trailing" secondItem="fAK-6G-1KF" secondAttribute="trailing" constant="10" id="DKP-np-cgf"/>
                 <constraint firstItem="Roa-h5-To4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="GoU-Cz-05F"/>
                 <constraint firstItem="ezo-pZ-7YB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="GqO-LC-PKe"/>
+                <constraint firstItem="0X3-lj-nzr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="Kbe-Jg-vSd"/>
+                <constraint firstAttribute="bottom" secondItem="0X3-lj-nzr" secondAttribute="bottom" constant="80" id="Qbp-5j-7ee"/>
                 <constraint firstItem="Roa-h5-To4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="Xiy-t1-xP1"/>
                 <constraint firstItem="ezo-pZ-7YB" firstAttribute="top" secondItem="MtS-Gj-gp5" secondAttribute="bottom" constant="25" id="bJN-Rh-BIj"/>
                 <constraint firstAttribute="centerY" secondItem="ezo-pZ-7YB" secondAttribute="centerY" constant="-55" id="eiT-U2-0PK"/>
-                <constraint firstAttribute="centerX" secondItem="l1x-93-fhG" secondAttribute="centerX" id="fua-mw-1tp"/>
-                <constraint firstItem="l1x-93-fhG" firstAttribute="top" secondItem="fAK-6G-1KF" secondAttribute="bottom" constant="42" id="gZa-8V-cdG"/>
                 <constraint firstItem="eav-sA-kVu" firstAttribute="top" secondItem="Roa-h5-To4" secondAttribute="bottom" constant="20" id="hnN-tb-EeH"/>
                 <constraint firstItem="KGo-Ov-cs5" firstAttribute="top" secondItem="eav-sA-kVu" secondAttribute="bottom" constant="30" id="kbh-O5-QNp"/>
                 <constraint firstItem="eav-sA-kVu" firstAttribute="width" secondItem="Roa-h5-To4" secondAttribute="width" id="l2B-ob-fK5"/>
                 <constraint firstItem="fAK-6G-1KF" firstAttribute="top" secondItem="KGo-Ov-cs5" secondAttribute="bottom" constant="80" id="qN3-5a-kLq"/>
                 <constraint firstItem="eav-sA-kVu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="qi1-4z-gaR"/>
+                <constraint firstAttribute="trailing" secondItem="0X3-lj-nzr" secondAttribute="trailing" constant="80" id="qiK-im-eEB"/>
                 <constraint firstItem="KGo-Ov-cs5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="uw6-nl-kxJ"/>
                 <constraint firstAttribute="trailing" secondItem="KGo-Ov-cs5" secondAttribute="trailing" constant="10" id="xxy-nD-j2H"/>
             </constraints>

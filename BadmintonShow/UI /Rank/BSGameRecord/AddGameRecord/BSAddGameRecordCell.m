@@ -95,8 +95,8 @@
     
     [self initGame];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(uploadGame:)]) {
-        [self.delegate uploadGame:self.game];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(uploadGame:button:)]) {
+        [self.delegate uploadGame:self.game button:sender];
     }
 }
 

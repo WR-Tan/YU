@@ -61,13 +61,11 @@
     [self.view endEditing:YES];
 }
 
-- (IBAction)skipRegisterOrLogin:(id)sender {
-    
+
+- (IBAction)skipRegisterOrLoginAction:(id)sender {
     AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate toMain];
 }
-
-
 
 
 @end

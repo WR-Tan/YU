@@ -12,7 +12,7 @@
 @protocol BSAddGameRecordCellDelegate <NSObject>
 
 // 上传比赛
-- (void)uploadGame:(BSGameModel *)game;
+- (void)uploadGame:(BSGameModel *)game button:(UIButton *)btn;
 
 //好友列表界面
 - (void)presentFriendListVC;

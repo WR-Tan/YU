@@ -135,6 +135,7 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
 
 
 
-
+@interface BSGameModel()
+@end
 
 
