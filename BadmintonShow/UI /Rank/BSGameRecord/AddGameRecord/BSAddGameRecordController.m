@@ -41,7 +41,6 @@
  
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return 360;
     return 250 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
 }
 
@@ -70,19 +69,15 @@
 
 -(void)uploadGame:(BSGameModel *)game button:(UIButton *)btn{
     
-    if (!game.playerA_score || !game.playerB_score) {
-        [SVProgressHUD showWithStatus:@"请填写比分"];
-        return ;
-    }
+    if (![self valiateGame:game]) {
+        return;
+    };
     
-    if (!game.playerA_objectId || !game.playerB_objectId) {
-        [SVProgressHUD showWithStatus:@"请选择对手"];
-        return ;
-    }
     
-    self.btn = btn ;
     
     [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
+    
+    self.btn = btn ;
     btn.enabled = !btn.enabled ;
     
     AVObject *gameObj = [AVObject objectWithClassName:@"TempGame"];
@@ -100,43 +95,74 @@
     gameObj[@"endTime"]   = game.endTime = self.currentDateString ;
     gameObj[@"winner_objectId"] = game.winner_objectId = game.playerA_objectId;
     
-    //  getRankScore backGround
+    //  getRankScore backGround  &&  save backGround
+    [self saveGameToTemp:gameObj ];
+}
+
+
+- (BOOL)valiateGame:(BSGameModel *)game
+{
+    if (!game.playerA_score || !game.playerB_score) {
+        [SVProgressHUD showWithStatus:@"请填写比分"];
+        return  NO ;
+    }
     
-    //  2. 获取现在的比分
-    NSString *CQLString = @"";
-    [AVQuery doCloudQueryInBackgroundWithCQL:CQLString callback:^(AVCloudQueryResult *result, NSError *error) {
-        
-        //  1. aRankScore
-        
-        //  2. bRankScore
-        
-        //  3. 上传比分
-        [self saveGame:gameObj ];
-    }];
+    if (!game.playerA_objectId || !game.playerB_objectId) {
+        [SVProgressHUD showWithStatus:@"请选择对手"];
+        return NO;
+    }
     
+    return YES;
 }
 
 
 
-
-
-
-- (void)saveGame:(AVObject *)gameObj
+- (void)saveGameToTemp:(AVObject *)gameObj
 {
-    __weak typeof(self) weakself = self ;
-    
     [gameObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            [SVProgressHUD showSuccessWithStatus:@"上传成功"];
-            self.btn.enabled = !self.btn.enabled ;
-            [weakself turnBack];
+            //
+            [self saveTempGameToPlayerInfo:gameObj];
         }else{
             [SVProgressHUD showErrorWithStatus:@"上传失败，请检查网络"];
         }
     }];
 }
 
+//  成功后添加到用户 PlayerInfo的TeamGames数组中
+- (void)saveTempGameToPlayerInfo:(AVObject *)gameObj
+{
+    //  1.通过查询获取playerInfo对象
+    AVQuery *query = [AVQuery queryWithClassName:@"PlayerInfo"];
+    [query whereKey:@"userObjectId" equalTo:[AVUser currentUser].objectId];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // 检索成功
+            NSLog(@"Successfully retrieved %lu posts.", (unsigned long)objects.count);
+            AVObject *playerInfo = [objects firstObject];
+            
+            [playerInfo addObject:gameObj forKey:@"tempGames"];
+            
+            [playerInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+                    self.btn.enabled = !self.btn.enabled ;
+                    [self turnBack];;
+                }
+            }];
 
+        } else {
+            // 输出错误信息
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
+    
+    
+    
+    
+}
 
 - (void)handleBeforeSave
 {
