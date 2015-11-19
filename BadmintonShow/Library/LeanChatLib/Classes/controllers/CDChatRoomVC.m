@@ -23,9 +23,17 @@
 #import "CDFailedMessageStore.h"
 #import "AVIMEmotionMessage.h"
 
+#import "BSGameModel.h"
+#import "BSAddGameRecordController.h"
+#import "BSAddGameBusiness.h"
+
+#import "AppMarcos.h"
+#import "BSConfirmGameTableViewController.h"
+
 static NSInteger const kOnePageSize = 10;
 
-@interface CDChatRoomVC ()
+
+@interface CDChatRoomVC ()  <BSAddGameRecordControllerDelegate>
 
 @property (nonatomic, strong, readwrite) AVIMConversation *conv;
 @property (atomic, assign) BOOL isLoadingMsg;
@@ -110,8 +118,8 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)initBottomMenuAndEmotionView {
     NSMutableArray *shareMenuItems = [NSMutableArray array];
-    NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video"];
-    NSArray *plugTitle = @[@"照片", @"拍摄"];
+    NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video", @"BadmintonRacket"];
+    NSArray *plugTitle = @[@"照片", @"拍摄", @"比赛"];
     for (NSString *plugIcon in plugIcons) {
         XHShareMenuItem *shareMenuItem = [[XHShareMenuItem alloc] initWithNormalIconImage:[UIImage imageNamed:plugIcon] title:[plugTitle objectAtIndex:[plugIcons indexOfObject:plugIcon]]];
         [shareMenuItems addObject:shareMenuItem];
@@ -147,7 +155,8 @@ static NSInteger const kOnePageSize = 10;
 }
 
 #pragma mark - XHMessageTableViewCell delegate
-
+// Tag:YUXIU
+// TODO
 - (void)multiMediaMessageDidSelectedOnMessage:(id <XHMessageModel> )message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(XHMessageTableViewCell *)messageTableViewCell {
     UIViewController *disPlayViewController;
     switch (message.messageMediaType) {
@@ -192,6 +201,14 @@ static NSInteger const kOnePageSize = 10;
             disPlayViewController = displayLocationViewController;
             break;
         }
+        case XHBubbleMessageMediaTypeGame:{
+            //  跳转到新的页面请求比赛结果。 现实确认按钮！ 完成比分确认，更新双方比分。APP结束……
+            BSConfirmGameTableViewController *confirmVC = [[BSConfirmGameTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:confirmVC animated:YES];
+            
+            break;
+        }
+            
         default:
             break;
     }
@@ -348,7 +365,15 @@ static NSInteger const kOnePageSize = 10;
     return YES;
 }
 
+// Tag:YUXIU
 - (void)didSelecteShareMenuItem:(XHShareMenuItem *)shareMenuItem atIndex:(NSInteger)index {
+    //  比赛
+    if (index == 2) {
+        [self saveGame];
+        return ;
+    }
+    
+    //  处理"照片"、"拍摄"
     [super didSelecteShareMenuItem:shareMenuItem atIndex:index];
 }
 
@@ -523,6 +548,7 @@ static NSInteger const kOnePageSize = 10;
     return [NSDate dateWithTimeIntervalSince1970:timestamp / 1000];
 }
 
+// TODO
 - (XHMessage *)getXHMessageByMsg:(AVIMTypedMessage *)msg {
     id <CDUserModel> fromUser = [[CDChatManager manager].userDelegate getUserById:msg.clientId];
     XHMessage *xhMessage;
@@ -561,7 +587,19 @@ static NSInteger const kOnePageSize = 10;
         AVIMVideoMessage *videoMsg = (AVIMVideoMessage *)msg;
         NSString *path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
         xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:fromUser.username timestamp:time];
-    } else {
+    } else if(msg.mediaType ==kAVIMMessageMediaTypeFile ){
+/**************************************************************************************************************/
+        // Tag:YUXIU   累似红包
+        NSString *tempGameObjectId = [msg.attributes objectForKey:kGameMessageAttributeKey];
+        if (tempGameObjectId.length) {
+//            xhMessage = [[XHMessage alloc] initWithText:tempGameObjectId sender:fromUser.username timestamp:time];
+            xhMessage = [[XHMessage alloc] initWithTempGameObjectId:tempGameObjectId sender:fromUser.username timestamp:time];
+            
+        }else{
+            xhMessage = [[XHMessage alloc] initWithText:@"文件消息" sender:fromUser.username timestamp:time];
+        }
+        
+    }else{
         xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:fromUser.username timestamp:time];
         DLog("unkonwMessage");
     }
@@ -742,5 +780,38 @@ static NSInteger const kOnePageSize = 10;
         self.isLoadingMsg = NO;
     }];
 }
+
+#pragma mark - save Game && send Game
+- (void)saveGame{
+
+    BSAddGameRecordController *addGame = [[BSAddGameRecordController alloc] init];
+    addGame.delegate = self ;
+    [self.navigationController pushViewController:addGame animated:YES];
+}
+
+
+#pragma mark - BSAddGameRecordControllerDelegate    Method
+//  包装成比分消息，发送给好友
+- (void)saveGameObject:(AVObject *)gameObject{
+
+    //  1.包装消息
+    [self sendGame:gameObject];
+    //  2.发送给好友
+}
+
+
+#pragma mark - send message
+// Tag:YUXIU
+- (void)sendGame:(AVObject *)gameObject {
+    
+    NSString *gameObjectId = gameObject.objectId.length > 0 ? gameObject.objectId :kGameMessageAttributeValue;
+    NSDictionary *attributes = @{ kGameMessageAttributeKey: gameObjectId };
+    AVFile *messageFile = nil ;
+    AVIMFileMessage *gameMessage = [AVIMFileMessage messageWithText:@"gameMessage" file:messageFile attributes:attributes];
+    
+    //  发送消息
+    [self sendMsg:gameMessage];
+}
+
 
 @end

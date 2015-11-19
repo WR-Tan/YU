@@ -1083,6 +1083,7 @@ static CGPoint  delayOffset = {0.0};
             break;
         }
         case 2: {
+            
             WEAKSELF
             [self.locationHelper getCurrentGeolocationsCompled:^(NSArray *placemarks) {
                 CLPlacemark *placemark = [placemarks lastObject];
@@ -1101,6 +1102,8 @@ static CGPoint  delayOffset = {0.0};
             break;
     }
 }
+
+
 
 #pragma mark - XHEmotionManagerView Delegate
 

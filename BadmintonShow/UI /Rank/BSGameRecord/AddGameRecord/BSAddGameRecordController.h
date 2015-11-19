@@ -8,6 +8,18 @@
 
 #import "BSBaseTableViewController.h"
 
+@class BSGameModel ;
+@class AVObject ;
+
+@protocol BSAddGameRecordControllerDelegate <NSObject>
+// 上传比赛
+- (void)saveGameObject:(AVObject *)gameObject;
+
+@end
+
 @interface BSAddGameRecordController : BSBaseTableViewController
+
+@property (nonatomic, weak) id<BSAddGameRecordControllerDelegate> delegate ;
+
 
 @end

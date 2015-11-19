@@ -15,8 +15,9 @@
 
 @interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate>
 
-@property (nonatomic , strong) NSDateFormatter * dateFormatter;
-@property (nonatomic , weak ) UIButton *btn ;
+@property (nonatomic, strong) BSGameModel *gameModel ;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, weak ) UIButton *btn ;
 @end
 
 @implementation BSAddGameRecordController
@@ -25,6 +26,12 @@
     [super viewDidLoad];
 
        [self.tableView registerNib:[UINib nibWithNibName:@"BSAddGameRecordCell" bundle:nil] forCellReuseIdentifier:@"BSAddGameRecordCell"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark - ScrollView Delegate
@@ -73,32 +80,36 @@
         return;
     };
     
-    
-    
     [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
     
     self.btn = btn ;
     btn.enabled = !btn.enabled ;
     
-    AVObject *gameObj = [AVObject objectWithClassName:@"TempGame"];
+    self.gameModel = game ;
     
-    //  1. 本地基本信息
-    gameObj[@"playerA_score"] = game.playerA_score;//  玩家A的每场比赛得分
-    gameObj[@"playerB_score"] = game.playerB_score;//  玩家B的每场比赛得分
-    gameObj[@"gameType"] = @(game.gameType);  // 比赛的类型
-    gameObj[@"playerA_objectId"] = game.playerA_objectId;
-    gameObj[@"playerB_objectId"] = game.playerB_objectId;
-    gameObj[@"winner_objectId"] = game.winner_objectId;
-    gameObj[@"playerA_name"] = game.playerA_name;
-    gameObj[@"playerB_name"] = game.playerB_name;
-    gameObj[@"startTime"] = game.startTime = self.currentDateString;
-    gameObj[@"endTime"]   = game.endTime = self.currentDateString ;
-    gameObj[@"winner_objectId"] = game.winner_objectId = game.playerA_objectId;
+    AVObject *gameObj = [self AVObjectWithGameModel:game];
     
-    //  getRankScore backGround  &&  save backGround
     [self saveGameToTemp:gameObj ];
 }
 
+- (AVObject *)AVObjectWithGameModel:(BSGameModel *)game
+{
+    AVObject *gameObj = [AVObject objectWithClassName:@"TempGame"];
+    
+    gameObj[@"playerA_score"]       = game.playerA_score;//  玩家A的每场比赛得分
+    gameObj[@"playerB_score"]       = game.playerB_score;//  玩家B的每场比赛得分
+    gameObj[@"gameType"]            = @(game.gameType);  // 比赛的类型
+    gameObj[@"playerA_objectId"]    = game.playerA_objectId;
+    gameObj[@"playerB_objectId"]    = game.playerB_objectId;
+    gameObj[@"winner_objectId"]     = game.winner_objectId;
+    gameObj[@"playerA_name"]        = game.playerA_name;
+    gameObj[@"playerB_name"]        = game.playerB_name;
+    gameObj[@"startTime"]           = game.startTime = self.currentDateString;
+    gameObj[@"endTime"]             = game.endTime = self.currentDateString ;
+    gameObj[@"winner_objectId"]     = game.winner_objectId = game.playerA_objectId;
+    
+    return gameObj;
+}
 
 - (BOOL)valiateGame:(BSGameModel *)game
 {
@@ -138,17 +149,23 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            // 检索成功
-            NSLog(@"Successfully retrieved %lu posts.", (unsigned long)objects.count);
+            //  1.取出数组
             AVObject *playerInfo = [objects firstObject];
             
+            //  2.数组添加game
             [playerInfo addObject:gameObj forKey:@"tempGames"];
             
+            //  3.更新数组
             [playerInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+                
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(saveGameObject:)]) {
+                        [self.delegate  saveGameObject:gameObj ];
+                    }
+
                     self.btn.enabled = !self.btn.enabled ;
-                    [self turnBack];;
+                    [self turnBack];
                 }
             }];
 
@@ -157,32 +174,8 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    
-    
-    
-    
-    
+     
 }
-
-- (void)handleBeforeSave
-{
-    
-    
-    // 这个分数应该由后台获取，不应该在这里上传
-    /**
-     *  1.上传保存之前，在后台Class的PlayerInfo，取出2个人的currentPlatformScore
-        2. 发送消息给对手！同时保存gameModel 到 TempGame中去
-            2.1 确认分数：
-                根据ELO排名算法，得到2个人的重排名后的分数，重新赋值。
-                gameModel存储到Game（最终的Class）
-            2.2 对手不确认：
-                就不做操作。
-     *  3.更新排名
-     */
-
-    ;
-}
-
 
 
 - (void)turnBack
@@ -204,20 +197,6 @@
     return _dateFormatter;
 }
 
-- (void)saveScore
-{
-     ;
-}
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

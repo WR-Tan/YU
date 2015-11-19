@@ -125,7 +125,9 @@
 /** 调用这个，下次 SNS 登录的时候会重新去第三方应用请求，而不会用本地缓存 */
 - (void)deleteAuthDataCache {
     NSDictionary *authData = [[AVUser currentUser] objectForKey:@"authData"];
-    if (authData) {
+    // Tag:YUXIU   [NSNull objectForKey:]
+
+    if (authData && ![authData isKindOfClass:[NSNull class]]) {
         if ([authData objectForKey:AVOSCloudSNSPlatformQQ]) {
             [AVOSCloudSNS logout:AVOSCloudSNSQQ];
         } else if ([authData objectForKey:AVOSCloudSNSPlatformWeiXin]) {
@@ -134,6 +136,7 @@
             [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
         }
     }
+
 }
 
 - (void)logout {
@@ -145,7 +148,7 @@
 //        [delegate toLogin];
         
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        // delegate toLogin
+        [delegate toLogin];
         
     }];
 }

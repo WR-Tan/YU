@@ -46,10 +46,12 @@ static const CGFloat SESelectionGrabberWidth = 32.0f;
         
         self.startGrabber = [[SESelectionGrabber alloc] init];
         self.startGrabber.dotMetric = SESelectionGrabberDotMetricTop;
+//        self.startGrabber.backgroundColor = [UIColor clearColor];
         [self addSubview:self.startGrabber];
         
         self.endGrabber = [[SESelectionGrabber alloc] init];
         self.endGrabber.dotMetric = SESelectionGrabberDotMetricBottom;
+//        self.endGrabber.backgroundColor = [UIColor clearColor];
         [self addSubview:self.endGrabber];
         
         self.startGrabberGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.textView action:@selector(grabberMoved:)];

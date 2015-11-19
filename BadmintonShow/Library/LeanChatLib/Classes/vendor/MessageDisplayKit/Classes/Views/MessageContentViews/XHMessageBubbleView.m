@@ -10,14 +10,15 @@
 
 #import "XHMessageBubbleHelper.h"
 
+
 #define kMarginTop 8.0f
 #define kMarginBottom 2.0f
 #define kPaddingTop 12.0f
 #define kBubblePaddingRight 14.0f
 
 #define kVoiceMargin 20.0f
-
 #define kXHArrowMarginWidth 14
+#define kMatchViewHeight 80
 
 @interface XHMessageBubbleView ()
 
@@ -38,6 +39,8 @@
 @property (nonatomic, weak, readwrite) UILabel *geolocationsLabel;
 
 @property (nonatomic, strong, readwrite) id <XHMessageModel> message;
+
+
 
 @end
 
@@ -107,6 +110,13 @@
             // 固定大小，必须的
             bubbleSize = CGSizeMake(119, 119);
             break;
+            
+        case XHBubbleMessageMediaTypeGame: {
+            bubbleSize = CGSizeMake(200, 80);
+            break;
+        }
+            
+
         default:
             break;
     }
@@ -168,7 +178,7 @@
             
             // 只要是文本、语音、第三方表情，都需要把显示尖嘴图片的控件隐藏了
             _bubblePhotoImageView.hidden = YES;
-            
+            _matchView.hidden = YES;
             
             if (currentType == XHBubbleMessageMediaTypeText) {
                 // 如果是文本消息，那文本消息的控件需要显示
@@ -213,8 +223,21 @@
             _bubbleImageView.hidden = YES;
             _animationVoiceImageView.hidden = YES;
             _emotionImageView.hidden = YES;
+            
+            _matchView.hidden = YES;
             break;
         }
+        case XHBubbleMessageMediaTypeGame:{
+            _videoPlayImageView.hidden = (currentType != XHBubbleMessageMediaTypeVideo);
+            // 那其他的控件都必须隐藏
+            _displayTextView.hidden = YES;
+            _bubbleImageView.hidden = YES;
+            _animationVoiceImageView.hidden = YES;
+            _emotionImageView.hidden = YES;
+            
+            _matchView.hidden = NO;
+        }
+            
         default:
             break;
     }
@@ -241,11 +264,16 @@
                 _emotionImageView.animatedImage = animatedImage;
             }
             break;
-        case XHBubbleMessageMediaTypeLocalPosition:
+        case XHBubbleMessageMediaTypeLocalPosition:{
             [_bubblePhotoImageView configureMessagePhoto:message.localPositionPhoto thumbnailUrl:nil originPhotoUrl:nil onBubbleMessageType:self.message.bubbleMessageType];
-            
             _geolocationsLabel.text = message.geolocations;
-            break;
+        }break;
+            
+        case XHBubbleMessageMediaTypeGame:{
+            
+
+        }break;
+            
         default:
             break;
     }
@@ -334,9 +362,17 @@
             [self addSubview:voiceUnreadDotImageView];
             _voiceUnreadDotImageView = voiceUnreadDotImageView;
         }
+        
+        if (!_matchView) {
+            _matchView = [BSChatMatchView new];
+            _matchView.frame = CGRectMake(20, 20, 50, 50);
+            [self addSubview:_matchView];
+        }
+        
     }
     return self;
 }
+
 
 - (void)dealloc {
     _message = nil;
@@ -401,6 +437,7 @@
         }
         case XHBubbleMessageMediaTypePhoto:
         case XHBubbleMessageMediaTypeVideo:
+
         case XHBubbleMessageMediaTypeLocalPosition: {
             CGRect photoImageViewFrame = CGRectMake(bubbleFrame.origin.x - 2, 0, bubbleFrame.size.width, bubbleFrame.size.height);
             self.bubblePhotoImageView.frame = photoImageViewFrame;
@@ -412,6 +449,15 @@
             
             break;
         }
+        case XHBubbleMessageMediaTypeGame:{
+            CGFloat newWidth = 200;
+            CGFloat newHeight = kMatchViewHeight ;
+            CGFloat newX = CGRectGetMaxX(bubbleFrame) - 2  - newWidth;
+            self.matchView.frame = CGRectMake(newX, 0, newWidth, newHeight);
+
+            break;
+        }
+            
         default:
             break;
     }

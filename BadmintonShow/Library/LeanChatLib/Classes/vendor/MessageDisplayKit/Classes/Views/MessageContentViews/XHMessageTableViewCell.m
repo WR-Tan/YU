@@ -23,13 +23,9 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 }
 
 @property (nonatomic, weak, readwrite) XHMessageBubbleView *messageBubbleView;
-
 @property (nonatomic, weak, readwrite) UIButton *avatorButton;
-
 @property (nonatomic, weak, readwrite) UILabel *userNameLabel;
-
 @property (nonatomic, weak, readwrite) XHMessageStatusView *statusView;
-
 @property (nonatomic, weak, readwrite) LKBadgeView *timestampLabel;
 
 /**
@@ -227,6 +223,13 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
+        case XHBubbleMessageMediaTypeGame:{
+            
+            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+            [self.messageBubbleView.matchView addGestureRecognizer:tapGestureRecognizer];
+            break;
+        }
+            
         default:
             break;
     }
@@ -289,6 +292,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
                                                object:nil];
     [menu setMenuVisible:YES animated:YES];
 }
+
 
 - (void)sigleTapGestureRecognizerHandle:(UITapGestureRecognizer *)tapGestureRecognizer {
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -429,6 +433,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             
             // bubble container
             XHMessageBubbleView *messageBubbleView = [[XHMessageBubbleView alloc] initWithFrame:frame message:message];
+            
             messageBubbleView.autoresizingMask = (UIViewAutoresizingFlexibleWidth
                                                   | UIViewAutoresizingFlexibleHeight
                                                   | UIViewAutoresizingFlexibleBottomMargin);
@@ -440,7 +445,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         if(!self.statusView){
             CGRect statusViewFrame=CGRectMake(0, 0, kXHStatusViewWidth, kXHStatusViewHeight);
             XHMessageStatusView* statusView=[[XHMessageStatusView alloc] initWithFrame:statusViewFrame];
-
+            
             //attributedLabel.backgroundColor=[UIColor redColor];
             [self.contentView addSubview:statusView];
             [self.contentView bringSubviewToFront:statusView];

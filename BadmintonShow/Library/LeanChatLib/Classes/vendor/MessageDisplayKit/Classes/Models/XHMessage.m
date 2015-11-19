@@ -233,6 +233,7 @@
         
         _sender = [aDecoder decodeObjectForKey:@"sender"];
         _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
+        _isConfirmed = [[aDecoder decodeObjectForKey:@"isConfirmed"] boolValue];
         
     }
     return self;
@@ -261,7 +262,7 @@
     
     [aCoder encodeObject:self.sender forKey:@"sender"];
     [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
-    
+    [aCoder encodeObject:@(self.isConfirmed) forKey:@"isConfirmed"];
 }
 
 #pragma mark - NSCopying
@@ -296,13 +297,37 @@
                                                                 timestamp:[self.timestamp copy]];
         case XHBubbleMessageMediaTypeLocalPosition:
             return [[[self class] allocWithZone:zone] initWithLocalPositionPhoto:[self.localPositionPhoto copy]
-                                                                    geolocations:self.geolocations
+                                                                    geolocations: self.geolocations
                                                                         location:[self.location copy]
                                                                           sender:[self.sender copy]
                                                                        timestamp:[self.timestamp copy]];
+        case XHBubbleMessageMediaTypeGame:
+            return [[[self class] allocWithZone:zone] initWithTempGameObjectId:[self.gameObjectId copy]
+                                                                        sender:[self.sender copy]
+                                                                     timestamp:[self.timestamp copy]];
         default:
             return nil;
     }
+}
+
+
+
+/*************************************************************/
+
+- (instancetype)initWithTempGameObjectId:(NSString *)tempGameObjectId
+                                  sender:(NSString *)sender
+                               timestamp:(NSDate *)timestamp{
+
+
+    self = [super init];
+    if (self) {
+        self.gameObjectId = tempGameObjectId ;
+        self.sender = sender;
+        self.timestamp = timestamp;
+        self.messageMediaType = XHBubbleMessageMediaTypeGame;
+    }
+    return self;
+
 }
 
 @end

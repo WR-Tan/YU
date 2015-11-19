@@ -57,7 +57,7 @@
         //        [delegate toLogin];
         
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        // delegate toLogin
+        [delegate toLogin];
         
     }];
 }

@@ -35,6 +35,8 @@
 
 #define kXHTextLineSpacing 3.0
 
+#import "BSChatMatchView.h"
+
 @interface XHMessageBubbleView : UIView
 
 /**
@@ -91,6 +93,11 @@
  *  设置文本消息的字体
  */
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+
+/**
+ *  比赛分数View
+ */
+@property (nonatomic, strong , readwrite) BSChatMatchView *matchView;
 
 /**
  *  初始化消息内容显示控件的方法

@@ -49,6 +49,10 @@
 
 @property (nonatomic,assign) XHMessageStatus status;
 
+@property (nonatomic) BOOL isConfirmed; // 比赛结果被确认
+
+@property (nonatomic, copy) NSString *gameObjectId;
+
 - (instancetype)initWithText:(NSString *)text
                       sender:(NSString *)sender
                    timestamp:(NSDate *)timestamp;
@@ -132,5 +136,23 @@
                                   location:(CLLocation *)location
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp;
+
+/***初始化比赛类型消息。****/
+
+/**
+ *  初始化语音类型的消息。增加已读未读标记
+ *
+ *  @param voicePath        目标语音的本地路径
+ *  @param voiceUrl         目标语音在服务器的地址
+ *  @param voiceDuration    目标语音的时长
+ *  @param sender           发送者
+ *  @param date             发送时间
+ *  @param isRead           已读未读标记
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithTempGameObjectId:(NSString *)tempGameObjectId
+                                  sender:(NSString *)sender
+                               timestamp:(NSDate *)timestamp;
 
 @end
