@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BSConfirmGameTableViewController : UITableViewController
+@interface BSConfirmGameTableViewController : UIViewController
+
+@property (nonatomic, copy) NSString *tempGameObjectId ;
+
 
 @end

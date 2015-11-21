@@ -7,11 +7,16 @@
 //
 
 #import "BSAddGameRecordCell.h"
+#import "AVCloud.h"
+#import "AVUser.h"
 
 @interface BSAddGameRecordCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *playerA_nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playerB_nameLabel;
+
+@property (assign, nonatomic) NSInteger aScore;
+@property (assign, nonatomic) NSInteger bScore;
 
 @property (nonatomic, strong) BSGameModel *game;
 
@@ -54,20 +59,20 @@
  *  利用pickerView应该比TextField自己去输入的好 —— 暂时不做
  */
 
-- (void)handleScore{
-    
-    _highScore = firstGameA_scoreTF.text;
-    _lowScore  = firstGameB_scoreTF.text;
-    
-    if ([_highScore integerValue] < [_lowScore integerValue]) {
-        NSString *tempStr = _highScore;
-        _highScore = _lowScore ;
-        _lowScore = tempStr;
-    }
-    
-    self.game.playerA_score = _highScore  ;
-    self.game.playerB_score = _lowScore ;
-}
+//- (void)handleScore{
+//    
+//    _highScore = firstGameA_scoreTF.text;
+//    _lowScore  = firstGameB_scoreTF.text;
+//    
+//    if ([_highScore integerValue] < [_lowScore integerValue]) {
+//        NSString *tempStr = _highScore;
+//        _highScore = _lowScore ;
+//        _lowScore = tempStr;
+//    }
+//    
+//    self.game.playerA_score = _highScore  ;
+//    self.game.playerB_score = _lowScore ;
+//}
 
 #pragma mark - IBActions
 
@@ -87,28 +92,28 @@
     
     [self endEditing:YES];
     
-    [self handleScore];
+//    [self handleScore];
     
     if ([_highScore integerValue] > 30  || [_lowScore integerValue] < 0) {  // 最高是30分
         return;
     }
     
-    [self initGame];
+    NSInteger aScore = [firstGameA_scoreTF.text integerValue];
+    NSInteger bScore = [firstGameB_scoreTF.text integerValue];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(uploadGame:button:)]) {
-        [self.delegate uploadGame:self.game button:sender];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(uploadGameWithAScore:bScore:button:)]) {
+        [self.delegate uploadGameWithAScore:aScore bScore:bScore button:sender];
     }
 }
 
-- (void)initGame
+
+- (BOOL)valiateNumber
 {
-    self.game.playerA_objectId = @"5614663360b24927846400a9";
-    self.game.playerB_objectId = @"561496cb00b0866436724e9f";
-    self.game.playerA_name = @"13410754258";
-    self.game.playerB_name = @"user001";
+    if (self.aScore <= 40 && self.aScore > 0) {
+        return  YES;
+    }
+    return NO;
 }
-
-
 
 #pragma mark - 懒加载
 
@@ -119,6 +124,15 @@
     return _game;
 }
 
+- (NSInteger)aScore{
+    _aScore = [firstGameA_scoreTF.text integerValue] ;
+    return _aScore ;
+}
+
+- (NSInteger)bScore{
+    _bScore = [firstGameB_scoreTF.text integerValue] ;
+    return _bScore ;
+}
 
 
 @end

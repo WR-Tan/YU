@@ -84,6 +84,7 @@
             if ([self filterError:error]) {
                 NSLog(@"重置密码成功，新的密码为 %@", _passwordTF.text);
                 
+                
                 //  2.3切换到主界面
                 AppDelegate *app = [[UIApplication sharedApplication] delegate] ;
                 [app toMain];

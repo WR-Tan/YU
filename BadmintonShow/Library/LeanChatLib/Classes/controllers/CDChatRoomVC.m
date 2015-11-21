@@ -203,7 +203,9 @@ static NSInteger const kOnePageSize = 10;
         }
         case XHBubbleMessageMediaTypeGame:{
             //  跳转到新的页面请求比赛结果。 现实确认按钮！ 完成比分确认，更新双方比分。APP结束……
-            BSConfirmGameTableViewController *confirmVC = [[BSConfirmGameTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            BSConfirmGameTableViewController *confirmVC = [[BSConfirmGameTableViewController alloc] init];
+            confirmVC.tempGameObjectId = [(id)message valueForKey:@"gameObjectId"];
+            
             [self.navigationController pushViewController:confirmVC animated:YES];
             
             break;
@@ -791,7 +793,6 @@ static NSInteger const kOnePageSize = 10;
 
 
 #pragma mark - BSAddGameRecordControllerDelegate    Method
-//  包装成比分消息，发送给好友
 - (void)saveGameObject:(AVObject *)gameObject{
 
     //  1.包装消息
@@ -801,7 +802,6 @@ static NSInteger const kOnePageSize = 10;
 
 
 #pragma mark - send message
-// Tag:YUXIU
 - (void)sendGame:(AVObject *)gameObject {
     
     NSString *gameObjectId = gameObject.objectId.length > 0 ? gameObject.objectId :kGameMessageAttributeValue;

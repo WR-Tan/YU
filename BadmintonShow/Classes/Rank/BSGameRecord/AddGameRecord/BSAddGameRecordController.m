@@ -13,7 +13,7 @@
 #import "BSChoosePlayerViewController.h"
 #import "SVProgressHUD.h"
 
-@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate>
+@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,BSChoosePlayerViewControllerDelegate>
 
 @property (nonatomic, strong) BSGameModel *gameModel ;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -71,10 +71,17 @@
 -(void)presentFriendListVC{
     BSChoosePlayerViewController *choosePlayVC = [[BSChoosePlayerViewController alloc] init];
     choosePlayVC.title = @"选择对友/对手";
-    [self presentViewController:choosePlayVC animated:YES  completion:nil];
+    choosePlayVC.delegate = self;
+    [self.navigationController pushViewController:choosePlayVC animated:YES];
 }
 
 -(void)uploadGame:(BSGameModel *)game button:(UIButton *)btn{
+    
+    
+    self.gameModel.playerA_objectId = [AVUser currentUser].objectId;
+    self.gameModel.playerB_objectId = @"561496cb00b0866436724e9f";
+    self.gameModel.playerA_name = [AVUser currentUser].username;
+    self.gameModel.playerB_name = @"user001";
     
     if (![self valiateGame:game]) {
         return;
@@ -198,5 +205,10 @@
 }
 
 
+#pragma mark BSChoosePlayerViewControllerDelegate
+- (void)didSelectPlayer:(AVUser *)user{
+
+    
+}
 
 @end

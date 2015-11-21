@@ -43,7 +43,6 @@
 
     // 手机号码
     
-    
 }
 
 
@@ -103,7 +102,6 @@
 
         NSLog(@"当前、缓存中的用户名：%@\n密码  %@ \n手机号 %@ \n用户本身:%@",user.username ,user.password,user.mobilePhoneNumber,user);
         
-
         //跳转到下个页面修改用户名和密码
         BSRegisterUserNameController *userNameVC = [[BSRegisterUserNameController alloc] init];
         userNameVC.tempPassword = user.password;
@@ -111,9 +109,9 @@
         return;
 
     }];
-    
-    
 }
+
+
 
 
 

@@ -10,6 +10,8 @@
 #import "BSRegisterController.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "AppDelegate.h"
+#import "BSAVBusiness+Register.h"
+#import "SVProgressHUD.h"
 
 @interface BSLoginController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumTF;
@@ -37,16 +39,32 @@
 #pragma mark - 用户登录
 - (IBAction)loginAction:(id)sender {
     
-//    _phoneNumTF.text = @"user001";
     [AVUser logInWithUsernameInBackground:_phoneNumTF.text password:_passwordTF.text block:^(AVUser *user, NSError *error) {
         
         if (user) {
             AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
             [delegate toMainCtl];
             
+            [self createPlayerInfoIfNeeded];
+            
         } else {
             
         }
+    }];
+}
+- (void)createPlayerInfoIfNeeded
+{
+    [BSAVBusiness checkPlayerInfoExistence:^(bool isExisted) {
+        if (isExisted) {
+            return ;
+        }
+        
+        [BSAVBusiness createPlayerInfo:^(bool success) {
+            if (success) return ;
+            
+            [SVProgressHUD showErrorWithStatus:@"创建玩家信息类失败"];
+        }];
+        
     }];
 }
 
