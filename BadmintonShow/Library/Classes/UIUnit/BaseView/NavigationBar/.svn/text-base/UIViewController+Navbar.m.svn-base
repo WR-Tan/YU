@@ -1,0 +1,323 @@
+//
+//  UIViewController+Navbar.m
+//  Pods
+//
+//  Created by bolei on 15-5-12.
+//
+//
+
+#import "UIViewController+Navbar.h"
+#import "AlignmentBarButton.h"
+#import "NSString+sizeWithFontInIOS7.h"
+#import "DeviceMacros.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIColor-Adaptive.h"
+#import "UIViewAdditions.h"
+#import "SVProgressHUD.h"
+
+#define TAG_BUBBLE_BUTTON 900000
+#define TAG_BUBBLE_BUTTON_TITLE 900001
+
+@implementation UIViewController (Navbar)
+
+#pragma - mark navBar
+
+- (UIBarButtonItem *)buttonItemWithImage:(UIImage *)image
+                           selectedImage:(UIImage *)selectedImage
+                                  target:(id)target
+                                  action:(SEL)action {
+    AlignmentBarButton *button = [AlignmentBarButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    if (image) {
+        [button setImage:image forState:UIControlStateNormal];
+    }
+    if (selectedImage) {
+        [button setImage:selectedImage forState:UIControlStateHighlighted];
+        [button setImage:selectedImage forState:UIControlStateSelected];
+    }
+    if (target && action) {
+        [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    }
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return buttonItem;
+}
+
+- (void)setLeftItemImage:(UIImage *)image selectedImage:(UIImage *)selectedImage target:(id)target action:(SEL)action {
+    UIBarButtonItem *leftItem =
+        [self buttonItemWithImage:image selectedImage:selectedImage target:target action:action];
+    [self setLeftNavigationItem:leftItem];
+}
+
+- (void)setRightItemImage:(UIImage *)image selectedImage:(UIImage *)selectedImage target:(id)target action:(SEL)action {
+    UIBarButtonItem *rightItem =
+        [self buttonItemWithImage:image selectedImage:selectedImage target:target action:action];
+    [self setRighNavigationItem:rightItem];
+}
+
+- (void)setRightItemImage:(UIImage *)image
+            selectedImage:(UIImage *)selectedImage
+                itemWidth:(CGFloat)itemWidth
+                   target:(id)target
+                   action:(SEL)action {
+    UIBarButtonItem *rightItem =
+        [self buttonItemWithImage:image selectedImage:selectedImage target:target action:action];
+    UIView *customView = rightItem.customView;
+    if (customView.bounds.size.width < itemWidth) {
+        customView.frame =
+            CGRectMake(customView.frame.origin.x, customView.frame.origin.y, itemWidth, customView.bounds.size.height);
+    }
+
+    [self setRighNavigationItem:rightItem];
+}
+
+//创建带图片和文字的UIBarButtonItem
++ (UIBarButtonItem *)setupWithImage:(UIImage *)image
+                      selectedImage:(UIImage *)selectedImage
+                               text:(NSString *)text
+                       selectedText:(NSString *)selectedText
+                          textColor:(UIColor *)color
+                  selectedTextColor:(UIColor *)selectedColor
+                             target:(id)target
+                             action:(SEL)action
+                             isBack:(BOOL)isBack {
+//    CGSize size = [text calculateSizeWithFont:[UIFont systemFontOfSize:15.0f]];
+//    CGFloat width = size.width > 100 ? 100 : size.width;
+//    if (width > 100.0f) {
+//        width = 100.0f;
+//    }
+    AlignmentBarButton *button = [AlignmentBarButton buttonWithType:UIButtonTypeCustom];
+    // button.frame = CGRectMake(0, 0, width + 20, selectedImage.size.height);
+    button.frame = CGRectMake(0, 0, 50, selectedImage.size.height);
+    button.backgroundColor = [UIColor clearColor];
+    button.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    button.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, isBack ? 14 : 10, 0, 10);
+
+    button.isBack = isBack;
+    if (image) {
+        [button setBackgroundImage:image forState:UIControlStateNormal];
+    }
+    if (selectedImage) {
+        [button setBackgroundImage:selectedImage forState:UIControlStateHighlighted];
+        [button setBackgroundImage:selectedImage forState:UIControlStateSelected];
+    }
+    if (text) {
+        [button setTitle:text forState:UIControlStateNormal];
+    }
+    if (selectedText) {
+        [button setTitle:selectedText forState:UIControlStateHighlighted];
+    }
+    if (color) {
+        [button setTitleColor:color forState:UIControlStateNormal];
+    }
+    if (selectedColor) {
+        [button setTitleColor:selectedColor forState:UIControlStateHighlighted];
+    }
+    if (target && action) {
+        [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    }
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return buttonItem;
+}
+
+//设置navBar左边按钮（图片加文字）
+- (void)setLeftItemImage:(UIImage *)image
+           selectedImage:(UIImage *)selectedImage
+                    text:(NSString *)text
+            selectedText:(NSString *)selectedText
+               textColor:(UIColor *)color
+       selectedTextColor:(UIColor *)selectedColor
+                  target:(id)target
+                  action:(SEL)action {
+    UIBarButtonItem *leftItem = [UIViewController setupWithImage:image
+                                                   selectedImage:selectedImage
+                                                            text:text
+                                                    selectedText:nil
+                                                       textColor:color
+                                               selectedTextColor:nil
+                                                          target:target
+                                                          action:action
+                                                          isBack:NO];
+    [self setLeftNavigationItem:leftItem];
+}
+//设置navBar右边按钮（图片加文字）
+- (void)setRightItemImage:(UIImage *)image
+            selectedImage:(UIImage *)selectedImage
+                     text:(NSString *)text
+             selectedText:(NSString *)selectedText
+                textColor:(UIColor *)color
+        selectedTextColor:(UIColor *)selectedColor
+                   target:(id)target
+                   action:(SEL)action {
+    UIBarButtonItem *rightItem = [UIViewController setupWithImage:image
+                                                        selectedImage:selectedImage
+                                                                 text:text
+                                                         selectedText:text
+                                                            textColor:color
+                                                    selectedTextColor:nil
+                                                               target:target
+                                                               action:action
+                                                               isBack:NO];
+    [self setRighNavigationItem:rightItem];
+}
+
+//设置仅带图片的右侧按钮
+- (void)setRightItemTitleImage:(UIImage *)image
+            selectedTitleImage:(UIImage *)selectedImage
+                        target:(id)target
+                        action:(SEL)action {
+    CGRect rect = (CGRect){0, 0, 59, 33};
+    UIButton *button = [[UIButton alloc] initWithFrame:rect];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button setBackgroundImage:selectedImage forState:UIControlStateHighlighted];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:selectedImage forState:UIControlStateHighlighted];
+    [button setImage:selectedImage forState:UIControlStateSelected];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    [self setRighNavigationItem:rightItem];
+}
+
+- (void)setBackItemText:(NSString *)text target:(id)target action:(SEL)action {
+    //  NSInteger leftCapWidth = 17;
+    //  NSInteger topCapHeight = 0;
+    UIBarButtonItem *leftItem = [UIViewController setupWithImage:nil
+                                                       selectedImage:nil
+                                                                text:text
+                                                        selectedText:text
+                                                           textColor:[UIColor colorWithHexString:@"#333333"]
+                                                   selectedTextColor:[UIColor colorWithHexString:@"#333333"]
+                                                              target:target
+                                                              action:action
+                                                              isBack:YES];
+    [self setLeftNavigationItem:leftItem];
+}
+
+- (void)setLeftItemText:(NSString *)text target:(id)target action:(SEL)action {
+    UIBarButtonItem *leftItem = [UIViewController
+           setupWithImage:nil
+            selectedImage:nil
+                     text:text
+             selectedText:text
+                textColor:[UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0]
+        selectedTextColor:[UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0]
+                   target:target
+                   action:action
+                   isBack:NO];
+    //[(UIButton *)leftItem.customView setBackgroundImage:[UIImage imageNamed:NAV_IMAGE_OF_BTNDISABLE]
+    //                                           forState:UIControlStateDisabled];
+    [(UIButton *)leftItem.customView
+        setTitleColor:[UIColor colorWithRed:0xb1 / 255.0f green:0xb1 / 255.0f blue:0xb1 / 255.0f alpha:1.0f]
+             forState:UIControlStateDisabled];
+
+    [self setLeftNavigationItem:leftItem];
+}
+
+- (void)setRightItemText:(NSString *)text target:(id)target action:(SEL)action {
+    UIBarButtonItem *rightItem = [UIViewController
+           setupWithImage:nil
+            selectedImage:nil
+                     text:text
+             selectedText:text
+                textColor:[UIColor colorWithRed:255 / 255.0f green:255 / 255.0f blue:255 / 255.0f alpha:1.0]
+        selectedTextColor:[UIColor colorWithRed:255 / 255.0f green:255 / 255.0f blue:255 / 255.0f alpha:1.0]
+                   target:target
+                   action:action
+                   isBack:NO];
+    //[(UIButton *)rightItem.customView setBackgroundImage:[UIImage imageNamed:NAV_IMAGE_OF_BTNDISABLE]
+    //                                            forState:UIControlStateDisabled];
+    [(UIButton *)rightItem.customView
+        setTitleColor:[UIColor colorWithRed:0xb1 / 255.0f green:0xb1 / 255.0f blue:0xb1 / 255.0f alpha:1.0f]
+             forState:UIControlStateDisabled];
+    [self setRighNavigationItem:rightItem];
+}
+
+- (void)setRightItemText:(NSString *)text target:(id)target action:(SEL)action showBadge:(BOOL)show {
+    UIBarButtonItem *rightItem = [UIViewController
+           setupWithImage:nil
+            selectedImage:nil
+                     text:text
+             selectedText:text
+                textColor:[UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0]
+        selectedTextColor:[UIColor colorWithRed:0x33 / 255.0f green:0x33 / 255.0f blue:0x33 / 255.0f alpha:1.0]
+                   target:target
+                   action:action
+                   isBack:NO];
+    //[(UIButton *)rightItem.customView setBackgroundImage:[UIImage imageNamed:NAV_IMAGE_OF_BTNDISABLE]
+    //                                            forState:UIControlStateDisabled];
+    [(UIButton *)rightItem.customView
+        setTitleColor:[UIColor colorWithRed:0xb1 / 255.0f green:0xb1 / 255.0f blue:0xb1 / 255.0f alpha:1.0f]
+             forState:UIControlStateDisabled];
+
+    if (show) {
+        UIImage *imageBubble = nil;
+        //imageBubble = [[UIImage imageNamed:INTRODUCE_IMAGE_EXPASION_TIPS_NEW] stretchableImageWithLeftCapWidth:11
+        //                                                                                           topCapHeight:11];
+
+        UIButton *btnCount = [[UIButton alloc]
+            initWithFrame:CGRectMake(rightItem.customView.frame.size.width - imageBubble.size.width + 4, -4,
+                                     imageBubble.size.width, imageBubble.size.height)];
+
+        [btnCount setBackgroundImage:imageBubble forState:UIControlStateNormal];
+        btnCount.tag = TAG_BUBBLE_BUTTON;
+        btnCount.titleLabel.font = [UIFont boldSystemFontOfSize:11.0f];
+        btnCount.hidden = NO;
+        btnCount.userInteractionEnabled = NO;
+        [rightItem.customView addSubview:btnCount];
+    }
+    [self setRighNavigationItem:rightItem];
+}
+- (void)setRightItemEnable:(BOOL)enable {
+    UIBarButtonItem *rightItem = self.navigationItem.rightBarButtonItem;
+    if ([rightItem.customView isKindOfClass:[UIButton class]]) {
+        ((UIButton *)rightItem.customView).enabled = enable;
+    }
+}
+
+- (void)setNavgationBackgroundImage:(UIImage *)image {
+    self.navigationController.navigationBar.translucent = NO;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [self.navigationController.navigationBar setBackgroundImage:image
+                                                     forBarPosition:UIBarPositionTopAttached
+                                                         barMetrics:UIBarMetricsDefault];
+    } else {
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    }
+}
+
+- (void)setNavgationToolBarBackgroundImage:(UIImage *)image {
+    
+    [self.navigationController.toolbar setBackgroundImage:image forToolbarPosition:UIBarPositionTopAttached barMetrics:UIBarMetricsDefault];
+}
+
+- (void)setCancelItem {
+    NSUInteger count = [self.navigationController.viewControllers count];
+    if (count >= 2) {
+        UIViewController *viewController = [self.navigationController.viewControllers objectAtIndex:count - 2];
+        NSString *backTitle = viewController.navigationItem.title;
+        if (backTitle.length == 0) {
+            backTitle = @"返回";
+        }
+        [self setBackItemText:backTitle target:self action:@selector(cancelBtnClick:)];
+    }
+}
+
+- (void)cancelBtnClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - control set left and right navigation button
+- (void)setLeftNavigationItem:(UIBarButtonItem *)item {
+    UIView *customeView = item.customView;
+    if ([customeView isKindOfClass:[AlignmentBarButton class]]) {
+        AlignmentBarButton *button = (AlignmentBarButton *)customeView;
+        button.isLeft = YES;
+    }
+    self.navigationItem.leftBarButtonItem = item;
+}
+
+- (void)setRighNavigationItem:(UIBarButtonItem *)item {
+    self.navigationItem.rightBarButtonItem = item;
+}
+
+@end

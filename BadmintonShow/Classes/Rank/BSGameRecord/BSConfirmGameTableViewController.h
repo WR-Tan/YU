@@ -10,7 +10,7 @@
 
 @interface BSConfirmGameTableViewController : UIViewController
 
-@property (nonatomic, copy) NSString *tempGameObjectId ;
+@property (nonatomic, copy) NSString *gameObjectId ;
 
 
 @end

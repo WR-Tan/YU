@@ -21,7 +21,8 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
     eBSGameTypeManSingle , //男单
     eBSGameTypeWomanSingle ,// 女单
     eBSGameTypeMenDouble , // 男双
-    eBSGameTypeWomenDouble //女双
+    eBSGameTypeWomenDouble, //女双
+    eBSGameTypeMixDouble // 混双
 };
 
 
@@ -39,11 +40,14 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
 @property (nonatomic, copy) NSString *playerA_platformScore ;  //  玩家A的平台分数
 @property (nonatomic, copy) NSString *playerB_platformScore ;  //  玩家B的平台分数
 
+@property (nonatomic, copy) NSString *aRankScore ;  //  玩家A的排名分数
+@property (nonatomic, copy) NSString *bRankScore ;  //  玩家B的排名分数
+
 @property (nonatomic, copy) NSString *playerA_avatar ;  //  玩家A的队头像
 @property (nonatomic, copy) NSString *playerB_avatar ;  //  玩家B的队头像
 
 
-@property (nonatomic, copy) NSString *gameObjectId ; // 模型对应的AVOSCloud的objectId
+@property (nonatomic, copy) NSString *objectId ; // 模型对应的AVOSCloud的objectId
 @property (nonatomic, copy) NSString *gameId ; // 自己产生的比赛模型id （暂未实现）
 @property (nonatomic, assign) BSGameType gameType ;  // 比赛的类型
 
@@ -53,9 +57,16 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
 @property (nonatomic, copy) NSString *playerB_objectId ;  //  玩家B的id
 
 @property (nonatomic, copy) NSString *winner_objectId ;
+@property (nonatomic, assign) BOOL isAWin ;   // 是a赢了吗
+
 
 @property (nonatomic, copy) NSString *startTime ; // 结束时间
 @property (nonatomic, copy) NSString *endTime ;   // 开始时间
+
+@property (nonatomic, assign) BOOL isConfirmed ;   // 已经确认
+
+@property (nonatomic, strong) UIImage * aAVatar ;   // a的头像
+@property (nonatomic, strong) UIImage * bAVatar ;   // b的头像
 
 @end
 

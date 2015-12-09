@@ -1,0 +1,22 @@
+//
+//  XYBRequestModel.h
+//  XinYongBao
+//
+//  Created by waterhk on 15/4/10.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <Mantle.h>
+#import <HFModel.h>
+
+@interface PAFFRequestModel<T : HFModel *> : MTLModel<MTLJSONSerializing>
+
+@property (nonatomic, copy) NSString * code;      // server code 字段
+@property (nonatomic, copy) NSString * msg;       // server msg 字段
+@property (nonatomic, strong) id data;              // server data 字段
+
+@property (nonatomic, strong) T dataModel;         // data －> model
+@property (nonatomic, strong) Class/*<T>*/ classModel;     // data 需要转成的 class model
+
+@end

@@ -1,0 +1,38 @@
+//
+//  FFUserStorage.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "FFDatabaseStorage.h"
+#import "FFUser.h"
+
+//用户信息存储
+@interface FFUserStorage : NSObject
+
+@property (nonatomic, readonly) FFDatabaseStorage *database; //数据库存储
+
+/** 清除所有数据 (慎用) */
+-(void) clear;
+
+/** 数据改变时的通知 */
+-(RACSignal *) notifyForChanged;
+
+/** 内存缓存 */
+-(id) cacheObjectForKey:(NSString *) key;
+-(void) setCacheObject:(id) object forKey:(NSString *) key;
+
+@end
+
+
+@interface FFUser (FFUserStorage)
+@property (nonatomic, readonly) FFUserStorage *storage;
+
+/** 持久化存取 */
+-(id<NSCoding>) persistForKey:(NSString *) key;
+-(void) setPersist:(id<NSCoding>) property forKey:(NSString *)key;
+
+@end

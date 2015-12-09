@@ -1,0 +1,33 @@
+//
+//  FFUser.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFUser.h"
+#import "FFDatabaseStorage.h"
+
+@interface FFUser () {
+    
+}
+
+@end
+
+@implementation FFUser
+
+
+-(instancetype) initWithUserId:(NSString *) userId {
+    NSAssert(userId, @"user id can't be nil");
+    self = [super init];
+    if (self) {
+        _userId = userId;
+        
+    }
+    return self;
+}
+
+
+
+@end

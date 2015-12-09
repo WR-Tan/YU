@@ -1,0 +1,232 @@
+//
+//  PAFFTabBarController.m
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import "PAFFTabBarController.h"
+#import "PAFFTabBar.h"
+#import "PAFFTabBarModel.h"
+#import "DeviceMacros.h"
+#import <UIView+Autolayout.h>
+#import <Masonry.h>
+
+#define containerWidth  (_containerView.frame.size.width)
+#define containerHeight (_containerView.frame.size.height)
+
+
+@interface PAFFTabBarController()<UIScrollViewDelegate>
+//@property (nonatomic, strong) UIScrollView *transitionView;
+@property (nonatomic, strong) UIView *subCtrlView;
+
+
+@end
+
+@implementation PAFFTabBarController
+
+{
+
+    NSDictionary *jsonDic;
+}
+
+#pragma mark lifecycle
+- (id)initWithControllers:(NSMutableArray *)viewCtrls
+               titleArray:(NSMutableArray *)titleArr
+            defalutSelect:(NSInteger)selectIndex
+               tabarStyle:(TabbarStyle *)style
+             tabItemArray:(NSMutableArray *)tabArrays {
+    self = [super init];
+    if (self != nil) {
+        [self setUpWithControllers:viewCtrls titleArray:titleArr defalutSelect:selectIndex tabarStyle:style tabItemArray:tabArrays];
+    }
+    return self;
+}
+
+- (void)setUpWithControllers:(NSMutableArray *)viewCtrls
+                  titleArray:(NSMutableArray *)titleArr
+               defalutSelect:(NSInteger)selectIndex
+                  tabarStyle:(TabbarStyle *)style
+                tabItemArray:(NSMutableArray *)tabArrays {
+    _viewControllers = [NSMutableArray arrayWithArray:viewCtrls];
+    
+    for (UIViewController *vc in self.childViewControllers) {
+        [vc removeFromParentViewController];
+    }
+    
+    for (UIViewController *vc in viewCtrls) {
+        [self addChildViewController:vc];
+    }
+    //初始化containeriview
+    CGRect rect = (IOS7_OR_LATER)?[[UIScreen mainScreen] applicationFrame]:[UIScreen mainScreen].bounds;
+    if (_containerView == nil) {
+        _containerView = [[UIView alloc] initWithFrame:rect];
+    }
+    _containerView.backgroundColor = [UIColor whiteColor];
+    if (_subCtrlView == nil) {
+        _subCtrlView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, containerWidth, containerHeight - kPAFFTabBarHeight)];
+    }
+    UIViewController *defaultCtrl = (UIViewController *)[viewCtrls objectAtIndex:selectIndex];
+    CGRect subRect = defaultCtrl.view.frame;
+    subRect.origin.x = 0;
+    subRect.origin.y = 0;
+    subRect.size.height = _subCtrlView.frame.size.height+20;
+    defaultCtrl.view.frame = subRect;
+    [_subCtrlView addSubview:defaultCtrl.view];
+    
+    [defaultCtrl.view mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_subCtrlView);
+    }];
+    
+    CGFloat orignY = (IOS7_OR_LATER)
+    ? (SCREEN_HEIGHT - TAB_BAR_HEIGHT)
+    : (SCREEN_HEIGHT - TAB_BAR_HEIGHT - 20);
+    _tabBar = [[PAFFTabBar alloc] initWithFrame:CGRectMake(0, orignY, containerWidth, kPAFFTabBarHeight) buttonTitles:titleArr tabbarStyle:style tabItemArray:tabArrays];
+    _tabBar.delegate = self;
+    self.selectedIndex = selectIndex;
+    [_tabBar selectTabAtIndex:selectIndex];
+    NSInteger elementWidth = selectIndex/4;
+    [self.tabBar.scroller setContentOffset:CGPointMake(SCREEN_WIDTH*elementWidth, 0)];
+}
+
+
+- (void)loadView
+{
+    [super loadView];
+    //[_containerView addSubview:_transitionView];
+    self.view = _containerView;
+    [self updateMyViews];
+}
+
+- (void)updateMyViews {
+    if (_containerView) {
+        [_subCtrlView removeFromSuperview];
+        [_tabBar removeFromSuperview];
+        [_containerView addSubview:_subCtrlView];
+        [_containerView addSubview:_tabBar];
+        
+        [_subCtrlView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.equalTo(_containerView);
+            make.bottom.equalTo(_tabBar.mas_top);
+        }];
+        
+        [_tabBar mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(_containerView);
+            make.height.equalTo(@(kPAFFTabBarHeight));
+        }];
+    }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    if (IOS7_OR_LATER) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    
+}
+
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+}
+
+//#pragma mark - instant methods
+//
+//- (void)setTabBarTransparent:(BOOL)yesOrNo
+//{
+//    if (yesOrNo == YES)
+//    {
+//        
+//        _subCtrlView.frame = _containerView.bounds;
+//    }
+//    else
+//    {
+//  
+//        _subCtrlView.frame = CGRectMake(0, 0, KScreenWidth, containerHeight - kTabBarHeight);
+//    }
+//}
+
+
+- (UIViewController *)selectedViewController {
+    if ([_viewControllers count] > _selectedIndex) {
+        return [_viewControllers objectAtIndex:_selectedIndex];
+    }
+    return nil;
+}
+
+
+
+-(void)setSelectedIndex:(NSUInteger)index {
+    [self tabBar:self.tabBar didSelectIndex:index];
+    [self.tabBar selectTabAtIndex:index];
+    _selectedIndex = index;
+}
+
+
+-(void)setTabBarHidden:(BOOL)tabBarHidden {
+
+    [self.tabBar setHidden:tabBarHidden];
+    [self.tabBar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(tabBarHidden ? @(0) : @(kPAFFTabBarHeight)) ;
+        make.left.equalTo(_containerView).offset(tabBarHidden ? -self.tabBar.frame.size.width : 0);
+    }];
+}
+
+
+#pragma mark tabBar delegates
+- (BOOL)tabBar:(PAFFTabBar *)tabBar didSelectIndex:(NSInteger)index {
+    if (index == _selectedIndex ) {
+        return NO;
+    }
+    //不能选择大于tab数的index
+    if (index >= _viewControllers.count) {
+        return NO;
+    }
+    //remove之前旧的controller的view
+    if ([_viewControllers count] > _selectedIndex) {
+        UIViewController *preCtrl = _viewControllers[_selectedIndex];
+        [preCtrl.view removeFromSuperview];
+    }
+    _selectedIndex = index;
+    //添加新的controller的view
+    UIViewController *newCtrl = (UIViewController *)[_viewControllers objectAtIndex:_selectedIndex];
+    CGRect subRect = newCtrl.view.frame;
+    subRect.origin.x = 0;
+    subRect.origin.y = 0;
+    subRect.size.height = _subCtrlView.frame.size.height+20;
+    
+
+    newCtrl.view.frame = subRect;
+    [_subCtrlView addSubview:newCtrl.view];
+    
+    [newCtrl.view addPaddingConstraintsWithSuperView:_subCtrlView top:0 bottom:0 left:0 right:0];
+ 
+    if ([self.delegate respondsToSelector:@selector(selectedIndexChange:tabbarController:)]) {
+        [self.delegate selectedIndexChange:_selectedIndex tabbarController:self];
+    }
+    
+    return YES;
+}
+
+- (void)dealloc {
+    _tabBar.delegate = nil;
+    _tabBar = nil;
+    _viewControllers = nil;
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+@end

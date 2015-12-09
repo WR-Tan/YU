@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/ff_app_cms/!svn/ver/555/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base
+END
+PAFFStatistics.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/ff_app_cms/!svn/ver/461/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFStatistics.m
+END
+PAFFStatisticsConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/ff_app_cms/!svn/ver/461/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFStatisticsConfig.h
+END
+PAFFUtils.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFUtils.h
+END
+PAFFAppContext.h
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/ff_app_cms/!svn/ver/268/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFAppContext.h
+END
+PAFFConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/ff_app_cms/!svn/ver/553/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFConfig.h
+END
+PAFFUtils.m
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFUtils.m
+END
+ResourceManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/ResourceManager.h
+END
+PAFFAppContext.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/ff_app_cms/!svn/ver/271/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFAppContext.m
+END
+PAFFConfig.m
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/ff_app_cms/!svn/ver/555/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFConfig.m
+END
+PAFFStatistics.h
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/PAFFStatistics.h
+END
+ResourceManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/ResourceManager.m
+END

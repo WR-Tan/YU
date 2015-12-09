@@ -1,0 +1,124 @@
+//
+//  BRDataSourceListModel.h
+//  baiduihome
+//
+//  Created by bolei on 15-3-5.
+//  Copyright (c) 2015年 com.baidu. All rights reserved.
+//
+
+#import <RVMViewModel.h>
+#import "PAFFTableViewSectionItem.h"
+#import "PAFFTableSourceItem.h"
+#import "PAFFRequest.h"
+
+
+@class PAFFDataSourceListModel;
+@protocol PAFFDataSourceListProtocol;
+
+@interface PAFFDataSourceListModel : RVMViewModel
+
+@property (nonatomic, strong) PAFFRequest *request; //发送的请求
+@property(nonatomic, assign) BOOL isFetching;  //是否正在请求数据
+@property(nonatomic, strong) NSMutableArray *sourceList; //原始数据model
+
+@property(nonatomic, assign) BOOL isFetchDBFinished;  //是否取完了数据库的数据
+@property(nonatomic, assign) BOOL isFetchNetFinished;
+
+@property(nonatomic, strong) PAFFTableSourceItem *sourceItem; //tableView使用的数据
+
+@property(nonatomic, weak) id<PAFFDataSourceListProtocol> delegate; //处理数据源变化的委托对象
+
+//子类实现此方法，finish YES表明请求完成，否则表示有其他请求在进行 cache 表明来自于网络还是之前的缓存，erro代表是否请求错误，result是请求下来数据
+- (void)loadDataWithParams:(NSDictionary *)dic complete:(void (^)(BOOL finish, BOOL cache, NSDictionary *info, ECallBackStatus status))complete;
+/**
+ *	@brief	取消请求的request
+ */
+- (void)cancelFetchRequest;
+
+
+- (void)sourceListChange;
+
+/**
+ *	@brief	缓存object调用方法,会加入到sourceList里
+ *
+ *	@param 	responseObject 	request返回的object类型
+ */
+- (void)cacheObject:(id)responseObject;
+
+/**
+ *	@brief	保存到数据库的方法
+ *
+ *	@param 	responseObject 	request返回的object类型
+ */
+- (void)saveObject:(id)responseObject;
+
+- (void)saveObjects:(NSArray *)objcets;
+
+/**
+ *	@brief	清空缓存和数据库中的数据
+ */
+- (void)cleanObject;
+
+- (void)cleanCache;
+
+- (void)cleanDB;
+
+/**
+ *	@brief	生成具体的sectionList，里面的数据是BCBaseTableViewSectionItem，子类根据业务需求复写,然后通过返回来更新tableview
+ */
+- (void)buildDataSourceModelWithArray:(NSArray *)array block:(void (^)(PAFFTableSourceItem *result))complete;
+
+/**
+ *	@brief	保存多个数据
+ *
+ *	@param 	objects 	保存数据
+ */
+- (void)addObjects:(NSArray *)objects;
+
+
+/**
+ *	@brief	保存一个数据
+ *
+ *	@param 	object 	数据
+ */
+- (void)addObject:(id)object;
+
+//数据处理
+- (void)dealFetchResult:(id)responseObject status:(ECallBackStatus)status clean:(BOOL)clean save:(BOOL)save;
+
+- (NSArray *)dealDBResult:(NSArray *)result;
+
+/**
+ *  数据源部分更新
+ *
+ *  @param indexPaths 被更新数据源的cell的索引数组
+ */
+- (void)dataSourceChangedAtIndexPaths:(NSArray *)indexPaths;
+
+/**
+ *  某几个cell对应的 model发生了更新
+ *
+ *  @param cellModels 发生更新的cellmodel 的class数组
+ */
+- (void)dataSourceChangedOfCellModels:(NSArray *)cellModels;
+
+@end
+
+@protocol PAFFDataSourceListProtocol <NSObject>
+
+@optional
+/**
+ *  通知委托对象, 某几个cell的数据源发生了更新
+ *
+ *  @param indexPaths 数据源发生改变的cell 索引数组
+ */
+- (void)dataSourceChangedAtIndexPaths:(NSArray *)indexPaths;
+
+/**
+ *  通知委托对象, 某几个cell对应的 model发生了更新
+ *
+ *  @param cellModels 发生更新的cellmodel class数组
+ */
+- (void)dataSourceChangedOfCellModels:(NSArray *)cellModels;
+
+@end

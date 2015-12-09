@@ -1,0 +1,16 @@
+//
+//  FFUserDefaultsModel.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <BZObjectStoreModelInterface.h>
+
+@interface FFDatabaseStorageDefaultsModel : NSObject
+
+@property (nonatomic, strong) NSString<OSIdenticalAttribute> *key;      //defaults key
+@property (nonatomic, strong) NSData *value;                            //defaults value
+@end

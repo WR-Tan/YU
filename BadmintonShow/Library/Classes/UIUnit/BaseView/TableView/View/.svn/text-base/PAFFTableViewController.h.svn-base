@@ -1,0 +1,85 @@
+//
+//  BRTableViewController.h
+//  baiduRouter
+//
+//  Created by mco-device on 14-1-21.
+//  Copyright (c) 2014年 baidu. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import "PAFFDataSourceListModel.h"
+#import "PAFFBaseViewController.h"
+
+typedef enum {
+    EPAFFTableViewControllerStyleNone,
+    EPAFFTableViewControllerStyleShowIndex,         //显示索引
+    EPAFFTableViewControllerStyleShowTitle,         //显示分区title
+    EPAFFTableViewControllerStyleShowIndexAndTitle, //显示分区和索引
+} PAFFTableViewControllerStyle;                     // tableviewController 样式
+
+@class PAFFDataSourceListModel;
+
+@interface PAFFTableViewController
+    : PAFFBaseViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, PAFFDataSourceListProtocol> {
+    UISearchBar *_searchBar;
+    UITableView *_tableView;
+    NSMutableArray *_sections;
+    NSMutableArray *_sectionIndexes;
+    NSMutableArray *_searchResult;
+    PAFFTableViewControllerStyle _style;
+    CGFloat _sectionHeaderHeight;
+    UISearchDisplayController *_searchController;
+    BOOL _enableSearchBar;
+    __unsafe_unretained id _searchImplementor;
+}
+
+@property(nonatomic, strong) IBOutlet UITableView *tableView; //tableView
+@property(nonatomic, strong) UISearchBar *searchBar;           //搜索框
+
+@property(nonatomic, assign) PAFFTableViewControllerStyle style; //样式
+@property(nonatomic, assign) CGFloat sectionHeaderHeight; //sectionHeight 通用高度
+@property(nonatomic, assign) BOOL enableSearchBar; //是否显示搜索框
+@property(nonatomic, strong) PAFFDataSourceListModel *dataSourceListModel;//数据model
+
+@property(nonatomic, strong) NSMutableArray *sections; // tableview数据源
+@property(nonatomic, strong) NSMutableArray *sectionIndexes;   //搜索索引
+@property(nonatomic, strong) NSMutableArray *searchResult;     //搜索结果数组
+
+#pragma mark - Must Overide
+/**
+ *	@brief	子类需要实现这个方法，用于绑定model和cell关系，请分别调用bindModelClass方法绑定
+ */
+- (void)bindModelToCell;
+
+/**
+ *	@brief	子类需要实现这个方法，用于初始化dataSourceListModel
+ */
+- (void)configDataSourceListModel;
+
+#pragma mark - Bind Method
+/**
+ *	@brief	注册相关映射关系，cell需要为BCBaseTableViewCell，或cell实现其中的静态方法 *
+ *	@param 	modelClass 	模型 Class
+ *	@param 	cellClass 	Cell Class
+ */
+- (void)bindModelClass:(Class)modelClass cellClass:(Class)cellClass;
+
+/**
+ *	@brief	可以用来绑定自己的source，通常不需要调用用，父类默认是取dataSource的sectionList数据
+ *
+ *	@param 	source 	数据源
+ */
+- (void)bindDataSourceWithSourceItem:(PAFFTableSourceItem *)sourceItem;
+
+#pragma mark - Data
+/**
+ *	@brief	sourceList数据变化了，这个可以做分区和刷新tableview
+ */
+- (void)sourceListDidChange;
+
+#pragma mark - Get Data
+- (id)dataOfRowAtIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView;
+
+@end

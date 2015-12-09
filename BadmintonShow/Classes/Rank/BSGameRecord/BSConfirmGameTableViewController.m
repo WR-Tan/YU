@@ -8,21 +8,71 @@
 
 #import "BSConfirmGameTableViewController.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "BSConfirmGameCell.h"
+#import "SVProgressHUD.h"
+#import "ELORankingBusiness.h"
+#import "BSGameModel.h"
 
-@interface BSConfirmGameTableViewController ()<UITableViewDataSource,UITableViewDelegate>
+static NSString *cellId = @"BSConfirmGameCellId";
+
+
+@interface BSConfirmGameTableViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView ;
-@property (nonatomic, strong) AVObject *gameObject;
+
+@property (nonatomic, strong) AVObject *gameObject; // 已经上传的game
+
+@property (nonatomic, strong) AVUser *oppUser;
+
+@property (nonatomic, strong) BSGameModel *myGame;  // 已经上传的game
+
+@property (nonatomic, assign) BOOL isGameLoaded;
+@property (nonatomic, assign) BOOL isAScoreSetted;
+@property (nonatomic, assign) BOOL isBScoreSetted;
+@property (nonatomic, assign) BOOL isBothScoreSetted;
+
+@property (nonatomic, strong) UIButton * confirmBtn;
+
+
 @end
+
+#define kNullLongText   @"----"
+#define kNullShortText  @"--"
 
 @implementation BSConfirmGameTableViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _myGame = [[BSGameModel alloc] init];
+        
+        _myGame.playerA_name =  kNullLongText;
+        _myGame.playerB_name =  kNullLongText;
+        
+        _myGame.playerA_score = kNullShortText;
+        _myGame.playerB_score = kNullShortText;
+        
+        _isGameLoaded = NO;
+    }
+    return self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+   
     [self setupBaseViews];
     [self initData];
 }
+ 
+
+
 
 - (void)setupBaseViews
 {
@@ -31,88 +81,158 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BSConfirmGameCell class]) bundle:nil] forCellReuseIdentifier:cellId];
     
     
     UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     confirmBtn.frame = CGRectMake(0, kScreenHeigth - 44 , kScreenWidth, 44);
     [confirmBtn setTitle:@"确认比赛" forState:UIControlStateNormal];
-    confirmBtn.backgroundColor = [UIColor blueColor];
+    confirmBtn.backgroundColor = [UIColor lightGrayColor];
     [confirmBtn addTarget:self action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirmBtn];
+    self.confirmBtn = confirmBtn;
 }
 
 - (void)initData
 {
+    AVObject *game = [AVObject objectWithoutDataWithClassName:AVClassGame objectId:self.gameObjectId];
 
-    AVQuery *query = [AVQuery queryWithClassName:@"TempGame"];
-    [query whereKey:@"objectId" equalTo:self.tempGameObjectId];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            //  1.取出数组
-            self.gameObject = [objects firstObject];
-            //  2.取出临时比分模型
-            [self valiateIsFirstOfPlayerInfo:^(bool isFirst) {
-                //   如果比赛唯一&&正确，那么将这个比赛数据插入到
-                //   B的PlayerInfo类的tempGames数组中
-                if (isFirst) {
-                    [self uploadGameObject:self.gameObject];
-                }
-                
-            }];
-        } else {
-            // 输出错误信息
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    [game fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+        //  1.处理错误：
+        if (error) {
+            NSString *errorMsg = [ NSString stringWithFormat:@"获取比赛结果失败,%@",error];
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+            return ;
         }
-    }];
-
-}
-
-
-
-//  检验收到的比赛是不是比赛栈的最底部。
-- (void)valiateIsFirstOfPlayerInfo:(void (^)(bool isFirst))blocks
-{
-    //  1.通过查询获取playerInfo对象
-    AVQuery *query = [AVQuery queryWithClassName:@"PlayerInfo"];
-    [query whereKey:@"userObjectId" equalTo:self.gameObject[@"playerA_objectId"]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-        //  如果比赛是同一个：id一样， 另外还要对比分
-        AVObject *tempGame = [objects firstObject];
-        if ([tempGame.objectId isEqualToString: self.gameObject.objectId]) {
+        //  2.成功：
+        [self completeGameModelWithObject:object block:^{
             
-            // 这里还要加排名分数的比较的  rankScore
+            self.isGameLoaded = YES ;
             
             
-            blocks(YES);
-        }else{
-            blocks(NO);
-        }
+            //  刷新界面
+            [self.tableView reloadData];
+        }];
     }];
 }
 
 
-- (void)uploadGameObject:(AVObject *)gameObject
+//  获取Game中_User的完整信息！
+- (void)completeGameModelWithObject:(AVObject *)game  block:( void (^) (void) )block{
+    self.gameObject = game;
+    
+    //  1.取出比赛双方
+    
+    BOOL isAPlayerSelf = [game[@"aPlayer"][@"objectId"] isEqualToString:[AVUser currentUser].objectId];
+    if (isAPlayerSelf) {
+        self.oppUser = game[@"bPlayer"];
+    }else{
+        self.oppUser = game[@"aPlayer"];
+    }
+    
+    _myGame.isConfirmed = [game[@"isConfirmed"] boolValue]  ;
+    self.confirmBtn.enabled = !_myGame.isConfirmed;
+    self.confirmBtn.backgroundColor = _myGame.isConfirmed ? [UIColor lightGrayColor] : [UIColor blueColor];
+    
+    
+    //  获取self.oppUser的完整信息-（包含username等）
+    [self.oppUser fetchInBackgroundWithKeys:@[@"username",@"nickname"] block:^(AVObject *object, NSError *error) {
+        
+        _myGame.playerA_name = [AVUser currentUser].username ? : kNullLongText;
+        _myGame.playerB_name = self.oppUser.username ? : kNullLongText;
+        
+        NSString *aScore = [game[@"aScore"] stringValue]  ? : kNullShortText;
+        NSString *bScore = [game[@"bScore"] stringValue] ? : kNullShortText;
+        
+        _myGame.playerA_score = isAPlayerSelf ? aScore : bScore;
+        _myGame.playerB_score = isAPlayerSelf ? bScore : aScore;
+        
+        AVFile *aAvatar = [[AVUser currentUser] objectForKey:AVPropertyAvatar];
+        AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
+
+        _myGame.aAVatar = [UIImage imageWithData:[aAvatar getData]];
+        _myGame.bAVatar = [UIImage imageWithData:[bAvatar getData]];
+       
+        if ([game[@"winner"][@"objectId"] isEqualToString:[AVUser currentUser].objectId]) {
+            _myGame.isAWin = YES ;
+        }else {
+            _myGame.isAWin = NO ;
+        }
+        
+        block();
+    }];
+}
+
+#pragma mark - IBAction
+- (void)confirmAction:(id)sender
 {
-     ;
+    //  1.如果比赛还未被加载！
+    if (NO == _isGameLoaded || self.gameObject == nil) {
+        return;
+    }
+    
+    //  2.如果比赛已经被确认！
+    BOOL isGameConfirmed = [self.gameObject[AVPropertyIsConfirmed] boolValue] ;
+    if ( isGameConfirmed ) {
+        [SVProgressHUD showInfoWithStatus:@"你已经确认比赛了"];
+        return;
+    }
+    
+    
+    //  1.修改 Game的isConfirmed属性为YES
+    [self.gameObject setObject:@YES forKey:AVPropertyIsConfirmed];
+    [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+       
+        [SVProgressHUD showSuccessWithStatus:@"确认比赛成功"];
+        self.myGame.isConfirmed = YES ;
+        [self.tableView reloadData];
+        
+        [self debugMessage];
+    }];
 }
 
 
-#pragma mark - Private Method
-- (void)confirmAction:(UIButton *)sender
+- (void)debugMessage
 {
-     ;
+    float aBeforeScore = [[AVUser currentUser][@"score"] floatValue];
+    float bBeforeScore = [self.oppUser[@"score"] floatValue];
+    
+    [[AVUser currentUser] fetchInBackgroundWithKeys:@[@"score"]  block:^(AVObject *object, NSError *error) {
+       
+        [self.oppUser fetchInBackgroundWithKeys:@[@"score"]  block:^(AVObject *object, NSError *error) {
+            NSString *winner =  [self.myGame.playerA_score integerValue] >   [self.myGame.playerB_score integerValue] ? @"a" : @"b";
+          
+            NSLog(@"比赛后的分数：A=%f,  B=%f",[[AVUser currentUser][@"score"] floatValue],[self.oppUser[@"score"] floatValue]);
+            
+            NSString *title = [NSString stringWithFormat:@"赢者是%@",winner];
+            NSString *beforeMessage = [NSString stringWithFormat:@"比赛前的分数：A=%f,  B=%f",aBeforeScore,bBeforeScore];
+            NSString *connectString = @"\n";
+            NSString *afterMessage = [NSString stringWithFormat:@"比赛后的分数：A=%f,  B=%f",[[AVUser currentUser][@"score"] floatValue],[self.oppUser[@"score"] floatValue]];
+            NSString *message = [NSString stringWithFormat:@"%@ %@ %@",beforeMessage,connectString,afterMessage];
+//            
+//            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"比赛结果:" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+            [alert show];
+        }];
+    }];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
 }
+
 
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -124,63 +244,32 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellId = @"ConfirmGameCellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-    }
+
+    BSConfirmGameCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     // Configure the cell...
+    cell.aNameLabel.text = self.myGame.playerA_name;
+    cell.bNameLabel.text = self.myGame.playerB_name;
+    
+    cell.aScoreLabel.text = self.myGame.playerA_score;
+    cell.bScoreLabel.text = self.myGame.playerB_score;
+    
+    cell.aAvatarImageView.image = self.myGame.aAVatar;
+    cell.bAvatarImageView.image = self.myGame.bAVatar;
+
+    cell.confirmImageView.hidden = !self.myGame.isConfirmed;
+    BOOL isAWinner =  [self.myGame.playerA_score integerValue] >     [self.myGame.playerB_score integerValue];
+    cell.resultLabel.text = [NSString stringWithFormat:@"比赛结果: %@",isAWinner? @"胜利" : @"失败"];
+    
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 252;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

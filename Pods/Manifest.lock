@@ -20,10 +20,10 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AVOSCloud (3.1.5.1)
-  - AVOSCloudCrashReporting (3.1.5.1):
+  - AVOSCloud (3.1.6.8)
+  - AVOSCloudCrashReporting (3.1.6.8):
     - AVOSCloud
-  - AVOSCloudIM (3.1.5.1):
+  - AVOSCloudIM (3.1.6.8):
     - AVOSCloud
   - DateTools (1.5.0)
   - FMDB (2.5):
@@ -32,6 +32,7 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - FXForms (1.2.13)
+  - HMSegmentedControl (1.5.2)
   - iRate (1.11.4)
   - iVersion (1.11.4)
   - JSBadgeView (1.4.1)
@@ -42,14 +43,21 @@ PODS:
     - AVOSCloud (~> 3.1)
   - LZAlertViewHelper (0.0.2)
   - LZMembersCell (0.0.2)
+  - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
   - OpenShare (0.0.1)
   - pop (1.0.8)
   - PopMenu (2.4):
     - pop
     - XHRealTimeBlur
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SVProgressHUD (1.1.3)
   - XHRealTimeBlur (1.7)
+  - YYKit (0.9.6):
+    - YYKit/no-arc (= 0.9.6)
+  - YYKit/no-arc (0.9.6)
 
 DEPENDENCIES:
   - AFNetworking (= 2.5.4)
@@ -59,6 +67,7 @@ DEPENDENCIES:
   - DateTools (~> 1.5.0)
   - FMDB
   - FXForms (= 1.2.13)
+  - HMSegmentedControl
   - iRate (= 1.11.4)
   - iVersion
   - JSBadgeView
@@ -66,19 +75,23 @@ DEPENDENCIES:
   - LeanCloudSocial (= 0.0.5)
   - LZAlertViewHelper (= 0.0.2)
   - LZMembersCell
+  - Masonry
   - MBProgressHUD (~> 0.9.1)
   - OpenShare (= 0.0.1)
   - PopMenu (= 2.4)
+  - SDWebImage
   - SVProgressHUD
+  - YYKit
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  AVOSCloud: 02766b9bbe7202a44b8beaf52f585607d1a5ad25
-  AVOSCloudCrashReporting: 4327111fc95b8fec62aa744f06c261bd1e996eb3
-  AVOSCloudIM: b0ae7512fdbffb0e3b459c0193f89a9d4cc89a14
+  AVOSCloud: 4b06ec4444ca0ee0543e6cf729b11e5f3f956977
+  AVOSCloudCrashReporting: 89016caa9610a5d406f69402ab63e978872dc676
+  AVOSCloudIM: a32d9d66d09eff110b3b29f371e7ef2979b11c9c
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: 22d5ceafd8ca44d2f2be4827afcf00aaf80184a5
+  HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   iVersion: 2b6ffe708672cb494ba3cab150a94800c2892e81
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
@@ -86,11 +99,14 @@ SPEC CHECKSUMS:
   LeanCloudSocial: a142862a9d8968785186ba640e577adb323a5854
   LZAlertViewHelper: 9f304f25506f3e8582ab17184502543412b82a03
   LZMembersCell: d7784a5fdd6d5b0b255efe2ff962930c5bf177a0
+  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   OpenShare: a560580dbb729d5c0c3cc1ee84cd6aa4a07e94c6
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   PopMenu: 26b97baeaf250070f4f61b93727ca86d127d7bc5
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   XHRealTimeBlur: 661fadd5691ba2d349758e8fd5fbdb499ac55f8c
+  YYKit: 7e27f6b55883bfe3ec2b98e7ad9c38fcbb92a1c5
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.0

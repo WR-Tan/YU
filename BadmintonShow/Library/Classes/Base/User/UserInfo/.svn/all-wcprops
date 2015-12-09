@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/ff_app_cms/!svn/ver/538/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo
+END
+FFUserInfo.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo.m
+END
+FFUserInfo+AnyDoor.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/ff_app_cms/!svn/ver/493/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo+AnyDoor.h
+END
+FFUserInfo+RnSupport.h
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/ff_app_cms/!svn/ver/493/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo+RnSupport.h
+END
+FFUserInfo+AnyDoor.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/ff_app_cms/!svn/ver/493/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo+AnyDoor.m
+END
+FFUserInfo+Customer.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/ff_app_cms/!svn/ver/538/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo+Customer.h
+END
+FFUserInfo+RnSupport.m
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/ff_app_cms/!svn/ver/493/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo+RnSupport.m
+END
+FFUserInfo.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo.h
+END
+FFUserInfo+Customer.m
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/ff_app_cms/!svn/ver/493/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/User/UserInfo/FFUserInfo+Customer.m
+END

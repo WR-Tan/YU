@@ -84,6 +84,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 }
 
 
+
 #pragma mark - 设置首页
 - (void)setFirstPage:(UIApplication *)application
 {
@@ -218,6 +219,9 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
         DLog(@"%@", error);
 //        weakSelf.window.rootViewController = tab;
     }];
+    
+    
+    
 }
 
 #pragma mark -

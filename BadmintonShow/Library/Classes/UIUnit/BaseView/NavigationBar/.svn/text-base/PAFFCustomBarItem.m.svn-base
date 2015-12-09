@@ -1,0 +1,118 @@
+//
+//  PAFFCustomBarItem.m
+//  FFProject
+//
+//  Created by junming on 8/26/15.
+//  Copyright (c) 2015 pingan. All rights reserved.
+//
+
+#import "PAFFCustomBarItem.h"
+
+#define kDefaultOffset  10
+#define kTitleViewSize  CGSizeMake(70, 30) //用NSString设置item时 item的尺寸
+
+@implementation PAFFCustomBarItem
+
+- (void)initCustomItemWithType:(PAFFCustomBarItemType)type andSize:(CGSize)size
+{
+    self.isCustomView = NO;
+    self.itemType = type;
+    self.items = [[NSMutableArray alloc] init];
+    self.contentBarItem = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.contentBarItem.frame = CGRectMake(0, 0, size.width, size.height);
+    [self.items addObject:self.contentBarItem];
+}
+
+- (instancetype)initWithTitle:(NSString *)title textColor:(UIColor *)color fontSize:(CGFloat )font itemType:(PAFFCustomBarItemType)type
+{
+    self = [super init];
+    if (self) {
+        
+        [self initCustomItemWithType:type andSize:kTitleViewSize];
+        [self setItemContetnWithType:type];
+        [self.contentBarItem setTitle:title forState:(UIControlStateNormal)];
+        [self.contentBarItem setTitleColor:color forState:(UIControlStateNormal)];
+        [self.contentBarItem.titleLabel setFont:[UIFont systemFontOfSize:font]];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithImage:(NSString *)imageName size:(CGSize)size type:(PAFFCustomBarItemType)type
+{
+    self = [super init];
+    if (self) {
+        
+        [self initCustomItemWithType:type andSize:size];
+        [self setItemContetnWithType:type];
+        [self.contentBarItem setImage:[UIImage imageNamed:imageName] forState:(UIControlStateNormal)];
+    }
+    return self;
+}
+
+- (instancetype)initWithCustomeView:(UIView *)customView type:(PAFFCustomBarItemType)type
+{
+    self = [super init];
+    if (self) {
+        
+        [self initCustomItemWithType:type andSize:customView.frame.size];
+        self.isCustomView = YES;
+        self.customView = customView;
+        customView.frame = self.contentBarItem.bounds;
+        [self.contentBarItem addSubview:customView];
+        [self setItemContetnWithType:type];
+    }
+    return self;
+}
+
+- (void)setItemContetnWithType:(PAFFCustomBarItemType)type
+{
+    if (type == PAFFCustomBarItemTypeRight) {
+        
+        [self.contentBarItem setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [self setOffset:kDefaultOffset];
+    }
+    else if (type == PAFFCustomBarItemTypeLeft){
+        
+        [self.contentBarItem setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self setOffset:-kDefaultOffset];
+    }
+}
+
+- (void)setOffset:(CGFloat)offSet
+{
+    if (self.isCustomView) {
+        
+        CGRect customViewFrame = self.customView.frame;
+        customViewFrame.origin.x = offSet;
+        self.customView.frame = customViewFrame;
+    }
+    else{
+        
+        [self.contentBarItem setContentEdgeInsets:UIEdgeInsetsMake(0, offSet, 0, -offSet)];
+    }
+}
+
+- (void)addTarget:(id)target selector:(SEL)selector event:(UIControlEvents)event
+{
+    [self.contentBarItem addTarget:target action:selector forControlEvents:event];
+}
+
+- (void)setItemWithNavigationItem:(UINavigationItem *)navigationItem itemType:(PAFFCustomBarItemType)type
+{
+    if (type == PAFFCustomBarItemTypeCenter) {
+        
+        [navigationItem setTitleView:self.contentBarItem];
+    }
+    else if (type == PAFFCustomBarItemTypeLeft){
+        
+        [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.contentBarItem]];
+    }
+    else if (type == PAFFCustomBarItemTypeRight){
+        
+        [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.contentBarItem]];
+    }
+}
+
+
+@end

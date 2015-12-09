@@ -1,0 +1,80 @@
+//
+//  配置相关
+//
+//
+//  Created by bolei on 15-4-12.
+//  Copyright (c) 2015年 BL. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface PAFFConfig : NSObject
+
+#define API_TYPE_DEV 0    //开发模式   //只用于本地测试，通常不适用
+#define API_TYPE_STG 1    //线上测试环境 //用于和服务端联调
+#define API_TYPE_PRD 2    //生产环境
+
+// app id
+@property(nonatomic, copy) NSString *appId;  //任意门需要的id
+// 本应用在appStore的ID
+//@property(nonatomic, copy) NSString *appStoreId;
+
+// 统计用id
+//@property(nonatomic, copy) NSString *mobStatId;
+
+// Client name.
+@property(nonatomic, copy) NSString *clientName;
+
+// app名称比如新路由或百度智家
+@property(nonatomic, copy) NSString *appName;
+
+// Client version.
+@property(nonatomic, copy) NSString *version;
+//@property(nonatomic, assign) NSInteger versionCode;
+//服务器前缀
+@property(nonatomic, copy) NSString *apiHost; //远程接口host
+
+//@property(nonatomic, copy) NSString *apiSk;          //开放平台sk
+//@property(nonatomic, copy) NSString *apiAk;          //开放平台ak
+
+@property(nonatomic, assign) NSInteger apiType; //线上 0 rd 1 qa 2
+
+@property(nonatomic, strong) NSString *channelId; //渠道号
+
+@property(nonatomic, assign) NSString *appDescription; //当前版本描述
+
+@property(nonatomic, copy) NSString *apnsCertName; //apns证书名称
+
+@property(nonatomic, copy) NSString *jsResourcePath;  //js 资源对应目录
+
+@property(nonatomic, copy) NSString *jsEncryptKey;   //js 加密的key
+
+@property(nonatomic, copy) NSString *jsBundleId;   //jsBundleID
+
+@property(nonatomic, copy) NSString *moduleId;   //用于获取模块数据参数
+
+@property(nonatomic, copy) NSString *modulePublicKey;   //用于模块加解密数据
+
+@property (nonatomic, copy) NSString * talkingDataAppKey; //talking data
+@property (nonatomic, copy) NSString * tingYunAppKey;     //ting yun
+
+@property (nonatomic, copy) NSString * o2oApiConfigHost;  //o2oHost
+
+@property (nonatomic, copy) NSString * rnBundlePath;  //bundle地址
+
+@property (nonatomic, copy) NSString * companyId;      // 银行编号
+
+@property (nonatomic, copy) NSString * o2oChannelId;   // O2O本地模块用到渠道编号
+
+@property (nonatomic, copy) NSString *wltScoreStore;   //万里通积分商城
+@property (nonatomic, copy) NSString *wltBindUrl;      //万里通账号绑定
+@property (nonatomic, copy) NSString *wltCallbackUrl;  //万里通绑定成功后跳转页面
+
++ (PAFFConfig *)instance;
+
+- (void)initEnv;
+
+- (NSString *)apiHostWithApiType:(NSInteger)apiType;
+
+
+@end

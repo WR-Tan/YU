@@ -1,0 +1,107 @@
+//
+//  ResourceManager.h
+//  PAFF
+//
+//  Created by 班磊 on 15/3/27.
+//  Copyright (c) 2015年 Tiger. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface ResourceManager : NSObject
+
+/*!
+ *  创建文件目录
+ *
+ *  @param directoryName 文件夹名称
+ */
++ (void) createFileDirectory: (NSString *)directoryName;
+
+/*!
+ *  判断该路径是否存在
+ *
+ *  @param pathName 文件路径
+ *
+ *  @return 如果存在是 YES 否则 NO
+ */
++ (BOOL) isJudgeEixtPaht: (NSString *)pathName;
+
+/*!
+ *  获取所有文件的路径
+ *
+ *  @param directoryName 文件夹名称
+ */
++ (void) getAllFilePath: (NSString *)directoryName;
+
+/*!
+ *  获取tmp目录下的file文件
+ *
+ *  @param fileName 文件名称
+ *
+ *  @return  tmp 的路径
+ */
++ (NSString *) getTmpDirectory:(NSString *)fileName;
+
+/*!
+ *  更新文件时删除当前缓存的 tmp
+ */
++ (void)removeTmpDirectory;
+
+/*!
+ *  更新资源时删除对应的tmp下的缓存zip文件
+ *
+ *  @return nil
+ */
++ (void) removeTmpDirectoryWithFileName:(NSString*) fileName;
+
+/*!
+ *  获取document目录下的file文件
+ *
+ *  @param NSString 文件名称
+ *
+ *  @return  DOC 沙盒路径
+ */
++ (NSString *)getDocDirectory:(NSString *)fileName;
+
+/*!
+ *  获取doc目录下 自定义的fileName路径
+ *
+ *  @param NSString 定义的文件夹
+ *
+ *  @return 当前文件在沙盒路径
+ */
++ (NSString *)getDocDirectoryCustomPath:(NSString *)folder fileName:(NSString *)fileName;
+
+/*!
+ *  删除doc目录下 指定路径的文件
+ *
+ *  @param folder   文件夹名称
+ *
+ *  @return nil
+ */
++ (void)deleteDocDirectory:(NSString *)folder;
+
+/*!
+ *  删除所有路径
+ */
++ (void)deleteAllFile;
+
+/*!
+ *  获取目录下文件个数
+ *
+ *  @param path 路径
+ *
+ *  @return 个数
+ */
++ (NSInteger) countOfFileAtPatn:(NSString *) path;
+
+/*!
+ *  创建文件
+ *
+ *  @param fileName 文件名称
+ *
+ *  @return BOOL
+ */
++ (BOOL) createFileWithName:(NSString*) fileName;
+
+@end

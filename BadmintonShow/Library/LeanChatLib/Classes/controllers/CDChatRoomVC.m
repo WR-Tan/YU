@@ -204,7 +204,7 @@ static NSInteger const kOnePageSize = 10;
         case XHBubbleMessageMediaTypeGame:{
             //  跳转到新的页面请求比赛结果。 现实确认按钮！ 完成比分确认，更新双方比分。APP结束……
             BSConfirmGameTableViewController *confirmVC = [[BSConfirmGameTableViewController alloc] init];
-            confirmVC.tempGameObjectId = [(id)message valueForKey:@"gameObjectId"];
+            confirmVC.gameObjectId = [(id)message valueForKey:@"gameObjectId"];
             
             [self.navigationController pushViewController:confirmVC animated:YES];
             

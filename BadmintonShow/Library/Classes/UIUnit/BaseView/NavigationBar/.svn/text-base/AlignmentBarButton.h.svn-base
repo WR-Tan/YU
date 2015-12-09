@@ -1,0 +1,14 @@
+//
+//  AlignmentBarButton.h
+//  netdisk_iPhone
+//
+//  Created by tom on 9/23/13.
+//  Copyright (c) 2013 baidu. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface AlignmentBarButton : UIButton
+@property (nonatomic, assign) BOOL isLeft;
+@property (nonatomic, assign) BOOL isBack;
+@end

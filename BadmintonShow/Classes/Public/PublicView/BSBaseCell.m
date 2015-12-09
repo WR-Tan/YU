@@ -3,7 +3,7 @@
 //  新浪微博
 //
 //  Created by apple on 13-11-6.
-//  Copyright (c) 2013年 itcast. All rights reserved.
+//  Copyright (c) 2013年 lizhihua. All rights reserved.
 //  Cellの第一级封装
 
 #import "BSBaseCell.h"
@@ -18,7 +18,17 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // 1.设置背景
+        for (UIView *view in self.subviews) {
+            if([view isKindOfClass:[UIScrollView class]]) {
+                ((UIScrollView *)view).delaysContentTouches = NO; // Remove touch delay for iOS 7
+                break;
+            }
+        }
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundView.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor clearColor];
+        
         [self settingBg];
     }
     return self;

@@ -1,0 +1,64 @@
+//
+//  FFUserInfo.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFUserInfo.h"
+#import <objc/runtime.h>
+#import "FFUser.h"
+#import "FFUserStorage.h"
+
+
+@interface FFUserInfo () {
+    __weak FFUser *_user;
+}
+
+@end
+
+@implementation FFUserInfo
+@synthesize user = _user;
+
+
+- (void)dealloc
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+-(instancetype) initWithUser:(__weak FFUser *) user {
+    self = [super init];
+    if (self) {
+        _user = user;
+        
+    }
+    return self;
+}
+
+
+@end
+
+#define kFFUserInfoKey @"kFFUserInfoKey"
+@implementation FFUser (UserInfo)
+
+
+-(FFUserInfo *)info {
+    FFUserInfo *info = objc_getAssociatedObject(self, kFFUserInfoKey);
+    if (!info) {
+        info = [[FFUserInfo alloc] initWithUser:self];
+        objc_setAssociatedObject(self, kFFUserInfoKey, info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return info;
+    
+    /** cache example
+    FFUserInfo *info = [self.storage cacheObjectForKey:kFFUserInfoKey];
+    if (!info) {
+        info = [[FFUserInfo alloc] initWithUser:self];
+        [self.storage setCacheObject:info forKey:kFFUserInfoKey];
+    }
+    return info;
+     */
+}
+
+@end

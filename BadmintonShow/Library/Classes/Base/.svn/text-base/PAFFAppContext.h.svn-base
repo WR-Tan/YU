@@ -1,0 +1,45 @@
+//
+//  PAFFAppContext.h
+//  GuangzhouBank
+//
+//  Created by bolei on 15/8/25.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+#import "FFUser.h"
+#import "FFUserInfo.h"
+#import "RCTBridge.h"
+
+@class PAFFConfig;
+
+#define APP_Context  [PAFFAppContext instance]
+#define APP_Config   [PAFFAppContext instance].config
+
+@interface PAFFAppContext : NSObject
+
+@property(nonatomic, strong) PAFFConfig *config;
+@property(nonatomic, copy) NSString * publicKey;
+@property(nonatomic, copy) NSString * serverTimeStamp;
+@property(nonatomic, assign) NSInteger requestTimeStamp;
+@property(nonatomic, assign, readonly) BOOL isLogin;
+@property(nonatomic, assign) BOOL isLoginTimeout;//15分钟登录超时
+@property(nonatomic, assign) BOOL isKickOut;//账号在其他地方登录
+@property(nonatomic, strong) RCTBridge *bridge;
+
+                      //数据库相关
+//@property(nonatomic, strong) PAFFUser *user;
+
+
++ (PAFFAppContext *)instance;
+
+- (void)loginWithUserInfo:(FFUser *)user;
+
+- (void)logOut;
+
+
+
+@property (nonatomic ,readonly) FFUser *currentUser;
+@end

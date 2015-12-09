@@ -1,0 +1,15 @@
+//
+//  PAFFNavigationController.h
+//  FFProject
+//
+//  Created by bolei on 15/9/5.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface PAFFNavigationController : UINavigationController
+
+@property(nonatomic,assign)BOOL shouldRotate;
+
+@end

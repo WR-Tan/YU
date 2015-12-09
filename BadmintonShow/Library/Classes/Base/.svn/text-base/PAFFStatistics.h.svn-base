@@ -1,0 +1,45 @@
+//
+//  PAFFStatistics.h
+//  FFProject
+//
+//  Created by 陈美锦 on 15/10/30.
+//  Copyright © 2015年 pingan. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+#define kPAFFStatistics(eventId) [[PAFFStatistics shareInstance] statisticsEventWith:eventId]
+
+
+@interface PAFFStatistics : NSObject
+
+/**
+ *  单例
+ *
+ *  @return
+ */
++ (id)shareInstance;
+
+/**
+ *  是否打开log纪录
+ *
+ *  @param isOpen
+ */
+- (void)openDebugLog:(BOOL)isOpen;
+
+/**
+ *  开启统计
+ *
+ *  @param appKey
+ *  @param channelId 渠道Id
+ */
+- (void)sessionStarted:(NSString *)appKey withChannelId:(NSString *)channelId;
+
+/**
+ *  统计事件
+ *
+ *  @param eventId 事件Id
+ */
+- (void)statisticsEventWith:(NSString *)eventId;
+
+@end

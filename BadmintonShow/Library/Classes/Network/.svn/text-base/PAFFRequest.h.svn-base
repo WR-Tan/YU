@@ -1,0 +1,105 @@
+//
+//  XYBRequest.h
+//  XinYongBao
+//
+//  提供统一的网络请求接口封装，包括：
+//
+//      1 错误码处理
+//      2 数据加解密
+//      3 model解析
+//      4 ui提示处理
+//      5 cookie处理
+//
+//  Created by waterhk on 15/4/7.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <HFCommonDef.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "PAFFRequestModel.h"
+#import <HFModel.h>
+#import "RCTBridgeModule.h"
+#import "PAFFNetErrorCode.h"
+
+/**
+ 请求类型
+ */
+typedef enum {
+    ERequestType_Get = 0,
+    ERequestType_Post,
+    ERequestType_Download,
+    ERequestType_Upload,
+}ERequestType;
+
+
+
+
+/**
+ *  下载回调
+ *
+ *  @param status
+ *  @param responseString
+ *  @param responeseHeader
+ *  @param bytesReceived
+ *  @param bytesTotal      
+ */
+//typedef void (^PAFFDownloadCallBackBlock)(ECallBackStatus status, id responseString, NSDictionary *responeseHeader, long long bytesReceived, long long bytesTotal);
+#define kPAFFRequestSuccessCode 0
+
+@interface PAFFRequest<T : HFModel *> : NSObject <RCTBridgeModule>
+
+/**
+ *  请求回调
+ *
+ *  @param info
+ *  @param requestModel
+ *  @param status
+ */
+typedef void (^PAFFRequestCallBackBlock) (NSDictionary * info, PAFFRequestModel<T> * requestModel, ECallBackStatus status);
+
+@property (nonatomic, strong) NSString * url;               // url = host + method
+@property (nonatomic, strong) NSString * host;
+@property (nonatomic, strong) NSString * method;
+@property (nonatomic, strong) NSMutableDictionary * params;
+@property (nonatomic, strong) Class/*<T>*/ modelClass;             // 继承自mantle的class
+@property (nonatomic, assign) CGFloat timeOut;              // default 30 senconds
+@property (nonatomic, assign) CGFloat timeoutRetryTimes;    // default 0
+@property (nonatomic, assign) ERequestType requestType;     // default ERequestType_Get
+@property (nonatomic, assign) BOOL showLoading;             // default YES
+
+@property (nonatomic, assign) BOOL mock;                    // 是否需要mock数据，default NO
+
+- (instancetype)initWithRequestType:(ERequestType)type
+                               host:(NSString *)host
+                             method:(NSString *)method
+                             params:(NSDictionary *)params
+                         modelClass:(Class/*<T>*/)modelClass;
+ 
+/**
+ *  设置请求头，需要时请在sendRequestWithComplete前调用
+ *
+ *  @param value            请求头value
+ *  @param field            请求头field
+ */
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field;
+
+- (void)sendRequestWithComplete:(PAFFRequestCallBackBlock)block;
+
+- (void)cancleRequest;
+
++ (NSDictionary *)buildCommonParams;
+
+/**
+ * Request To Signal
+ * Next -> PAFFRequestModel
+ */
+- (RACSignal *) signal;
+
+
++ (NSDictionary *)buildImageMultiPartParamsWithFileName:(NSString *)fileName fileData:(NSData *)data params:(NSDictionary *)params key:(NSString *)key;
+
++ (void)requestNative:(NSDictionary *)options successCallback:(RCTResponseSenderBlock)successCallback errorCallBack:(RCTResponseErrorBlock)errorCallBack;
+
+@end
+

@@ -1,0 +1,218 @@
+//
+//  BRDataSourceListModel.m
+//  baiduihome
+//
+//  Created by bolei on 15-3-5.
+//  Copyright (c) 2015年 com.baidu. All rights reserved.
+//
+
+#import "PAFFDataSourceListModel.h"
+#import "PAFFTableViewCell.h"
+#import "PAFFTableSourceItem.h"
+#import "PAFFRequest.h"
+
+@interface PAFFDataSourceListModel ()
+
+@end
+
+@implementation PAFFDataSourceListModel
+@synthesize isFetching = _isFetching;
+
+- (void)dealloc {
+    [self cancelFetchRequest];
+}
+
+- (void)loadDataWithParams:(NSDictionary *)dic complete:(void (^)(BOOL finish, BOOL cache, NSDictionary *info, ECallBackStatus status))complete {
+    [self loadDataFromDB:^(BOOL finish) {
+        if (complete) {
+            complete(finish, YES, nil, ECallBackStatus_Succ);
+        }
+        [self loadDataFromNetWithParams:dic complete:complete];
+    }];
+}
+
+- (void)loadDataFromDB:(void (^)(BOOL finish))complete {
+    if(complete) {
+        complete (YES);
+    }
+}
+
+- (void)loadDataFromNetWithParams:(NSDictionary *)dic
+                         complete:(void (^)(BOOL finish, BOOL cache, NSDictionary *info,ECallBackStatus status))complete {
+    if (![self isFetching]) {
+        [self.request sendRequestWithComplete:^(NSDictionary *info, PAFFRequestModel *requestModel, ECallBackStatus status) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                BOOL clean = YES;
+                [self dealFetchResult:requestModel status:status clean:clean save:NO];
+                if (complete) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        complete(YES,NO,info,status);
+                    });
+                }
+            });
+        }];
+    } else {
+        // TODO
+        if (complete) {
+            complete(NO, NO, nil,ECallBackStatus_Processing);
+        }
+    }
+}
+
+- (void)cancelFetchRequest {
+    
+}
+
+- (NSArray *)dealDBResult:(NSArray *)result {
+    return result;
+}
+
+- (void)dataSourceChangedAtIndexPaths:(NSArray *)indexPaths
+{
+    SEL dataSourceChangeHandler = @selector(dataSourceChangedAtIndexPaths:);
+    if (_delegate && [_delegate respondsToSelector: dataSourceChangeHandler]) {
+        //通知外部委托对象, 数据源发生了部分更新
+        [_delegate dataSourceChangedAtIndexPaths: indexPaths];
+    }
+}
+
+- (void)dataSourceChangedOfCellModels:(NSArray *)cellModels
+{
+    SEL dataSourceChangeHandler = @selector(dataSourceChangedOfCellModels:);
+    if (_delegate && [_delegate respondsToSelector: dataSourceChangeHandler]) {
+        [_delegate dataSourceChangedOfCellModels: cellModels];
+    }
+}
+
+- (void)dealFetchResult:(id)responseObject status:(ECallBackStatus)status clean:(BOOL)clean save:(BOOL)save {
+    if (status == ECallBackStatus_Succ) {
+        if ([responseObject isKindOfClass:[PAFFRequestModel class]]) {
+            PAFFRequestModel *requestModel = (PAFFRequestModel *)responseObject;
+            if (clean) {
+                [self cleanObject];
+            }
+            
+            [self cacheObject:requestModel.dataModel];
+            
+            if (save) {
+                [self saveObject:requestModel.dataModel];
+            }
+        }
+    }
+}
+
+- (void)sourceListChange {
+    self.active = NO;
+    
+    self.active = YES;
+}
+
+#pragma mark - Build
+
+- (void)buildDataSourceModelWithArray:(NSArray *)array block:(void (^)(PAFFTableSourceItem *result))complete {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @synchronized(array) {
+            [self buildDataSourceModelWithArray:array];
+            if (complete) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    complete(self.sourceItem);
+                });
+            }
+        }
+    });
+}
+
+- (void)buildDataSourceModelWithArray:(NSArray *)array {
+    [self.sectionList removeAllObjects];
+    PAFFTableViewSectionItem *sectionItem = [[PAFFTableViewSectionItem alloc] init];
+    sectionItem.sectionData = [NSMutableArray arrayWithArray:array];
+    [self.sectionList addObject:sectionItem];
+}
+
+
+#pragma mark - Data Build
+- (void)cacheObject:(id)responseObject {
+    if (responseObject == nil) {
+        return;
+    }
+
+    if ([responseObject isKindOfClass:[NSArray class]]) {
+        [self addObjects:responseObject];
+    } else {
+        [self addObject:responseObject];
+    }
+}
+
+- (void)saveObject:(id)responseObject {
+    if (responseObject == nil) {
+        return;
+    }
+
+    if ([responseObject isKindOfClass:[NSArray class]]) {
+        [self saveObjects:responseObject];
+    } else {
+        [self saveOneObject:responseObject];
+    }
+}
+
+- (void)cleanObject {
+    [self cleanCache];
+    [self cleanDB];
+}
+
+- (void)saveOneObject:(id)object {
+
+}
+
+- (void)saveObjects:(NSArray *)objcets {
+   
+}
+
+#pragma mark - Property
+- (PAFFTableSourceItem *)sourceItem {
+    if (_sourceItem == nil) {
+        _sourceItem = [PAFFTableSourceItem new];
+    }
+    return _sourceItem;
+}
+
+- (NSMutableArray *)sourceList {
+    if (_sourceList == nil) {
+        _sourceList = [NSMutableArray array];
+    }
+    return _sourceList;
+}
+
+- (NSMutableArray *)sectionList {
+    return self.sourceItem.sectionList;
+}
+
+- (NSMutableArray *)sectionIndexes {
+    return self.sourceItem.sectionIndexes;
+}
+
+#pragma mark - DB
+- (void)cleanDB {
+   
+}
+
+#pragma mark - Cache
+- (void)cleanCache {
+    @synchronized(self.sourceList) {
+        [self.sourceList removeAllObjects];
+    }
+}
+
+- (void)addObjects:(NSArray *)objects {
+    @synchronized(self.sourceList) {
+        [self.sourceList addObjectsFromArray:objects];
+    }
+}
+
+- (void)addObject:(id)object {
+    @synchronized(self.sourceList) {
+        [self.sourceList addObject:object];
+    }
+}
+
+@end

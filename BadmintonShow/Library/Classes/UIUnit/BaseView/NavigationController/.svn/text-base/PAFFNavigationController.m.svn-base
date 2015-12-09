@@ -1,0 +1,155 @@
+//
+//  PAFFNavigationController.m
+//  FFProject
+//
+//  Created by bolei on 15/9/5.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "PAFFNavigationController.h"
+#import "PAFFTabBarController.h"
+
+#define kSystemDuration (.35f)
+
+
+@interface PAFFNavigationController ()
+
+{
+
+}
+
+@end
+
+@implementation PAFFNavigationController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+//    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"base_navigtionbar_7.0.png"] forBarMetrics:UIBarMetricsDefault];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma roate method
+- (BOOL)shouldAutorotate
+{
+    return _shouldRotate;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return _shouldRotate ? UIInterfaceOrientationMaskAllButUpsideDown : UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if (_shouldRotate) {
+        return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft
+                || interfaceOrientation == UIInterfaceOrientationLandscapeRight
+                || interfaceOrientation == UIInterfaceOrientationPortrait);
+    }
+    return UIInterfaceOrientationPortrait == interfaceOrientation;
+}
+
+#pragma mark - Override 
+//重写push和present，用来控制返回
+
+-(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (viewController.hidesBottomBarWhenPushed) {
+        UIViewController *rootVC = ([UIApplication sharedApplication].delegate).window.rootViewController;
+        if ([rootVC isKindOfClass:[PAFFTabBarController class]]) {
+            PAFFTabBarController *tabbController = (PAFFTabBarController *)rootVC;
+            //只有是tabbar的四个navgationController,并且是一级页面，hidesBottomBarWhenPushed才生效
+            if([tabbController.viewControllers containsObject:self] && [self.viewControllers count] == 1){
+                [UIView animateWithDuration:kSystemDuration animations:^(void){
+                    tabbController.tabBarHidden = YES;
+                } completion:^(BOOL finish)
+                 {
+                     
+                 }];
+            }
+        }
+    }
+    [super pushViewController:viewController animated:animated];
+}
+
+-(void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated
+{
+    [super presentModalViewController:modalViewController animated:animated];
+}
+
+-(void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
+{
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+    if ([self.viewControllers indexOfObject:self.topViewController] == 1 ) {
+        UIViewController *rootVC = ([UIApplication sharedApplication].delegate).window.rootViewController;
+        if ([rootVC isKindOfClass:[PAFFTabBarController class]]) {
+            PAFFTabBarController *tabbarController = (PAFFTabBarController *)rootVC;
+            //只有是tabbar的四个navgationController返回第一个页面，才需要恢复tabbar
+            if([tabbarController.viewControllers containsObject:self]){
+                [UIView animateWithDuration:kSystemDuration animations:^(void){
+                    tabbarController.tabBarHidden = NO;
+                } completion:^(BOOL finish)
+                 {
+                 }];
+                
+            }
+        }
+    }
+    
+    return [super popViewControllerAnimated:animated];
+}
+
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated {
+    UIViewController *rootVC = ([UIApplication sharedApplication].delegate).window.rootViewController;
+    if ([rootVC isKindOfClass:[PAFFTabBarController class]]) {
+        PAFFTabBarController *tabbarController = (PAFFTabBarController *)rootVC;
+        if([tabbarController.viewControllers containsObject:self]){
+            tabbarController.tabBarHidden = NO;
+        }
+    }
+    return [super popToRootViewControllerAnimated:animated];
+}
+-(NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    UIViewController *rootVC = ([UIApplication sharedApplication].delegate).window.rootViewController;
+    if ([rootVC isKindOfClass:[PAFFTabBarController class]]) {
+        PAFFTabBarController *tabbarController = (PAFFTabBarController *)rootVC;
+        if([tabbarController.viewControllers containsObject:self] && 0 == [self.viewControllers indexOfObject:viewController]){
+            tabbarController.tabBarHidden = NO;
+        }
+    }
+    
+    return [super popToViewController:viewController animated:animated];
+}
+
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated isShowTabbar:(BOOL)isShowTabbar{
+    UIViewController *rootVC = ([UIApplication sharedApplication].delegate).window.rootViewController;
+    if ([rootVC isKindOfClass:[PAFFTabBarController class]]) {
+        PAFFTabBarController *tabbarController = (PAFFTabBarController *)rootVC;
+        if([tabbarController.viewControllers containsObject:self]){
+            tabbarController.tabBarHidden  = !isShowTabbar;
+        }
+
+    }
+    return [super popToRootViewControllerAnimated:animated];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

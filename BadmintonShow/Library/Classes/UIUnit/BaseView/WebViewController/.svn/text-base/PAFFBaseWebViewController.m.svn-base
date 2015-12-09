@@ -1,0 +1,296 @@
+//
+//  PAFFBaseWebViewController.m
+//  FFProject
+//
+//  Created by bolei on 15/8/27.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "HFInterface_HybridCache.h"
+
+#import "PAFFBaseWebViewController.h"
+#import <Masonry.h>
+#import "SVProgressHUD.h"
+#import "PAFFModuleManager.h"
+
+#ifdef DEBUG
+
+//#define JSDEBUG 
+
+#endif
+
+#define kCloseButtonWidth   32
+#define kCloseButtonHeight  32
+
+#define kBackgroundColor [UIColor colorWithRed:99/255.0f green:83/255.0f blue:78/255.0f alpha:1.0f]
+
+#define kFFBase                         @"/"
+#define kCommonCloseButton              @"common_close_button"
+#define kCommonCloseButtonHignlighted   @"common_close_button_highlighted"
+#define kUrlNeedToHideTabBar            @"https://cz.pingan.com.cn/ibd/page/web_for_h5/default_h5/index.html#openAccount/main/openMain"
+
+@interface PAFFBaseWebViewController ()<HFWebViewDelegate>
+
+@property (nonatomic, strong) UIButton *closeButton;
+
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+
+@end
+
+@implementation PAFFBaseWebViewController
+
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.closeButtonHidden = YES;
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    NSString *userAgent = [NSString stringWithFormat:@"Mozilla/5.0 AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 %@/%@ (%@; iOS %@; Scale/%0.2f)", [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleExecutableKey] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleIdentifierKey], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]/*@"SAFARI", @"IPHONE OS"*/];//添加 SAFARI 和 IPHONE OS 以便使用che.pingan（维修保养/美容养护）的内容
+
+    //    Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:userAgent,@"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dic];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (void)addWebViewWithUrl:(NSString *)filePath loadSource:(PAFFLoadSource)loadsource
+{
+    [self setupWebView];
+    self.currentPathUrl = filePath;
+    self.pfLoadSource = loadsource;
+    [self loadURL:filePath loadSource:loadsource];
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicatorView.color = [UIColor darkGrayColor];
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    self.activityIndicatorView.hidden = NO;
+    self.activityIndicatorView.center = self.view.center;
+    [self.activityIndicatorView startAnimating];
+    [self.view bringSubviewToFront:self.activityIndicatorView];
+    
+    [self.view addSubview:self.activityIndicatorView];
+    [self showCloseBtn];
+
+}
+
+
+- (void)setupWebView {
+    if (!self.baseWebView) {
+        self.baseWebView = [[HFHybridWebView alloc] initWithFrame:self.view.bounds];
+        self.baseWebView.webView.frame = self.baseWebView.bounds;
+        self.baseWebView.webView.scalesPageToFit = YES;
+        self.baseWebView.delegate = self;
+        self.baseWebView.webView.scrollView.backgroundColor = kBackgroundColor;
+
+        [self.view addSubview:self.baseWebView];
+        
+    }
+    
+    [self.baseWebView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [self.baseWebView.webView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.baseWebView);
+    }];
+    
+    if (!self.closeButton) {
+        BOOL hasNavBar =  self.navigationController.navigationBar.frame.size.height > 0;
+        
+        CGRect frame = hasNavBar ? self.navigationController.navigationBar.frame : CGRectMake(0, 0, self.view.frame.size.width, 64);
+        CGFloat offsetX = 35;
+        self.closeButton = [[UIButton alloc]initWithFrame:CGRectMake(frame.size.width - kCloseButtonWidth - offsetX, frame.size.height/2 - kCloseButtonHeight/2, kCloseButtonWidth, kCloseButtonHeight)];
+        self.closeButton.backgroundColor = [UIColor clearColor];
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:kCommonCloseButton] forState:UIControlStateNormal];
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:kCommonCloseButtonHignlighted] forState:UIControlStateHighlighted];
+        [self.closeButton addTarget:self action:@selector(handleCloseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        if (hasNavBar) {
+            [self.navigationController.navigationBar addSubview:self.closeButton];
+        }else {
+            [self.baseWebView addSubview:self.closeButton];
+        }
+        
+        self.closeButton.hidden = self.closeButtonHidden;
+    }
+}
+
+- (void)loadURL:(NSString *)filePath loadSource:(PAFFLoadSource)loadsource {
+    NSURLRequest *request = [self getRequestUrlWithFilePath:filePath loadSource:loadsource];
+    [self loadRequest:request];
+}
+
+- (NSURLRequest *)getRequestUrlWithFilePath:(NSString *)filePath loadSource:(PAFFLoadSource)loadsource {
+    NSString *path = [filePath stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (loadsource == PAFFLoadSource_Local) {
+        // 有无 ？处理
+        NSRange urlRange = [path rangeOfString: @"?"];
+        if (urlRange.location != NSNotFound)
+        {
+            NSString *htmlString = [path substringWithRange: NSMakeRange(0, urlRange.location)] ;
+            htmlString = [htmlString stringByDeletingPathExtension];
+            NSString *htmlSuffixString = [path substringWithRange: NSMakeRange(urlRange.location + 1, path.length - urlRange.location - 1)];
+            /**
+             * utf-8转码，url有中文或是特殊字符，H5会直接转 url 编码
+             * htmlSuffixString = [htmlSuffixString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+             */
+            // 判断是加载本地路径还是 webservice 路径
+            
+            path = [NSString stringWithFormat:@"%@/%@.html",[self rootCachePath],htmlString];
+            path = [NSString stringWithFormat:@"%@?%@",path,htmlSuffixString];
+            
+            
+            
+        }
+        else
+        {
+            path = [path stringByDeletingPathExtension];
+            path = [NSString stringWithFormat:@"%@/%@.html", [self rootCachePath], path];
+        }
+    }
+    else {
+        path = [path stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    }
+    
+//    path = [path urlEncodedString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
+    return request;
+}
+
+- (void)loadRequest:(NSURLRequest *)request {
+    [self.baseWebView loadRequest:request];
+}
+
++ (PAFFLoadSource)getCurrentLoadSource:(NSString *)type
+{
+    PAFFLoadSource loadSource;
+    if ([type isEqualToString:@"local"]) {
+        loadSource = PAFFLoadSource_Local;
+    } else if ([type isEqualToString:@"internal"])
+    {
+        loadSource = PAFFLoadSource_PANetwork;
+    } else if ([type isEqualToString:@"external"])
+    {
+        loadSource = PAFFLoadSource_InterNetwork;
+    } else if ([type isEqualToString:@"native"]) {
+        loadSource = PAFFLoadSource_Native;
+    } else
+    {
+        loadSource = PAFFLoadSource_Local;
+    }
+    return loadSource;
+}
+
+- (void)setCloseButtonHidden:(BOOL)hidden {
+    _closeButtonHidden = hidden;
+    self.closeButton.hidden = hidden;
+}
+
+- (void)handleCloseButtonPressed:(id)sender {
+    [self closeAction];
+}
+
+
+- (void)closeAction {
+    if (self.closeBlock) {
+        self.closeBlock(self.currentPathUrl);
+    }
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - HFWebViewDelegate
+//- (void)webViewDidStartLoad:(HFHybridWebView *)webView{
+//    BOOL isCurrentClass = [[APP_Navigator visibleViewController] isKindOfClass:[self class]];
+//    
+//    if(isCurrentClass){
+//        [SVProgressHUD showWithStatus:NSLocalizedString(@"加载中...", @"web网络加载提示")];
+//    }
+//}
+//
+
+
+- (BOOL)webView:(HFHybridWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if ([[[request URL] scheme] isEqual:@"mailto"] || [[[request URL] scheme] isEqual:@"sms"] || [[[request URL] scheme] isEqual:@"tel"]) {
+        [[UIApplication sharedApplication] openURL:[request URL]];
+        return NO;
+    }
+    return YES;
+}
+
+
+- (void)webViewDidFinishLoad:(HFHybridWebView *)webView{
+    [self removeActivityView];
+    self.closeButton.hidden = _closeButtonHidden;
+}
+
+- (void)webView:(HFHybridWebView *)webView didFailLoadWithError:(NSError *)error{
+    //一个页面没有被完全加载之前收到下一个请求，此时迅速会出现此error,error=-999
+    //此时可能已经加载完成，则忽略此error，继续进行加载。
+    //http://stackoverflow.com/questions/1024748/how-do-i-fix-nsurlerrordomain-error-999-in-iphone-3-0-os
+    if([error code] == NSURLErrorCancelled){
+        return;
+    }
+    
+    BOOL isCurrentClass = [[[PAFFModuleManager shareInstance].navigator visibleViewController] isKindOfClass:[self class]];
+    
+    if(isCurrentClass){
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"网络异常, 请稍后重试", @"web网络加载提示") maskType:SVProgressHUDMaskTypeBlack];
+    }
+    
+    [self showCloseBtn];
+    [self removeActivityView];
+    
+}
+
+//移除loading画面
+- (void)removeActivityView
+{
+    if (self.activityIndicatorView) {
+        [self.activityIndicatorView removeFromSuperview];
+    }
+}
+
+//显示关闭按钮
+- (void)showCloseBtn
+{
+    if (self.hideNavBar) {
+        self.closeButton.hidden = NO;
+    }
+}
+ 
+- (NSString *)rootCachePath {
+#ifdef JSDEBUG
+    return [NSBundle mainBundle].resourcePath;
+#endif
+    return [HFInterface_HybridCache getPluginCacheDirectory:@"PAIC_FSTANDARD_WWW"];
+
+}
+
+ 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

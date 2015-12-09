@@ -1,0 +1,36 @@
+//
+//  PAFFBaseViewController.h
+//  FFProject
+//
+//  Created by junming on 8/26/15.
+//  Copyright (c) 2015 pingan. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+typedef void(^ClickBlock)(void);
+
+@interface PAFFBaseViewController : UIViewController
+
+@property (nonatomic,assign) BOOL hideNavBar;
+
+@property (nonatomic, strong) NSString *backCallbackID;   //返回按钮callbackID
+@property (nonatomic, assign) BOOL backButtonHidden;      //返回按钮是否隐藏
+
+/**
+ *  隐藏网络错误提示界面
+ */
+- (void)hideNetErrorView;
+
+/**
+ *  显示网络错误界面
+ */
+- (void)showNetErrorViewWithClickBlock:(void (^)(void))clickBlock;
+
+//返回按钮点击后触发
+- (void)handleReturnBtnPressed:(id)sender;
+
+//传递json参数，用于rn跳转到native页面传参
+- (void)setParameter:(NSString *)parameterJson;
+
+@end

@@ -1,0 +1,19 @@
+//
+//  BCTableSourceItem.h
+//  Pods
+//
+//  Created by bolei on 15-5-10.
+//
+//
+
+#import <Foundation/Foundation.h>
+
+@interface PAFFTableSourceItem : NSObject
+
+@property(nonatomic, strong)NSMutableArray *sectionIndexes;
+@property(nonatomic, strong)
+NSMutableArray *sectionList; //通过dataList生成的sectionList,需要调用buildDataSourceList方法，子类复写此方法
+
+- (id)initWithSectionList:(NSMutableArray *)sectionList indexList:(NSMutableArray *)indexList;
+
+@end

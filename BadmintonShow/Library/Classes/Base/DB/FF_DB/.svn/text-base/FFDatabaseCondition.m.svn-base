@@ -1,0 +1,40 @@
+//
+//  FFDatabaseCondition.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFDatabaseCondition.h"
+
+@implementation FFDatabaseConditionSQLite
+
+@end
+
+@implementation FFDatabaseConditionReference
+
+@end
+
+@implementation FFDatabaseCondition
+
++(instancetype) condition {
+    return [[self alloc] init];
+}
+
+
+-(FFDatabaseConditionSQLite *)sqlite {
+    if (!_sqlite) {
+        _sqlite = [[FFDatabaseConditionSQLite alloc] init];
+    }
+    return _sqlite;
+}
+
+-(FFDatabaseConditionReference *)reference {
+    if (!_reference) {
+        _reference = [[FFDatabaseConditionReference alloc] init];
+    }
+    return _reference;
+}
+
+@end

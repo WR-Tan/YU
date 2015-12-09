@@ -17,7 +17,7 @@
 
 + (AVObject *)AVObjectWithGameModel:(BSGameModel *)game
 {
-    AVObject *gameObj = [AVObject objectWithClassName:@"TempGame"];
+    AVObject *gameObj = [AVObject objectWithClassName:@"Game"];
     
     gameObj[@"playerA_score"]     =  game.playerA_score;//  玩家A的每场比赛得分
     gameObj[@"playerB_score"]     =  game.playerB_score;//  玩家B的每场比赛得分

@@ -7,31 +7,86 @@
 //
 
 #import "BSSkyLadderViewController.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "BSGameModel.h"
+#import "CDUser.h"
 
 @interface BSSkyLadderViewController ()
-
+{
+    NSMutableArray *_rankArray ;
+}
 @end
 
 @implementation BSSkyLadderViewController
 
+- (instancetype)initWithStyle:(UITableViewStyle)style{
+    self = [super initWithStyle:style];
+    if (self) {
+        _rankArray = [NSMutableArray array];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    AVQuery *rankQuery = [AVQuery queryWithClassName:AVClassUser];
+    rankQuery.limit = 20 ;
+    [rankQuery addDescendingOrder:AVPropertyScore];
+    [rankQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        
+        for (AVUser *user in objects) {
+            CDUser *cdUser = [[CDUser alloc] init];
+            cdUser.username = user.username;
+            cdUser.score = [user[@"score"] stringValue];
+            
+            [_rankArray addObject:cdUser];
+        }
+        
+        [self.tableView reloadData];
+    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+
+#pragma mark - TableView数据源
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return _rankArray.count;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 1;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"BSGameRecordCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    }
+
+    CDUser *user = [_rankArray objectAtIndex:indexPath.row];
+
+    cell.textLabel.text = user.username;
+    cell.detailTextLabel.text = user.score;
+    
+    
+    return cell;
+    
+}
+
+
+
 
 @end
+

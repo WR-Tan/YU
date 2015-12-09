@@ -1,0 +1,340 @@
+//
+//  FFDatabaseStorage.m
+//  Test
+//
+//  Created by EASY on 15/9/24.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFDatabaseStorage.h"
+#import <BZObjectStore/BZObjectStore.h>
+#import "FFDatabaseCondition.h"
+#import "FFDatabaseStorageChangedObject.h"
+
+@interface FFDatabaseStorage ()
+@property (nonatomic, readonly) BZObjectStore *objectStore;
+@property (nonatomic, strong) RACSubject *subject;
+@end
+
+@implementation FFDatabaseStorage
+
+-(instancetype) initWithPath:(NSString *) path {
+    self = [super init];
+    if (self) {
+        _path = path;
+        self.subject = [RACSubject subject];
+    }
+    return self;
+}
+
+- (BOOL) isOpen {
+    return _objectStore != nil;
+}
+
+-(BOOL) open:(NSError **) error {
+    _objectStore = [BZObjectStore openWithPath:self.path error:error];
+    return error == NULL ? YES : NO;
+}
+
+-(void)close {
+    [self.objectStore close];
+    _objectStore = nil;
+}
+
+-(RACSignal *) notifyForDatabaseChanged {
+    return [self.subject replayLazily];
+}
+
+-(FFDatabaseStorageChangedObject *) changeObjectWithObjects:(NSArray *) objects type:(FFDatabaseStorageChangedType) type {
+    FFDatabaseStorageChangedObject *obj = [[FFDatabaseStorageChangedObject alloc] init];
+    obj.objects = objects;
+    obj.type = type;
+    return obj;
+}
+
+-(BZObjectStoreConditionModel *) conditionWithCondition:(FFDatabaseCondition *) condition {
+    BZObjectStoreConditionModel *model = [BZObjectStoreConditionModel condition];
+    model.sqlite.where = condition.sqlite.where;
+    model.sqlite.parameters = condition.sqlite.parameters;
+    model.sqlite.orderBy = condition.sqlite.orderBy;
+    model.sqlite.limit = condition.sqlite.limit;
+    model.sqlite.offset = condition.sqlite.offset;
+    
+    model.reference.from = condition.reference.from;
+    model.reference.to = condition.reference.to;
+    
+    return model;
+}
+
+- (void)inTransaction:(void(^)(FFDatabaseStorage *os,BOOL *rollback))block {
+    @weakify(self);
+    [self.objectStore inTransaction:^(BZObjectStore *os, BOOL *rollback) {
+        @strongify(self);
+        if (block) {
+            block(self,rollback);
+        }
+    }];
+}
+
+-(NSArray *) fetchClass:(Class) clazz condition:(FFDatabaseCondition *) condition error:(NSError **) error {
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore fetchObjects:clazz condition:model error:error];
+}
+
+-(RACSignal *) rac_fetchClass:(Class) clazz condition:(FFDatabaseCondition *) condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        NSArray *objects = [self fetchClass:clazz condition:condition error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:objects];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+-(BOOL) deleteClass:(Class) clazz condition:(FFDatabaseCondition *) condition error:(NSError **) error {
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    BOOL result = [self.objectStore deleteObjects:clazz condition:model error:error];
+    if (result) {
+        FFDatabaseStorageChangedObject *obj = [self changeObjectWithObjects:nil type:FFDatabaseStorageChangedTypeDelete];
+        [self.subject sendNext:obj];
+    }
+    return result;
+}
+
+-(RACSignal *) rac_deleteClass:(Class) clazz condition:(FFDatabaseCondition *) condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BOOL result = [self deleteClass:clazz condition:condition error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:@(result)];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+-(BOOL) saveObjects:(NSArray *) objects error:(NSError **) error {
+    if ([objects count]) {
+        BOOL result = [self.objectStore saveObjects:objects error:error];
+        if (result) {
+            FFDatabaseStorageChangedObject *obj = [self changeObjectWithObjects:objects type:FFDatabaseStorageChangedTypeSave];
+            [self.subject sendNext:obj];
+        }
+        return result;
+    } else {
+        return NO;
+    }
+}
+
+-(RACSignal *) rac_saveObjects:(NSArray *) objects {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BOOL result = [self saveObjects:objects error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:@(result)];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (id)refreshObject:(NSObject*)object error:(NSError **) error {
+    if (object) {
+        id result = [self.objectStore refreshObject:object error:error];
+        if (result) {
+            FFDatabaseStorageChangedObject *obj = [self changeObjectWithObjects:@[object] type:FFDatabaseStorageChangedTypeRefresh];
+            [self.subject sendNext:obj];
+        }
+        return result;
+    } else {
+        return nil;
+    }
+}
+
+- (RACSignal *)rac_refreshObject:(NSObject*)object {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        id result = [self refreshObject:object error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *)count:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **) error {
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore count:clazz condition:model error:error];
+}
+- (RACSignal *)rac_count:(Class)clazz condition:(FFDatabaseCondition*)condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+        NSNumber *result = [self.objectStore count:clazz condition:model error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *) referencedCount:(NSObject*)object error:(NSError **)error{
+    return [self.objectStore referencedCount:object error:error];
+}
+
+- (RACSignal *)rac_referencedCount:(NSObject*)object {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        NSNumber *result = [self referencedCount:object error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *)existsObject:(id)object error:(NSError **) error {
+    return [self.objectStore existsObject:object error:error];
+}
+- (RACSignal *)rac_existsObject:(id)object {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        NSNumber *result = [self.objectStore existsObject:object error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+- (NSNumber *)max:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error {
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore max:columnName class:clazz condition:model error:error];
+}
+
+- (RACSignal *)rac_max:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+        NSNumber *result = [self.objectStore max:columnName class:clazz condition:model error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *)min:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error{
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore min:columnName class:clazz condition:model error:error];
+}
+
+- (RACSignal *)rac_min:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+        NSNumber *result = [self.objectStore min:columnName class:clazz condition:model error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *)sum:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error{
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore sum:columnName class:clazz condition:model error:error];
+}
+
+- (RACSignal *)rac_sum:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+        NSNumber *result = [self.objectStore sum:columnName class:clazz condition:model error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *)total:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error{
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore total:columnName class:clazz condition:model error:error];
+}
+
+- (RACSignal *)rac_total:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+        NSNumber *result = [self.objectStore total:columnName class:clazz condition:model error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (NSNumber *)avg:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error{
+    BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+    return [self.objectStore avg:columnName class:clazz condition:model error:error];
+}
+
+- (RACSignal *)rac_avg:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition {
+    @weakify(self);
+    return [RACSignal startLazilyWithScheduler:[RACScheduler immediateScheduler] block:^(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        NSError *error = nil;
+        BZObjectStoreConditionModel *model = [self conditionWithCondition:condition];
+        NSNumber *result = [self.objectStore avg:columnName class:clazz condition:model error:&error];
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+@end

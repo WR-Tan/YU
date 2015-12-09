@@ -12,6 +12,7 @@
 #import "BSGameRankController.h"
 #import "BSSkyLadderViewController.h"
 #import "BSAddGameRecordController.h"
+#import "BSConfirmGameTableViewController.h"
 
 #import <AVOSCloud/AVOSCloud.h>
 
@@ -40,12 +41,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+
     [self loadData];
-    
-    
     [self initNavigationItem];
 }
+
+- (void)confirm
+{
+    BSConfirmGameTableViewController * vc = [[BSConfirmGameTableViewController alloc] init];
+    vc.gameObjectId = @"565bf5ab00b0acaad47a7aba";
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark - 初始化导航按钮
 - (void)initNavigationItem
@@ -62,7 +69,7 @@
 
 - (void)loadData
 {
-    _data = [@[@"比赛记录"/*,@"圈子排名"*/,@"羽秀天梯"] mutableCopy];
+    _data = [@[@"比赛记录",@"羽秀天梯",@"去人。。"] mutableCopy];
 
 }
 
@@ -74,7 +81,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return 3;
 }
 
 #pragma mark - Header
@@ -121,12 +128,8 @@
     }else if(indexPath.section == 1) {
         BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]initWithStyle:UITableViewStylePlain];
         [self.navigationController pushViewController:tech animated:YES];
-        
-//        BSGameRankController *rank = [[BSGameRankController alloc ]init ];
-//        [self.navigationController pushViewController:rank animated:YES];
     }else{
-        BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]initWithStyle:UITableViewStylePlain];
-        [self.navigationController pushViewController:tech animated:YES];
+        [self confirm];
     
     }
 }

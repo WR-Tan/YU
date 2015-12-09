@@ -1,0 +1,21 @@
+//
+//  PAFFBaseMVVMView.h
+//  FFProject
+//
+//  Created by bolei on 15/8/31.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface PAFFBaseMVVMView : UIView
+
+@property(nonatomic, strong) id object; //数据
+
++ (CGSize)sizeWithItem:(id)item rect:(CGRect)rect;
+
+- (void)disPlayWithItem:(id)item ;
+- (void)addObserverProperty;
+- (void)removeObserveProperty;
+
+@end

@@ -17,7 +17,7 @@
 - (void)uploadGame:(BSGameModel *)game button:(UIButton *)btn;
 
 // 上传
-- (void)uploadGameWithAScore:(NSInteger)aScore bScore:(NSInteger)bScore  button:(UIButton *)btn;
+- (void)uploadGameWithAScore:(NSString *)aScoreStr bScore:(NSString *)bScoreStr  button:(UIButton *)btn;
 
 //好友列表界面
 - (void)presentFriendListVC;
@@ -26,8 +26,15 @@
 
 @interface BSAddGameRecordCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UITextField *firstGameA_scoreTF;
+@property (weak, nonatomic) IBOutlet UITextField *firstGameB_scoreTF;
+
+
+
 @property (nonatomic, weak) id <BSAddGameRecordCellDelegate> delegate ;
 
-- (void)setGameType:(BSGameType)gameType;
+@property (nonatomic, strong) BSGameModel * game ;
+
+//- (void)setGameType:(BSGameType)gameType;
 
 @end

@@ -1,0 +1,162 @@
+//
+//  PAFFBaseViewController.m
+//  FFProject
+//
+//  Created by junming on 8/26/15.
+//  Copyright (c) 2015 pingan. All rights reserved.
+//
+
+#import "PAFFBaseViewController.h"
+#import "UIViewController+Navbar.h"
+#import "DeviceMacros.h"
+#
+#import <Masonry.h>//auto layout
+#import "UIMacrosDefine.h"
+#define kCommon_Nav_Back_Icon              @"common_nav_back"
+#define kCommon_Nav_Back_Highlighted_Icon  @""
+#define kBackgroundColor [UIColor colorWithHexString:@"#f7f7f7"]
+#define kNetErrorImageWidth 125
+#define kNetErrorImageHeight 130
+
+@interface PAFFBaseViewController ()
+
+@property (nonatomic,strong) UIView * netErrorView;
+@property (nonatomic,strong) ClickBlock clickBlock;
+@property (nonatomic,strong) NSString *parameterJson;
+
+@end
+
+@implementation PAFFBaseViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self setupNavBar];
+    [self initBaseView];
+}
+
+- (void)initBaseView{
+    
+    self.view.backgroundColor = kBackgroundColor;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSArray *vcArray = self.navigationController.viewControllers;
+    if (vcArray != nil && [vcArray count] > 1) {
+        
+        [self setLeftItemImage:[UIImage imageNamed:kCommon_Nav_Back_Icon] selectedImage:[UIImage imageNamed:kCommon_Nav_Back_Highlighted_Icon] target:self action:@selector(handleReturnBtnPressed:)];
+    }
+    self.navigationController.navigationBarHidden = self.hideNavBar;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)setupNavBar {
+    
+	UIColor *color = kAPPThemeColor;//PAFF_COLOR(99, 83, 78);//PAFF_COLOR_HEX(@"#392a2b");
+    
+    self.navigationController.navigationBar.barTintColor = color;
+    //RGB(255, 141, 65);
+    self.navigationController.navigationBar.translucent = NO;
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self.navigationController.navigationBar.titleTextAttributes];
+    [dic setObject:[UIFont systemFontOfSize:20] forKey:NSFontAttributeName];
+    [dic setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes = [dic copy];
+    
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    self.modalPresentationCapturesStatusBarAppearance = NO;
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+
+- (UIView *)netErrorView{
+    
+    if (!_netErrorView) {
+        
+        UIView * netErrorView = [[UIView alloc] init];
+        netErrorView.hidden = YES;
+        netErrorView.backgroundColor = [UIColor whiteColor];
+        _netErrorView = netErrorView;
+        [self.view addSubview:netErrorView];
+        [netErrorView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.edges.equalTo(self.view);
+        }];
+        
+        UIImageView * imageView = [[UIImageView alloc] init];
+        [netErrorView addSubview:imageView];
+        
+        imageView.image = [UIImage imageNamed:@"homepage_cannot_load"];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.width.equalTo(@(kNetErrorImageWidth));
+            make.height.equalTo(@(kNetErrorImageHeight));
+            make.center.equalTo(netErrorView);
+        }];
+        
+        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(netErrorClickAction)];
+        
+        [_netErrorView addGestureRecognizer:gesture];
+    }
+    
+    return _netErrorView;
+}
+
+- (void)netErrorClickAction{
+    
+    [self hideNetErrorView];
+    if (self.clickBlock) {
+        self.clickBlock();
+    }
+}
+
+- (void)hideNetErrorView{
+    
+    self.netErrorView.hidden = YES;
+}
+
+- (void)showNetErrorViewWithClickBlock:(void (^)(void))clickBlock{
+    
+    self.clickBlock = clickBlock;
+    [self.view bringSubviewToFront:self.netErrorView];
+    self.netErrorView.hidden = NO;
+    
+}
+- (void)setBackButtonHidden:(BOOL)hidden {
+    
+    self.navigationItem.leftBarButtonItem.customView.hidden = hidden;
+}
+
+- (void)handleReturnBtnPressed:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setParameter:(NSString *)parameterJson {
+    
+    self.parameterJson = parameterJson;
+}
+
+@end

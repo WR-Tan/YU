@@ -1,0 +1,26 @@
+//
+//  FFUserInfo.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "FFUser.h"
+#import <HFModel.h>
+
+@interface FFUserInfo : NSObject
+
+-(instancetype) initWithUser:(__weak FFUser *) user;
+@property (nonatomic, readonly, weak) FFUser *user;
+
+
+@end
+
+
+@interface FFUser (UserInfo)
+
+@property (nonatomic, readonly) FFUserInfo *info;
+
+@end

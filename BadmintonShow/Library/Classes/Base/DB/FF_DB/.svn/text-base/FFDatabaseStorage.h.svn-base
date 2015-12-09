@@ -1,0 +1,164 @@
+//
+//  FFDatabaseStorage.h
+//  Test
+//
+//  Created by EASY on 15/9/24.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
+@class FFDatabaseCondition;
+
+
+//Wrapper BZObjectStore
+@interface FFDatabaseStorage : NSObject
+
+@property (nonatomic, readonly) NSString *path;
+
+- (instancetype)initWithPath:(NSString *) path;
+
+/**
+ * 数据库是否打开
+ */
+- (BOOL) isOpen;
+/**
+ * 打开数据库
+ */
+- (BOOL)open:(NSError **) error;
+
+/**
+ * 关闭数据库
+ */
+- (void)close;
+
+/**
+ * 数据库发生变化
+ * Next -> FFDatabaseStorageChangedObject
+ */
+-(RACSignal *) notifyForDatabaseChanged;
+
+/*
+ * 执行事务
+ */
+- (void)inTransaction:(void(^)(FFDatabaseStorage *os,BOOL *rollback))block;
+
+/** 
+ *  查询数据
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return 查询到得数据模型集
+ */
+-(NSArray *) fetchClass:(Class) clazz condition:(FFDatabaseCondition *) condition error:(NSError **) error;
+- (RACSignal *)rac_fetchClass:(Class) clazz condition:(FFDatabaseCondition *) condition;
+
+/**
+ *  删除数据
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return 是否成功
+ */
+-(BOOL) deleteClass:(Class) clazz condition:(FFDatabaseCondition *) condition error:(NSError **) error;
+- (RACSignal *)rac_deleteClass:(Class) clazz condition:(FFDatabaseCondition *) condition;
+
+/**
+ *  保存数据
+ *  @param objects 数据模型集
+ *  @param error 返回错误信息
+ *  @return 是否成功
+ */
+-(BOOL) saveObjects:(NSArray *) objects error:(NSError **) error;
+- (RACSignal *)rac_saveObjects:(NSArray *) objects;
+
+/**
+ *  刷新数据
+ *  @param objects 数据模型集
+ *  @param error 返回错误信息
+ *  @return 是否成功
+ */
+- (id)refreshObject:(NSObject*)object error:(NSError **) error;
+- (RACSignal *)rac_refreshObject:(id)object;
+
+/**
+ *  count方法
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return 数量
+ */
+- (NSNumber *)count:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **) error;
+- (RACSignal *)rac_count:(Class)clazz condition:(FFDatabaseCondition*)condition;
+
+/**
+ *  referencedCount方法
+ *  @param clazz 模型类
+ *  @param error 返回错误信息
+ *  @return 数量
+ */
+- (NSNumber *) referencedCount:(NSObject*)object error:(NSError **)error;
+- (RACSignal *)rac_referencedCount:(id)object;
+
+/**
+ *  exists方法
+ *  @param clazz 模型类
+ *  @param error 返回错误信息
+ *  @return 是否存在
+ */
+- (NSNumber *)existsObject:(id)object error:(NSError **) error;
+- (RACSignal *)rac_existsObject:(id)object;
+
+/**
+ *  max方法
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return max值
+ */
+- (NSNumber *)max:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error;
+- (RACSignal *)rac_max:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition;
+
+/**
+ *  min方法
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return min值
+ */
+- (NSNumber *)min:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error;
+- (RACSignal *)rac_min:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition;
+
+/**
+ *  sum方法
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return sum值
+ */
+- (NSNumber *)sum:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error;
+- (RACSignal *)rac_sum:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition;
+
+/**
+ *  total方法
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return total值
+ */
+- (NSNumber *)total:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error;
+- (RACSignal *)rac_total:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition;
+
+/**
+ *  avg方法
+ *  @param clazz 模型类
+ *  @param condition 执行条件
+ *  @param error 返回错误信息
+ *  @return avg值
+ */
+- (NSNumber *)avg:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition error:(NSError **)error;
+- (RACSignal *)rac_avg:(NSString*)columnName class:(Class)clazz condition:(FFDatabaseCondition*)condition;
+
+
+@end

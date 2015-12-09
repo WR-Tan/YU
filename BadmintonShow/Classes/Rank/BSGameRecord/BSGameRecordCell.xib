@@ -3,55 +3,78 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BSGameRecordCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="121" id="KGk-i7-Jjw" customClass="BSGameRecordCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9e-yc-B2W">
-                        <rect key="frame" x="250" y="25" width="60" height="60"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A9e-yc-B2W">
+                        <rect key="frame" x="210" y="15" width="80" height="80"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="NPc-Wb-o2F"/>
+                            <constraint firstAttribute="width" constant="80" id="nG2-sp-uEu"/>
+                        </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W69-OE-AAk">
-                        <rect key="frame" x="10" y="25" width="60" height="60"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W69-OE-AAk">
+                        <rect key="frame" x="30" y="15" width="80" height="80"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="5DM-qG-BQO"/>
+                            <constraint firstAttribute="height" constant="80" id="RGa-eH-TQx"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2  :  1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJe-tR-8hI">
-                        <rect key="frame" x="80" y="27" width="160" height="50"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2  :  1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJe-tR-8hI">
+                        <rect key="frame" x="115" y="33" width="91.5" height="48"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="6-15 下午7:40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rD3-Zl-Z7P">
-                        <rect key="frame" x="101" y="95" width="120" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="林丹" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h95-Xh-fnJ">
+                        <rect key="frame" x="53" y="105" width="34" height="20.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李宗伟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cI6-gk-FeN">
+                        <rect key="frame" x="224" y="100" width="51" height="20.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6-15 下午7:40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rD3-Zl-Z7P">
+                        <rect key="frame" x="120.5" y="127" width="79.5" height="14.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="林丹" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h95-Xh-fnJ">
-                        <rect key="frame" x="90" y="75" width="60" height="21"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="李宗伟" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cI6-gk-FeN">
-                        <rect key="frame" x="169" y="75" width="60" height="21"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstItem="rD3-Zl-Z7P" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0BS-Fn-qAA"/>
+                    <constraint firstItem="W69-OE-AAk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7Rl-jh-fCf"/>
+                    <constraint firstItem="h95-Xh-fnJ" firstAttribute="top" secondItem="W69-OE-AAk" secondAttribute="bottom" constant="10" id="BMx-Lc-8NM"/>
+                    <constraint firstItem="A9e-yc-B2W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="G5s-Lv-632"/>
+                    <constraint firstItem="cI6-gk-FeN" firstAttribute="top" secondItem="A9e-yc-B2W" secondAttribute="bottom" constant="5" id="QMt-sd-1WP"/>
+                    <constraint firstItem="YJe-tR-8hI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="T4W-b5-rGk"/>
+                    <constraint firstItem="W69-OE-AAk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="bGU-eO-DIR"/>
+                    <constraint firstAttribute="trailing" secondItem="A9e-yc-B2W" secondAttribute="trailing" constant="30" id="gaz-eT-8Xi"/>
+                    <constraint firstItem="h95-Xh-fnJ" firstAttribute="centerX" secondItem="W69-OE-AAk" secondAttribute="centerX" id="hy4-QB-xa7"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="rD3-Zl-Z7P" secondAttribute="bottom" id="nfR-d0-kxD"/>
+                    <constraint firstItem="cI6-gk-FeN" firstAttribute="centerX" secondItem="A9e-yc-B2W" secondAttribute="centerX" id="pOD-nd-EBb"/>
+                    <constraint firstItem="YJe-tR-8hI" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="z1N-LB-8jr"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>
@@ -62,6 +85,7 @@
                 <outlet property="playerBName" destination="cI6-gk-FeN" id="zIV-gx-2VT"/>
                 <outlet property="score" destination="YJe-tR-8hI" id="C3r-cw-NI3"/>
             </connections>
+            <point key="canvasLocation" x="315" y="227.5"/>
         </tableViewCell>
     </objects>
 </document>

@@ -1,0 +1,189 @@
+//
+//  PAFFStatistics.m
+//  FFProject
+//
+//  Created by 陈美锦 on 15/10/30.
+//  Copyright © 2015年 pingan. All rights reserved.
+//
+
+#import "PAFFStatistics.h"
+#import <TalkingData.h>
+#import "PAFFStatisticsConfig.h"
+
+@interface PAFFStatistics ()
+
+@property(nonatomic, strong) NSDictionary *codeDict;
+
+@end
+
+@implementation PAFFStatistics
+
++ (id)shareInstance {
+    static PAFFStatistics *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[PAFFStatistics alloc] init];
+        sharedInstance.codeDict = [sharedInstance dictCode];
+    });
+    return sharedInstance;
+}
+
+- (void)openDebugLog:(BOOL)isOpen {
+    [TalkingData openDebugLog:isOpen];
+}
+
+- (void)sessionStarted:(NSString *)appKey withChannelId:(NSString *)channelId {
+    [TalkingData sessionStarted:appKey withChannelId:channelId];
+}
+
+- (void)statisticsEventWith:(NSString *)eventId {
+    NSString *label = [self.codeDict objectForKey:eventId];
+    [TalkingData trackEvent:eventId label:label];
+}
+
+- (NSDictionary *)dictCode {
+    NSMutableDictionary *mutil = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [mutil addEntriesFromDictionary:@{
+        kEvent_0101 : @"首页_个人中心",
+        kEvent_0102 : @"个人中心_昵称头像修改",
+        kEvent_0103 : @"个人中心_实名认证",
+        kEvent_0104 : @"个人中心_修改密码",
+        kEvent_0105 : @"个人中心_退出登录",
+        kEvent_0106 : @"首页_消息中心",
+        kEvent_0107 : @"消息中心_清空",
+        kEvent_0108 : @"消息中心_返回",
+        kEvent_0109 : @"总资产模糊隐藏",
+        kEvent_0110 : @"总资产模糊取消",
+        kEvent_0111 : @"总资产",
+        kEvent_0112 : @"财富分",
+        kEvent_0113 : @"信用分",
+        kEvent_0114 : @"房产",
+        kEvent_0115 : @"车产",
+        kEvent_0116 : @"卡包",
+        kEvent_0117 : @"登录_广告位1",
+        kEvent_0118 : @"登录_广告位2",
+        kEvent_0119 : @"登录_广告位3",
+        kEvent_0120 : @"资讯_栏目1",
+        kEvent_0121 : @"资讯_栏目2",
+        kEvent_0122 : @"资讯_栏目3",
+        kEvent_0123 : @"首页Tab",
+        kEvent_0124 : @"未登陆_直接登录",
+        kEvent_0125 : @"未登陆_广告位1",
+        kEvent_0126 : @"未登陆_广告位2",
+        kEvent_0127 : @"未登陆_广告位3",
+        kEvent_0128 : @"未登陆_资讯_陆金所",
+        kEvent_0129 : @"未登陆_资讯_保险产品",
+        kEvent_0130 : @"未登陆_资讯_车生活",
+        kEvent_0131 : @"未登陆_资讯_好医生",
+        kEvent_0132 : @"页面停留设备数",
+        kEvent_0201 : @"银行tab",
+        kEvent_0202 : @"银行",
+        kEvent_0203 : @"页面停留设备数",
+        kEvent_0301 : @"理财Tab",
+        kEvent_0302 : @"理财_个人中心",
+        kEvent_0303 : @"理财_消息中心",
+        kEvent_0304 : @"转入",
+        kEvent_0305 : @"转出",
+        kEvent_0306 : @"保险_更多",
+        kEvent_0307 : @"保险_商品（加产品名称）",
+        kEvent_0308 : @"理财资讯",
+        kEvent_0309 : @"理财达人",
+        kEvent_0310 : @"未登陆_理财_个人中心",
+        kEvent_0311 : @"未登陆_理财_消息中心",
+        kEvent_0312 : @"未登陆_理财_转入",
+        kEvent_0313 : @"未登陆_理财_转出",
+        kEvent_0314 : @"未登陆_保险_更多",
+        kEvent_0315 : @"未登陆_保险_商品（加产品名称）",
+        kEvent_0316 : @"未登陆_理财资讯",
+        kEvent_0317 : @"未登陆_理财达人",
+        kEvent_0318 : @"页面停留设备数",
+        kEvent_0401 : @"信用tab",
+        kEvent_0402 : @"信用_个人中心",
+        kEvent_0403 : @"信用_消息中心",
+        kEvent_0404 : @"未登陆_个人中心",
+        kEvent_0405 : @"未登陆_消息中心",
+        kEvent_0406 : @"页面停留设备数",
+        kEvent_0501 : @"生活tab",
+        kEvent_0502 : @"生活_个人中心",
+        kEvent_0503 : @"食",
+        kEvent_050301 : @"食_广告1",
+        kEvent_050302 : @"食_广告2",
+        kEvent_050303 : @"食_广告3",
+        kEvent_050304 : @"食_广告4",
+        kEvent_050305 : @"食_广告5",
+        kEvent_050306 : @"食_广告6",
+        kEvent_050307 : @"食_广告7",
+        kEvent_050308 : @"食_广告8",
+        kEvent_050309 : @"食_广告9",
+        kEvent_0504 : @"住",
+        kEvent_050401 : @"住_添加",
+        kEvent_050402 : @"未登录_住_添加",
+        kEvent_050403 : @"我的房",
+        kEvent_050404 : @"未登录_我的房",
+        kEvent_0505 : @"车",
+        kEvent_050501 : @"车_添加",
+        kEvent_050502 : @"未登录_车_添加",
+        kEvent_050503 : @"我的车",
+        kEvent_05050301 : @"我的车_查违章",
+        kEvent_05050302 : @"我的车_买保险",
+        kEvent_05050303 : @"我的车_安全行车",
+        kEvent_05050304 : @"我的车_查周边",
+        kEvent_050504 : @"未登录_我的车",
+        kEvent_0506 : @"查看全部",
+        kEvent_0507 : @"页面停留设备数",
+        kEvent_0601 : @"登陆",
+        kEvent_0602 : @"找回密码",
+        kEvent_0603 : @"注册账号",
+        kEvent_0604 : @"页面停留设备数",
+        kEvent_0133 : @"个人中心_订单中心",
+        kEvent_0134 : @"个人中心_订单中心_返回",
+        kEvent_0135 : @"个人中心_订单中心_无订单_随便逛逛",
+        kEvent_0136 : @"个人中心_手势密码开关",
+        kEvent_0137 : @"个人中心_设置手势密码",
+        kEvent_0138 : @"个人中心_设置手势密码_返回",
+        kEvent_0139 : @"手势密码_忘记密码",
+        kEvent_0140 : @"手势密码_其它方式登录",
+        kEvent_0141 : @"信用卡预约_选卡页_返回",
+        kEvent_0142 : @"信用卡预约_选卡页_选银行",
+        kEvent_0143 : @"信用卡预约_选卡页_选这张",
+        kEvent_0144 : @"信用卡预约_用户信息页_返回",
+        kEvent_0145 : @"信用卡预约_用户信息页_更换验证码",
+        kEvent_0146 : @"信用卡预约_用户信息页_预约",
+        kEvent_0147 : @"信用卡预约_提示框_关闭",
+        kEvent_0148 : @"贷款预约_选贷款页_返回",
+        kEvent_0149 : @"贷款预约_选贷款页_选银行",
+        kEvent_0150 : @"贷款预约_选贷款页_选这张",
+        kEvent_0151 : @"贷款预约_用户信息页_返回",
+        kEvent_0152 : @"贷款预约_用户信息页_更换验证码",
+        kEvent_0153 : @"贷款预约_用户信息页_预约",
+        kEvent_0154 : @"贷款预约_提示框_关闭",
+        kEvent_0155 : @"积分入口",
+        kEvent_0156 : @"总资产_我的投资理财",
+        kEvent_0157 : @"总资产_我的投资理财_无理财_返回",
+        kEvent_0158 : @"总资产_我的投资理财_无理财_立即添加",
+        kEvent_0159 : @"总资产_我的投资理财_有理财_商品项",
+        kEvent_0160 : @"总资产_我的投资理财_有理财_添加",
+        kEvent_0161 : @"总资产_我的投资理财_有理财_商品项_返回",
+        kEvent_0162 : @"总资产_我的投资理财_有理财_商品项_转入",
+        kEvent_0163 : @"总资产_我的投资理财_有理财_商品项_转出",
+        kEvent_0164 : @"财富分_银通宝",
+        kEvent_0165 : @"财富分_银通宝_返回",
+        kEvent_0165 : @"财富分_银通宝_立即赚钱",
+        kEvent_05040301 : @"我的房_点车的图片",
+        kEvent_0504030101 : @"我的房_点车的图片_拍照",
+        kEvent_0504030101 : @"我的房_点车的图片_相册",
+        kEvent_0504030201 : @"我的房_点击_添加",
+        kEvent_050403020101 : @"我的房_点击_添加_开始评估",
+        kEvent_05050305 : @"我的车_添加",
+        kEvent_0505030501 : @"我的车_添加_添加并估值",
+        kEvent_05050306 : @"我的车_查违章_查询其他车辆_确定",
+        kEvent_050505 : @"我的车_点车的图片",
+        kEvent_05050501 : @"我的车_车图片_拍照",
+        kEvent_05050502 : @"我的车_车图片_相册",
+        kEvent_0508 : @"积分_未绑定帐户时，点绑定操作",
+        kEvent_0509 : @"积分商城_点积分banner入口"
+    }];
+    return mutil;
+}
+
+@end

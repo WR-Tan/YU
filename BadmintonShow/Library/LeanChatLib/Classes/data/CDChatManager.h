@@ -10,6 +10,8 @@
 #import "CDUserModel.h"
 #import "AVIMConversation+Custom.h"
 #import "CDMacros.h"
+#import "AVConstants.h"
+
 
 /**
  *  未读数改变了。通知去服务器同步 installation 的badge

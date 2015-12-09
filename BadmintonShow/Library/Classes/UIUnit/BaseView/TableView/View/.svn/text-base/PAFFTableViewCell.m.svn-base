@@ -1,0 +1,99 @@
+//
+//  BRTableViewCell.m
+//  baiduRouter
+//
+//  Created by mco-device on 14-1-21.
+//  Copyright (c) 2014年 baidu. All rights reserved.
+//
+
+#import "PAFFTableViewCell.h"
+#import "UIImage+Scale.h"
+#import <NSObject+ClassName.h>
+#import "PAFFTableViewModule.h"
+
+@implementation PAFFTableViewCell
+
+- (void)dealloc {
+    [self removeObserveProperty];
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+- (void)setObject:(id)item {
+    if (_object != item) {
+        if (_object != nil) {
+            [self removeObserveProperty];
+            _object = nil;
+        }
+        _object = item;
+        if (_object) {
+            [self addObserverProperty];
+        }
+    }
+}
+
+- (void)disPlayCellWithItem:(nonnull id)item {
+#ifdef DEBUG
+    MustOverride();
+#endif
+}
+
++ (CGFloat)cellHeightWithItem:(id)item {
+#ifdef DEBUG
+    MustOverride();
+#endif
+    return 40.0f;
+}
+
++ (CGFloat)cellEstimatedHeightWithItem:(id)item {
+    return UITableViewAutomaticDimension;
+}
+
++ (NSString *)cellidentifyWithItem:(id)item {
+    return [self className];
+}
+
+#pragma - mark KVO
+
+- (void)addObserverProperty {
+}
+- (void)removeObserveProperty {
+
+}
+- (void)addObservedProperty:(NSString *)property {
+    if (nil != _object) {
+        [_object addObserver:self forKeyPath:property options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+- (void)removeObservedProperty:(NSString *)property {
+    if (nil != _object) {
+        [_object removeObserver:self forKeyPath:property];
+    }
+}
+
+- (void)objectPropertyChanged:(NSString *)property {
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self objectPropertyChanged:keyPath];
+    });
+}
+
+@end

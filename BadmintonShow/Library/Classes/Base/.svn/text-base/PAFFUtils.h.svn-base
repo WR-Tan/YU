@@ -1,0 +1,43 @@
+//
+//  公共方法累
+//  
+//
+//  Created by bolei on 15-4-16.
+//  Copyright (c) 2015年 BL. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface PAFFUtils : NSObject
+
++ (NSString *)getPhoneMaccAddress;
+
+/**
+ *  检测手机号码是否合法
+ *
+ *  @param strPhoneNumber 手机号
+ *
+ *  @return 如果合法返回YES,否则返回NO.
+ */
++ (BOOL)checkMobilePhoneNumber:(NSString *)strPhoneNumber;
+
+/**
+ *  压缩图片
+ *
+ *  @param image              压缩前图片
+ *  @param compressionQuality 压缩的级别
+ *
+ *  @return 压缩后图片
+ */
++ (UIImage *)compressImage:(UIImage *)image  compressionQuality:(CGFloat)compressionQuality;
+
+/**
+ *  验证密码是否合法:密码6~30位，至少包含数字、字母和符号中的两种，不能包含€£¥•和空格
+ *
+ *  @param password 密码
+ *
+ *  @return 如果合法返回YES,否则返回NO.
+ */
++ (BOOL)isPasswordValid:(NSString *)password;
+
+@end

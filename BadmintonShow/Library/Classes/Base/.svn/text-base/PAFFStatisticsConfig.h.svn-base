@@ -1,0 +1,158 @@
+//
+//  PAFFStatisticsConfig.h
+//  FFProject
+//
+//  Created by 陈美锦 on 15/10/30.
+//  Copyright © 2015年 pingan. All rights reserved.
+//
+
+#ifndef PAFFStatisticsConfig_h
+#define PAFFStatisticsConfig_h
+
+#define kEvent_0101 @"0101"         //首页_个人中心
+#define kEvent_0102 @"0102"         //个人中心_昵称头像修改
+#define kEvent_0103 @"0103"         //个人中心" //实名认证
+#define kEvent_0104 @"0104"         //个人中心_修改密码
+#define kEvent_0105 @"0105"         //个人中心_退出登录
+#define kEvent_0106 @"0106"         //首页_消息中心
+#define kEvent_0107 @"0107"         //消息中心_清空
+#define kEvent_0108 @"0108"         //消息中心_返回
+#define kEvent_0109 @"0109"         //总资产模糊隐藏
+#define kEvent_0110 @"0110"         //总资产模糊取消
+#define kEvent_0111 @"0111"         //总资产
+#define kEvent_0112 @"0112"         //财富分
+#define kEvent_0113 @"0113"         //信用分
+#define kEvent_0114 @"0114"         //房产
+#define kEvent_0115 @"0115"         //车产
+#define kEvent_0116 @"0116"         //卡包
+#define kEvent_0117 @"0117"         //登录_广告位1
+#define kEvent_0118 @"0118"         //登录_广告位2
+#define kEvent_0119 @"0119"         //登录_广告位3
+#define kEvent_0120 @"0120"         //资讯_栏目1
+#define kEvent_0121 @"0121"         //资讯_栏目2
+#define kEvent_0122 @"0122"         //资讯_栏目3
+#define kEvent_0123 @"0123"         //首页Tab
+#define kEvent_0124 @"0124"         //未登陆_直接登录
+#define kEvent_0125 @"0125"         //未登陆_广告位1
+#define kEvent_0126 @"0126"         //未登陆_广告位2
+#define kEvent_0127 @"0127"         //未登陆_广告位3
+#define kEvent_0128 @"0128"         //未登陆_资讯_陆金所
+#define kEvent_0129 @"0129"         //未登陆_资讯_保险产品
+#define kEvent_0130 @"0130"         //未登陆_资讯_车生活
+#define kEvent_0131 @"0131"         //未登陆_资讯_好医生
+#define kEvent_0132 @"0132"         //页面停留设备数
+#define kEvent_0201 @"0201"         //银行tab
+#define kEvent_0202 @"0202"         //银行
+#define kEvent_0203 @"0203"         //页面停留设备数
+#define kEvent_0301 @"0301"         //理财Tab
+#define kEvent_0302 @"0302"         //理财_个人中心
+#define kEvent_0303 @"0303"         //理财_消息中心
+#define kEvent_0304 @"0304"         //转入
+#define kEvent_0305 @"0305"         //转出
+#define kEvent_0306 @"0306"         //保险_更多
+#define kEvent_0307 @"0307"         //保险_商品（加产品名称）
+#define kEvent_0308 @"0308"         //理财资讯
+#define kEvent_0309 @"0309"         //理财达人
+#define kEvent_0310 @"0310"         //未登陆_理财_个人中心
+#define kEvent_0311 @"0311"         //未登陆_理财_消息中心
+#define kEvent_0312 @"0312"         //未登陆_理财_转入
+#define kEvent_0313 @"0313"         //未登陆_理财_转出
+#define kEvent_0314 @"0314"         //未登陆_保险_更多
+#define kEvent_0315 @"0315"         //未登陆_保险_商品（加产品名称）
+#define kEvent_0316 @"0316"         //未登陆_理财资讯
+#define kEvent_0317 @"0317"         //未登陆_理财达人
+#define kEvent_0318 @"0318"         //页面停留设备数
+#define kEvent_0401 @"0401"         //信用tab
+#define kEvent_0402 @"0402"         //信用_个人中心
+#define kEvent_0403 @"0403"         //信用_消息中心
+#define kEvent_0404 @"0404"         //未登陆_个人中心
+#define kEvent_0405 @"0405"         //未登陆_消息中心
+#define kEvent_0406 @"0406"         //页面停留设备数
+#define kEvent_0501 @"0501"         //生活tab
+#define kEvent_0502 @"0502"         //生活_个人中心
+#define kEvent_0503 @"0503"         //食
+#define kEvent_050301 @"050301"     //食_广告1
+#define kEvent_050302 @"050302"     //食_广告2
+#define kEvent_050303 @"050303"     //食_广告3
+#define kEvent_050304 @"050304"     //食_广告4
+#define kEvent_050305 @"050305"     //食_广告5
+#define kEvent_050306 @"050306"     //食_广告6
+#define kEvent_050307 @"050307"     //食_广告7
+#define kEvent_050308 @"050308"     //食_广告8
+#define kEvent_050309 @"050309"     //食_广告9
+#define kEvent_0504 @"0504"         //住
+#define kEvent_050401 @"050401"     //住" //添加
+#define kEvent_050402 @"050402"     //未登录" //住_添加
+#define kEvent_050403 @"050403"     //我的房
+#define kEvent_050404 @"050404"     //未登录" //我的房
+#define kEvent_0505 @"0505"         //车
+#define kEvent_050501 @"050501"     //车_添加
+#define kEvent_050502 @"050502"     //未登录_车_添加
+#define kEvent_050503 @"050503"     //我的车
+#define kEvent_05050301 @"05050301" //我的车_查违章
+#define kEvent_05050302 @"05050302" //我的车_买保险
+#define kEvent_05050303 @"05050303" //我的车_安全行车
+#define kEvent_05050304 @"05050304" //我的车_查周边
+#define kEvent_050504 @"050504"     //未登录_我的车
+#define kEvent_0506 @"0506"         //查看全部
+#define kEvent_0507 @"0507"         //页面停留设备数
+#define kEvent_0601 @"0601"         //登陆
+#define kEvent_0602 @"0602"         //找回密码
+#define kEvent_0603 @"0603"         //注册账号
+#define kEvent_0604 @"0604"         //页面停留设备数
+
+/*****************1130版本添加事件***************/
+
+#define kEvent_0133	@"0133" //个人中心_订单中心
+#define kEvent_0134	@"0134" //个人中心_订单中心_返回
+#define kEvent_0135	@"0135" //个人中心_订单中心_无订单_随便逛逛
+#define kEvent_0136	@"0136" //个人中心_手势密码开关
+#define kEvent_0137	@"0137" //个人中心_设置手势密码
+#define kEvent_0138	@"0138" //个人中心_设置手势密码_返回
+#define kEvent_0139	@"0139" //手势密码_忘记密码
+#define kEvent_0140	@"0140" //手势密码_其它方式登录
+#define kEvent_0141	@"0141" //信用卡预约_选卡页_返回
+#define kEvent_0142	@"0142" //信用卡预约_选卡页_选银行
+#define kEvent_0143	@"0143" //信用卡预约_选卡页_选这张
+#define kEvent_0144	@"0144" //信用卡预约_用户信息页_返回
+#define kEvent_0145	@"0145" //信用卡预约_用户信息页_更换验证码
+#define kEvent_0146	@"0146" //信用卡预约_用户信息页_预约
+#define kEvent_0147	@"0147" //信用卡预约_提示框_关闭
+#define kEvent_0148	@"0148" //贷款预约_选贷款页_返回
+#define kEvent_0149	@"0149" //贷款预约_选贷款页_选银行
+#define kEvent_0150	@"0150" //贷款预约_选贷款页_选这张
+#define kEvent_0151	@"0151" //贷款预约_用户信息页_返回
+#define kEvent_0152	@"0152" //贷款预约_用户信息页_更换验证码
+#define kEvent_0153	@"0153" //贷款预约_用户信息页_预约
+#define kEvent_0154	@"0154" //贷款预约_提示框_关闭
+#define kEvent_0155	@"0155" //积分入口
+#define kEvent_0156	@"0156" //总资产_我的投资理财
+#define kEvent_0157	@"0157" //总资产_我的投资理财_无理财_返回
+#define kEvent_0158	@"0158" //总资产_我的投资理财_无理财_立即添加
+#define kEvent_0159	@"0159" //总资产_我的投资理财_有理财_商品项
+#define kEvent_0160	@"0160" //总资产_我的投资理财_有理财_添加
+#define kEvent_0161	@"0161" //总资产_我的投资理财_有理财_商品项_返回
+#define kEvent_0162	@"0162" //总资产_我的投资理财_有理财_商品项_转入
+#define kEvent_0163	@"0163" //总资产_我的投资理财_有理财_商品项_转出
+#define kEvent_0164	@"0164" //财富分_银通宝
+#define kEvent_0165	@"0165" //财富分_银通宝_返回
+#define kEvent_0165	@"0165" //财富分_银通宝_立即赚钱
+#define kEvent_05040301     @"05040301"     //我的房_点车的图片
+#define kEvent_0504030101   @"0504030101"   //我的房_点车的图片_拍照
+#define kEvent_0504030101   @"0504030101"   //我的房_点车的图片_相册
+#define kEvent_0504030201   @"0504030201"   //我的房_点击_添加
+#define kEvent_050403020101 @"050403020101" //我的房_点击_添加_开始评估
+#define kEvent_05050305     @"05050305"     //我的车_添加
+#define kEvent_0505030501   @"0505030501"   //我的车_添加_添加并估值
+#define kEvent_05050306     @"05050306"     //我的车_查违章_查询其他车辆_确定
+#define kEvent_050505       @"050505"       //我的车_点车的图片
+#define kEvent_05050501     @"05050501"     //我的车_车图片_拍照
+#define kEvent_05050502     @"05050502"     //我的车_车图片_相册
+#define kEvent_0508         @"0508"         //积分_未绑定帐户时，点绑定操作
+#define kEvent_0509         @"0509"         //积分商城_点积分banner入口
+
+
+
+
+
+#endif /* PAFFStatisticsConfig_h */

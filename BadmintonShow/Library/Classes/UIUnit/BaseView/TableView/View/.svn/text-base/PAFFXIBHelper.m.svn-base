@@ -1,0 +1,39 @@
+//
+//  BDXIBHelper.m
+//
+//
+//  Copyright 2010 . All rights reserved.
+//
+
+#import "PAFFXIBHelper.h"
+
+@implementation PAFFXIBHelper
+
++ (id)loadObjectFromXIBName:(NSString *)xibName type:(Class)type
+{
+    return [self loadObjectFromXIBName:xibName type:type index:0];
+}
++ (id)loadObjectFromXIBName:(NSString *)xibName type:(Class)type index:(int)index
+{
+    // NSLog(@"+(id)loadObjectFromXIBName:(NSString*) xibName=%@ type:(Class) type=%@ index:(int) index=%d ",xibName,type,index);
+    @autoreleasepool {
+        assert(xibName != nil);
+        assert(type != nil);
+        id ret = nil;
+        int objectIndex = 0;
+        NSArray *objectArray = [[NSBundle mainBundle] loadNibNamed:xibName owner:nil options:nil];
+        for (id obj in objectArray) {
+            if ([[obj class] isEqual:type]) {
+                if (objectIndex == index) {
+                    ret = obj;
+                    break;
+                }
+                ++objectIndex;
+            }
+        }
+        assert(ret != nil);
+        return ret;
+    }
+}
+
+@end

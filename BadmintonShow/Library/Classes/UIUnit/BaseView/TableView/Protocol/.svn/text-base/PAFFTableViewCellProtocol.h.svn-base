@@ -1,0 +1,53 @@
+//
+//  PAFFTableViewCellProtocol.h
+//  FFProject
+//
+//  Created by bolei on 15/8/26.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@protocol PAFFTableViewCellProtocol <NSObject>
+
+@property(nonatomic, strong) id object; //数据
+
+/**
+ *	@brief	通过item来算cell高度，必须子类化
+ *
+ *	@param 	item 	数据模型
+ *
+ *	@return	高度
+ */
++ (CGFloat)cellHeightWithItem:(id)item;
+
+/**
+ *	@brief	通过item确定identify，必须子类化
+ *
+ *	@param 	item 	item数据
+ *
+ *	@return	cell复用标志
+ */
++ (NSString *)cellidentifyWithItem:(id)item;
+
+
+/**
+ *	@brief	估算cell的值，用于加快加载速度，可以不实现
+ *
+ *	@param 	item 	item数据
+ *
+ *	@return	返回估算的值
+ */
++ (CGFloat)cellEstimatedHeightWithItem:(id)item;
+
+
+/**
+ *	@brief	Cell将要绘制时调会调用此方法，可一在这里绘制cell,子类复写
+ */
+- (void)disPlayCellWithItem:(id)item;
+
+
+- (void)addObserverProperty;
+- (void)removeObserveProperty;
+
+@end

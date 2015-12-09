@@ -1,0 +1,29 @@
+//
+//  FFDatabaseStorageChangedObject.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFDatabaseStorageChangedObject.h"
+
+@implementation FFDatabaseStorageChangedObject
+
+- (NSString *)description
+{
+    NSString *type = nil;
+    switch (self.type) {
+        case FFDatabaseStorageChangedTypeRefresh:
+            type = @"REFRESH";
+            break;
+        case FFDatabaseStorageChangedTypeDelete:
+            type = @"DELETE";
+            break;
+        default:
+            type = @"SAVE";
+            break;
+    }
+    return [NSString stringWithFormat:@"[DATABASE %@]\n%@", type,self.objects];
+}
+@end

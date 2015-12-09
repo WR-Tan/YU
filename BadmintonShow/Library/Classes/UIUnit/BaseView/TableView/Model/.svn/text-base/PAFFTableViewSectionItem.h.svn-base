@@ -1,0 +1,22 @@
+//
+//  BRTableViewItem.h
+//  baiduRouter
+//
+//  Created by mco-device on 14-1-21.
+//  Copyright (c) 2014年 baidu. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface PAFFTableViewSectionItem : NSObject
+
+@property (nonatomic, copy) NSString *sectionTitle;
+@property (nonatomic, strong) NSMutableArray *sectionData;
+@property (nonatomic, assign) NSUInteger tag;
+
+/**
+ *  该section下的cell是否是收起状态,默认不是(即展开状态)
+ */
+@property (nonatomic, assign) BOOL isClosed;
+
+@end

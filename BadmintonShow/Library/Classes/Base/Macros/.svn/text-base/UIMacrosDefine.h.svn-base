@@ -1,0 +1,17 @@
+//
+//  UIMacrosDefine.h
+//  FFProject
+//
+//  Created by bolei on 15/9/7.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#ifndef FFProject_UIMacrosDefine_h
+#define FFProject_UIMacrosDefine_h
+
+#define kAPPThemeColor  [UIColor colorWithHexString:@"#63534e"]
+
+#define NSStringFromInt(d) [NSString stringWithFormat:@"%ld", (d)]
+#define NSStringFromDouble(d) [NSString stringWithFormat:@"%@", (@(d))]
+
+#endif

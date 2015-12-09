@@ -1,0 +1,25 @@
+//
+//  PAFFToast.m
+//  Pods
+//
+//  Created by bolei on 15/11/17.
+//
+//
+
+#import "PAFFToast.h"
+#import "HFInterface_Toast.h"
+#import "SVProgressHUD.h"
+#import <UIView+Toast.h>
+
+@implementation PAFFToast
+
+RCT_EXPORT_MODULE(PAFFToast);
+
+
+RCT_EXPORT_METHOD(show:(NSString *)msg duration:(NSInteger)duration) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [HFInterface_Toast showToast:msg duration:duration title:@"" postion:HFToastPosition_Bottom];
+    });
+}
+
+@end

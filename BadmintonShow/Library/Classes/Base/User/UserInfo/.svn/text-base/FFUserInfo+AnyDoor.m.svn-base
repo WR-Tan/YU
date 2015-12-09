@@ -1,0 +1,50 @@
+//
+//  FFUserInfo+AnyDoor.m
+//  FFProject
+//
+//  Created by EASY on 15/10/3.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "FFUserInfo+AnyDoor.h"
+#import "FFUserStorage.h"
+
+#define FFUserInfoAnyDoorSessionSecret @"FFUserInfoAnyDoorSessionSecret"
+#define FFUserInfoAnyDoorSsoTicket @"FFUserInfoAnyDoorSsoTicket"
+#define FFUserInfoAnyDoorMamcId @"FFUserInfoAnyDoorMamcId"
+
+@implementation FFUserInfo (AnyDoor)
+
+-(void)setSessionSecret:(NSString *)sessionSecret {
+    [self.user setPersist:sessionSecret forKey:FFUserInfoAnyDoorSessionSecret];
+}
+
+-(NSString *)sessionSecret {
+    return (NSString *)[self.user persistForKey:FFUserInfoAnyDoorSessionSecret];
+}
+
+-(void)setSsoTicket:(NSString *)ssoTicket {
+    [self.user setPersist:ssoTicket forKey:FFUserInfoAnyDoorSsoTicket];
+}
+
+-(NSString *)ssoTicket {
+    return (NSString *)[self.user persistForKey:FFUserInfoAnyDoorSsoTicket];
+}
+
+-(void)setMamcId:(NSString *)mamcId {
+    [self.user setPersist:mamcId forKey:FFUserInfoAnyDoorMamcId];
+}
+
+-(NSString *)mamcId {
+    return (NSString *)[self.user persistForKey:FFUserInfoAnyDoorMamcId];
+}
+
+-(NSDictionary *)unifyDicAnyDoor{
+    return @{
+             @"ussoTicket":[self ssoTicket]?:@"",
+             @"mamcId":[self mamcId]?:@"",
+             @"sessionSecret":[self sessionSecret]?:@""
+             };
+}
+
+@end

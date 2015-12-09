@@ -1,0 +1,35 @@
+//
+//  FFDatabaseCondition.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+// Wrapper BZObjectStoreSQLiteConditionModel
+@interface FFDatabaseConditionSQLite : NSObject
+
+@property (nonatomic,strong) NSString *where;           //where
+@property (nonatomic,strong) NSArray *parameters;       //fields
+@property (nonatomic,strong) NSString *orderBy;         //order by
+@property (nonatomic,strong) NSNumber *limit;           //limit
+@property (nonatomic,strong) NSNumber *offset;          //offset
+
+@end
+
+// Wrapper BZObjectStoreReferenceConditionModel
+@interface FFDatabaseConditionReference : NSObject
+
+@property (nonatomic,strong) NSObject *from;            //reference from
+@property (nonatomic,strong) NSObject *to;              //reference to
+
+@end
+
+// Wrapper BZObjectStoreConditionModel
+@interface FFDatabaseCondition : NSObject
++(instancetype) condition;
+@property (nonatomic, strong) FFDatabaseConditionSQLite *sqlite;            
+@property (nonatomic, strong) FFDatabaseConditionReference *reference;
+@end

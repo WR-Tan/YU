@@ -1,0 +1,14 @@
+//
+//  PAFFLoading.h
+//  Pods
+//
+//  Created by EASY on 15/11/27.
+//
+//
+
+#import <Foundation/Foundation.h>
+#import <RCTBridgeModule.h>
+
+@interface PAFFLoading : NSObject<RCTBridgeModule>
+
+@end

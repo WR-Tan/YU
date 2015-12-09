@@ -1,0 +1,18 @@
+//
+//  UINavigationItem+CustomItem.h
+//  FFProject
+//
+//  Created by junming on 8/26/15.
+//  Copyright (c) 2015 pingan. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "PAFFCustomBarItem.h"
+
+@interface UINavigationItem (CustomItem)
+
+- (PAFFCustomBarItem *)setItemWithTitle:(NSString *)title textColor:(UIColor *)color fontSize:(CGFloat)font itemType:(PAFFCustomBarItemType)type;
+- (PAFFCustomBarItem *)setItemWithImage:(NSString *)imageName size:(CGSize)size itemType:(PAFFCustomBarItemType)type;
+- (PAFFCustomBarItem *)setItemWithCustomView:(UIView *)customView itemType:(PAFFCustomBarItemType)type;
+
+@end

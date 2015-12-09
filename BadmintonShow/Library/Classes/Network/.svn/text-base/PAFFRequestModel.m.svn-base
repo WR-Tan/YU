@@ -1,0 +1,47 @@
+//
+//  XYBRequestModel.m
+//  XinYongBao
+//
+//  Created by waterhk on 15/4/10.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "PAFFRequestModel.h"
+#import "MTLValueTransformer.h"
+
+@interface PAFFRequestModel ()
+
+@end
+
+@implementation PAFFRequestModel
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey{
+    return @{
+                @"code":@"code",
+                @"msg":@"msg",
+                @"data":@"data"
+             };
+}
+
+- (id)getDataFromClass:(Class)classModel{
+    if (self.data) {
+        id data;
+        if ([self.data isKindOfClass:[NSDictionary class]]) {
+            data = [MTLJSONAdapter modelOfClass:classModel fromJSONDictionary:self.data error:nil];
+        }
+        else if ([self.data isKindOfClass:[NSArray class]]) {
+            data = [MTLJSONAdapter modelsOfClass:classModel fromJSONArray:self.data error:nil];
+        }
+        return data;
+    }
+    return nil;
+}
+
+- (id)dataModel{
+    if (!_dataModel && self.classModel) {
+        _dataModel = [self getDataFromClass:self.classModel];
+    }
+    return _dataModel;
+}
+
+@end

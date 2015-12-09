@@ -1,0 +1,33 @@
+//
+//  PAFFLoading.m
+//  Pods
+//
+//  Created by EASY on 15/11/27.
+//
+//
+
+#import "PAFFLoading.h"
+#import <HFInterface_Loading.h>
+#import <RCTConvert.h>
+
+@implementation PAFFLoading
+
+RCT_EXPORT_MODULE(PAFFLoading);
+
+RCT_EXPORT_METHOD(show:(nonnull NSNumber *) type title:(NSString *) title progress:(nonnull NSNumber *) progress) {
+	EHFLoadingType t = (EHFLoadingType)[RCTConvert NSInteger:type];
+	title = [RCTConvert NSString:title]?:@"";
+	float p = [RCTConvert float:progress];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[HFInterface_Loading showLoading:t info:title progress:p];
+	});
+	
+}
+
+RCT_EXPORT_METHOD(hide) {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[HFInterface_Loading hideLoading];
+	});
+}
+
+@end

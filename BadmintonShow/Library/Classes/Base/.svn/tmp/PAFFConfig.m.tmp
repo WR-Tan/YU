@@ -1,0 +1,196 @@
+//
+//  BLConfig.m
+//  School
+//
+//  Created by bolei on 15-4-12.
+//  Copyright (c) 2015年 BL. All rights reserved.
+//
+
+#import "PAFFConfig.h"
+
+// test 环境
+#define QATest
+
+////////////////////////////////////////////////////
+//  QA环境
+////////////////////////////////////////////////////
+#define API_TEST_STG @"https://202.69.27.140/"
+
+////////////////////////////////////////////////////
+//  RD环境
+////////////////////////////////////////////////////
+#define API_TEST_DEV @"http://10.20.18.146/"
+
+////////////////////////////////////////////////////
+//  线上环境
+#define API_PRODUCT @"https://fbtoam.pingan.com.cn/"
+
+#define APP_DESCRIPTION NSLocalizedString(@"当前已经是最新版本", nil) //发版需要配置此值
+
+/// APP渠道号
+#define APP_CHANNEL_ID @"IOS-biaozhun"
+
+//可以修改这个来指定Path
+//#define kRNUrlPath @"http://10.180.152.50:8081/index.ios.bundle?platform=ios&dev=true"
+
+<<<<<<< .mine
+/// 本地模块用到的channelId渠道号
+#define APP_O2OChANNEL_ID @"1001"
+=======
+#ifdef DEBUG
+//#define RN_DEV 1  // 用于本地调试,默认关闭，不容许提交到svn
+#endif
+>>>>>>> .r335
+
+<<<<<<< .mine
+
+
+=======
+#ifdef RN_DEV
+#define kRNUrlPath @"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"
+//#define kRNUrlPath @"http://10.180.152.50:8081/index.ios.bundle?platform=ios&dev=true"
+#else
+#define kRNUrlPath [[NSBundle mainBundle] pathForResource:@"main" ofType:@"jsbundle"]
+#endif
+
+
+>>>>>>> .r335
+@implementation PAFFConfig
+
+static PAFFConfig *_instance = nil;
+
++ (PAFFConfig *)instance {
+    static dispatch_once_t dt;
+    dispatch_once(&dt, ^{
+        _instance = [[PAFFConfig alloc] init];
+    });
+    
+    return _instance;
+}
+
+
+- (id)init {
+    self = [super init];
+    if (self != nil) {
+    }
+    return self;
+}
+
+- (void)initEnv {
+    //    self.appId = @"c2eceed47d";
+    
+    self.appId = @"918408976";
+//    self.appStoreId = @"918408976"; //假的
+//    
+    self.clientName = @"com.pingan.FFProject";
+//    self.mobStatId = @"c7accb7808";
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *version = [infoDictionary objectForKey:(NSString *)kCFBundleVersionKey];
+    NSString *appName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+    self.version = version;
+#ifdef DEBUG
+    self.apiType = API_TYPE_STG;
+#else
+    self.apiType = API_TYPE_PRD;  //不容许改这个环境
+#endif
+//    self.apiAk = @"iSeGsWPwcSwPhmV5RjgCivm4";
+//    self.apiSk = @"bD1PRW9jSQTdR151OGEqwWTMUkPsDlKb";
+//    self.versionCode = 11;
+    self.appDescription = APP_DESCRIPTION;
+    self.appName = appName;
+#ifdef DEBUG
+    self.apnsCertName = @"app_develop";
+#else
+    self.apnsCertName = @"app_product";
+#endif
+    
+    self.jsEncryptKey = @"1234567812345678";
+    self.jsBundleId = @"PAIC_FSTANDARD_WWW";
+    
+    self.rnBundlePath = kRNUrlPath;
+    self.companyId = @"2001";
+}
+
+- (void)setApiType:(NSInteger)apiType {
+    _apiType = apiType;
+    NSString *jsBasePath = [NSBundle mainBundle].resourcePath;
+    
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"dev/PAIC_FSTANDARD_WWW" ofType:@"zip"];
+    
+    switch (_apiType) {
+        case API_TYPE_PRD:
+            self.apiHost = API_PRODUCT;
+            self.jsResourcePath = [jsBasePath stringByAppendingPathComponent:@"prd"];
+            self.talkingDataAppKey = @"3B762E0D3B62C70CA5933229F5B7B4E0";
+            self.tingYunAppKey = @"6bc6cf93d35042378818583f5cbf0d0b";
+            self.moduleId = @"24";
+            self.modulePublicKey = @"hov7fcpa5sd3ybup";
+            self.o2oApiConfigHost = @"http://che.pingan.com/fpro/merchant/index.html";
+            break;
+        case API_TYPE_DEV:
+            self.apiHost = API_TEST_DEV;
+            self.jsResourcePath = [jsBasePath stringByAppendingPathComponent:@"prd"];
+            self.talkingDataAppKey = @"0DA621A017A506C67511FE604C8E6E00";
+            self.tingYunAppKey = @"d0d498aa8dd549c9ac93c5ed77978d5c";
+            self.moduleId = @"58";
+            self.modulePublicKey = @"ruh66xa0m42lw2gq";
+            self.o2oApiConfigHost = @"http://stg1.pa18.com/fpro/merchant/index.html";
+            break;
+        case API_TYPE_STG:
+            self.apiHost = API_TEST_STG;
+            self.jsResourcePath = [jsBasePath stringByAppendingPathComponent:@"prd"];
+            self.talkingDataAppKey = @"0DA621A017A506C67511FE604C8E6E00";
+            self.tingYunAppKey = @"d0d498aa8dd549c9ac93c5ed77978d5c";
+            self.moduleId = @"58";
+            self.modulePublicKey = @"ruh66xa0m42lw2gq";
+            self.o2oApiConfigHost = @"http://stg1.pa18.com/fpro/merchant/index.html";
+            break;
+        default:
+            break;
+    }
+    
+    self.jsResourcePath = [NSString stringWithFormat:@"%@/",self.jsResourcePath];
+    
+}
+
+- (NSString *)apiHostWithApiType:(NSInteger)apiType {
+    switch (apiType) {
+        case API_TYPE_PRD:
+            return API_PRODUCT;
+            break;
+        case API_TYPE_DEV:
+            return API_TEST_DEV;
+            break;
+        case API_TYPE_STG:
+            return API_TEST_STG;
+            break;
+        default:
+            break;
+    }
+    return @"";
+}
+
+- (NSString *)channelId {
+    
+    return APP_CHANNEL_ID;
+
+//    if (_channelId == nil) {
+//        @autoreleasepool {
+//            NSError *error = nil;
+//            NSString *path = [[NSBundle mainBundle] pathForResource:@"channel" ofType:nil];
+//            _channelId = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+//            assert(_channelId != nil);
+//            _channelId = [_channelId stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        }
+//    }
+//    
+//    return _channelId;
+}
+
+- (NSString *)o2oChannelId{
+    return APP_O2OChANNEL_ID ;
+}
+
+
+@end

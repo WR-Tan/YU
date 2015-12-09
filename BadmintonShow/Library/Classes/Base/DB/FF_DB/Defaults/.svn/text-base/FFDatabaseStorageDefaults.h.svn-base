@@ -1,0 +1,50 @@
+//
+//  FFUserDefaults.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "FFDatabaseStorage.h"
+
+//like NSUserDefaults
+@interface FFDatabaseStorageDefaults : NSObject
+
+-(instancetype) initWithStorage:(__weak FFDatabaseStorage *) storage;
+
+- (id)objectForKey:(NSString *)defaultName;
+- (void)setObject:(id<NSCoding>)value forKey:(NSString *)defaultName;
+- (void)removeObjectForKey:(NSString *)defaultName;
+
+- (NSString *)stringForKey:(NSString *)defaultName;
+- (NSArray *)arrayForKey:(NSString *)defaultName;
+- (NSDictionary *)dictionaryForKey:(NSString *)defaultName;
+- (NSData *)dataForKey:(NSString *)defaultName;
+- (NSArray *)stringArrayForKey:(NSString *)defaultName;
+- (NSInteger)integerForKey:(NSString *)defaultName;
+- (float)floatForKey:(NSString *)defaultName;
+- (double)doubleForKey:(NSString *)defaultName;
+- (BOOL)boolForKey:(NSString *)defaultName;
+- (NSURL *)URLForKey:(NSString *)defaultName;
+
+- (void)setInteger:(NSInteger)value forKey:(NSString *)defaultName;
+- (void)setFloat:(float)value forKey:(NSString *)defaultName;
+- (void)setDouble:(double)value forKey:(NSString *)defaultName;
+- (void)setBool:(BOOL)value forKey:(NSString *)defaultName;
+- (void)setURL:(NSURL *)url forKey:(NSString *)defaultName;
+
+
+// keyed subscript support
+- (id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(id<NSCoding>)obj forKeyedSubscript:(NSString *)key;
+
+@end
+
+@interface FFDatabaseStorage (DatabaseDefaults)
+
+@property (nonatomic, readonly) FFDatabaseStorageDefaults *defaults;
+
+@end
+

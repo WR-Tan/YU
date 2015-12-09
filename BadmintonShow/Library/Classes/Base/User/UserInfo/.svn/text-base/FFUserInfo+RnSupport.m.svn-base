@@ -1,0 +1,56 @@
+//
+//  PAFFUserInfo+RnSupport.m
+//  AwesomeProject
+//
+//  Created by luochenxun on 15/11/26.
+//  Copyright © 2015年 PinAn. All rights reserved.
+//
+
+#import "FFUserInfo+RnSupport.h"
+#import "FFUserInfo+Customer.h"
+#import "FFUserInfo+AnyDoor.h"
+#import "PAFFAppContext.h"
+
+#define kUserInfoModuleUrl @"userinfo"
+
+#define kPAFFUserInfoErrorCodeError -1
+
+
+@implementation FFUserInfo (RnSupport)
+
+// 实现 RCTBridgeModule 协议
+RCT_EXPORT_MODULE(PAFFDataFetch);
+
+#pragma mark - 协议方法，提供 RN回调方法 getData
+RCT_EXPORT_METHOD(getData:(NSString *)requestUrl successCallback:(RCTResponseSenderBlock)successCallback errorCallBack:(RCTResponseErrorBlock)errorCallBack) {
+    
+    NSDictionary *returnDic = [self getDataWithUrl:requestUrl];
+    if (returnDic) {
+        successCallback(@[ returnDic ]);
+    } else {
+        errorCallBack(nil);
+    }
+}
+
+// private method
+- (NSDictionary *)getDataWithUrl:(NSString *)requesUrl {
+    // user Info
+    if ([requesUrl isEqualToString:kUserInfoModuleUrl]) {
+        return [self getUserInfo];
+    }
+    
+    return nil;
+}
+
+// private method
+#pragma mark 获取用户基本信息（基本信息+任意门信息）
+-(NSDictionary *)getUserInfo{
+    NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithDictionary:[[PAFFAppContext instance].currentUser.info unifyDicCustomer]];
+    
+    if (dataDic) {
+        [dataDic addEntriesFromDictionary:[[PAFFAppContext instance].currentUser.info unifyDicAnyDoor]];
+    }
+    return [NSDictionary dictionaryWithDictionary:dataDic];
+}
+
+@end

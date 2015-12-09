@@ -1,0 +1,64 @@
+//
+//
+//  Created by mco-device on 14-1-21.
+//  Copyright (c) 2014年 baidu. All rights reserved.
+//
+
+#import "PAFFTableViewSectionHeaderBase.h"
+#import "NSString+sizeWithFontInIOS7.h"
+#import "UIViewAdditions.h"
+#import "DeviceMacros.h"
+
+#define kSectionViewTitleFont [UIFont boldSystemFontOfSize:15]
+#define kSectionViewTitleColor RGBCOLOR(0x50, 0x54, 0x58)
+#define kMaxTitleWith 300
+#define kSeciontTitlePaddingLeft 12
+
+@implementation PAFFTableViewSectionHeaderBase
+
+@synthesize background = _background;
+@synthesize titleLbl = _titleLbl;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        UIImageView *background = [[UIImageView alloc] initWithFrame:self.frame];
+        self.background = background;
+        [self addSubview:self.background];
+    }
+    return self;
+}
+
+- (void)setBackgroundImg:(UIImage *)image
+{
+    self.background.image = image;
+}
+
+- (void)setTitleStr:(NSString *)title
+{
+    if (nil == self.titleLbl) {
+        CGSize size = [title calculateSizeWithFont:kSectionViewTitleFont forWidth:kMaxTitleWith lineBreakMode:NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail];
+        UILabel *tempTitle = [[UILabel alloc] initWithFrame:CGRectMake(kSeciontTitlePaddingLeft, (self.height - size.height) / 2, size.width, size.height)];
+        [tempTitle setFont:kSectionViewTitleFont];
+        [tempTitle setTextColor:kSectionViewTitleColor];
+        self.titleLbl = tempTitle;
+        [self.titleLbl setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:self.titleLbl];
+    }
+    CGSize size = [title calculateSizeWithFont:kSectionViewTitleFont forWidth:kMaxTitleWith lineBreakMode:NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail];
+    self.titleLbl.size = size;
+    self.titleLbl.text = title;
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

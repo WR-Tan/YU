@@ -1,0 +1,116 @@
+//
+//  PAFFAppContext.m
+//  GuangzhouBank
+//
+//  Created by bolei on 15/8/25.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import "PAFFAppContext.h"
+#import "PAFFConfig.h"
+#import "SDWebImageDownloader.h"
+#import "FFUserInfo.h"
+
+@interface PAFFAppContext () {
+    FFUser *_currentUser;
+}
+
+@property (nonatomic,assign) BOOL isLogin;
+
+@end
+
+@implementation PAFFAppContext
+@synthesize isLogin = _isLogin;
+
+@synthesize currentUser = _currentUser;
+
+@synthesize config = _config;
+//@synthesize user = _user;
+
+static PAFFAppContext *_instance = nil;
+
++ (PAFFAppContext *)instance {
+    @synchronized(self) {
+        if (_instance == nil) {
+            _instance = [[self alloc] init];
+        }
+        
+        return _instance;
+    }
+}
+
+- (void)dealloc {
+    [self unregisterNotifications];
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        [self registerNotifications];
+    }
+    return self;
+}
+
+- (PAFFConfig *)config {
+    if (_config == nil) {
+        _config = [[PAFFConfig alloc] init];
+        [_config initEnv];
+    }
+    return _config;
+}
+
+
+//- (PAFFUser *)user {
+//    if (_user == nil) {
+//        _user = [PAFFUser instance];
+//    }
+//    return _user;
+//}
+
+-(void)setCurrentUser:(FFUser *)currentUser {
+    if (_currentUser != currentUser) {
+        _currentUser = currentUser;
+    }
+}
+
+- (void)loginWithUserInfo:(FFUser *)user{
+    
+    [self setCurrentUser:user];
+    // 添加FF
+    NSMutableString *string = [NSMutableString string];
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:APP_Config.apiHost]];
+    for (NSHTTPCookie *cookie in cookies) {
+        [string appendFormat:@"%@=%@;",cookie.name,cookie.value];
+    }
+    [[SDWebImageDownloader sharedDownloader] setValue:string forHTTPHeaderField:@"Cookie"];
+    self.isLogin = YES;
+}
+
+-(void) logOut {
+
+    [self setCurrentUser:nil];
+    self.isLogin = NO;
+    APP_Context.isLoginTimeout = NO;
+    APP_Context.isKickOut = NO;
+    //退出登录后，清空cookie
+    NSHTTPCookie * cookie;
+    NSHTTPCookieStorage * storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray * cookies = [storage cookiesForURL:[NSURL URLWithString:APP_Config.apiHost]];
+    for (cookie in cookies) {
+        [storage deleteCookie:cookie];
+    }
+}
+
+
+-(void)registerNotifications
+{
+    [self unregisterNotifications];
+    //do sth
+}
+
+-(void)unregisterNotifications
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+@end

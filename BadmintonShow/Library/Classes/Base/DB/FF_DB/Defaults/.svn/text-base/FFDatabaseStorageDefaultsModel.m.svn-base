@@ -1,0 +1,19 @@
+//
+//  FFUserDefaultsModel.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFDatabaseStorageDefaultsModel.h"
+
+
+@interface FFDatabaseStorageDefaultsModel ()
+
+
+@end
+
+@implementation FFDatabaseStorageDefaultsModel
+
+@end

@@ -12,7 +12,7 @@
 #import "BSChatController.h"
 #import "BSDiscoverController.h"
 #import "BSMineController.h"
-
+#import "BSHomePageViewController.h"
 
 @interface BSBaseTabBarController ()
 
@@ -33,50 +33,46 @@
 
 - (void)buildTabBar
 {
+    UIImage *userImage = [UIImage imageNamed:@"xxxx"];
+    // 首页资讯
+    BSHomePageViewController *homePageVC = [[BSHomePageViewController alloc] init];
+    BSBaseNavigationController *homePageNav = [[BSBaseNavigationController alloc] initWithRootViewController:homePageVC];
+    UIImage *yuxiuImage = [UIImage imageNamed:@"YUXIU_Tabbar"];
+    UITabBarItem *homePageItem = [[UITabBarItem alloc] initWithTitle:@"羽秀" image:yuxiuImage tag:1];
+    homePageVC.navigationController.navigationBar.hidden = YES ;
+    homePageNav.tabBarItem = homePageItem;
+    
     //  排名
     BSRankController *rank = [[BSRankController alloc] initWithStyle:UITableViewStyleGrouped];
     BSBaseNavigationController *rankNav = [[BSBaseNavigationController alloc] initWithRootViewController:rank];
-    UITabBarItem *rankItem = [[UITabBarItem alloc] initWithTitle:@"排名" image:nil tag:0];
+    UITabBarItem *rankItem = [[UITabBarItem alloc] initWithTitle:@"排名" image:userImage tag:2];
     rankNav.tabBarItem = rankItem;
     
-    
-    
-    // 中心圆
-//    UIViewController *vc = [[UIViewController alloc] init];
-//    BSBaseNavigationController *nav = [[BSBaseNavigationController alloc] initWithRootViewController:vc];
-//    UITabBarItem *vcItem = [[UITabBarItem alloc] initWithTitle:@"新建" image:nil tag:1];
-//    nav.tabBarItem = vcItem;
-     
  
-    UIStoryboard *BSDiscover = [UIStoryboard storyboardWithName:@"BSDiscover" bundle:nil];
-    BSDiscoverController *discover  = [BSDiscover instantiateViewControllerWithIdentifier:@"BSDiscoverController"];
-    BSBaseNavigationController *discoverNav = [[BSBaseNavigationController alloc] initWithRootViewController:discover];
-    UITabBarItem *discoverItem = [[UITabBarItem alloc] initWithTitle:@"发现" image:nil tag:0];
-    discoverNav.tabBarItem = discoverItem;
+//    UIStoryboard *BSDiscover = [UIStoryboard storyboardWithName:@"BSDiscover" bundle:nil];
+//    BSDiscoverController *discover  = [BSDiscover instantiateViewControllerWithIdentifier:@"BSDiscoverController"];
+//    BSBaseNavigationController *discoverNav = [[BSBaseNavigationController alloc] initWithRootViewController:discover];
+//    UITabBarItem *discoverItem = [[UITabBarItem alloc] initWithTitle:@"发现" image:nil tag:3];
+//    discoverNav.tabBarItem = discoverItem;
  
     //  聊天
     BSChatController *chat = [[BSChatController alloc] init];
     BSBaseNavigationController *chatNav = [[BSBaseNavigationController alloc] initWithRootViewController:chat];
-    UITabBarItem *chatItem = [[UITabBarItem alloc] initWithTitle:@"聊天" image:nil tag:1];
+    UITabBarItem *chatItem = [[UITabBarItem alloc] initWithTitle:@"聊天" image:nil tag:3];
     chatNav.tabBarItem = chatItem;
     
 
     
-//    [weakSelf addItemController:[[CDConvsVC alloc] init] toTabBarController:tab];
-//    [weakSelf addItemController:[[CDFriendListVC alloc] init] toTabBarController:tab];
-//    [weakSelf addItemController:[[CDProfileVC alloc] init] toTabBarController:tab];
-
-    
-    
- 
     UIStoryboard *BSMine = [UIStoryboard storyboardWithName:@"BSMine" bundle:nil];
     BSMineController *mine  = [BSMine instantiateViewControllerWithIdentifier:@"BSDiscoverController"];
     BSBaseNavigationController *mineNav = [[BSBaseNavigationController alloc] initWithRootViewController:mine];
-    UITabBarItem *mineItem = [[UITabBarItem alloc] initWithTitle:@"我" image:nil tag:0];
+//    UITabBarItem *mineItem = [[UITabBarItem alloc] initWithTitle:@"我" image:nil tag:0];
+//    UIImage *userImage = [UIImage imageNamed:@"user"];
+    UITabBarItem *mineItem = [[UITabBarItem alloc] initWithTitle:@"我" image:userImage selectedImage:userImage];
     mineNav.tabBarItem = mineItem;
  
     
-    self.viewControllers = @[rankNav,chatNav,mineNav];
+    self.viewControllers = @[homePageNav,rankNav,chatNav,mineNav];
 }
 
 @end

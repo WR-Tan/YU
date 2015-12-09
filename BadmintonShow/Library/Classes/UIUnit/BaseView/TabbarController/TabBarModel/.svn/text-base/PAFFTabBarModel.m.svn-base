@@ -1,0 +1,78 @@
+//
+//  PAFFTabBarModel.m
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import "PAFFTabBarModel.h"
+
+@implementation PAFFTabBarModel
+
+- (id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if (self) {
+        id value = [dictionary objectForKey:@"default"];
+        if (value) {
+            self.defaultSelect = value;
+        }
+    }
+    return self;
+}
+
++ (Class)tab_class
+{
+    return [TabbarItem class];
+}
+
+@end
+
+@implementation TabbarStyle
+
+- (id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if (self) {
+        
+        id value = (TabbarItemColor *)[dictionary objectForKey:@"default"];
+        if (value) {
+            TabbarItemColor *itemColor = [[TabbarItemColor alloc] initWithDictionary:value];
+            self.defaultColor = itemColor;
+        }
+        
+    }
+    return self;
+}
+
+@end
+
+@implementation TabbarItem
+
+- (id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if (self) {
+        id value = [dictionary objectForKey:@"id"];
+        if (value) {
+            self.itemId = value;
+        }
+        
+    }
+    return self;
+}
+
+@end
+
+@implementation TabbarItemColor
+
+- (id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if (self) {
+    }
+    return self;
+}
+
+@end

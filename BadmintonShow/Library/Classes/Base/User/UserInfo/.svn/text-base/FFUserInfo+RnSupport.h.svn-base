@@ -1,0 +1,16 @@
+//
+//  PAFFUserInfo+RnSupport.h
+//  AwesomeProject
+//
+//  Created by luochenxun on 15/11/26.
+//  Copyright © 2015年 PinAn. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <RCTBridgeModule.h>
+#import <RCTLog.h>
+#import "FFUserInfo.h"
+
+@interface FFUserInfo (RnSupport)  <RCTBridgeModule>
+
+@end

@@ -1,3 +1,4 @@
+
 pod 'AVOSCloud'
 pod 'AVOSCloudIM'
 pod 'AVOSCloudCrashReporting'
@@ -16,5 +17,10 @@ pod 'LeanCloudFeedback', '0.0.7'
 pod 'LeanCloudSocial', '0.0.5'
 pod 'OpenShare', '0.0.1'
 pod 'PopMenu', '2.4'
+pod 'SDWebImage'
 
 pod 'FMDB'
+pod 'Masonry'
+
+pod 'YYKit'
+pod 'HMSegmentedControl'

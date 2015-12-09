@@ -1,0 +1,32 @@
+//
+//  BCTableSourceItem.m
+//  Pods
+//
+//  Created by bolei on 15-5-10.
+//
+//
+
+#import "PAFFTableSourceItem.h"
+
+@implementation PAFFTableSourceItem
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.sectionIndexes = [NSMutableArray array];
+        self.sectionList = [NSMutableArray array];
+    }
+    return self;
+}
+
+
+- (id)initWithSectionList:(NSMutableArray *)sectionList indexList:(NSMutableArray *)indexList {
+    self = [self init];
+    if (self) {
+        self.sectionList = sectionList;
+        self.sectionIndexes = indexList;
+    }
+    return self;
+}
+
+@end

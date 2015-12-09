@@ -1,0 +1,47 @@
+//
+//  PAFFBaseWebViewController.h
+//  FFProject
+//
+//  Created by bolei on 15/8/27.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "PAFFBaseViewController.h"
+#import <HFHybridWebView.h>
+
+typedef enum
+{
+    PAFFLoadSource_Local,       // local本地
+    
+    PAFFLoadSource_PANetwork,   // paNetwork平安第三方网络
+    
+    PAFFLoadSource_InterNetwork, // interNetwork其他第三方网络
+    
+    PAFFLoadSource_Native,
+    
+} PAFFLoadSource;
+
+typedef void(^BaseWebViewCloseBlock)(NSString *url);
+
+@interface PAFFBaseWebViewController : PAFFBaseViewController
+
+@property (nonatomic, strong) HFHybridWebView    *baseWebView;
+@property (nonatomic, strong) NSString       *currentPathUrl;
+@property (nonatomic, strong) NSString       *childPathUrl;
+@property (nonatomic, assign) PAFFLoadSource      pfLoadSource;
+@property (nonatomic, strong) NSString *closeCallbackID;   //关闭按钮callbackID
+@property (nonatomic, assign) BOOL closeButtonHidden;      //关闭按钮是否隐藏
+@property (nonatomic, copy) BaseWebViewCloseBlock closeBlock;
+
+- (void)addWebViewWithUrl:(NSString *)filePath loadSource:(PAFFLoadSource)loadsource;
+
+
++ (PAFFLoadSource)getCurrentLoadSource:(NSString *)type;
+
+- (void)handleCloseButtonPressed:(id)sender;
+
+- (void)loadURL:(NSString *)filePath loadSource:(PAFFLoadSource)loadsource;
+
+- (void)closeAction;
+
+@end

@@ -1,0 +1,32 @@
+//
+//  FFUserInfo+AnyDoor.h
+//  FFProject
+//
+//  Created by EASY on 15/10/3.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+/*
+ *
+ * *  because we need to unify the data format as Android. here is the unify doc of this obj:
+ *
+ *mind: 如果修改了本类成员，需要修改 unifyDicXX方法中对应的成员名
+ *
+ *  ssoTicket 
+ *  sessionSecret
+ *  mamcId
+ * */
+
+#import "FFUserInfo.h"
+
+@interface FFUserInfo (AnyDoor)
+
+@property (nonatomic, strong) NSString *ssoTicket;
+@property (nonatomic, strong) NSString *mamcId;
+@property (nonatomic, strong) NSString *sessionSecret;
+
+/*!
+ *  @brief  返回统一格式的字典数据，按照头文件中规定的格式
+ */
+-(NSDictionary *)unifyDicAnyDoor;
+
+@end

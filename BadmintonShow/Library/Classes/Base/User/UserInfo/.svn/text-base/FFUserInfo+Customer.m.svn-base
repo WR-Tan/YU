@@ -1,0 +1,236 @@
+//
+//  FFUserInfo+Customer.m
+//  FFProject
+//
+//  Created by EASY on 15/10/3.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "FFUserInfo+Customer.h"
+#import "FFUserStorage.h"
+
+@implementation FFUserInfo (Customer)
+#define FFUserInfoUid @"FFUserInfoUid"
+-(void)setUid:(NSString *)uid {
+    [self.user setPersist:uid forKey:FFUserInfoUid];
+}
+
+-(NSString *)uid {
+    return (id) [self.user persistForKey:FFUserInfoUid];
+}
+
+#define FFUserInfoBirthDate @"FFUserInfoBirthDate"
+-(void)setBirthDate:(NSString *)birthDate {
+    [self.user setPersist:birthDate forKey:FFUserInfoBirthDate];
+}
+
+-(NSString *)birthDate {
+    return (id) [self.user persistForKey:FFUserInfoBirthDate];
+}
+
+#define FFUserInfoClientNo @"FFUserInfoClientNo"
+-(void)setClientNo:(NSString *)clientNo {
+    [self.user setPersist:clientNo forKey:FFUserInfoClientNo];
+}
+
+-(NSString *)clientNo {
+    return (id) [self.user persistForKey:FFUserInfoClientNo];
+}
+
+#define FFUserInfoCustId @"FFUserInfoCustId"
+-(void)setCustId:(NSString *)custId {
+    [self.user setPersist:custId forKey:FFUserInfoCustId];
+}
+
+-(NSString *)custId {
+    return (id) [self.user persistForKey:FFUserInfoCustId];
+}
+
+#define FFUserInfoEmail @"FFUserInfoEmail"
+-(void)setEmail:(NSString *)email {
+    [self.user setPersist:email forKey:FFUserInfoEmail];
+}
+
+-(NSString *)email {
+    return (id) [self.user persistForKey:FFUserInfoEmail];
+}
+
+#define FFUserInfoIdNo @"FFUserInfoIdNo"
+-(void)setIdNo:(NSString *)idNo {
+    [self.user setPersist:idNo forKey:FFUserInfoIdNo];
+}
+
+-(NSString *)idNo {
+    return (id) [self.user persistForKey:FFUserInfoIdNo];
+}
+
+#define FFUserInfoUserType @"FFUserInfoUserType"
+-(void)setUserType:(NSString *)userType {
+    [self.user setPersist:userType forKey:FFUserInfoUserType];
+}
+
+-(NSString *)userType{
+    return (id) [self.user persistForKey:FFUserInfoUserType];
+}
+
+#define FFUserInfoIdType @"FFUserInfoIdType"
+-(void)setIdType:(NSString *)idType {
+    [self.user setPersist:idType forKey:FFUserInfoIdType];
+}
+
+-(NSString *)idType {
+    return (id) [self.user persistForKey:FFUserInfoIdType];
+}
+
+#define FFUserInfoIsFundCustomer @"FFUserInfoIsFundCustomer"
+-(void)setIsFundCustomer:(NSString *)isFundCustomer {
+    [self.user setPersist:isFundCustomer forKey:FFUserInfoIsFundCustomer];
+}
+
+-(NSString *)isFundCustomer {
+    return (id) [self.user persistForKey:FFUserInfoIsFundCustomer];
+}
+
+#define FFUserInfoIsPaCustomer @"FFUserInfoIsPaCustomer"
+-(void)setIsPaCustomer:(NSString *)isPaCustomer {
+    [self.user setPersist:isPaCustomer forKey:FFUserInfoIsPaCustomer];
+}
+
+-(NSString *)isPaCustomer {
+    return (id) [self.user persistForKey:FFUserInfoIsPaCustomer];
+}
+
+#define FFUserInfoMobileNo @"FFUserInfoMobileNo"
+-(void)setMobileNo:(NSString *)mobileNo {
+    [self.user setPersist:mobileNo forKey:FFUserInfoMobileNo];
+}
+
+-(NSString *)mobileNo {
+    return (id) [self.user persistForKey:FFUserInfoMobileNo];
+}
+
+#define FFUserInfoName @"FFUserInfoName"
+-(void)setName:(NSString *)name {
+    [self.user setPersist:name forKey:FFUserInfoName];
+}
+
+-(NSString *)name {
+    return (id) [self.user persistForKey:FFUserInfoName];
+}
+
+#define FFUserInfoNickName @"FFUserInfoNickName"
+-(void)setNickName:(NSString *)nickName {
+    [self.user setPersist:nickName forKey:FFUserInfoNickName];
+}
+
+-(NSString *)nickName {
+    return (id) [self.user persistForKey:FFUserInfoNickName];
+}
+
+#define FFUserInfoPartyNo @"FFUserInfoPartyNo"
+-(void)setPartyNo:(NSString *)partyNo {
+    [self.user setPersist:partyNo forKey:FFUserInfoPartyNo];
+}
+
+-(NSString *)partyNo {
+    return (id) [self.user persistForKey:FFUserInfoPartyNo];
+}
+
+#define FFUserInfoSex @"FFUserInfoSex"
+-(void)setSex:(NSString *)sex {
+    [self.user setPersist:sex forKey:FFUserInfoSex];
+}
+
+-(NSString *)sex {
+    return (id) [self.user persistForKey:FFUserInfoSex];
+}
+
+#define FFUserInfoAvatarUrl @"FFUserInfoAvatarUrl"
+-(void)setAvatarUrl:(NSString *)avatarUrl {
+    [self.user setPersist:avatarUrl forKey:FFUserInfoAvatarUrl];
+}
+
+-(NSString *)avatarUrl {
+    return (id) [self.user persistForKey:FFUserInfoAvatarUrl];
+}
+
+#define FFUserInfoAlias @"FFUserInfoAlias"
+-(void)setAlias:(NSString *)alias {
+    [self.user setPersist:alias forKey:FFUserInfoAlias];
+}
+
+-(NSString *)alias {
+    return (id) [self.user persistForKey:FFUserInfoAlias];
+}
+
+#define FFUserInfoImgId @"FFUserInfoImgId"
+-(void)setImgId:(NSString *)imgId {
+    [self.user setPersist:imgId forKey:FFUserInfoImgId];
+}
+
+#define kFFunreadMessageCount @"FFunreadMessageCount"
+- (NSString *)unreadMessageCount{
+    return (id)[self.user persistForKey:kFFunreadMessageCount];
+}
+
+- (void)setUnreadMessageCount:(NSString *)unreadMessageCount{
+    [self.user setPersist:unreadMessageCount forKey:kFFunreadMessageCount];
+}
+
+-(NSString *)imgId {
+    return (id) [self.user persistForKey:FFUserInfoImgId];
+}
+
+-(BOOL)isHighLogin {
+    
+    return [self.userType integerValue] == 0?NO:YES;
+}
+
+#define kFFGestureSwitchStatus @"FFunreadMessageCount"
+
+#define FFUserDummyCustomerId @"FFUserDummyCustomerId"
+- (void)setDummyCustomerId:(NSString *)dummyCustomerId {
+    
+    [self.user setPersist:dummyCustomerId forKey:FFUserDummyCustomerId];
+}
+
+- (NSString *)dummyCustomerId {
+    
+    return (id)[self.user persistForKey:FFUserDummyCustomerId];
+}
+
+#define kFFGesturePasswordToken @"GesturePasswordToken"
+
+- (void)setToken:(NSString *)token {
+    
+    [self.user setPersist:token forKey:kFFGesturePasswordToken];
+}
+
+- (NSString *)token {
+    return (id)[self.user persistForKey:kFFGesturePasswordToken];
+}
+
+-(NSDictionary *)unifyDicCustomer{
+    return @{
+             @"uid":[self uid]?:@"",
+             @"custId":[self custId]?:@"",
+             @"name":[self name]?:@"",
+             @"nickname":[self nickName]?:@"",
+             @"birthDate":[self birthDate]?:@"",
+             @"sex":[self sex]?:@"",
+             @"idNO":[self idNo]?:@"",
+             @"idType":[self idType]?:@"",
+             @"email":[self email]?:@"",
+             @"mobileNo":[self mobileNo]?:@"",
+             @"clientNO":[self clientNo]?:@"",
+             @"alias":[self alias]?:@"",
+             @"imgId":[self imgId]?:@"",
+             @"avatarUrl":[self avatarUrl]?:@"",
+             @"isFundCustomer":[self isFundCustomer]?:@"",
+             @"isPaCustomer":[self isPaCustomer]?:@"",
+             @"userType":[self userType]?:@"",
+             @"partyNo":[self partyNo]?:@""
+             };
+}
+
+@end

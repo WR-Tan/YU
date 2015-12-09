@@ -1,0 +1,33 @@
+//
+//  AlignmentBarButton.m
+//  netdisk_iPhone
+//
+//  Created by tom on 9/23/13.
+//  Copyright (c) 2013 baidu. All rights reserved.
+//
+
+#import "AlignmentBarButton.h"
+#import "DeviceMacros.h"
+
+@implementation AlignmentBarButton
+
+#ifdef __IPHONE_7_0
+- (UIEdgeInsets)alignmentRectInsets
+{
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        UIEdgeInsets insets;
+        UIEdgeInsets contenSet;
+        if (self.isLeft) {
+            insets = UIEdgeInsetsMake(0, 9, 0, 0);
+            contenSet = UIEdgeInsetsMake(0, self.isBack ? 0 : -9, 0, 0);
+        } else { // IF_ITS_A_RIGHT_BUTTON
+            insets = UIEdgeInsetsMake(0, 9, 0, 9);
+            contenSet = UIEdgeInsetsMake(0, -9, 0, -10);
+        }
+        self.contentEdgeInsets = contenSet;
+        return insets;
+    }
+    return [super alignmentRectInsets];
+}
+#endif
+@end

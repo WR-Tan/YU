@@ -8,6 +8,7 @@
 
 #import "AVIMConversation+Custom.h"
 #import "LZConversationCell.h"
+#import "AVConstants.h"
 
 @class CDChatListVC;
 

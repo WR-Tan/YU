@@ -1,0 +1,40 @@
+//
+//  PAFFTabBar.h
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PAFFTabBarModel.h"
+@class PAFFTabBar;
+
+
+@protocol PAFFTabBarDelegate <NSObject>
+
+@optional
+
+- (BOOL)tabBar:(PAFFTabBar *)tabBar didSelectIndex:(NSInteger)index;
+
+@end
+
+@interface PAFFTabBar : UIView<UIScrollViewDelegate>
+
+@property (nonatomic, strong) UIImageView    *bgImageView;
+@property (nonatomic, strong) UIScrollView * scroller;
+@property (nonatomic, strong) NSMutableArray *buttons;
+@property (nonatomic, weak )  id<PAFFTabBarDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray *tabItemArray;
+
+
+- (id)initWithFrame:(CGRect)frame buttonTitles:(NSArray *)titleArray tabbarStyle:(TabbarStyle *)style tabItemArray:(NSMutableArray *)tabArrays;
+//     buttonImageDic:(NSDictionary *)imgDic;
+
+- (void)selectTabAtIndex:(NSInteger)index;
+
+
+// 手势滑动Item随之滚动
+- (void)scrollerTabBarItemToShow:(NSUInteger)index;
+
+@end

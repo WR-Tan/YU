@@ -17,15 +17,39 @@
 
 @property (nonatomic, strong) BSGameModel *gameModel ;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, weak ) UIButton *btn ;
+@property (nonatomic, strong) AVUser *oppUser;
+@property (nonatomic, weak )  UIButton *btn ;
 @end
 
 @implementation BSAddGameRecordController
 
+ 
+- (instancetype)initWithStyle:(UITableViewStyle)style{
+    self = [super initWithStyle:style];
+    if (self) {
+        _gameModel = [[BSGameModel alloc] init];
+        _gameModel.playerA_objectId = [AVUser currentUser].objectId;
+        
+        //  A的头像
+        AVFile *aAvatar = [[AVUser currentUser] objectForKey:AVPropertyAvatar];
+        _gameModel.aAVatar = [UIImage imageWithData:[aAvatar getData]];
+        //  B的头像
+        AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
+        _gameModel.bAVatar = [UIImage imageWithData:[bAvatar getData]];
+    
+        
+        _gameModel.playerA_name = [AVUser currentUser].username;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-       [self.tableView registerNib:[UINib nibWithNibName:@"BSAddGameRecordCell" bundle:nil] forCellReuseIdentifier:@"BSAddGameRecordCell"];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发送比赛" style:UIBarButtonItemStylePlain target:self action:@selector(sendGame)];
+    
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"BSAddGameRecordCell" bundle:nil] forCellReuseIdentifier:@"BSAddGameRecordCell"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -33,6 +57,139 @@
     
     [SVProgressHUD dismiss];
 }
+
+
+
+#pragma mark - BSChoosePlayerViewControllerDelegate
+- (void)didSelectPlayer:(AVUser *)user{
+    self.oppUser = user ;
+    
+    [self.oppUser fetchInBackgroundWithKeys:@[@"username",@"nickname"] block:^(AVObject *object, NSError *error) {
+       
+        AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
+        _gameModel.bAVatar = [UIImage imageWithData:[bAvatar getData]];
+        _gameModel.playerB_name = self.oppUser.username;
+        
+        [self.tableView reloadData];
+    }];
+   
+}
+
+
+#pragma mark - Cell Delegate
+-(void)presentFriendListVC{
+    BSChoosePlayerViewController *choosePlayVC = [[BSChoosePlayerViewController alloc] init];
+    choosePlayVC.title = @"选择对友/对手";
+    choosePlayVC.delegate = self;
+    [self.navigationController pushViewController:choosePlayVC animated:YES];
+}
+
+
+- (void)sendGame
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    BSAddGameRecordCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    NSString *aScore = cell.firstGameA_scoreTF.text;
+    NSString *bScore = cell.firstGameB_scoreTF.text;
+    
+    [self uploadGameWithAScore:aScore bScore:bScore button:nil];
+}
+
+- (void)uploadGameWithAScore:(NSString *)aScoreStr bScore:(NSString *)bScoreStr button:(UIButton *)btn{
+    
+    if (!self.oppUser) {
+        [SVProgressHUD showErrorWithStatus:@"请选择对手"];
+        return;
+    }
+    
+    [self.view endEditing:YES];
+    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
+    
+    NSError *myError;
+    NSError *oppError ;
+    [[AVUser currentUser] fetchIfNeeded:&myError];
+    [self.oppUser fetchIfNeeded:&oppError];
+    
+    if (myError || oppError) {
+        [SVProgressHUD showErrorWithStatus:@"网络错误，请检查网络"];
+        return ;
+    }
+
+    //  构造gameModel
+    self.gameModel.gameType   = eBSGameTypeManSingle;
+    self.gameModel.playerA_score =  aScoreStr;
+    self.gameModel.playerB_score =  bScoreStr;
+    
+    if (![self valiateGame:self.gameModel]) {
+        return;
+    };
+    
+    AVObject *gameObj = [self AVObjectWithGameModel:self.gameModel];
+    
+    [self saveGameToTemp:gameObj ];
+}
+
+
+- (AVObject *)AVObjectWithGameModel:(BSGameModel *)game
+{
+    //   A 代表发送者  。 不代表赢者
+    
+    
+    AVObject *gameObj = [AVObject objectWithClassName:@"Game"];
+    
+    gameObj[@"startTime"]  = game.startTime = self.currentDateString;
+    gameObj[@"endTime"]    = game.endTime = self.currentDateString ;
+    gameObj[@"gameType"]   = @(game.gameType);
+
+    gameObj[@"aScore"]     =   @([game.playerA_score integerValue]) ;//  玩家A的每场比赛得分
+    gameObj[@"bScore"]     =   @([game.playerB_score integerValue]);//  玩家B的每场比赛得分
+
+    //
+    [gameObj setObject:[AVUser currentUser] forKey:@"aPlayer"];
+    [gameObj setObject:self.oppUser forKey:@"bPlayer"];
+    
+    return gameObj;
+}
+
+- (BOOL)valiateGame:(BSGameModel *)game
+{
+    if (!game.playerA_score || !game.playerB_score) {
+        [SVProgressHUD showErrorWithStatus:@"请填写比分"];
+        return  NO ;
+    }
+    
+    return YES;
+}
+
+
+// 保存比赛数据到TempGame表中
+- (void)saveGameToTemp:(AVObject *)gameObj
+{
+    [gameObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(saveGameObject:)]) {
+                [self.delegate  saveGameObject:gameObj ];
+            }
+            
+            [self turnBack];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"上传失败，请检查网络"];
+        }
+    }];
+}
+
+
+
+- (void)turnBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+ 
+
 
 #pragma mark - ScrollView Delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -45,7 +202,7 @@
     return 1;
 }
 
- 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 250 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
@@ -58,6 +215,7 @@
     if (cell == nil) {
         cell = [[BSAddGameRecordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    cell.game = self.gameModel;
     
     cell.delegate = self;
     
@@ -65,132 +223,7 @@
 }
 
 
-
-#pragma mark - Delegate
-
--(void)presentFriendListVC{
-    BSChoosePlayerViewController *choosePlayVC = [[BSChoosePlayerViewController alloc] init];
-    choosePlayVC.title = @"选择对友/对手";
-    choosePlayVC.delegate = self;
-    [self.navigationController pushViewController:choosePlayVC animated:YES];
-}
-
--(void)uploadGame:(BSGameModel *)game button:(UIButton *)btn{
-    
-    
-    self.gameModel.playerA_objectId = [AVUser currentUser].objectId;
-    self.gameModel.playerB_objectId = @"561496cb00b0866436724e9f";
-    self.gameModel.playerA_name = [AVUser currentUser].username;
-    self.gameModel.playerB_name = @"user001";
-    
-    if (![self valiateGame:game]) {
-        return;
-    };
-    
-    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
-    
-    self.btn = btn ;
-    btn.enabled = !btn.enabled ;
-    
-    self.gameModel = game ;
-    
-    AVObject *gameObj = [self AVObjectWithGameModel:game];
-    
-    [self saveGameToTemp:gameObj ];
-}
-
-- (AVObject *)AVObjectWithGameModel:(BSGameModel *)game
-{
-    AVObject *gameObj = [AVObject objectWithClassName:@"TempGame"];
-    
-    gameObj[@"playerA_score"]       = game.playerA_score;//  玩家A的每场比赛得分
-    gameObj[@"playerB_score"]       = game.playerB_score;//  玩家B的每场比赛得分
-    gameObj[@"gameType"]            = @(game.gameType);  // 比赛的类型
-    gameObj[@"playerA_objectId"]    = game.playerA_objectId;
-    gameObj[@"playerB_objectId"]    = game.playerB_objectId;
-    gameObj[@"winner_objectId"]     = game.winner_objectId;
-    gameObj[@"playerA_name"]        = game.playerA_name;
-    gameObj[@"playerB_name"]        = game.playerB_name;
-    gameObj[@"startTime"]           = game.startTime = self.currentDateString;
-    gameObj[@"endTime"]             = game.endTime = self.currentDateString ;
-    gameObj[@"winner_objectId"]     = game.winner_objectId = game.playerA_objectId;
-    
-    return gameObj;
-}
-
-- (BOOL)valiateGame:(BSGameModel *)game
-{
-    if (!game.playerA_score || !game.playerB_score) {
-        [SVProgressHUD showWithStatus:@"请填写比分"];
-        return  NO ;
-    }
-    
-    if (!game.playerA_objectId || !game.playerB_objectId) {
-        [SVProgressHUD showWithStatus:@"请选择对手"];
-        return NO;
-    }
-    
-    return YES;
-}
-
-
-
-- (void)saveGameToTemp:(AVObject *)gameObj
-{
-    [gameObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            //
-            [self saveTempGameToPlayerInfo:gameObj];
-        }else{
-            [SVProgressHUD showErrorWithStatus:@"上传失败，请检查网络"];
-        }
-    }];
-}
-
-//  成功后添加到用户 PlayerInfo的TeamGames数组中
-- (void)saveTempGameToPlayerInfo:(AVObject *)gameObj
-{
-    //  1.通过查询获取playerInfo对象
-    AVQuery *query = [AVQuery queryWithClassName:@"PlayerInfo"];
-    [query whereKey:@"userObjectId" equalTo:[AVUser currentUser].objectId];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            //  1.取出数组
-            AVObject *playerInfo = [objects firstObject];
-            
-            //  2.数组添加game
-            [playerInfo addObject:gameObj forKey:@"tempGames"];
-            
-            //  3.更新数组
-            [playerInfo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
-                
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(saveGameObject:)]) {
-                        [self.delegate  saveGameObject:gameObj ];
-                    }
-
-                    self.btn.enabled = !self.btn.enabled ;
-                    [self turnBack];
-                }
-            }];
-
-        } else {
-            // 输出错误信息
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-     
-}
-
-
-- (void)turnBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
+#pragma mark - Properties
 - (NSString *)currentDateString{
     NSString *currentDateStr = [self.dateFormatter stringFromDate:[NSDate date]];
     return currentDateStr;
@@ -205,10 +238,6 @@
 }
 
 
-#pragma mark BSChoosePlayerViewControllerDelegate
-- (void)didSelectPlayer:(AVUser *)user{
 
-    
-}
 
 @end

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/ff_app_cms/!svn/ver/542/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network
+END
+PAFFRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/ff_app_cms/!svn/ver/542/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFRequest.m
+END
+PAFFRequestModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFRequestModel.m
+END
+PAFFNetErrorCode.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/ff_app_cms/!svn/ver/38/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFNetErrorCode.m
+END
+PAFFURL.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFURL.h
+END
+PAFFRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/ff_app_cms/!svn/ver/306/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFRequest.h
+END
+PAFFRequestModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFRequestModel.h
+END
+PAFFNetErrorCode.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/ff_app_cms/!svn/ver/38/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Network/PAFFNetErrorCode.h
+END

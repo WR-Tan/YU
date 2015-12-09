@@ -28,6 +28,7 @@
         AVUser *user = [self.dataSource objectAtIndex:indexPath.row];
         if (user && [self.delegate respondsToSelector:@selector(didSelectPlayer:)]) {
             [self.delegate didSelectPlayer:user];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
     

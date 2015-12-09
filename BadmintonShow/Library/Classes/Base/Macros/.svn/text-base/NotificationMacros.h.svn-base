@@ -1,0 +1,14 @@
+//
+//  NotificationMacros.h
+//  School
+//
+//  Created by bolei on 15-5-5.
+//  Copyright (c) 2015年 BL. All rights reserved.
+//
+
+#ifndef School_NotificationMacros_h
+#define School_NotificationMacros_h
+
+//#define kNOTIFICATION_LOGINCHANGE @"loginStateChange"
+
+#endif

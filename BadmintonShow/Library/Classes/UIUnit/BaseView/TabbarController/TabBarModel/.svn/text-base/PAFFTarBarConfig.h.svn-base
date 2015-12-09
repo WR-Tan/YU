@@ -1,0 +1,37 @@
+//
+//  PAFFTarBarConfig.h
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "PAFFTabBarModel.h"
+
+@interface PAFFTarBarConfig : NSObject
+
+/*!
+ *  获取当前银行的 tabbar的配置文件
+ *
+ *  @param bIdentifier 银行的标识
+ *  @param bPath       银行配置的路径
+ *
+ *  @return            获取配置文件信息
+ */
+
++ (NSDictionary *)getConfigBKIdentifier:(NSString *)bIdentifier BKPath:(NSString *)bPath;
+
+
+/**
+ * 获取Tab的配置
+ */
++ (PAFFTabBarModel *)getResourceTabJsonConfig;
+
+/*
+ * 16进制字符串转颜色
+ * stringToConvert 为16进制 String
+ */
++ (UIColor *)colorWithHex:(NSString *)stringToConvert;
+
+@end

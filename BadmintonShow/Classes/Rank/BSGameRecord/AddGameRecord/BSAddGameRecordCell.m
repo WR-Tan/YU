@@ -15,28 +15,25 @@
 @property (weak, nonatomic) IBOutlet UILabel *playerA_nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playerB_nameLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *aImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *bImageView;
+
 @property (assign, nonatomic) NSInteger aScore;
 @property (assign, nonatomic) NSInteger bScore;
 
-@property (nonatomic, strong) BSGameModel *game;
 
 @end
 
 
 @implementation BSAddGameRecordCell{
- 
-    __weak IBOutlet UITextField *firstGameA_scoreTF;
-    __weak IBOutlet UITextField *firstGameB_scoreTF;
+    
+
     NSString *_highScore;
     NSString *_lowScore;
     
 }
 
 #pragma mark - Public
-
--(void)setGameType:(BSGameType)gameType{
-    self.game.gameType = gameType; // 比赛类型。
-}
 
 
 #pragma mark - Private
@@ -45,94 +42,64 @@
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone ;
     
+    UITapGestureRecognizer *aTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(aTapGest:)];
+    [_aImageView addGestureRecognizer:aTap];
+    _aImageView.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *bTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(bTapGest:)];
+    [_bImageView addGestureRecognizer:bTap];
+    _bImageView.userInteractionEnabled = YES;
 }
 
 -(void)setSelected:(BOOL)selected{
-
+    
     
 }
+
+- (void)aTapGest:(id)sender {
+    //  默认选中的就是自己咯
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(presentFriendListVC)]) {
+//        [self.delegate presentFriendListVC];
+//    }
+}
+
+- (void)bTapGest:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(presentFriendListVC)]) {
+        [self.delegate presentFriendListVC];
+    }
+}
+
+- (void)setGame:(BSGameModel *)game{
+    _game = game;
+    
+    UIImage *aImage = game.aAVatar ? : [UIImage imageNamed:@"MaleDefault"];
+    UIImage *bImage = game.bAVatar ? : [UIImage imageNamed:@"MaleDefault"];
+    
+    _aImageView.image = aImage;
+    _bImageView.image = bImage;
+    
+    _playerA_nameLabel.text = game.playerA_name;
+    _playerB_nameLabel.text = game.playerB_name;
+}
+
 
 
 #pragma mark - TF Delegate
-
-/**
- *  利用pickerView应该比TextField自己去输入的好 —— 暂时不做
- */
-
-//- (void)handleScore{
-//    
-//    _highScore = firstGameA_scoreTF.text;
-//    _lowScore  = firstGameB_scoreTF.text;
-//    
-//    if ([_highScore integerValue] < [_lowScore integerValue]) {
-//        NSString *tempStr = _highScore;
-//        _highScore = _lowScore ;
-//        _lowScore = tempStr;
-//    }
-//    
-//    self.game.playerA_score = _highScore  ;
-//    self.game.playerB_score = _lowScore ;
-//}
-
 #pragma mark - IBActions
 
-- (IBAction)playerAAction:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(presentFriendListVC)]) {
-        [self.delegate presentFriendListVC];
-    }
-}
 
-- (IBAction)playerBAction:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(presentFriendListVC)]) {
-        [self.delegate presentFriendListVC];
-    }
-}
 
 - (IBAction)uploadAction:(id)sender {
-    
-    [self endEditing:YES];
-    
-//    [self handleScore];
-    
-    if ([_highScore integerValue] > 30  || [_lowScore integerValue] < 0) {  // 最高是30分
-        return;
-    }
-    
-    NSInteger aScore = [firstGameA_scoreTF.text integerValue];
-    NSInteger bScore = [firstGameB_scoreTF.text integerValue];
-    
+    NSString *aScore = _firstGameA_scoreTF.text;
+    NSString *bScore = _firstGameB_scoreTF.text;
     if (self.delegate && [self.delegate respondsToSelector:@selector(uploadGameWithAScore:bScore:button:)]) {
         [self.delegate uploadGameWithAScore:aScore bScore:bScore button:sender];
     }
 }
 
 
-- (BOOL)valiateNumber
-{
-    if (self.aScore <= 40 && self.aScore > 0) {
-        return  YES;
-    }
-    return NO;
-}
-
-#pragma mark - 懒加载
-
--(BSGameModel *)game{
-    if (!_game) {
-        _game = [[BSGameModel alloc] init];
-    }
-    return _game;
-}
-
-- (NSInteger)aScore{
-    _aScore = [firstGameA_scoreTF.text integerValue] ;
-    return _aScore ;
-}
-
-- (NSInteger)bScore{
-    _bScore = [firstGameB_scoreTF.text integerValue] ;
-    return _bScore ;
-}
 
 
 @end

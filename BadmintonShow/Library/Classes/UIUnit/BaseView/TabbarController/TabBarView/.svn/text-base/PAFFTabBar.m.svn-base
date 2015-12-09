@@ -1,0 +1,218 @@
+//
+//  PAFFTabBar.m
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import "PAFFTabBar.h"
+#import "PAFFTarBarConfig.h"
+#import <NSString+sizeWithFontInIOS7.h>
+#import <UIImage+Module.h>
+
+#define KPage_itemCount 5//每页显示几个item
+
+#define kGap_Height     1
+#define kMinTabBar_Width   ([UIScreen mainScreen].bounds.size.width/KPage_itemCount)
+#define kTabBar_ImageH 20
+#define kTabBar_TopAndBottom_Margin 6
+#define kTabBar_Title_Font [UIFont fontWithName:@"ArialMT" size:11.0]
+#define kPAFFTabbarModuleId @"PAFFRoot"
+
+
+
+@interface PAFFTabBar(){
+
+    UIScrollView * _scroller;
+}
+
+@end
+
+
+@implementation PAFFTabBar
+@synthesize scroller = _scroller;
+
+
+- (id)initWithFrame:(CGRect)frame buttonTitles:(NSArray *)titleArray tabbarStyle:(TabbarStyle *)style tabItemArray:(NSMutableArray *)tabArrays
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        CGRect bgRect = CGRectMake(0, kGap_Height, self.frame.size.width, self.frame.size.height-kGap_Height);
+        _bgImageView = [[UIImageView alloc] initWithFrame:bgRect];
+        
+        UIColor *shadowColor = [UIColor colorWithRed:84.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:0.5];
+        
+        _bgImageView.backgroundColor = [UIColor whiteColor];
+        _bgImageView.layer.shadowOpacity = 0.2;
+        
+        _bgImageView.layer.shadowColor = shadowColor.CGColor;
+        
+        
+        [self addSubview:_bgImageView];
+        
+        _scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        _scroller.backgroundColor = [UIColor clearColor];
+        _scroller.bounces = NO;
+        _scroller.delegate = self;
+        NSInteger numTab = [titleArray count] > KPage_itemCount ? KPage_itemCount : [titleArray count];
+        CGFloat tabbarWidth = [UIScreen mainScreen].bounds.size.width / numTab;
+        _scroller.contentSize = CGSizeMake(titleArray.count*tabbarWidth, self.frame.size.height);
+        _scroller.showsHorizontalScrollIndicator = NO;
+        _scroller.showsVerticalScrollIndicator = NO;
+        [self addSubview:_scroller];
+        
+        self.buttons = [NSMutableArray arrayWithCapacity:[titleArray count]];
+        //NSArray *tabArray =
+        UIButton *item;
+        
+
+        for (int i = 0; i < titleArray.count; i++)
+        {
+            TabbarItem *currentTabItem = (TabbarItem *)tabArrays[i];
+            item = [UIButton buttonWithType:UIButtonTypeCustom];
+            item.exclusiveTouch = NO;
+            item.tag = i;
+            item.frame = CGRectMake(tabbarWidth * i, 0, tabbarWidth, frame.size.height);
+
+            //当button的contentHorizontalAlignment为居中时，偏移的距离和实际传的值有些偏差，但把button的contentHorizontalAlignment设为居左时，contentVerticalAlignment设为居上时，可以很方便的通过EdgeInsets改变两个子控件的位置。
+            item.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            item.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+           
+//            UIImage *defalutBgImage = [UIImage imageNamed:currentTabItem.defaultImg];
+//            UIImage *hoverBgImage = [UIImage imageNamed:currentTabItem.highlightImg];
+//            UIImage *activeBgImage = [UIImage imageNamed:currentTabItem.selectedImg];
+            
+            UIImage *defalutBgImage = [UIImage imageForKey:currentTabItem.defaultImg moduleId:kPAFFTabbarModuleId];
+            UIImage *hoverBgImage = [UIImage imageForKey:currentTabItem.highlightImg moduleId:kPAFFTabbarModuleId];;
+            UIImage *activeBgImage = [UIImage imageForKey:currentTabItem.selectedImg moduleId:kPAFFTabbarModuleId];;
+            
+            
+            //图片经过上下文重绘之后，会变模糊
+//            defalutBgImage =  [defalutBgImage scaleImageToScale:0.8];
+//            hoverBgImage = [hoverBgImage scaleImageToScale:0.8];
+//            activeBgImage = [activeBgImage scaleImageToScale:0.8];
+            
+            CGFloat imageW = defalutBgImage.size.width;
+            CGFloat imageH = defalutBgImage.size.height;
+            if (imageH<26||imageH>26) {//防止图片大小不一造成不对齐的状况
+                imageH = 26;
+            }
+            CGFloat titleWidth = [titleArray[i] calculateSizeWithFont:kTabBar_Title_Font].width;
+            
+            item.imageEdgeInsets = UIEdgeInsetsMake(kTabBar_TopAndBottom_Margin, (tabbarWidth-imageW)/2, 0, 0);
+            
+            item.titleEdgeInsets = UIEdgeInsetsMake(imageH+kTabBar_TopAndBottom_Margin-kGap_Height*2, (tabbarWidth-titleWidth)/2-imageW, 0, 0);
+            
+            [item setTitle:titleArray[i] forState:UIControlStateNormal];
+            item.titleLabel.font = kTabBar_Title_Font;
+            
+            UIColor *defalutTitleColor = [PAFFTarBarConfig colorWithHex:style.defaultColor.color];
+            UIColor *hoverTitleColor = [PAFFTarBarConfig colorWithHex:style.hover.color];
+            UIColor *activeTitleColor = [PAFFTarBarConfig colorWithHex:style.active.color];
+            
+            [item setTitleColor:defalutTitleColor forState:UIControlStateNormal];
+            [item setTitleColor:hoverTitleColor forState:UIControlStateHighlighted];
+            [item setTitleColor:activeTitleColor forState:UIControlStateSelected];
+
+            [item setImage:defalutBgImage forState:UIControlStateNormal];
+            [item setImage:hoverBgImage forState:UIControlStateHighlighted];
+            [item setImage:activeBgImage forState:UIControlStateSelected];
+            [item addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [self.buttons addObject:item];
+            [_scroller addSubview:item];
+        }
+        self.tabItemArray = tabArrays;
+        self.exclusiveTouch = YES;
+    }
+    return self;
+}
+
+- (UIImage*)createImageWithColor: (UIColor*) color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage*theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return theImage;
+}
+
+
+- (void)tabBarButtonClicked:(UIButton *)sender
+{
+    NSInteger index = sender.tag;
+    if ([_delegate respondsToSelector:@selector(tabBar:didSelectIndex:)])
+    {
+        BOOL selectEnalbe = [_delegate tabBar:self didSelectIndex:sender.tag];
+        if (selectEnalbe) {
+            [self scrollerTabBarItemToShow:index];
+            [self selectTabAtIndex:sender.tag];
+        }
+    }
+}
+
+- (void)scrollerTabBarItemToShow:(NSUInteger)index
+{
+    NSInteger page = 0;
+    
+    if (index < KPage_itemCount - 1) {
+        page = 0;
+    }else if (index >= KPage_itemCount - 1 && index < _buttons.count - (KPage_itemCount - 2)) {
+        page = index - (KPage_itemCount - 2);
+    }else{
+        page = _buttons.count - KPage_itemCount;
+    }
+    
+    [_scroller setContentOffset:CGPointMake(page*kMinTabBar_Width, 0) animated:YES];
+}
+
+- (void)selectTabAtIndex:(NSInteger)index
+{
+    //规避下crash
+    if (index >= self.buttons.count) {
+        return;
+    }
+    
+    for (int i = 0; i < self.buttons.count; i++)
+    {
+        UIButton *unSelectBtn = self.buttons[i];
+        unSelectBtn.selected = NO;
+    }
+    UIButton *selectBtn = self.buttons[index];
+    selectBtn.selected = YES;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    float scrollIndex = scrollView.contentOffset.x / kMinTabBar_Width;
+    NSInteger index = scrollIndex + .5f;
+    [scrollView setContentOffset:CGPointMake(index*kMinTabBar_Width, 0) animated:YES];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    float scrollIndex = scrollView.contentOffset.x / kMinTabBar_Width;
+    NSInteger index = scrollIndex + .5f;
+    [scrollView setContentOffset:CGPointMake(index*kMinTabBar_Width, 0) animated:YES];
+}
+
+- (void)dealloc
+{
+    _bgImageView = nil;
+    _buttons = nil;
+}
+
+
+- (CGFloat)tabbarWidthWithItemCount:(NSInteger)count {
+    NSInteger numTab = count > KPage_itemCount ? KPage_itemCount : count;
+    
+    return [UIScreen mainScreen].bounds.size.width / numTab;
+}
+
+
+@end

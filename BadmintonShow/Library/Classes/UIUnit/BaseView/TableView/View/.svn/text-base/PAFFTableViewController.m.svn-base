@@ -1,0 +1,513 @@
+//
+//  BRTableViewController.m
+//  baiduRouter
+//
+//  Created by mco-device on 14-1-21.
+//  Copyright (c) 2014年 baidu. All rights reserved.
+//
+
+#import "PAFFTableViewController.h"
+#import "PAFFTableViewCell.h"
+#import "PAFFTableViewSectionHeaderBase.h"
+#import "PAFFTableViewSectionItem.h"
+#import "PAFFXIBHelper.h"
+#import "NSObject+ClassName.h"
+#import "SVProgressHUD.h"
+#import "ReactiveCocoa.h"
+#import "UIViewAdditions.h"
+#import "PAFFTableViewModule.h"
+
+/*
+ *屏幕宽度
+ */
+#define MY_SCREEN_WIDTH ([[UIScreen mainScreen]bounds].size.width)
+
+/*
+ *屏幕高度
+ */
+
+#define MY_SCREEN_HEIGHT ([[UIScreen mainScreen]bounds].size.height)
+
+/*
+ * iPhone statusbar 高度
+ */
+#define MY_PHONE_STATUSBAR_HEIGHT 20
+
+/*
+ * iPhone 屏幕尺寸
+ */
+#define MY_PHONE_SCREEN_SIZE (CGSizeMake(MY_SCREEN_WIDTH, MY_SCREEN_HEIGHT - MY_PHONE_STATUSBAR_HEIGHT))
+
+#define kSearchBarHeight 44.0f //搜索bar高度
+#define kSearchBarFrameMainView CGRectMake(0, 0, MY_PHONE_SCREEN_SIZE.width, kSearchBarHeight)
+#pragma clang diagnostic ignored "-Wundeclared-selector" //可以忽略perform警告
+
+@interface PAFFTableViewController ()
+
+@property(nonatomic, strong) NSMutableDictionary *bindViewMap;
+
+@end
+
+@implementation PAFFTableViewController
+
+@synthesize searchBar = _searchBar;
+@synthesize tableView = _tableView;
+@synthesize sectionIndexes = _sectionIndexes;
+@synthesize searchResult = _searchResult;
+@synthesize sectionHeaderHeight = _sectionHeaderHeight;
+@synthesize enableSearchBar = _enableSearchBar;
+
+- (void)dealloc {
+    self.searchBar.delegate = nil;
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+    self.tableView = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+#pragma mark - View Cycle
+
+- (void)loadView {
+    [super loadView];
+    if (self.enableSearchBar) {
+        [self loadSearchBar];
+        [self loadSearchDisplayController];
+    }
+    [self loadTableView];
+}
+
+- (void)unLoadViews {
+    self.tableView = nil;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self configDataSourceListModel];
+    [self bindModelToCell];
+    [self bindSourceList];
+}
+
+#pragma mark - Update View
+
+- (void)loadSearchBar {
+    // 搜索条
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:kSearchBarFrameMainView];
+    searchBar.delegate = self;
+    self.searchBar = searchBar;
+}
+
+- (void)loadSearchDisplayController {
+    UISearchDisplayController *searchDisplay =
+        [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+    searchDisplay.searchResultsDataSource = self;
+    searchDisplay.searchResultsDelegate = self;
+    searchDisplay.delegate = self;
+    searchDisplay.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)loadTableView {
+    if (self.enableSearchBar) {
+        self.tableView.tableHeaderView = self.searchBar;
+        [self.tableView setContentOffset:CGPointMake(0, self.searchBar.height)];
+    }
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+}
+
+#pragma mark - Bind View && Model
+
+- (void)bindDataSourceWithSourceItem:(PAFFTableSourceItem *)sourceItem {
+    if (sourceItem) {
+        self.tableView.dataSource = nil;
+        if (sourceItem.sectionList != nil) {
+            self.sections = sourceItem.sectionList;
+        }else {
+            self.sections = [[NSMutableArray alloc] init];
+        }
+        self.sectionIndexes = sourceItem.sectionIndexes;
+        self.tableView.dataSource = self;
+    }
+}
+
+- (void)bindSourceList {
+    if (self.dataSourceListModel) {
+        [self bindDataSourceWithSourceItem:self.dataSourceListModel.sourceItem];
+        @weakify(self);
+        [[self.dataSourceListModel didBecomeActiveSignal] subscribeNext:^(id x) {
+            @strongify(self);
+            [self sourceListDidChange];
+        }];
+    }
+}
+
+#pragma mark - Puslic Method Need Override
+
+- (void)sourceListDidChange {
+#ifdef DEBUG
+    MustOverride();
+#endif
+}
+
+- (void)bindModelToCell {
+#ifdef DEBUG
+    MustOverride();
+#endif
+}
+
+- (void)configDataSourceListModel {
+    MustOverride();
+}
+
+/**
+ *	@brief	注册相关映射关系，cell需要为BCBaseTableViewCell，或实现其中的静态方法
+ *
+ *	@param 	modelClass 	模型 Class
+ *	@param 	cellClass 	Cell Class
+ */
+- (void)bindModelClass:(Class)modelClass cellClass:(Class)cellClass {
+    [self.bindViewMap setObject:cellClass forKey:[modelClass className]];
+}
+
+#pragma mark - Cell Map
+/**
+ *	@brief	通过数据Item，制定需要使用的cell对象，需要子类复写此方法
+ *
+ *	@param 	item 	数据源
+ *
+ *	@return	返回对应的cell，默认为BCBaseTableViewCell
+ */
+- (Class)tableViewCellClassWithItem:(id)item {
+    Class cellClass = [self.bindViewMap objectForKey:[item className]];
+    return cellClass == nil ? [PAFFTableViewCell class] : cellClass;
+}
+
+/**
+ *	@brief	通过Item，制定cell对应的Identifier，用于表明cell复用标识，需要子类复写此方法
+ *
+ *	@param 	item 	数据源
+ *
+ *	@return	返回对应的Identifier，默认未“cellIdentify”
+ */
+- (NSString *)tableViewCellIdentifier:(id)item {
+    Class cellClass = [self tableViewCellClassWithItem:item];
+    if ([cellClass respondsToSelector:@selector(cellidentifyWithItem:)]) {
+        return [cellClass cellidentifyWithItem:item];
+    }
+    return @"cellIdentify";
+}
+
+/**
+ *	@brief	通过Item获取cell对应的高度，需要子类复写此方法
+ *
+ *	@param 	item 	数据源
+ *
+ *	@return	返回cell的告诉，默认40
+ */
+- (CGFloat)tableViewCellHeight:(id)item {
+    Class cellClass = [self tableViewCellClassWithItem:item];
+    if ([cellClass respondsToSelector:@selector(cellHeightWithItem:)]) {
+        return [cellClass cellHeightWithItem:item];
+    }
+    return [PAFFTableViewCell cellHeightWithItem:item];
+}
+
+/**
+ *	@brief
+ *通过Item获取cell估算的高度，用于加快tableview加载速度（ps，目前测试来看，会因为这个值不准，导致进入到下一界面再回来会让tableView滑动，so
+ *confuse）
+ *
+ *	@param 	item 	数据源
+ *
+ *	@return	返回cell的告诉，默认 UITableViewAutomaticDimension
+ */
+- (CGFloat)tableViewCellEstimatedHeight:(id)item {
+    Class cellClass = [self tableViewCellClassWithItem:item];
+    if ([cellClass respondsToSelector:@selector(cellEstimatedHeightWithItem:)]) {
+        return [cellClass cellEstimatedHeightWithItem:item];
+    }
+    return [PAFFTableViewCell cellEstimatedHeightWithItem:item];
+}
+
+/**
+ *	@brief	通过数据Item，制定需要加载的xib名称，需要子类复写此方法
+ *
+ *	@param 	item 	数据源
+ *
+ *	@return	返回对应的xib名称，默认未空
+ */
+- (NSString *)tableViewCellXIBName:(id)item {
+    return nil;
+}
+
+#pragma mark - Property
+- (NSMutableDictionary *)bindViewMap {
+    if (_bindViewMap == nil) {
+        _bindViewMap = [NSMutableDictionary dictionary];
+    }
+    return _bindViewMap;
+}
+
+#pragma mark - Setters
+//设置新的数据源时,将数据源更新事件的委托对象指针指向自己
+-(void)setDataSourceListModel:(PAFFDataSourceListModel *)dataSourceListModel
+{
+    if (_dataSourceListModel != dataSourceListModel) {
+        _dataSourceListModel.delegate = nil;
+        dataSourceListModel.delegate = self;
+        _dataSourceListModel = dataSourceListModel;
+    }
+}
+
+#pragma mark - Privite Method
+//是否显示索引
+- (BOOL)showSectionIndexs {
+    return (EPAFFTableViewControllerStyleShowIndexAndTitle == self.style ||
+            EPAFFTableViewControllerStyleShowIndex == self.style);
+}
+
+//显示分区title
+- (BOOL)showSectionTitles {
+    return (EPAFFTableViewControllerStyleShowIndexAndTitle == self.style ||
+            EPAFFTableViewControllerStyleShowTitle == self.style);
+}
+
+// section对应的行数
+- (NSInteger)numOfRowsInSection:(NSInteger)sectionIndex tableView:(UITableView *)tableView {
+    NSInteger numOfRows = 0;
+    if (tableView == self.tableView) {
+        if (0 <= sectionIndex && sectionIndex < [self.sections count]) {
+            PAFFTableViewSectionItem *sectionItem = [self.sections objectAtIndex:sectionIndex];
+            if (sectionItem.isClosed) {
+                numOfRows = 0;
+            }else
+            {
+                NSMutableArray *sectionData = sectionItem.sectionData;
+                numOfRows = [sectionData count];
+            }
+        }
+    } else if (tableView == self.searchDisplayController.searchResultsTableView) {
+        numOfRows = [self.searchResult count];
+    }
+    return numOfRows;
+}
+
+#pragma mark - data source change delegate
+/**
+ *  数据源发生部分更新，刷新相应cell
+ *
+ *  @param indexPaths 数据源发生变化的cell索引数组
+ */
+- (void)dataSourceChangedAtIndexPaths:(NSArray *)indexPaths
+{
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)dataSourceChangedOfCellModels:(NSArray *)cellModels
+{
+    NSMutableArray *cellClassArray = [NSMutableArray arrayWithCapacity:cellModels.count];
+    NSString *className = nil;
+    //查找出发生更新的cell model对应的cell class
+    for (NSObject *cellModel in cellModels) {
+        className = [cellModel className];
+        Class cellClass = _bindViewMap[className];
+        [cellClassArray addObject: cellClass];
+    }
+    
+    //确定哪些cell需要强制刷新
+    NSArray *visableIndexPaths = [_tableView indexPathsForVisibleRows];
+    NSMutableArray *refreshIndexPaths = [NSMutableArray arrayWithCapacity: visableIndexPaths.count];
+    for (NSIndexPath *indexPath in visableIndexPaths) {
+        NSObject *cell = [_tableView cellForRowAtIndexPath:indexPath];
+        
+        for (Class cellClass in cellClassArray) {
+            
+            if ([cell isKindOfClass: cellClass]) {
+                
+                [refreshIndexPaths addObject: indexPath];
+                break;
+            }
+        }
+    }
+    
+    [self dataSourceChangedAtIndexPaths: refreshIndexPaths];
+}
+
+//获取行对应的数据
+- (id)dataOfRowAtIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView {
+    
+    if (nil == tableView) {
+        return nil;
+    }
+    id item = nil;
+    if (tableView == self.tableView){
+        if (indexPath.section < [self.sections count]) {
+            
+            PAFFTableViewSectionItem *sectionItem = [self.sections objectAtIndex:indexPath.section];
+            NSMutableArray *sectionData = sectionItem.sectionData;
+            if (indexPath.row < [sectionData count]) {
+                item = [sectionData objectAtIndex:indexPath.row];
+            }
+        }
+    } else if (tableView == self.searchDisplayController.searchResultsTableView) {
+        
+            if (indexPath.row < [self.searchResult count]) {
+                item = [self.searchResult objectAtIndex:indexPath.row];
+            }
+    }
+
+    return item;
+}
+
+#pragma-- mark UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self numOfRowsInSection:section tableView:tableView];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *cellIdentifier = nil;
+    id item = [self dataOfRowAtIndexPath:indexPath tableView:tableView];
+
+    cellIdentifier = [self tableViewCellIdentifier:item];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (nil == cell) {
+        if (nil != item) {
+            Class cellClass = [self tableViewCellClassWithItem:item];
+            NSString *xib = [self tableViewCellXIBName:item];
+            if ([xib length] > 0) {
+                cell = [PAFFXIBHelper loadObjectFromXIBName:xib type:cellClass];
+            } else {
+                cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            }
+        }
+    }
+
+    if (nil == cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+
+    if ([cell respondsToSelector:@selector(setDelegate:)]) {
+        [cell performSelector:@selector(setDelegate:) withObject:self];
+    }
+
+    if ([cell respondsToSelector:@selector(setObject:)]) {
+        [cell performSelector:@selector(setObject:) withObject:item];
+    }
+
+    if ([cell respondsToSelector:@selector(setCellIndexPath:)]) {
+        [cell performSelector:@selector(setCellIndexPath:) withObject:indexPath];
+    }
+
+    return cell;
+}
+
+// 生成索引栏
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if (tableView == self.tableView && [self showSectionIndexs]) {
+        return self.sectionIndexes;
+    } else {
+        return nil;
+    }
+}
+
+/*
+ * section title
+ */
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *title = nil;
+    if (tableView == self.tableView && [self showSectionTitles]) {
+        if (0 <= section && [self.sections count] > section) {
+            PAFFTableViewSectionItem *sectionItem = [self.sections objectAtIndex:section];
+            title = sectionItem.sectionTitle;
+        }
+    }
+
+    return title;
+}
+
+/*
+ * 选择侧边栏返回的section index
+ */
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    NSInteger sectionIndex = 0;
+    if (0 <= index && index < [self.sectionIndexes count]) {
+        sectionIndex = index;
+    }
+    return sectionIndex;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    PAFFTableViewSectionHeaderBase *headerView = nil;
+    if (0 <= section && section < [self.sections count] && [self showSectionTitles]) {
+        PAFFTableViewSectionItem *sectionItem = [self.sections objectAtIndex:section];
+        NSString *sectionTitle = sectionItem.sectionTitle;
+        if ([sectionTitle length] > 0) {
+            headerView = [[PAFFTableViewSectionHeaderBase alloc]
+                initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, self.sectionHeaderHeight)];
+            [headerView setTitleStr:sectionTitle];
+        }
+    }
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    CGFloat headerHeight = 0;
+    if (tableView == self.tableView && 0 <= section && section < [self.sections count] &&
+        [self showSectionTitles]) {
+        PAFFTableViewSectionItem *sectionItem = [self.sections objectAtIndex:section];
+        NSString *sectionTitle = sectionItem.sectionTitle;
+        if ([sectionTitle length] > 0) {
+            headerHeight = self.sectionHeaderHeight;
+        }
+    }
+    return headerHeight;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSInteger sectionCount = 1;
+    if (tableView == self.tableView) {
+        sectionCount = [self.sections count];
+    }
+    return sectionCount;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = 0;
+    id item = [self dataOfRowAtIndexPath:indexPath tableView:tableView];
+    if (item) {
+        height = [self tableViewCellHeight:item];
+    }
+    return height;
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    CGFloat height = UITableViewAutomaticDimension;
+//    id item = [self dataOfRowAtIndexPath:indexPath tableView:tableView];
+//    if (item) {
+//        height = [self tableViewCellEstimatedHeight:item];
+//    }
+//    return height;
+//}
+
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(UITableViewCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath {
+    id item = [self dataOfRowAtIndexPath:indexPath tableView:tableView];
+    if (item && [cell respondsToSelector:@selector(disPlayCellWithItem:)]) {
+        [cell performSelector:@selector(disPlayCellWithItem:) withObject:item];
+    }
+}
+
+@end

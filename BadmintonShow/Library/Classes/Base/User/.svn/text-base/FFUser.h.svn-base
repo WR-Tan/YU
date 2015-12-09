@@ -1,0 +1,21 @@
+//
+//  FFUser.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <TMCache.h>
+
+@interface FFUser : NSObject
+
+@property (nonatomic, readonly) NSString *userId;
+-(instancetype) initWithUserId:(NSString *) userId;
+
+
+
+
+
+@end

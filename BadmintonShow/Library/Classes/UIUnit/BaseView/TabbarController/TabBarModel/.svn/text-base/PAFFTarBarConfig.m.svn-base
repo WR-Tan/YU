@@ -1,0 +1,82 @@
+//
+//  PAFFTarBarConfig.m
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#define PAFF_TabbarConfig_Path       @"/config/native/tab.json"
+#define PAFF_CheckVersion           @"tab"
+#define DEFAULT_VOID_COLOR [UIColor whiteColor]
+
+#import "PAFFTarBarConfig.h"
+#import "ResourceManager.h"
+
+@implementation PAFFTarBarConfig
+
++ (NSDictionary *)getConfigBKIdentifier:(NSString *)bIdentifier BKPath:(NSString *)bPath
+{
+//    NSString *path = [ResourceManager getDocDirectory:[NSString stringWithFormat:@"%@/%@",bIdentifier,bPath]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"tab" ofType:@"json"];
+    NSString* content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    if (!content) {
+        return nil;
+    }
+    
+    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:[content dataUsingEncoding:NSUTF8StringEncoding]
+                                                            options:NSJSONReadingMutableLeaves
+                                                              error:NULL];
+    return jsonDic;
+}
+
+
++(PAFFTabBarModel *)getResourceTabJsonConfig
+{
+    // 获取Tabbar的配置
+    NSDictionary *jsonDic = [PAFFTarBarConfig getConfigBKIdentifier:PAFF_CheckVersion
+                                                             BKPath:PAFF_TabbarConfig_Path];
+    
+    PAFFTabBarModel *tabbarModel = [[PAFFTabBarModel alloc] initWithDictionary:jsonDic];
+    
+    return tabbarModel;
+}
+
+
+//字符串转颜色 colorWithHexString
++ (UIColor *)colorWithHex:(NSString *)stringToConvert
+{
+    NSString *cString = [[stringToConvert stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    if ([cString length] < 6)
+        return DEFAULT_VOID_COLOR;
+    if ([cString hasPrefix:@"#"])
+        cString = [cString substringFromIndex:1];
+    if ([cString length] != 6)
+        return DEFAULT_VOID_COLOR;
+    
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
+
+@end

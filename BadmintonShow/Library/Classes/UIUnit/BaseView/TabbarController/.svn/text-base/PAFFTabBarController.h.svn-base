@@ -1,0 +1,61 @@
+//
+//  PAFFTabBarController.h
+//  GuangzhouBank
+//
+//  Created by pofabs on 15/8/24.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PAFFTabBar.h"
+
+#define kPAFFTabBarHeight 49
+
+@protocol PAFFTabBarControllerDelegate;
+
+@interface PAFFTabBarController : UIViewController<PAFFTabBarDelegate>
+
+
+{
+    UIView *_containerView;
+}
+
+@property(nonatomic, strong) NSMutableArray *viewControllers;
+
+@property(nonatomic, readonly) UIViewController *selectedViewController;
+
+@property(nonatomic, assign) NSUInteger selectedIndex;
+
+@property (nonatomic, readonly) PAFFTabBar *tabBar;
+
+@property(nonatomic,weak) id<PAFFTabBarControllerDelegate> delegate;
+
+@property (nonatomic) BOOL tabBarTransparent;
+
+@property (nonatomic) BOOL tabBarHidden;
+
+@property (nonatomic) float tabBarHeight;
+
+- (id)initWithControllers:(NSMutableArray *)viewCtrls
+               titleArray:(NSMutableArray *)titleArr
+            defalutSelect:(NSInteger)selectIndex
+               tabarStyle:(TabbarStyle *)style
+             tabItemArray:(NSMutableArray *)tabArrays;
+
+- (void)setUpWithControllers:(NSMutableArray *)viewCtrls
+                  titleArray:(NSMutableArray *)titleArr
+               defalutSelect:(NSInteger)selectIndex
+                  tabarStyle:(TabbarStyle *)style
+                tabItemArray:(NSMutableArray *)tabArrays;
+
+- (void)updateMyViews;
+
+@end
+
+
+@protocol PAFFTabBarControllerDelegate <NSObject>
+
+- (void)selectedIndexChange:(NSInteger)index tabbarController:(PAFFTabBarController *)controller;
+
+@end
+

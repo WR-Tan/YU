@@ -1,0 +1,554 @@
+//
+//  XYBRequest.m
+//  XinYongBao
+//
+//  Created by waterhk on 15/4/7.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "PAFFRequest.h"
+#import <HFInterface.h>
+#import <HFInterface_Network.h>
+#import <HFInterface_parser.h>
+#import <HFInterface_Loading.h>
+#import <HFInterface_Toast.h>
+#import "PAFFRequestModel.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "PAFFURL.h"
+#import "PAFFRequestModel.h"
+#import <CoreDebug.h>
+#import "TalkingData.h"
+#import <NSString+CMUtils.h>
+#import "PAFFConfig.h"
+#import "RCTConvert.h"
+#import "PAFFAppContext.h"
+
+
+#import <HFInterface_Crypt.h>
+#import "NSData+HexString.h"
+#import "PAFFRSA.h"
+#define kCurTime ([[NSDate date] timeIntervalSince1970] * 1000)
+
+@interface PAFFRequest ()
+
+@property (nonatomic, strong) HFInterface_Network *networkInterface;
+
+@end
+
+@implementation PAFFRequest
+
+RCT_EXPORT_MODULE(PAFFNetwork);
+
+- (instancetype)init {
+    
+    self = [super init];
+    if (self) {
+        
+        self.networkInterface = [[HFInterface_Network alloc] init];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithRequestType:(ERequestType)type
+                               host:(NSString *)host
+                             method:(NSString *)method
+                             params:(NSDictionary *)params
+                         modelClass:(Class)modelClass{
+    self = [super init];
+    if (self) {
+        _requestType = type;
+        _host = host;
+        _method = method;
+        _params = [[NSMutableDictionary alloc] initWithDictionary:params];
+        _modelClass = modelClass;
+        _timeOut = 30;
+        _timeoutRetryTimes = 0;
+        _showLoading = YES;
+        _mock = NO;
+        self.networkInterface = [[HFInterface_Network alloc] init];
+    }
+    return self;
+}
+
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field {
+    
+    [self.networkInterface setValue:value forHTTPHeaderField:field];
+}
+
+- (void)sendRequestWithComplete:(PAFFRequestCallBackBlock)block{
+    if (self.url.length == 0) {
+        self.url = [NSString stringWithFormat:@"%@%@", self.host, self.method];
+    }
+    if (self.url.length == 0) {
+        LogInfo(@"url为空");
+        return;
+    }
+    
+    //添加公共参数
+    NSDictionary * dic = [PAFFRequest buildCommonParams];
+    for (id key in dic) {
+        [self.params setObject:dic[key] forKey:key];
+    }
+    
+    LogInfo(@"Send Request:%@\n,Params:%@",self.url,self.params);
+    
+    switch (self.requestType) {
+        case ERequestType_Get:{
+            [self getRequestWithURL:self.url showLoading:self.showLoading params:self.params modelClass:self.modelClass callBack:block];
+        }
+            break;
+        case ERequestType_Post:
+            [self postRequestWithURL:self.url showLoading:self.showLoading postData:self.params modelClass:self.modelClass callBack:block];
+            break;
+        case ERequestType_Download:
+            [self downloadTaskWithURL:self.url showLoading:self.showLoading params:self.params modelClass:self.modelClass callBack:block];
+            break;
+        case ERequestType_Upload:
+            [self uploadRequestWithURL:self.url showLoading:self.showLoading params:self.params modelClass:self.modelClass callBack:block];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)cancleRequest{
+    [self.networkInterface cancelRequest:self.url];
+}
+
+- (RACSignal *) signal {
+    
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [self sendRequestWithComplete:^(NSDictionary *info, PAFFRequestModel *requestModel, ECallBackStatus status) {
+            if (status == ECallBackStatus_Succ) {
+                //succ
+                [subscriber sendNext:requestModel];
+                [subscriber sendCompleted];
+            } else if (status == ECallBackStatus_Cancel || status == ECallBackStatus_Fail || status == ECallBackStatus_Invalid) {
+                //error
+                NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
+                if ([info count]) {
+                    [errorInfo addEntriesFromDictionary:info];
+                }
+                
+                NSString *erroMsg = NSLocalizedString(@"网络错误", @"错误码");
+                if (requestModel.msg) {
+                    erroMsg = requestModel.msg;
+                }
+                
+                errorInfo[NSLocalizedDescriptionKey] = erroMsg;
+                
+                NSError *error = [NSError errorWithDomain:PAFFRequestErrorDomain code:PAFFNetErrorCodeTypeNetValid userInfo:errorInfo];
+                [subscriber sendError:error];
+            }
+        }];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [self cancleRequest];
+        }];
+    }];
+    
+    //是否需要对response error code做处理呢？
+    signal = [signal flattenMap:^RACStream *(PAFFRequestModel *value) {
+        if ([value.code intValue] == PAFFNetErrorCodeTypeSuccess) {
+            return [RACSignal return:value];
+        }
+        NSString *msg = value.msg ?: @"";
+        NSError *error = [NSError errorWithDomain:PAFFRequestErrorDomain code:[value.code intValue] userInfo:@{NSLocalizedFailureReasonErrorKey:msg}];
+        return [RACSignal error:error];
+    }];
+    
+    return signal;
+}
+
+//get
+- (void)getRequestWithURL:(NSString *)url showLoading:(BOOL)show params:(NSDictionary *)params modelClass:(Class)modelClass callBack:(PAFFRequestCallBackBlock)block{
+    NSParameterAssert(url != nil);
+    
+    NSString * sortedDicString = [PAFFRequest sortDic:params];
+    
+    NSString * requestURL = [NSString stringWithFormat:@"%@?%@", url, sortedDicString];
+    
+    if (show) {
+        [HFInterface_Loading showLoading:EHFLoadingType_Default info:@"正在请求" progress:1.f];
+    }
+    
+    if (self.mock) {
+        NSDictionary * mockInfo = [PAFFRequest mockResponseDicFromMethod:self.method];
+        ECallBackStatus mockStatus = ECallBackStatus_Succ;
+        [self handleResponseInfo:mockInfo status:mockStatus showLoading:show modelClass:modelClass callBack:block];
+    }
+    else{
+        [self.networkInterface getRequestWithURL:requestURL timeOut:self.timeOut timeoutRetryTimes:self.timeoutRetryTimes callBack:^(NSDictionary *info, ECallBackStatus status) {
+            [self handleResponseInfo:info status:status showLoading:show modelClass:modelClass callBack:block];
+        }];
+    }
+}
+
+//post
+- (void)postRequestWithURL:(NSString *)url showLoading:(BOOL)show postData:(NSDictionary *)postData modelClass:(Class)modelClass callBack:(PAFFRequestCallBackBlock)block{
+    NSParameterAssert(url != nil);
+    
+    if (show) {
+        [HFInterface_Loading showLoading:EHFLoadingType_Default info:@"正在请求" progress:1.f];
+    }
+    
+    if (self.mock) {
+        NSDictionary * mockInfo = [PAFFRequest mockResponseDicFromMethod:self.method];
+        ECallBackStatus mockStatus = ECallBackStatus_Succ;
+        [self handleResponseInfo:mockInfo status:mockStatus showLoading:show modelClass:modelClass callBack:block];
+    }
+    else{
+        [self.networkInterface postRequestWithURL:url postData:postData timeOut:self.timeOut timeoutRetryTimes:self.timeoutRetryTimes callBack:^(NSDictionary *info, ECallBackStatus status) {
+            [self handleResponseInfo:info status:status showLoading:show modelClass:modelClass callBack:block];
+        }];
+    }
+}
+
+//upload
+- (void)uploadRequestWithURL:(NSString *)url showLoading:(BOOL)show params:(NSDictionary *)params modelClass:(Class)modelClass callBack:(PAFFRequestCallBackBlock)block{
+    NSParameterAssert(url != nil);
+    
+    if (show) {
+        [HFInterface_Loading showLoading:EHFLoadingType_Default info:@"正在请求" progress:1.f];
+    }
+    
+    NSData * fileData = params[@"fileData"];
+    NSString * fileName = params[@"fileName"];
+    NSString * contentType = params[@"contentType"];
+    NSString * key = params[@"key"];
+    NSDictionary * formData = params[@"formData"];
+
+    if (self.mock) {
+        NSDictionary * mockInfo = [PAFFRequest mockResponseDicFromMethod:self.method];
+        ECallBackStatus mockStatus = ECallBackStatus_Succ;
+        [self handleResponseInfo:mockInfo status:mockStatus showLoading:show modelClass:modelClass callBack:block];
+    }
+    else{
+        [self.networkInterface uploadTask:url withFileData:fileData withFileName:fileName andContentType:contentType forKey:key andFormData:formData timeOut:self.timeOut timeoutRetryTimes:self.timeoutRetryTimes callBack:^(NSDictionary *info, ECallBackStatus status) {
+            [self handleResponseInfo:info status:status showLoading:show modelClass:modelClass callBack:block];
+        }];
+    }
+}
+
+//download
+- (void)downloadTaskWithURL:(NSString *)url showLoading:(BOOL)show params:(NSDictionary *)params modelClass:(Class)modelClass callBack:(PAFFRequestCallBackBlock)block{
+    NSParameterAssert(url != nil);
+    
+    if (show) {
+        [HFInterface_Loading showLoading:EHFLoadingType_Default info:@"正在请求" progress:1.f];
+    }
+    
+    NSString * targetPath = params[@"targetPath"];
+    
+    if (self.mock) {
+        NSDictionary * mockInfo = [PAFFRequest mockResponseDicFromMethod:self.method];
+        ECallBackStatus mockStatus = ECallBackStatus_Succ;
+        [self handleResponseInfo:mockInfo status:mockStatus showLoading:show modelClass:modelClass callBack:block];
+    }
+    else{
+        [self.networkInterface downloadTask:url targetPath:targetPath callBack:^(ECallBackStatus status, id responseString, NSDictionary *responeseHeader, long long bytesReceived, long long bytesTotal) {
+            [self handleResponseInfo:responseString status:status showLoading:show modelClass:modelClass callBack:block];
+        }];
+    }
+}
+
+
+- (void)handleResponseInfo:(NSDictionary *)info status:(ECallBackStatus)status showLoading:(BOOL)show modelClass:(Class)modelClass callBack:(PAFFRequestCallBackBlock)block{
+    if (show) {
+        [HFInterface_Loading hideLoading];
+    }
+    if (status == ECallBackStatus_Succ) {
+        NSString * jsonString = [info objectForKey:@"data"];
+        if (jsonString) {
+            NSDictionary * jsonDic = [HFInterface_Parser parseJSONString:jsonString];
+            PAFFRequestModel * requestModel = [HFInterface_Parser parseJSONString:jsonString modelClass:[PAFFRequestModel class]];
+            if (modelClass) {
+                requestModel.classModel = modelClass;
+            }
+            if (requestModel.code && requestModel.code.integerValue == 0) {
+                LogInfo(@"Send Request Success:url = %@\nResponse=%@",self.url,jsonDic);
+                if (block) {
+                    block(jsonDic, requestModel, ECallBackStatus_Succ);
+                }
+            }else{
+                LogError(@"Send Request Fail:url = %@\nerroMsg = %@",self.url,jsonString);
+                // 出错后，先对出错的Msg进行统一的处理（ errorMsg filter）
+                requestModel.msg = [self processErrorMsg:requestModel];
+
+                // 将错误返回，让原模块处理
+                if (block) {
+                    block(jsonDic, requestModel, ECallBackStatus_Fail);
+                }
+                
+                // 去出错处理的 afterHook（如果是挤下线，超时下线，弹出登录界面）
+                if (![self processErrorCode:requestModel]) {
+                    if (show) {
+                        [HFInterface_Toast showToast:requestModel.msg duration:2 title:@""];
+                    }
+                }
+            }
+        }else{
+            LogError(@"Send Request Fail：No Response :url = %@\n",self.url);
+            if (show) {
+                [HFInterface_Toast showToast:@"请求失败，请检查网络连接" duration:2 title:@""];
+            }
+            if (block) {
+                block(info, nil, ECallBackStatus_Fail);
+            }
+        }
+    }else {
+        LogError(@"HTTP request Fail:url = %@\n",self.url);
+        if (show) {
+            [HFInterface_Toast showToast:@"请求失败，请检查网络连接" duration:2 title:@""];
+        }
+        if (block) {
+            block(nil, nil, ECallBackStatus_Fail);
+        }
+    }
+}
+/**
+ *  对错误码的处理
+ *
+ *  @param requestModel
+ *  @filterToastOnly 表示是否只过滤Toast
+ */
+- (BOOL)processErrorCode:(PAFFRequestModel *)requestModel{
+    
+    BOOL flag = NO;
+    //{"code":"000004","msg":"您的账号在其他地点登陆，您被强制下线。"}
+    if ([requestModel.code isEqualToString:@"000004"]) {
+        APP_Context.isKickOut = YES;
+        flag = YES;
+    }
+    
+    if ([requestModel.code isEqualToString:@"000002"]) {
+        APP_Context.isLoginTimeout = YES;
+        flag = YES;
+    }
+    
+    return flag;
+}
+
+/*!
+ *  @author luochenxun(luochenxun@gmail.com), 15-11-27 17:11:02
+ *  @brief  检查错误提示
+ *  如果需要统一处理则进行统一的弹Toast处理，并将之设为空，下面的出错处理就不会再对此错误提示进行弹Toast
+ */
+-(NSString *)processErrorMsg:(PAFFRequestModel *)requestModel{
+    //在错误信息文案出来以前，暂时使用服务端返回的信息作为错误信息
+    NSString * errorMsg = [PAFFNetErrorCode parseErrorCodeMsg:requestModel.code.integerValue withDefaultMesage:requestModel.msg];
+    
+    //{"code":"000004","msg":"您的账号在其他地点登陆，您被强制下线。"}
+    if ([requestModel.code isEqualToString:@"000004"]) {
+        
+        if (!APP_Context.isKickOut) {
+            
+            [HFInterface_Toast showToast:errorMsg duration:2 title:@""];
+            errorMsg = @"";
+        }
+    }
+    
+    if ([requestModel.code isEqualToString:@"000002"]) {
+        
+        if (!APP_Context.isLoginTimeout) {
+            
+            [HFInterface_Toast showToast:errorMsg duration:2 title:@""];
+            errorMsg = @"";
+        }
+    }
+    return errorMsg;
+}
+
+#pragma mark - help functions
+
++ (NSString *)getTimeStampString {
+    
+    //时间戳
+    NSDate * dat = [NSDate date];
+    NSTimeInterval a = [dat timeIntervalSince1970]*1000;
+    NSString *timestamp = [NSString stringWithFormat:@"%.0f", a];
+    return timestamp;
+}
+
+//构建通用参数
++ (NSDictionary *)buildCommonParams{
+    
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    float screenWidth = [UIScreen mainScreen].bounds.size.width;
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    NSString *screenSize = [NSString stringWithFormat:@"%f,%f", screenWidth, screenHeight];
+    
+    return @{@"ffAppID": @(10004),
+             @"ffDeviceID": [TalkingData getDeviceID],
+             @"ffOs":@"iOS",
+             @"ffOsVersion":[UIDevice currentDevice].systemVersion,
+             @"ffNativeVersion":appVersion,
+             @"ffScreenSize":screenSize,
+             @"ffTimestamp":[self getTimeStampString],
+             };
+}
+
+
+//把dic排序，转成string
++ (NSString *)sortDic:(NSDictionary *)postDic{
+    
+    if (postDic == nil) {
+        return nil;
+    }
+    
+    NSArray * keys = [postDic allKeys];
+    NSComparator sort = ^(NSString *obj1,NSString *obj2){
+        return [obj1 compare:obj2];
+    };
+    NSArray * allKeys = [keys sortedArrayUsingComparator:sort];
+    NSString * sortDicString = @"";
+    for (id ikey in allKeys) {
+        id value = [postDic objectForKey:ikey];
+        if ([value isKindOfClass:[NSString class]]) {
+            value = [((NSString *)value) urlEncodedString];
+        }
+        sortDicString = [NSString stringWithFormat:@"%@&%@=%@",sortDicString, ikey, value];
+    }
+    return [sortDicString substringFromIndex:1];
+}
+
+//md5
++ (NSString*)md5Hash:(NSString *)string{
+    NSData * data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5([data bytes], (unsigned int)[data length], result);
+    return [NSString stringWithFormat:
+            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]
+            ];
+}
+
+//加密url？
++ (NSString *)encryptURL:(NSString *)url{
+    //TODO: encrypt
+    return url;
+}
+
+//构建mock数据
++ (NSDictionary *)mockResponseDicFromMethod:(NSString *)method{
+    //TODO: build mock response
+    
+    NSString * resourcePath = [NSString stringWithFormat:@"Mockjson.bundle/#%@", method];
+    
+    NSString * jsonPath = [[NSBundle mainBundle] pathForResource:resourcePath ofType:@"do"];
+    if (jsonPath) {
+        NSData * jsonData = [[NSData alloc] initWithContentsOfFile:jsonPath];
+        if (jsonData) {
+            NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            if (jsonString) {
+                return @{@"data":jsonString};
+            }
+            else{
+                LogInfo(@"json parse error");
+            }
+        }
+        else{
+            LogInfo(@"json data error");
+        }
+    }
+    else{
+        LogInfo(@"jsonpath = nil");
+    }
+    
+    return nil;
+}
+
+
+
+
++ (NSDictionary *)buildImageMultiPartParamsWithFileName:(NSString *)fileName fileData:(NSData *)data params:(NSDictionary *)params key:(NSString *)key {
+    
+    NSMutableDictionary *multi = [NSMutableDictionary dictionaryWithDictionary:@{@"fileData":data , @"fileName" : fileName , @"contentType" : @"image/png" ,@"key" : key}];
+    
+    NSDictionary *common = [PAFFRequest buildCommonParams];
+    
+    NSMutableDictionary *customParas = [NSMutableDictionary dictionaryWithDictionary:common];
+
+    if (params) {
+        [customParas addEntriesFromDictionary:params];
+    }
+    
+    [multi setObject:customParas forKey:@"formData"];
+    
+    
+    return multi;
+}
+
+
+#pragma mark - RN Interface
+
++ (void)requestNative:(NSDictionary *)options successCallback:(RCTResponseSenderBlock)successCallback errorCallBack:(RCTResponseErrorBlock)errorCallBack {
+    if (options == nil) {
+        NSError *erro = [PAFFNetErrorCode erroWithCode:PAFFNetErrorCodeTypeUnValidPrams erroMsg:[PAFFNetErrorCode parseErrorCodeMsg:PAFFNetErrorCodeTypeUnValidPrams]];
+        if(errorCallBack) {
+            errorCallBack(erro);
+        }
+        return;
+    }
+    
+    ERequestType requestType = ERequestType_Get;
+    
+    NSString *host = APP_Config.apiHost;
+    
+    NSString *path =  [RCTConvert NSString:options[@"path"]] ;
+    NSString *method = [RCTConvert NSString:options[@"method"]].uppercaseString;
+    NSDictionary *params = [RCTConvert NSDictionary:options[@"params"]];
+    
+    path = (path == nil) ? @"" : path;
+    
+    if ([method isEqualToString:@"POST"]) {
+        requestType = ERequestType_Post;
+    }
+    
+    PAFFRequest *request = [[PAFFRequest alloc] initWithRequestType:requestType host:host method:path params:[NSMutableDictionary dictionaryWithDictionary:params] modelClass:nil];
+    request.showLoading = NO;
+    [request.signal subscribeNext:^(id x) {
+        if ([x isKindOfClass:[PAFFRequestModel class]]) {
+            PAFFRequestModel *request = (PAFFRequestModel *)x;
+            x = request.data;
+        }
+        x = x == nil ? [NSNull null] : x;
+        if (successCallback) {
+            successCallback(@[x]);
+        }
+    } error:^(NSError *error) {
+        if (errorCallBack) {
+            errorCallBack(error);
+        }
+    }];
+}
+
+RCT_EXPORT_METHOD(request:(NSDictionary *)options successCallback:(RCTResponseSenderBlock)successCallback errorCallBack:(RCTResponseErrorBlock)errorCallBack) {
+    [PAFFRequest requestNative:options successCallback:successCallback errorCallBack:errorCallBack];
+}
+
+
+RCT_EXPORT_METHOD(encriptPassword:(NSString *) password successCallback:(RCTResponseSenderBlock)successCallback errorCallBack:(RCTResponseErrorBlock)errorCallBack) {
+	NSString *publicKey = [[PAFFAppContext instance] publicKey];
+	NSString *serverTime = [[PAFFAppContext instance] serverTimeStamp];
+	NSInteger requestTime = [[PAFFAppContext instance] requestTimeStamp];
+	NSTimeInterval timeStamp =
+	[serverTime integerValue] + (kCurTime - requestTime);
+	NSString *pwd =
+	[NSString stringWithFormat:@"%@$CurTime=%0.f", password, timeStamp];
+	NSData *keyData = [NSData dataFromHexString:publicKey];
+	NSString *base64Key = [keyData base64EncodedStringWithOptions:0];
+	NSString *rsaPwd = [PAFFRSA encryptString:pwd publicKey:base64Key];
+	NSString *hexString = @"";
+	if (rsaPwd) {
+		NSData *encryptData =
+		[[NSData alloc] initWithBase64EncodedString:rsaPwd options:0];
+		hexString = [encryptData hexStringFromData:encryptData];
+	}
+	if (successCallback)
+		successCallback(@[hexString?:@""]);
+}
+@end

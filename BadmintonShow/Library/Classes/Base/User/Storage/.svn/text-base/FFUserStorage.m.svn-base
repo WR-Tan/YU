@@ -1,0 +1,257 @@
+//
+//  FFUserStorage.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFUserStorage.h"
+#import "FFUser.h"
+#import "FFDatabaseStorageDefaults.h"
+#import <TMCache/TMCache.h>
+#import <objc/runtime.h>
+
+#import <HFInterface_Crypt.h>
+
+#define kPathExtension @"sqlite"
+#define kPathUsers @"Users"
+#define kPathUsersDatabase @"Databases"
+#define kPathUsersCache @"Caches"
+
+@interface FFUserStorage () {
+    __weak NSString *_userId;
+    
+    
+//    NSUserDefaults *_defaults;
+    NSString *_path;
+    FFDatabaseStorage *_database;
+    TMCache *_cache;
+}
+
+
+@property (nonatomic, strong) RACSignal *userDefaultsSignal;
+@property (nonatomic, strong) RACSignal *storageSignal;
+
+@property (nonatomic, strong) RACSubject *cacheSubject;
+
+//@property (nonatomic, readonly) NSUserDefaults *defaults;    //userDefaults存储
+@property (nonatomic, readonly) TMCache *cache;              //缓存 (内存或文件)
+
+@end
+
+@implementation FFUserStorage
+
+//@synthesize defaults = _defaults;
+@synthesize database = _database;
+@synthesize cache = _cache;
+
+- (void)dealloc
+{
+    [_database close];
+}
+
+-(instancetype) initWithUserId:(NSString *) userId {
+    self = [super init];
+    if (self) {
+        _userId = userId;
+        [self commonInit];
+    }
+    return self;
+}
+
+
+-(void) commonInit {
+    NSAssert(_userId, @"user id can't be nil");
+    @weakify(self);
+//    self.userDefaultsSignal = [[[NSNotificationCenter defaultCenter] rac_addObserverForName:NSUserDefaultsDidChangeNotification object:nil] filter:^BOOL(NSNotification *value) {
+//        @strongify(self);
+//        return value.object == self.defaults;
+//    }];
+    
+    self.cacheSubject = [RACSubject subject];
+    
+    self.cache.memoryCache.didRemoveObjectBlock = ^(TMMemoryCache *cache, NSString *key, id object){
+        @strongify(self);
+        [self.cacheSubject sendNext:@{@"type":@"MEMORY_REMOVE",@"info":@{key:object == nil ? [NSNull null] : object}}];
+    };
+    self.cache.memoryCache.didAddObjectBlock = ^(TMMemoryCache *cache, NSString *key, id object){
+        @strongify(self);
+        [self.cacheSubject sendNext:@{@"type":@"MEMORY_ADD",@"info":@{key:object == nil ? [NSNull null] : object}}];
+    };
+    self.cache.memoryCache.didRemoveAllObjectsBlock = ^(TMMemoryCache *cache) {
+        @strongify(self);
+        [self.cacheSubject sendNext:@{@"type":@"MEMORY_REMOVE_ALL"}];
+    };
+    self.cache.diskCache.didRemoveObjectBlock = ^(TMDiskCache *cache, NSString *key, id <NSCoding> object, NSURL *fileURL){
+        @strongify(self);
+        [self.cacheSubject sendNext:@{@"type":@"DISK_REMOVE",@"info":@{key:object == nil ? [NSNull null] : object}}];
+    };
+    self.cache.diskCache.didAddObjectBlock = ^(TMDiskCache *cache, NSString *key, id <NSCoding> object, NSURL *fileURL){
+        @strongify(self);
+        [self.cacheSubject sendNext:@{@"type":@"DISK_ADD",@"info":@{key:object == nil ? [NSNull null] : object}}];
+    };
+    self.cache.diskCache.didRemoveAllObjectsBlock = ^(TMDiskCache *cache) {
+        @strongify(self);
+        [self.cacheSubject sendNext:@{@"type":@"DISK_REMOVE_ALL"}];
+    };
+    
+    self.storageSignal = [self.database notifyForDatabaseChanged];
+}
+
+-(RACSignal *) notifyForChanged {
+    NSArray *signals = @[
+                         [self notifyForUserDefaultsChanged],
+                         [self notifyForStorageChanged],
+                         [self notifyForCacheChanged]
+                         ];
+    return [RACSignal merge:signals];
+}
+
+-(RACSignal *) notifyForUserDefaultsChanged {
+    return [self.userDefaultsSignal replayLazily];
+}
+
+-(RACSignal *) notifyForStorageChanged {
+    return [self.storageSignal replayLazily];
+}
+
+-(RACSignal *) notifyForCacheChanged {
+    return [self.cacheSubject replayLazily];
+}
+
+-(NSString *) cachePath {
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+}
+
+-(NSString *) userStoragePath {
+    NSString *key = _userId;
+#if !(DEBUG)
+    key = [HFInterface_Crypt Encode_md5:key];
+#endif
+    return [[[self cachePath] stringByAppendingPathComponent:kPathUsers] stringByAppendingPathComponent:key];
+}
+
+-(NSString *) storagePath {
+    NSString *userDirPath = [[self userStoragePath] stringByAppendingPathComponent:kPathUsersDatabase];
+    BOOL dir = NO;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:userDirPath isDirectory:&dir] || !dir) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:userDirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString *key = _userId;
+#if !(DEBUG)
+    key = [HFInterface_Crypt Encode_md5:key];
+#endif
+    return [[userDirPath stringByAppendingPathComponent:key] stringByAppendingPathExtension:kPathExtension];
+}
+
+-(NSString *) tmcacheRootPath {
+    NSString *userDirPath = [[self userStoragePath] stringByAppendingPathComponent:kPathUsersCache];
+    return userDirPath;
+}
+
+-(void) openStorage {
+    _path = [self storagePath];
+    
+    _database = [[FFDatabaseStorage alloc] initWithPath:_path];
+    
+    [_database open:nil];
+}
+
+-(FFDatabaseStorage *)database {
+    if (!_database) {
+        [self openStorage];
+    }
+    return _database;
+}
+
+//-(NSUserDefaults *)defaults {
+//    if (!_defaults) {
+//        _defaults = [[NSUserDefaults alloc] initWithSuiteName:_userId];
+//    }
+//    return _defaults;
+//}
+
+-(TMCache *)cache {
+    if (!_cache) {
+        _cache = [[TMCache alloc] initWithName:_userId rootPath:[self tmcacheRootPath]];
+    }
+    return _cache;
+}
+
+
+- (void)clearUserDefaults {
+//    NSUserDefaults * defs = _defaults;
+//    NSDictionary * dict = [defs dictionaryRepresentation];
+//    for (id key in dict) {
+//        [defs removeObjectForKey:key];
+//    }
+//    [defs synchronize];
+}
+
+- (void) clearDatabase {
+    [self.database close];
+    [[NSFileManager defaultManager] removeItemAtPath:_path error:nil];
+}
+
+-(void) clearCache {
+    [self.cache removeAllObjects];
+}
+
+-(void) clear {
+    [self clearCache];
+    [self clearUserDefaults];
+    [self clearDatabase];
+}
+
+-(id) cacheObjectForKey:(NSString *) key {
+    return [self.cache.memoryCache objectForKey:key];
+}
+
+-(void) setCacheObject:(id) object forKey:(NSString *) key {
+    if (key) {
+        if (object) {
+            [self.cache.memoryCache setObject:object forKey:key];
+        } else if ([self.cache.memoryCache objectForKey:key]){
+            [self.cache.memoryCache removeObjectForKey:key];
+        }
+    }
+    
+}
+
+@end
+
+@implementation FFUser (FFUserStorage)
+
+-(FFUserStorage *)storage {
+    FFUserStorage *storage = objc_getAssociatedObject(self, _cmd);
+    if (!storage) {
+        storage = [[FFUserStorage alloc] initWithUserId:self.userId];
+        objc_setAssociatedObject(self, _cmd, storage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return storage;
+}
+
+-(id<NSCoding>) persistForKey:(NSString *) key {
+    if (!key) {
+        return nil;
+    }
+    id obj = [self.storage cacheObjectForKey:key];
+    if (!obj) {
+        obj = [self.storage.database.defaults objectForKey:key];
+        if (obj) {
+            [self.storage setCacheObject:obj forKey:key];
+        }
+    }
+    return obj;
+}
+
+-(void) setPersist:(id<NSCoding>) property forKey:(NSString *)key {
+    if (!key) {
+        return;
+    }
+    [self.storage setCacheObject:property forKey:key];
+    [self.storage.database.defaults setObject:property forKey:key];
+}
+
+@end

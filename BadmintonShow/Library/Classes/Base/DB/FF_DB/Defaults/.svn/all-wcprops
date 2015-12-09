@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/DB/FF_DB/Defaults
+END
+FFDatabaseStorageDefaults.h
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/DB/FF_DB/Defaults/FFDatabaseStorageDefaults.h
+END
+FFDatabaseStorageDefaultsModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/DB/FF_DB/Defaults/FFDatabaseStorageDefaultsModel.h
+END
+FFDatabaseStorageDefaults.m
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/DB/FF_DB/Defaults/FFDatabaseStorageDefaults.m
+END
+FFDatabaseStorageDefaultsModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/ff_app_cms/!svn/ver/6/trunk/master/ios/Modules/AppBaseModule/Pod/Classes/Base/DB/FF_DB/Defaults/FFDatabaseStorageDefaultsModel.m
+END

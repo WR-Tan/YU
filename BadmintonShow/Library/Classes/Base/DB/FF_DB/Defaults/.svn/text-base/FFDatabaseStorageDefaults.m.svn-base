@@ -1,0 +1,167 @@
+//
+//  FFUserDefaults.m
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import "FFDatabaseStorageDefaults.h"
+#import "FFDatabaseStorage.h"
+#import "FFDatabaseCondition.h"
+#import "FFDatabaseStorageDefaultsModel.h"
+
+#import <objc/runtime.h>
+
+
+
+@interface FFDatabaseStorageDefaults () {
+    __weak FFDatabaseStorage *_storage;
+}
+
+@end
+
+@implementation FFDatabaseStorageDefaults
+
+-(instancetype) initWithStorage:(__weak FFDatabaseStorage *) storage {
+    self = [super init];
+    if (self) {
+        _storage = storage;
+    }
+    return self;
+}
+
+-(FFDatabaseStorageDefaultsModel *) fetchModelForKey:(NSString *) key {
+    FFDatabaseStorageDefaultsModel *model = nil;
+    FFDatabaseCondition *condition = [FFDatabaseCondition condition];
+    condition.sqlite.where = [NSString stringWithFormat:@"%@ = '%@'",@keypath(model,key),key];
+    condition.sqlite.limit = @1;
+    NSError *error = nil;
+    NSArray *objects = [_storage fetchClass:[FFDatabaseStorageDefaultsModel class] condition:condition error:&error];
+    return [objects firstObject];
+}
+
+-(void) saveObjectToModel:(FFDatabaseStorageDefaultsModel *) model {
+    if (model && [model.key length]) {
+        NSError *error = nil;
+        [_storage saveObjects:@[model] error:&error];
+    }
+}
+
+-(void) removeModelForKey:(NSString *) key {
+    if ([key length]) {
+        FFDatabaseStorageDefaultsModel *model = nil;
+        FFDatabaseCondition *condition = [FFDatabaseCondition condition];
+        condition.sqlite.where = [NSString stringWithFormat:@"%@ = '%@'",@keypath(model,key),key];
+        NSError *error = nil;
+        [_storage deleteClass:[FFDatabaseStorageDefaultsModel class] condition:condition error:&error];
+    }
+}
+
+- (id)objectForKey:(NSString *)defaultName {
+    if (defaultName) {
+        FFDatabaseStorageDefaultsModel *model = [self fetchModelForKey:defaultName];
+        @try {
+            if (model.value)
+                return [NSKeyedUnarchiver unarchiveObjectWithData:model.value];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@",exception);
+        }
+    }
+    return nil;
+}
+
+- (void)setObject:(id<NSCoding>)value forKey:(NSString *)defaultName {
+    @try {
+        if (defaultName) {
+            if (value) {
+                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
+                FFDatabaseStorageDefaultsModel *model = [[FFDatabaseStorageDefaultsModel alloc] init];
+                model.key = defaultName;
+                model.value = data;
+                [self saveObjectToModel:model];
+            } else {
+                [self removeObjectForKey:defaultName];
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+    }
+}
+- (void)removeObjectForKey:(NSString *)defaultName {
+    [self removeModelForKey:defaultName];
+}
+
+- (NSString *)stringForKey:(NSString *)defaultName {
+    return [self objectForKey:defaultName];
+}
+- (NSArray *)arrayForKey:(NSString *)defaultName {
+    return [self objectForKey:defaultName];
+}
+- (NSDictionary *)dictionaryForKey:(NSString *)defaultName {
+    return [self objectForKey:defaultName];
+}
+- (NSData *)dataForKey:(NSString *)defaultName {
+    return [self objectForKey:defaultName];
+}
+- (NSArray *)stringArrayForKey:(NSString *)defaultName {
+    return [self objectForKey:defaultName];
+}
+- (NSInteger)integerForKey:(NSString *)defaultName {
+    return [[self objectForKey:defaultName] integerValue];
+}
+- (float)floatForKey:(NSString *)defaultName {
+    return [[self objectForKey:defaultName] floatValue];
+}
+- (double)doubleForKey:(NSString *)defaultName {
+    return [[self objectForKey:defaultName] doubleValue];
+}
+- (BOOL)boolForKey:(NSString *)defaultName {
+    return [[self objectForKey:defaultName] boolValue];
+}
+- (NSURL *)URLForKey:(NSString *)defaultName {
+    return [self objectForKey:defaultName];
+}
+
+- (void)setInteger:(NSInteger)value forKey:(NSString *)defaultName {
+    [self setObject:@(value) forKey:defaultName];
+}
+- (void)setFloat:(float)value forKey:(NSString *)defaultName {
+    [self setObject:@(value) forKey:defaultName];
+}
+- (void)setDouble:(double)value forKey:(NSString *)defaultName {
+    [self setObject:@(value) forKey:defaultName];
+}
+- (void)setBool:(BOOL)value forKey:(NSString *)defaultName {
+    [self setObject:@(value) forKey:defaultName];
+}
+- (void)setURL:(NSURL *)url forKey:(NSString *)defaultName {
+    [self setObject:url forKey:defaultName];
+}
+
+
+// keyed subscript support
+- (id)objectForKeyedSubscript:(NSString *)key {
+    return [self objectForKey:key];
+}
+- (void)setObject:(id<NSCoding>)obj forKeyedSubscript:(NSString *)key {
+    [self setObject:obj forKey:key];
+}
+
+@end
+
+
+@implementation FFDatabaseStorage (DatabaseDefaults)
+
+-(FFDatabaseStorageDefaults *)defaults {
+    id defaults = objc_getAssociatedObject(self, _cmd);
+    if (!defaults) {
+        defaults = [[FFDatabaseStorageDefaults alloc] initWithStorage:self];
+        objc_setAssociatedObject(self, _cmd, defaults, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return defaults;
+}
+@end
+

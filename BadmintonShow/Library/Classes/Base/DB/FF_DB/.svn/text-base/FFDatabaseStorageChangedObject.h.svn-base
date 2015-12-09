@@ -1,0 +1,23 @@
+//
+//  FFDatabaseStorageChangedObject.h
+//  Test
+//
+//  Created by EASY on 15/9/25.
+//  Copyright (c) 2015年 Z.EASY. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+typedef enum : NSUInteger {
+    FFDatabaseStorageChangedTypeSave,
+    FFDatabaseStorageChangedTypeDelete,
+    FFDatabaseStorageChangedTypeRefresh,
+} FFDatabaseStorageChangedType;
+
+@interface FFDatabaseStorageChangedObject : NSObject
+
+@property (nonatomic, assign) FFDatabaseStorageChangedType type;//更改内容
+@property (nonatomic, strong) NSArray *objects;//更改值
+
+@end

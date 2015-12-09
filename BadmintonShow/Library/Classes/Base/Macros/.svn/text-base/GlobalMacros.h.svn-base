@@ -1,0 +1,27 @@
+//
+//  GlobalMacros.h
+//  School
+//
+//  Created by bolei on 15-5-12.
+//  Copyright (c) 2015年 BL. All rights reserved.
+//
+
+#ifndef School_GlobalMacros_h
+#define School_GlobalMacros_h
+
+#import "PAFFConfig.h"
+#import "PAFFAppContext.h"
+
+//#define PAFF_Identifier_Personal @"PERSONAL"
+//#define PAFF_Identifier_Bank @"BANK"
+//#define PAFF_Identifier_Life @"LIFE"
+//#define PAFF_Identifier_CreditScore @"CREDITSCORE"
+//#define PAFF_Identifier_Investment @"MAKE_MONEY"
+//#define PAFF_Identifier_Home @"HOME"
+
+#define PAFF_HTTPS_Host    APP_Config.apiHost  //HTTPS 请求URL
+
+//mock开关
+#define PAFF_REQUEST_MOCK       1
+
+#endif

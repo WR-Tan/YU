@@ -1,0 +1,72 @@
+//
+//  FFUserInfo+Customer.h
+//  FFProject
+//
+//  Created by EASY on 15/10/3.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+/*
+ *
+ *  because we need to unify the data format as Android. here is the unify doc of this obj:
+ *
+ *  mind: 如果修改了本类成员，需要修改 unifyDicXX方法中对应的成员名
+ *
+ *  uid    其实是MobileId
+ *  custId  客户ID
+ *  name   姓名
+ *  nickname   妮称
+ *  birthDate  生日
+ *  sex    性别
+ *  idNO   身份证号码
+ *  idType
+ *  email
+ *  mobileNo
+ *  clientNO
+ *  alias  别名
+ *  imgID
+ *  avatarUrl  头像地址
+ *  isFundCustomer 是否开户用户
+ *  isPaCustomer   是否平安用户 Y,N
+ *  userType    0:低门槛用户; 1:非低门槛用户
+ *  partyNo
+ */
+
+
+#import "FFUserInfo.h"
+
+@interface FFUserInfo (Customer)
+
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *birthDate;         //
+@property (nonatomic, copy) NSString *clientNo;          //
+@property (nonatomic, copy) NSString *custId;            //
+@property (nonatomic, copy) NSString *email;             //
+@property (nonatomic, copy) NSString *idNo;              //身份证号码
+@property (nonatomic, copy) NSString *idType;            //
+@property (nonatomic, copy) NSString *isFundCustomer;    //是否是已开户用户
+@property (nonatomic, copy) NSString *isPaCustomer;      //是否是平安用户
+@property (nonatomic, copy) NSString *mobileNo;          //
+@property (nonatomic, copy) NSString *name;              //姓名
+@property (nonatomic, copy) NSString *nickName;          //昵称
+@property (nonatomic, copy) NSString *partyNo;           //
+@property (nonatomic, copy) NSString *sex;               //
+@property (nonatomic, copy) NSString *userType;          //0:低门槛用户; 1:非低门槛用户
+
+@property (nonatomic, copy) NSString *avatarUrl;        //头像地址
+@property (nonatomic, copy) NSString *alias;            //用户名
+@property (nonatomic, copy) NSString *imgId;            //
+@property (nonatomic, copy) NSString *unreadMessageCount;//未读消息数量
+
+
+@property (nonatomic, copy) NSString *dummyCustomerId;    //手势密码虚拟ID
+@property (nonatomic, copy) NSString *token;              //手势密码token
+
+
+-(BOOL)isHighLogin; //是否高门槛
+
+/*!
+ *  @brief  返回统一格式的字典数据，按照头文件中规定的格式
+ */
+-(NSDictionary *)unifyDicCustomer;
+
+@end

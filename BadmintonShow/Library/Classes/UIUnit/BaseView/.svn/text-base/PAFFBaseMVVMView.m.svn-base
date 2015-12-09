@@ -1,0 +1,55 @@
+//
+//  PAFFBaseMVVMView.m
+//  FFProject
+//
+//  Created by bolei on 15/8/31.
+//  Copyright (c) 2015年 pingan. All rights reserved.
+//
+
+#import "PAFFBaseMVVMView.h"
+
+@implementation PAFFBaseMVVMView
+
+
+#pragma mark - Property
+- (void)setObject:(id)item {
+    if (_object != item) {
+        if (_object != nil) {
+            [self removeObserveProperty];
+            _object = nil;
+        }
+        _object = item;
+        if (_object) {
+            [self addObserverProperty];
+        }
+    }
+    [self disPlayWithItem:_object];
+}
+
+#pragma mark Public
+
++ (CGSize)sizeWithItem:(id)item rect:(CGRect)rect {
+    return rect.size;
+}
+
+- (void)disPlayWithItem:(id)item {
+
+}
+
+- (void)addObserverProperty {
+    
+}
+- (void)removeObserveProperty {
+    
+}
+
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+
+@end

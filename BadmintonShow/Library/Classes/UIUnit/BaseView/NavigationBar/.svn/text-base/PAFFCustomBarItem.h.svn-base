@@ -1,0 +1,39 @@
+//
+//  PAFFCustomBarItem.h
+//  FFProject
+//
+//  Created by junming on 8/26/15.
+//  Copyright (c) 2015 pingan. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef enum{
+    
+    PAFFCustomBarItemTypeLeft,
+    PAFFCustomBarItemTypeCenter,
+    PAFFCustomBarItemTypeRight
+    
+}PAFFCustomBarItemType;
+
+@interface PAFFCustomBarItem : NSObject
+
+@property (nonatomic, strong) UIBarButtonItem *fixBarItem;
+@property (nonatomic, strong) UIButton *contentBarItem;
+@property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, assign) PAFFCustomBarItemType itemType;
+@property (nonatomic, strong) UIView *customView;
+@property (nonatomic, assign) BOOL isCustomView;
+
+- (instancetype)initWithTitle:(NSString *)title textColor:(UIColor *)color fontSize:(CGFloat)font itemType:(PAFFCustomBarItemType)type;
+- (instancetype)initWithImage:(NSString *)imageName size:(CGSize)size type:(PAFFCustomBarItemType)type;
+- (instancetype)initWithCustomeView:(UIView *)customView type:(PAFFCustomBarItemType)type;
+- (void)setItemWithNavigationItem:(UINavigationItem *)navigationItem itemType:(PAFFCustomBarItemType)type;
+- (void)addTarget:(id)target selector:(SEL)selector event:(UIControlEvents)event;
+/**
+ *设置item偏移量
+ *@param offSet 正值向左偏，负值向右偏
+ */
+- (void)setOffset:(CGFloat)offSet;
+
+@end

@@ -1,0 +1,15 @@
+//
+//  PAFFToast.h
+//  Pods
+//
+//  Created by bolei on 15/11/17.
+//
+//
+
+#import <Foundation/Foundation.h>
+#import "RCTBridgeModule.h"
+
+@interface PAFFToast : NSObject<RCTBridgeModule>
+
+
+@end

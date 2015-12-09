@@ -12,10 +12,15 @@
 #import <LCUserFeedbackAgent.h>
 #import "UserDefaultManager.h"
 #import "BSProfileEditViewController.h"
+#import "AVUser.h"
 
 @interface BSMineController ()<BSProfileEditViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *iconBtn;
+@property (weak, nonatomic) IBOutlet UILabel  *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel  *YXIdLabel;
+
+
 
 @end
 
@@ -39,15 +44,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIImage *avatar = [UserDefaultManager avatar];
-    [_iconBtn setImage:avatar forState:UIControlStateNormal] ;
+    UIImage *avatar = [UserDefaultManager avatar];  // 用户头像文件
+    [self.iconBtn setImage:avatar forState:UIControlStateNormal] ;
+    
+    NSString *nickname = [[AVUser currentUser] objectForKey:@"nickname"];
+    self.nickNameLabel.text = nickname.length > 0 ? nickname : @" " ;
+    self.YXIdLabel.text = [NSString stringWithFormat:@"乐秀号:%@",[AVUser currentUser].username];
+    
+    
     
     [self loadIcon];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)iconAction:(id)sender {
