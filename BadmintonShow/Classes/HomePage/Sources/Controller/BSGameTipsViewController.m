@@ -28,19 +28,13 @@ static NSString *gameTipCellId = @"gameTipCellId";
         UIImage *newImage = [UIImage imageNamed:@"faqiu_lindan"];
         UIImage *middleImage = [UIImage imageNamed:@"jieqiu_lindan"];
         UIImage *masterImage = [UIImage imageNamed:@"kousha_lindan"];
-        BSGameTipModel *newcommer = [BSGameTipModel gameTipModelWith:@"新手入门" image:newImage];
-        BSGameTipModel *middle = [BSGameTipModel gameTipModelWith:@"中级进阶" image:middleImage];
-        BSGameTipModel *master = [BSGameTipModel gameTipModelWith:@"高手论剑" image:masterImage];
-        
-        UIImage *newImage1 = [UIImage imageNamed:@"faqiu_lindan"];
-        UIImage *middleImage1 = [UIImage imageNamed:@"jieqiu_lindan"];
-        UIImage *masterImage1 = [UIImage imageNamed:@"kousha_lindan"];
-        BSGameTipModel *newcommer1 = [BSGameTipModel gameTipModelWith:@"新手入门" image:newImage];
-        BSGameTipModel *middle1 = [BSGameTipModel gameTipModelWith:@"中级进阶" image:middleImage];
-        BSGameTipModel *master1 = [BSGameTipModel gameTipModelWith:@"高手论剑" image:masterImage];
+        BSGameTipModel *newcommer = [BSGameTipModel gameTipModelWith:@"发球" image:newImage];
+        BSGameTipModel *middle = [BSGameTipModel gameTipModelWith:@"步法" image:middleImage];
+        BSGameTipModel *master = [BSGameTipModel gameTipModelWith:@"扣球" image:masterImage];
+
         
         
-        _levelArray = [NSMutableArray arrayWithArray:@[newcommer,middle,master,newcommer1,middle1,master1]];
+        _levelArray = [NSMutableArray arrayWithArray:@[newcommer,middle,master]];
     }
     return self;
 }
@@ -70,13 +64,14 @@ static NSString *gameTipCellId = @"gameTipCellId";
 
     cell.titleLabel.text = model.title ;
     cell.imgView.image = model.image ;
-    
+    cell.imgView.contentMode = UIViewContentModeScaleAspectFill ;
+    cell.imgView.clipsToBounds = YES ;
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6 ;// _levelArray.count;
+    return  _levelArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

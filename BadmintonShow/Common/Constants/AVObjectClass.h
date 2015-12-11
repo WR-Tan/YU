@@ -14,5 +14,7 @@
 #define AVClassTempGame @"TempGame"   // TempGame类名
 #define AVClassGame     @"Game"       // Game类名
 #define AVClassUser     @"_User"       // Game类名
+#define AVClassStatus     @"Status"       // Game类名
+
 
 #endif /* AVObjectClass_h */

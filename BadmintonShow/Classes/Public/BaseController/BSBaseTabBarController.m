@@ -39,7 +39,7 @@
     BSBaseNavigationController *homePageNav = [[BSBaseNavigationController alloc] initWithRootViewController:homePageVC];
     UIImage *yuxiuImage = [UIImage imageNamed:@"YUXIU_Tabbar"];
     UITabBarItem *homePageItem = [[UITabBarItem alloc] initWithTitle:@"羽秀" image:yuxiuImage tag:1];
-    homePageVC.navigationController.navigationBar.hidden = YES ;
+//    homePageVC.navigationController.navigationBar.hidden = YES ;
     homePageNav.tabBarItem = homePageItem;
     
     //  排名

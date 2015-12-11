@@ -9,7 +9,7 @@
 #import "BSHomePageViewController.h"
 #import "BSGameTipsViewController.h"
 #import "HMSegmentedControl.h"
-//#import "BSGameGIFViewController.h"
+#import "BSTimelineViewController.h"
 
 
 @interface BSHomePageViewController ()<
@@ -26,10 +26,10 @@
 {
     [super viewDidLoad];
     
-//    self.navigationController.navigationBar.hidden = YES ;
+    self.title = @"羽秀";
     
     HMSegmentedControl *seg = [[HMSegmentedControl alloc] init];
-    seg.sectionTitles = @[@"百度",@"腾讯"];
+    seg.sectionTitles = @[@"动态",@"球技"];
     seg.frame = CGRectMake(0, 20, self.view.bounds.size.width, 44);
     seg.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:seg];
@@ -42,14 +42,22 @@
     _contentScrollView.showsHorizontalScrollIndicator = NO;
     _contentScrollView.contentSize = CGSizeMake(2 * self.view.bounds.size.width, 0);
     _contentScrollView.delegate = self;
-    _contentScrollView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:_contentScrollView];
     
     CGFloat viewWidth = _contentScrollView.frame.size.width;
     
+    
+    //  动态
+//    BSTimeLineViewController *timeLine = [[BSTimeLineViewController alloc] init];
+//    timeLine.view.frame = CGRectMake(0, -64, viewWidth , _contentScrollView.frame.size.height );
+//    timeLine.tableView.contentInset = UIEdgeInsetsMake(64, 0, 44, 0);
+//    [_contentScrollView addSubview: timeLine.view];
+//    [self addChildViewController:timeLine];
+    
+    
+    //  球技
     BSGameTipsViewController *vc = [[BSGameTipsViewController alloc] init];
-
-    vc.view.frame = CGRectMake(0, 0, viewWidth * 2, _contentScrollView.frame.size.height);
+    vc.view.frame = CGRectMake(0, 0, viewWidth , _contentScrollView.frame.size.height);
     vc.tableView.contentInset = UIEdgeInsetsMake(0, 0, 76, 0);
     [_contentScrollView addSubview: vc.view];
     [self addChildViewController:vc];
