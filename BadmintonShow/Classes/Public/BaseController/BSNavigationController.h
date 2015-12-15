@@ -1,5 +1,5 @@
 //
-//  BSBaseTabBarController.h
+//  BSNavigationController.h
 //  BadmintonShow
 //
 //  Created by lzh on 15/6/14.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@interface YYExampleNavBar : UINavigationBar
+@end
 
-@interface BSBaseTabBarController : UITabBarController
-
+@interface BSNavigationController : UINavigationController
 @end

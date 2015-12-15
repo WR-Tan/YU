@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "BSBaseTabBarController.h"
+#import "BSTabBarController.h"
 #import "NewFeatureController.h"
 #import "BSLoginController.h"
-#import "BSBaseNavigationController.h"
+#import "BSNavigationController.h"
 
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudIM/AVOSCloudIM.h>
@@ -49,7 +49,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 
 
 @interface AppDelegate ()
-@property (nonatomic, strong) BSBaseTabBarController *tabBarCtl;
+@property (nonatomic, strong) BSTabBarController *tabBarCtl;
 @property (nonatomic, strong) BSLoginController *loginCtl;
 @end
 
@@ -111,6 +111,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
         [[NSUserDefaults standardUserDefaults] synchronize];
         self.window.rootViewController = [[NewFeatureController alloc] init];
     }
+    
 }
 
 
@@ -236,16 +237,16 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 
 
 #pragma mark -  lazy
--(BSBaseTabBarController *)tabBarCtl{
+-(BSTabBarController *)tabBarCtl{
     if (!_tabBarCtl) {
-        _tabBarCtl  = [[BSBaseTabBarController alloc] init];
+        _tabBarCtl  = [[BSTabBarController alloc] init];
     }
     return _tabBarCtl;
 }
 
 -(BSLoginController *)loginCtl{
     if (!_loginCtl) {
-        _loginCtl  = [[BSLoginController alloc] init];
+        _loginCtl  = [[BSLoginController alloc] initWithNibName:@"BSLoginController" bundle:nil];
     }
     return _loginCtl;
 }

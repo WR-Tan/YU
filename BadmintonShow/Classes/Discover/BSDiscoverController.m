@@ -16,9 +16,9 @@
 
 @implementation BSDiscoverController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style
+- (instancetype)init
 {
-    self = [super initWithStyle:style];
+    self = [super  init];
     if (self) {
         self.hidesBottomBarWhenPushed = NO;
 

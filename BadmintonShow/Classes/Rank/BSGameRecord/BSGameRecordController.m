@@ -24,9 +24,9 @@
 
 @implementation BSGameRecordController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style
+- (instancetype)init
 {
-    self = [super initWithStyle:style];
+    self = [super init ];
     if (self) {
         _gameRecordData = [NSMutableArray array];
         self.title = @"比赛记录";
@@ -105,7 +105,7 @@
 
 - (void)addGameRecord
 {
-    BSAddGameRecordController *add = [[BSAddGameRecordController alloc] initWithStyle:UITableViewStylePlain];
+    BSAddGameRecordController *add = [[BSAddGameRecordController alloc] init ];
     [self.navigationController pushViewController:add animated:YES];
 }
 
@@ -151,39 +151,8 @@
 #pragma mark - TableView代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] initWithStyle:UITableViewStylePlain];
+    BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
     [self.navigationController pushViewController:detail animated:YES];
 }
-
-//
-//- (void)fakeData
-//{     //假数据
-//    AVRelation *relation = [[AVUser currentUser] relationforKey:AVRelationUserGamesRelation];
-//
-//    NSArray *gameIdArray =   @[@"565dcbf700b0bf371649a3ae",
-//                               @"565dcb5d00b08a6c00dba7b7",
-//                               @"565c6a7a60b2febec4fc5f87",
-//                               @"565bfcd360b294bc67758d83",
-//                               @"565bf74800b01b78dfa10007",
-//                               @"565bf5ab00b0acaad47a7aba",
-//                               @"565bf2c860b202594d4b0a98",
-//                               @"565ad7a460b2d0be2de35a58",
-//                               @"565ad78060b2d0be2de35961",
-//                               @"565ad73900b0acaad4738632",
-//                               @"565ad70500b0bf379f11ca75"];
-//
-//    for (NSInteger i = 0 ; i < gameIdArray.count;  i ++ ) {
-//
-//        AVObject *game1 = [AVObject objectWithoutDataWithClassName:AVClassGame objectId:gameIdArray[i]];
-//        [relation addObject:game1];
-//    }
-//
-//
-//    [[AVUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//
-//
-//    }];
-//;
-//}
 
 @end

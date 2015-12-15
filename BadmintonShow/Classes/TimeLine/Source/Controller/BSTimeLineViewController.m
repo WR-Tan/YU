@@ -8,6 +8,7 @@
 
 #import "BSTimeLineViewController.h"
 #import "YYTableView.h"
+#import "YYKit.h"
 
 @interface BSTimeLineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *layouts;
@@ -27,7 +28,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.919];
+    if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    _tableView.frame = self.view.bounds;
+    _tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    _tableView.scrollIndicatorInsets = _tableView.contentInset;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.backgroundView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
+    
+    if ( kSystemVersion < 7) {
+        _tableView.top -= 64;
+        _tableView.height += 20;
+    }
+    
+
 }
 
 - (void)didReceiveMemoryWarning {

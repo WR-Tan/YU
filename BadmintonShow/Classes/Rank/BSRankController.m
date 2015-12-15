@@ -27,12 +27,13 @@
 @implementation BSRankController
 
 
--(instancetype)initWithStyle:(UITableViewStyle)style
+-(instancetype)init
 {
-    self = [super initWithStyle:style];
+    self = [super init ];
     if (self) {
         self.title = @"排名";
         self.hidesBottomBarWhenPushed = NO;
+        self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
         
         _data = [NSMutableArray array];
     }
@@ -41,16 +42,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self loadData];
+   [self loadData];
     [self initNavigationItem];
-}
-
-- (void)confirm
-{
-    BSConfirmGameTableViewController * vc = [[BSConfirmGameTableViewController alloc] init];
-    vc.gameObjectId = @"565bf5ab00b0acaad47a7aba";
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -61,7 +54,7 @@
 }
 
 - (void)addGameRecord{
-    BSAddGameRecordController *add = [[BSAddGameRecordController alloc] initWithStyle:UITableViewStylePlain];
+    BSAddGameRecordController *add = [[BSAddGameRecordController alloc] init];
     [self.navigationController pushViewController:add animated:YES];
 
 }
@@ -69,19 +62,19 @@
 
 - (void)loadData
 {
-    _data = [@[@"比赛记录",@"羽秀天梯",@"去人。。"] mutableCopy];
+    _data = [@[@"比赛记录",@"羽秀天梯" ] mutableCopy];
 
 }
 
 #pragma mark TableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
+    return _data.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 3;
+    return 1;
 }
 
 #pragma mark - Header
@@ -110,7 +103,7 @@
     }
     
     // 1.取出这行对应的字典数据
-    NSString *title = _data[indexPath.section];
+    NSString *title = _data[indexPath.row];
     
     // 2.设置文字
     cell.textLabel.text = title;
@@ -123,15 +116,12 @@
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        BSGameRecordController *gameRecord = [[BSGameRecordController  alloc] initWithStyle:UITableViewStylePlain];
+        BSGameRecordController *gameRecord = [[BSGameRecordController  alloc] init ];
         [self.navigationController pushViewController:gameRecord animated:YES];
     }else if(indexPath.section == 1) {
-        BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]initWithStyle:UITableViewStylePlain];
+        BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]init ];
         [self.navigationController pushViewController:tech animated:YES];
-    }else{
-        [self confirm];
-    
-    }
+    } 
 }
 
 

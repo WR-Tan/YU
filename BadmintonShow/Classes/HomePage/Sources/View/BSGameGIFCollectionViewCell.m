@@ -25,18 +25,8 @@
 
 - (void)addMyViews
 {
+ 
 
-//    UIImageView *imgView = [[UIImageView alloc] initWithFrame:self.frame];
-//    self.imageView = imgView ;
-//    [self addSubview:imgView];
-
-    
-    UIImageView *gifImageView = [[UIImageView alloc] initWithFrame:self.frame];
-    gifImageView.backgroundColor = [UIColor blueColor];
-    self.imageView = gifImageView ;
-    [self.contentView addSubview:gifImageView];
 }
-
-
 
 @end

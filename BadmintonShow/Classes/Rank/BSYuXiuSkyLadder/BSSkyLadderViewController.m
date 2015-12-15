@@ -19,8 +19,8 @@
 
 @implementation BSSkyLadderViewController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style{
-    self = [super initWithStyle:style];
+- (instancetype)init {
+    self = [super  init];
     if (self) {
         _rankArray = [NSMutableArray array];
     }

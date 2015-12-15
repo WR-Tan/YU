@@ -20,13 +20,38 @@
 @property (copy, nonatomic) NSString *phoneNumber ;
 @property (copy, nonatomic) NSString *password;
 
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet UIButton *registBtn;
+@property (weak, nonatomic) IBOutlet UIButton *notRegistBtn;
+@property (weak, nonatomic) IBOutlet UIButton *findPsdBtn;
+
 @end
 
 @implementation BSLoginController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+ 
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, 6, 0, 6) ;
+    
+    UIImage *loginImage = [[UIImage imageNamed:@"common_button_green"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    UIImage *loginImageHightlighted = [[UIImage imageNamed:@"common_button_green_highlighted"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    [self.loginBtn setBackgroundImage:loginImage forState:UIControlStateNormal];
+     [self.loginBtn setBackgroundImage:loginImageHightlighted forState:UIControlStateHighlighted];
+    
+    
+    
+    
+    UIImage *registImage = [[UIImage imageNamed:@"common_button_blue"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    [self.registBtn setBackgroundImage:registImage forState:UIControlStateNormal];
+    
+    
+    
+    UIImage *notRegistImage = [[UIImage imageNamed:@"poi_btn_positioning_background"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    [self.notRegistBtn setBackgroundImage:notRegistImage forState:UIControlStateNormal];
+    
+    
+    [self.findPsdBtn  setBackgroundImage:notRegistImage forState:UIControlStateNormal];
 }
 
 
@@ -68,10 +93,7 @@
     }];
 }
 
-- (IBAction)securityAction:(id)sender {
-    
-    _passwordTF.secureTextEntry = !_passwordTF.secureTextEntry ;
-}
+
 
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

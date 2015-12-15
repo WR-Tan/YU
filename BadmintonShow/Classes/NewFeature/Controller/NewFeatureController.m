@@ -9,7 +9,7 @@
 #import "NewFeatureController.h"
 #import "BSRankController.h"
 #import "AppDelegate.h"
-#import "BSBaseTabBarController.h"
+#import "BSTabBarController.h"
 #import "BSLoginController.h"
 #import "AppDelegate.h"
 
@@ -133,7 +133,7 @@
     DLog(@"注册");
     // 显示状态栏
     [UIApplication sharedApplication].statusBarHidden = NO;
-    self.view.window.rootViewController = [[BSLoginController alloc] init] ;
+    self.view.window.rootViewController = [[BSLoginController alloc] initWithNibName:@"BSLoginController" bundle:nil] ;
 }
 
 #pragma mark 登录
@@ -141,7 +141,7 @@
 {
 
 //    [(AppDelegate *)[UIApplication sharedApplication].delegate toMainCtl];
-    self.view.window.rootViewController = [[BSLoginController alloc] init] ;
+    self.view.window.rootViewController = [[BSLoginController alloc] initWithNibName:@"BSLoginController" bundle:nil] ;
 }
 
 #pragma mark - 滚动代理方法

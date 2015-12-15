@@ -6,7 +6,8 @@
 //  Copyright (c) 2015年 LZH. All rights reserved.
 //
 
-#import "BSBaseTableViewController.h"
+
+#import "BSBaseViewController.h"
 
 @class BSGameModel ;
 @class AVObject ;
@@ -17,7 +18,7 @@
 
 @end
 
-@interface BSAddGameRecordController : BSBaseTableViewController
+@interface BSAddGameRecordController : BSBaseViewController
 
 @property (nonatomic, weak) id<BSAddGameRecordControllerDelegate> delegate ;
 
