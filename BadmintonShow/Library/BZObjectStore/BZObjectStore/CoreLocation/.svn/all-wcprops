@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation
+END
+BZObjectStoreClazzCLLocationCoordinate2D.h
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation/BZObjectStoreClazzCLLocationCoordinate2D.h
+END
+BZObjectStoreClazzCLLocation.h
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation/BZObjectStoreClazzCLLocation.h
+END
+BZObjectStoreClazzCLLocationCoordinate2D.m
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation/BZObjectStoreClazzCLLocationCoordinate2D.m
+END
+BZObjectStoreClazzCLLocation.m
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation/BZObjectStoreClazzCLLocation.m
+END
+BZObjectStoreCoreLocation.h
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation/BZObjectStoreCoreLocation.h
+END
+BZObjectStoreCoreLocation.m
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/CoreLocation/BZObjectStoreCoreLocation.m
+END

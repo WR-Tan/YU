@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes
+END
+BZObjectStoreReferenceConditionModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/BZObjectStoreReferenceConditionModel.m
+END
+BZObjectStoreConditionModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/BZObjectStoreConditionModel.m
+END
+BZObjectStoreSQLiteConditionModel.m
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/BZObjectStoreSQLiteConditionModel.m
+END
+BZObjectStore.m
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/BZObjectStore.m
+END
+BZObjectStoreBackground.m
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/BZObjectStoreBackground.m
+END

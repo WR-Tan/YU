@@ -38,5 +38,12 @@ alpha:1.0]
 #define RGB(R,G,B) [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:1.0f]
 #define RGBA(R,G,B,A) [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:(A)/255]
 
+#define  kTableViewBackgroudColor RGB(240,240,240)
+#define  kBackgroudColor  kTableViewBackgroudColor
+#define  kDetailLabelFont [UIFont systemFontOfSize:14]
+
+#define kBSDefaultFont    [UIFont systemFontOfSize:16]
+#define kBSAvatarRadius   4
+
 
 #endif

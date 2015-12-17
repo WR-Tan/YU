@@ -18,6 +18,8 @@
 #define kCellPadding 10
 #define kCellInnerPadding 5
 
+#define kDefaultUserAvatar @"bs_def_userAvatar"
+
 @implementation BSProfileUserCell {
     UILabel *_nickNameLabel;
     UILabel *_yuxiuLabel;
@@ -88,9 +90,10 @@
 - (void)displayWithItem:(id)object{
     if ([object isKindOfClass:[BSProfileUserModel class]]) {
         BSProfileUserModel *user = (BSProfileUserModel *)object;
-        _nickNameLabel.text = user.nickName;
-        _yuxiuLabel.text = user.userName;
-        [_iconView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:nil];
+        _nickNameLabel.text = user.nickName ? : @" ";
+        _yuxiuLabel.text = user.userName ? : @"羽秀号:";
+        UIImage *placeholder =  [UIImage imageNamed:kDefaultUserAvatar];
+        [_iconView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:placeholder];
     }
 }
 @end

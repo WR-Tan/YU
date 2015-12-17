@@ -24,3 +24,4 @@ pod 'Masonry'
 
 pod 'YYKit'
 pod 'HMSegmentedControl'
+pod 'Mantle', '~> 2.0.6'

@@ -9,7 +9,6 @@
 #import "BSProfileCell.h"
 #import "BSProfileModel.h"
 
-#define kDetailLabelFont [UIFont systemFontOfSize:13]
 
 @implementation BSProfileCell{
     UIImageView *_imageView;
@@ -82,7 +81,7 @@
 - (void)displayWithItem:(id)object{
     if ([object isKindOfClass:[BSProfileModel class]]) {
         BSProfileModel *item = (BSProfileModel *)object;
-        _title.text = item.name;
+        _title.text = item.title;
         _detailLabel.text = item.detail;
         _imageView.image = [UIImage imageNamed:item.imageName];
     }

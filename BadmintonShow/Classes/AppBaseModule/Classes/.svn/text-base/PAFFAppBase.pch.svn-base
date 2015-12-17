@@ -1,0 +1,27 @@
+//
+//  PAFF.pch
+//  GuangzhouBank
+//
+//  Created by bolei on 15/8/25.
+//  Copyright (c) 2015年 PingAn. All rights reserved.
+//
+
+#ifndef GuangzhouBank_PAFF_pch
+#define GuangzhouBank_PAFF_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "GlobalMacros.h"
+#import "DeviceMacros.h"
+#import "UIMacrosDefine.h"
+
+#import "NSObject+ClassName.h"
+
+#import "PAFFCommonThemeMarco.h"
+#import "CoreDebug.h"
+
+#endif

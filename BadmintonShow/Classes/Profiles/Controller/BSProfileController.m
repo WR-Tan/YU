@@ -20,8 +20,7 @@
 
 #import "AVUser.h"
 #import "YYKit.h"
-
-#define  kTableViewBackgroudViewColor RGBCOLOR(240,240,240)
+#import "BSProfileBusiness.h"
 
 @interface BSProfileController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *tableView;
@@ -29,7 +28,8 @@
 
 @implementation BSProfileController{
     NSMutableArray *_dataArr;
-    CGRect    _iconOldFrame ;
+    CGRect _iconOldFrame ;
+    BSProfileUserModel *_user;
 }
 
 - (instancetype)init {
@@ -48,7 +48,7 @@
     [super viewDidLoad];
     [self createData];
     [self constructBaseView];
-//    [self addCell:@"Model" class:@"YYModelExample"]
+    [self getUserData];
 }
 
 - (void)constructBaseView{
@@ -59,9 +59,9 @@
     if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 49, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-    self.tableView.backgroundColor = kTableViewBackgroudViewColor;
+    self.tableView.backgroundColor = kTableViewBackgroudColor;
     [self.view addSubview:self.tableView];
     
     if ( kSystemVersion < 7) {
@@ -71,6 +71,7 @@
     
     // NavBar
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setting)];
+    self.navigationItem.rightBarButtonItem.tintColor = RGB(80, 80, 80);
 }
 
 - (void)setting {
@@ -79,47 +80,51 @@
 
 - (void)createData{
     BSProfileUserModel *user = [BSProfileUserModel new];
-    user.avatarUrl = @"http://b.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=9b369b741e178a82da3177f2976a18e8/902397dda144ad344092e63fd0a20cf431ad855c.jpg";
+    user.avatarUrl = @""; //@"http://b.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=9b369b741e178a82da3177f2976a18e8/902397dda144ad344092e63fd0a20cf431ad855c.jpg";
     user.nickName = @"盖德";
     user.userName = @"Mr.Gade";
-    user.level = @"20" ;
     [_dataArr addObject:@[user]];
+    _user = user ;
     
-    //
-    BSProfileModel *ablum = [BSProfileModel new];
-    ablum.imageName = @"AliPay";
-    ablum.name = @"相册";
+    NSString *clasName = @"UIViewController";
     
-    BSProfileModel *collection = [BSProfileModel new];
-    collection.imageName = @"AliPay";
-    collection.name = @"收藏";
-    
+    // 相册/收藏
+    BSProfileModel *ablum = BSProfileModel(@"AliPay",@"相册",nil,clasName);
+    BSProfileModel *collection = BSProfileModel(@"AliPay",@"收藏",nil,clasName);
     [_dataArr addObject:@[ablum,collection]];
     
     //  附近
-    BSProfileModel *peopleNearby = [BSProfileModel new];
-    peopleNearby.imageName = @"AliPay";
-    peopleNearby.name = @"附近人";
-    peopleNearby.detail = @"一起切磋吧";
-    
-    BSProfileModel *teamNearby = [BSProfileModel new];
-    teamNearby.imageName = @"AliPay";
-    teamNearby.name = @"附近球队";
-    teamNearby.detail = @"享受团队对战的乐趣";
-    
-    BSProfileModel *groupNearby = [BSProfileModel new];
-    groupNearby.imageName = @"AliPay";
-    groupNearby.name = @"附近圈子";
-    groupNearby.detail = @"到组织里面找朋友";
-    
+    BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);
+    BSProfileModel *teamNearby = BSProfileModel(@"AliPay",@"附近球队",@"享受双打的乐趣",clasName);
+    BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"附近圈子",@"到组织,找高手",clasName);
     [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
     
-    
-    BSProfileModel *about = [BSProfileModel modelWithImageName:@"AliPay" title:@"关于羽秀" detail:nil];
-    BSProfileModel *feedBack = [BSProfileModel modelWithImageName:@"AliPay" title:@"意见反馈" detail:nil];
-    BSProfileModel *praise = [BSProfileModel modelWithImageName:@"AliPay" title:@"给个好评" detail:nil];
+    //  关于
+    BSProfileModel *about = BSProfileModel(@"AliPay",@"关于羽秀",nil,clasName);
+    BSProfileModel *feedBack = BSProfileModel(@"AliPay",@"意见反馈",nil,clasName);
+    BSProfileModel *praise = BSProfileModel(@"AliPay",@"给个好评",nil,clasName);
     [_dataArr addObject:@[about,feedBack,praise]];
     
+    [self.tableView reloadData];
+    
+}
+
+- (void)getUserData{
+   _user = [BSProfileBusiness getUserProflieFromUserDefault];
+    if (_user) {
+        [self reloadDataWithUser];
+    } else {
+        [BSProfileBusiness getProflieMessageFromNet:^(BSProfileUserModel *profileUserMoel, NSError *err) {
+            if (!profileUserMoel || err) return;
+            _user = profileUserMoel;
+            [self reloadDataWithUser];
+        }];
+    }
+}
+
+- (void)reloadDataWithUser{
+    [_dataArr removeFirstObject];
+    [_dataArr prependObject:@[_user]];
     [self.tableView reloadData];
 }
 
@@ -155,25 +160,27 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    NSArray  *sectionData = _dataArr[indexPath.section];
+    id object = sectionData[indexPath.row];
+    
     if (indexPath.section == 0) {
         BSProfileUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BSProfileUserCell"];
         if (!cell) {
-            cell = [[BSProfileUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BSProfileUserCell"];
+            cell = [[BSProfileUserCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:@"BSProfileUserCell"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        NSArray  *sectionData = _dataArr[indexPath.section];
-        cell.object = sectionData[indexPath.row];
+        cell.object = object;
         return cell;
         
     } else {
-        
         BSProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BSProfileCell"];
         if (!cell) {
-            cell = [[BSProfileCell  alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BSProfileCell"];
+            cell = [[BSProfileCell  alloc] initWithStyle:UITableViewCellStyleValue1
+                                         reuseIdentifier:@"BSProfileCell"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        NSArray  *sectionData = _dataArr[indexPath.section];
-        cell.object = sectionData[indexPath.row];
+        cell.object = object;
         return cell;
     }
     
@@ -184,10 +191,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    
     if (indexPath.section == 0) {
         BSProfileEditViewController *profileEditVC = [[ BSProfileEditViewController alloc] init];
+        profileEditVC.title = @"个人信息";
+        profileEditVC.object = _user;
         [self.navigationController  pushViewController:profileEditVC animated:YES];
+        return;
     }
+    
+    NSArray  *sectionData = _dataArr[indexPath.section];
+    BSProfileModel *profile = sectionData[indexPath.row];
+    Class class = NSClassFromString(profile.className);
+    if (class) {
+        UIViewController *ctrl = class.new ;
+        ctrl.view.backgroundColor = [UIColor whiteColor];
+        ctrl.title = profile.title;
+        [self.navigationController pushViewController:ctrl animated:YES];
+    }
+
 }
 
 

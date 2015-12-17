@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration
+END
+BZObjectStoreMigration.h
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigration.h
+END
+BZObjectStoreMigrationQueryBuilder.m
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationQueryBuilder.m
+END
+BZObjectStoreMigrationRuntime.h
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationRuntime.h
+END
+BZObjectStoreMigration.m
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigration.m
+END
+BZObjectStoreMigrationTable.h
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationTable.h
+END
+BZObjectStoreMigrationRuntime.m
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationRuntime.m
+END
+BZObjectStoreMigrationRuntimeProperty.h
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationRuntimeProperty.h
+END
+BZObjectStoreMigrationQueryBuilder.h
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationQueryBuilder.h
+END
+BZObjectStoreMigrationTable.m
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationTable.m
+END
+BZObjectStoreMigrationRuntimeProperty.m
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/ff_app_cms/!svn/ver/10/trunk/master/ios/Apps/FFProject/Pods/BZObjectStore/BZObjectStore/Core/Classes/Migration/BZObjectStoreMigrationRuntimeProperty.m
+END

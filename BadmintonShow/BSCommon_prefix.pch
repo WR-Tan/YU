@@ -20,5 +20,6 @@
 #import "AVObjectClass.h"     // 类名宏
 #import "AVObjectProperty.h"    // 属性名宏
 #import "AVObjectRelationMacros.h"  // 关系名宏
+#import "YYKit.h"
 
 #endif
