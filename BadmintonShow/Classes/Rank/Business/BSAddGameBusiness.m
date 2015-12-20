@@ -10,7 +10,10 @@
 #import "BSAddGameBusiness.h"
 #import "BSGameModel.h"
 #import <AVOSCloud/AVObject.h>
+#import "AVUser.h"
+#import "BSUserDefaultStorage.h"
 
+#define kUserDefaultKeySelectedBMTGameType  @"SelectedBMTGameType"
 
 @implementation BSAddGameBusiness
 
@@ -32,6 +35,15 @@
     gameObj[@"winner_objectId"]   =  game.winner_objectId = game.playerA_objectId;
     
     return gameObj;
+}
+
++ (NSInteger)BMTGameTypeFromUserDefault {
+    NSNumber *gameType = [BSUserDefaultStorage objectForKey:UserDefaultKeyWithUsertId(kUserDefaultKeySelectedBMTGameType)];
+    return [gameType integerValue];
+}
+
++ (void)setBMTGameTypeToUserDefault:(NSInteger)gameType {
+    [BSUserDefaultStorage setObject:@(gameType) forKey:UserDefaultKeyWithUsertId(kUserDefaultKeySelectedBMTGameType)];
 }
 
 + (NSString *)currentDateString{

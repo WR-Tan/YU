@@ -9,6 +9,8 @@
 #import "BSSetTextViewController.h"
 #import "SIAlertView.h"
 #import "BSCommonTool.h"
+#import "BSProfileBusiness.h"
+#import "SVProgressHUD.h"
 
 #define kMaxLenth 30
 
@@ -83,32 +85,20 @@
 #pragma mark - <Private Method>
 -(void)backtohome
 {
+    [self.view endEditing:YES];
     if ([txtView.text length]>30 || [txtView.text containsEmoji]) {
         NSString *alertMessage = [txtView.text length] > 30 ? @"地址长度过长,请重新设置": @"地址暂不支持表情字符";
         SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:alertMessage];
-        [alertView addButtonWithTitle:@"确定" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+        [alertView addButtonWithTitle:@"确定" type:SIAlertViewButtonTypeCancel handler:nil];
         [alertView show];
         return;
     }
-//    
-//    if ([txtView.text containsEmoji]) {
-//        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"地址暂不支持表情字符"];
-//        [alertView addButtonWithTitle:@"确定" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }];
-//        [alertView show];
-//        return;
-//    }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetSignature" object:txtView.text];
-    if (_isBubbleChatCtl) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SetSignatureToMore" object:txtView.text];
-    }
-    [self.delegate resetMessage:txtView.text Tag:self.tag];
+    [self.delegate resetMessage:(txtView.text?:@"") Tag:self.tag];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 #pragma mark - <Delegate>
 #pragma mark UITextViewDelegte

@@ -9,28 +9,20 @@
 #import "BSAddGameRecordCell.h"
 #import "AVCloud.h"
 #import "AVUser.h"
+#import "SVProgressHUD.h"
 
 @interface BSAddGameRecordCell () <UITextFieldDelegate>
-
 @property (weak, nonatomic) IBOutlet UILabel *playerA_nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playerB_nameLabel;
-
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *bImageView;
-
 @property (assign, nonatomic) NSInteger aScore;
 @property (assign, nonatomic) NSInteger bScore;
-
-
 @end
 
-
 @implementation BSAddGameRecordCell{
-    
-
     NSString *_highScore;
     NSString *_lowScore;
-    
 }
 
 #pragma mark - Public
@@ -41,16 +33,26 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone ;
-    
-    UITapGestureRecognizer *aTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                           action:@selector(aTapGest:)];
-    [_aImageView addGestureRecognizer:aTap];
+    _aImageView.clipsToBounds = YES;
+    _aImageView.layer.cornerRadius =  36;
+    _aImageView.contentMode = UIViewContentModeScaleAspectFill;
     _aImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *aTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(aTapGest:)];
+    [_aImageView addGestureRecognizer:aTap];
     
-    UITapGestureRecognizer *bTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                           action:@selector(bTapGest:)];
-    [_bImageView addGestureRecognizer:bTap];
+    _bImageView.clipsToBounds = YES;
+    _bImageView.layer.cornerRadius =  36;
     _bImageView.userInteractionEnabled = YES;
+    _bImageView.contentMode = UIViewContentModeScaleAspectFill;
+    UITapGestureRecognizer *bTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bTapGest:)];
+    [_bImageView addGestureRecognizer:bTap];
+ 
+    [_aImageView setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
+    if (!AppContext.user) {
+        [SVProgressHUD showWithStatus:@"请先登录才能添加比赛"];
+    }
+    
+    _playerB_nameLabel.text = @"请选择你的对手";
 }
 
 -(void)setSelected:(BOOL)selected{
@@ -80,8 +82,9 @@
     _aImageView.image = aImage;
     _bImageView.image = bImage;
     
-    _playerA_nameLabel.text = game.playerA_name;
-    _playerB_nameLabel.text = game.playerB_name;
+    _playerA_nameLabel.text = AppContext.user.nickName;
+    _playerB_nameLabel.text = game.playerB_name ? :@"请选择你的对手";
+
 }
 
 

@@ -21,5 +21,7 @@
 #import "AVObjectProperty.h"    // 属性名宏
 #import "AVObjectRelationMacros.h"  // 关系名宏
 #import "YYKit.h"
+#import "BSProfileUserModel.h"
+#import "BSAppContext.h"
 
 #endif

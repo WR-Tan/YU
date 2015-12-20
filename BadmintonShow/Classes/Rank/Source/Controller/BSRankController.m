@@ -17,8 +17,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 
 
-@interface BSRankController ()
-{
+@interface BSRankController () <UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *_data;
     BSRankHeader *_header;
 }
@@ -27,48 +26,51 @@
 @implementation BSRankController
 
 
--(instancetype)init
-{
+- (instancetype)init {
     self = [super init ];
     if (self) {
         self.title = @"排名";
         self.hidesBottomBarWhenPushed = NO;
         self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
-        
-        _data = [NSMutableArray array];
+        _data = [@[@"比赛记录",@"好友排名",@"圈子排名",@"羽秀天梯" ] mutableCopy];;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   [self loadData];
-    [self initNavigationItem];
+    [self constructTableView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addGameRecord)];
 }
-
-
-#pragma mark - 初始化导航按钮
-- (void)initNavigationItem
-{
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加新比赛" style:UIBarButtonItemStyleDone target:self  action:@selector(addGameRecord)];
+- (void)constructTableView{
+    //  TableView
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+    self.tableView.backgroundColor = kTableViewBackgroudColor;
+    [self.view addSubview:self.tableView];
+    
+    if ( kSystemVersion < 7) {
+        self.tableView.top -= 64;
+        self.tableView.height += 20;
+    }
 }
 
 - (void)addGameRecord{
     BSAddGameRecordController *add = [[BSAddGameRecordController alloc] init];
     [self.navigationController pushViewController:add animated:YES];
-
 }
 
 
-- (void)loadData
-{
-    _data = [@[@"比赛记录",@"羽秀天梯" ] mutableCopy];
 
-}
 
 #pragma mark TableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
     return _data.count;
 }
 
@@ -78,11 +80,16 @@
 }
 
 #pragma mark - Header
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    
-    _header = [[BSRankHeader alloc] init];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (!_header)  {
+        _header = [[BSRankHeader alloc] init];
+    }
     _header.frame = CGRectMake(0, 0, kScreenWidth, 200);
+    [_header.icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:nil];
+    _header.name.text = AppContext.user.nickName;
+    _header.ranking.text = @"未知";
+    _header.backgroundColor = [UIColor whiteColor];
+    _header.introduce.text = AppContext.user.desc;
     
     return section ? nil : _header;
 }

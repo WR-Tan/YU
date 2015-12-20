@@ -28,6 +28,7 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     _imageView = self.imageView;
     _title = self.textLabel;
+    _title.font = kBSDefaultFont ;
     _detailLabel = self.detailTextLabel;
     _detailLabel.font = kDetailLabelFont;
 //    //  头像

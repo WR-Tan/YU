@@ -13,10 +13,9 @@
 #import "BSChoosePlayerViewController.h"
 #import "SVProgressHUD.h"
 #import "Masonry.h"
+#import "BSSetGameTypeController.h"
 
-@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,BSChoosePlayerViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
-
-{
+@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,BSChoosePlayerViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSInteger _numberOfRows ;
 }
 
@@ -26,6 +25,8 @@
 @property (nonatomic, strong) AVUser *oppUser;
 @property (nonatomic, weak )  UIButton *btn ;
 @property (nonatomic, strong)  UIButton *sendBtn ;
+@property (nonatomic, assign ) BMTGameType gameType;
+
 @end
 
 @implementation BSAddGameRecordController
@@ -38,13 +39,10 @@
         
         _gameModel = [[BSGameModel alloc] init];
         _gameModel.playerA_objectId = [AVUser currentUser].objectId;
-        
         AVFile *aAvatar = [[AVUser currentUser] objectForKey:AVPropertyAvatar];
         _gameModel.aAVatar = [UIImage imageWithData:[aAvatar getData]];
         AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
         _gameModel.bAVatar = [UIImage imageWithData:[bAvatar getData]];
-    
-        
         _gameModel.playerA_name = [AVUser currentUser].username;
     }
     return self;
@@ -53,7 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发送比赛" style:UIBarButtonItemStylePlain target:self action:@selector(sendGame)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"类型" style:UIBarButtonItemStylePlain target:self action:@selector(gameSettings)];
     
     [self setupBaseViews];
 }
@@ -61,50 +59,22 @@
 
 
 
-- (void)setupBaseViews
-{
-    self.title = @"确认比赛结果";
-
+- (void)setupBaseViews{
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.translucent = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    UISegmentedControl *segmentCtl = [[UISegmentedControl alloc] initWithItems:@[@"男单",@"女单",@"男双",@"女双",@"混双"]];
-    [segmentCtl addTarget:self action:@selector(segmentCtlAction:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segmentCtl];
-    
     self.tableView = [[UITableView alloc] init];
-//                      WithFrame:self.view.frame style:UITableViewStyleGrouped];
-
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"BSAddGameRecordCell" bundle:nil] forCellReuseIdentifier:@"BSAddGameRecordCell"];
     
-    
-    
-//    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [sendBtn setTitle:@"发送给好友" forState:UIControlStateNormal];
-//    sendBtn.backgroundColor = [UIColor lightGrayColor];
-//    [sendBtn addTarget:self action:@selector(sendGameToOpp) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:sendBtn];
-//    self.sendBtn = sendBtn;
-    
-    // Constains
-    [segmentCtl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self.view).offset(5);
-    }];
-    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(segmentCtl.mas_bottom).offset(5);
+        make.top.equalTo(self.view).offset(5);
     }];
-    
-//    [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.bottom.right.equalTo(self.view);
-//        make.height.equalTo(@40);
-//    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -113,6 +83,13 @@
     [SVProgressHUD dismiss];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSDictionary *titleDict = @{@0 : @"男单", @1 : @"男双", @2 : @"女单",
+                                @3 : @"女双", @4 : @"混双"};
+    self.title = titleDict[@(self.gameType)];
+}
 
 
 #pragma mark - BSChoosePlayerViewControllerDelegate
@@ -140,15 +117,10 @@
 }
 
 
-- (void)sendGame
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    BSAddGameRecordCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    NSString *aScore = cell.firstGameA_scoreTF.text;
-    NSString *bScore = cell.firstGameB_scoreTF.text;
-    
-    [self uploadGameWithAScore:aScore bScore:bScore button:nil];
+- (void)gameSettings{
+    BSSetGameTypeController *setGameVC = [[BSSetGameTypeController alloc] init];
+    setGameVC.title = @"比赛类型";
+    [self.navigationController pushViewController:setGameVC animated:YES];
 }
 
 - (void)uploadGameWithAScore:(NSString *)aScoreStr bScore:(NSString *)bScoreStr button:(UIButton *)btn{
@@ -254,18 +226,15 @@
 
 #pragma mark - TableView数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
     return _numberOfRows;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return  250 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"BSAddGameRecordCell";
     BSAddGameRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -291,7 +260,10 @@
     return _dateFormatter;
 }
 
-
+- (BMTGameType)gameType {
+     _gameType = [BSAddGameBusiness BMTGameTypeFromUserDefault];
+    return _gameType;
+}
 
 
 @end

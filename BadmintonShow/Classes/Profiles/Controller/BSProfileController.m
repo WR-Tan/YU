@@ -21,15 +21,17 @@
 #import "AVUser.h"
 #import "YYKit.h"
 #import "BSProfileBusiness.h"
+#import "SVProgressHUD.h"
+#import "BSMyEquipmentViewController.h"
+#import "BSMyTeamsController.h"
 
-@interface BSProfileController ()<UITableViewDelegate,UITableViewDataSource>
+@interface BSProfileController ()<UITableViewDelegate,UITableViewDataSource,BSProfileEditViewControllerDelegate>
 @property (strong, nonatomic) UITableView *tableView;
 @end
 
 @implementation BSProfileController{
     NSMutableArray *_dataArr;
     CGRect _iconOldFrame ;
-    BSProfileUserModel *_user;
 }
 
 - (instancetype)init {
@@ -39,6 +41,7 @@
         self.hidesBottomBarWhenPushed = NO;
         self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
         _dataArr = [NSMutableArray array];
+        
     }
     return self;
 }
@@ -50,6 +53,17 @@
     [self constructBaseView];
     [self getUserData];
 }
+
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    self.navigationController.navigationBar.hidden = YES ;
+//
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    self.navigationController.navigationBar.hidden = NO ;
+//}
 
 - (void)constructBaseView{
     //  TableView
@@ -79,19 +93,16 @@
 }
 
 - (void)createData{
-    BSProfileUserModel *user = [BSProfileUserModel new];
-    user.avatarUrl = @""; //@"http://b.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=9b369b741e178a82da3177f2976a18e8/902397dda144ad344092e63fd0a20cf431ad855c.jpg";
-    user.nickName = @"盖德";
-    user.userName = @"Mr.Gade";
-    [_dataArr addObject:@[user]];
-    _user = user ;
+    
+    [_dataArr addObject:@[AppContext.user]];
     
     NSString *clasName = @"UIViewController";
     
     // 相册/收藏
-    BSProfileModel *ablum = BSProfileModel(@"AliPay",@"相册",nil,clasName);
-    BSProfileModel *collection = BSProfileModel(@"AliPay",@"收藏",nil,clasName);
-    [_dataArr addObject:@[ablum,collection]];
+    BSProfileModel *data = BSProfileModel(@"AliPay",@"我的数据",nil,clasName);
+    BSProfileModel *team = BSProfileModel(@"AliPay",@"我的球队",nil,@"BSMyTeamsController");
+    BSProfileModel *collection = BSProfileModel(@"AliPay",@"我的装备",nil,@"BSMyEquipmentViewController");
+    [_dataArr addObject:@[data,team,collection]];
     
     //  附近
     BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);
@@ -100,31 +111,30 @@
     [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
     
     //  关于
-    BSProfileModel *about = BSProfileModel(@"AliPay",@"关于羽秀",nil,clasName);
+    BSProfileModel *about = BSProfileModel(@"AliPay",@"关于我们",nil,clasName);
     BSProfileModel *feedBack = BSProfileModel(@"AliPay",@"意见反馈",nil,clasName);
     BSProfileModel *praise = BSProfileModel(@"AliPay",@"给个好评",nil,clasName);
-    [_dataArr addObject:@[about,feedBack,praise]];
+    BSProfileModel *setting = BSProfileModel(@"AliPay",@"设置",nil,clasName);
+    [_dataArr addObject:@[about,feedBack,praise,setting]];
     
     [self.tableView reloadData];
     
 }
 
 - (void)getUserData{
-   _user = [BSProfileBusiness getUserProflieFromUserDefault];
-    if (_user) {
+    
+    [BSProfileBusiness getProflieMessageFromNet:^(BSProfileUserModel *profileUserMoel, NSError *err) {
+        if (!profileUserMoel || err) {
+            [MBProgressHUD showText:@"获取数据异常" atView:self.view  animated:YES];
+            return;
+        }
         [self reloadDataWithUser];
-    } else {
-        [BSProfileBusiness getProflieMessageFromNet:^(BSProfileUserModel *profileUserMoel, NSError *err) {
-            if (!profileUserMoel || err) return;
-            _user = profileUserMoel;
-            [self reloadDataWithUser];
-        }];
-    }
+    }];
 }
 
 - (void)reloadDataWithUser{
     [_dataArr removeFirstObject];
-    [_dataArr prependObject:@[_user]];
+    [_dataArr prependObject:@[AppContext.user]];
     [self.tableView reloadData];
 }
 
@@ -133,7 +143,7 @@
 #pragma mark Section Header
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20 ;
+    return section ? 20 : 0.1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -195,7 +205,7 @@
     if (indexPath.section == 0) {
         BSProfileEditViewController *profileEditVC = [[ BSProfileEditViewController alloc] init];
         profileEditVC.title = @"个人信息";
-        profileEditVC.object = _user;
+        profileEditVC.delegate = self;
         [self.navigationController  pushViewController:profileEditVC animated:YES];
         return;
     }
@@ -214,7 +224,9 @@
 
 
 
-
+- (void)updateUseInfo{
+    [self reloadDataWithUser];
+}
 
 
 

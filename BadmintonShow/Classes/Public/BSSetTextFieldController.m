@@ -9,6 +9,8 @@
 
 #import "BSSetTextFieldController.h"
 #import "BSCommonTool.h"
+#import "BSProfileBusiness.h"
+#import "SVProgressHUD.h"
 
 #define kTextFieldPadding 15 
 #define kTextFieldHeight  35
@@ -52,10 +54,17 @@
 }
 
 - (void)backtohome{
-    if (self.textField.text.length >= 30) return;
-    
     [self.view endEditing:YES];
-    [self.delegate resetText:self.textField.text Tag:self.tag];
+    
+    
+    NSString *warnStr ;
+    if (self.textField.text.length >= 15 || self.textField.text.length == 0) {
+        warnStr = self.textField.text.length >= 15 ? @"昵称不能超过15字哦" : @"昵称不能为空哦";
+        [SVProgressHUD showErrorWithStatus:warnStr maskType:SVProgressHUDMaskTypeBlack];
+        return;
+    }
+    
+    [self.delegate resetText:(self.textField.text?:@"") Tag:self.tag];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

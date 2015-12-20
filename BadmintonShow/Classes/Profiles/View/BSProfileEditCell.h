@@ -8,6 +8,12 @@
 
 #import "BSBaseTableViewCell.h"
 
-@interface BSProfileEditCell : BSBaseTableViewCell
+@class BSProfileEditCell;
 
+@protocol BSProfileEditCellDelegate <NSObject>
+- (void)cell:(BSProfileEditCell *)cell imageView:(UIImageView *)imageView displayImageUrl:(NSString *)imageUrl;
+@end
+
+@interface BSProfileEditCell : BSBaseTableViewCell
+@property (nonatomic, weak) id <BSProfileEditCellDelegate> delegate;
 @end

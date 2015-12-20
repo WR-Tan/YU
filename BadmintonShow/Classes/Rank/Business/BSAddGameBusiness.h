@@ -15,4 +15,8 @@
 
 + (AVObject *)AVObjectWithGameModel:(BSGameModel *)game;
 
++ (NSInteger)BMTGameTypeFromUserDefault;
+
++ (void)setBMTGameTypeToUserDefault:(NSInteger)gameType;
+
 @end

@@ -39,8 +39,9 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     //  头像
     UIImageView *iconView = [UIImageView new];
-//    iconView.layer.cornerRadius =  iconRadius / 2 ;
-//    iconView.clipsToBounds = YES;
+    iconView.contentMode = UIViewContentModeScaleAspectFill;
+    iconView.layer.cornerRadius =  kBSAvatarRadius;
+    iconView.clipsToBounds = YES ;
     [self.contentView addSubview:iconView];
     _iconView = iconView;
     

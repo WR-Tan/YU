@@ -6,8 +6,9 @@
 //  Copyright (c) 2015年 LZH. All rights reserved.
 //
 
-#import "BSBaseTableViewController.h"
+#import "BSBaseViewController.h"
 
-@interface BSRankController : BSBaseTableViewController
+@interface BSRankController : BSBaseViewController
+@property (nonatomic, strong) UITableView *tableView ;
 
 @end

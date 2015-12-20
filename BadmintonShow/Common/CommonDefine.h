@@ -40,10 +40,13 @@ alpha:1.0]
 
 #define  kTableViewBackgroudColor RGB(240,240,240)
 #define  kBackgroudColor  kTableViewBackgroudColor
-#define  kDetailLabelFont [UIFont systemFontOfSize:14]
+#define  kDetailLabelFont [UIFont systemFontOfSize:15]
+#define  kDetailLabelFontLarge [UIFont systemFontOfSize:16]
 
 #define kBSDefaultFont    [UIFont systemFontOfSize:16]
-#define kBSAvatarRadius   4
-
+#define kBSFontSize(size)     [UIFont systemFontOfSize:size]
+#define kBSAvatarRadius   36
+#define kBSAvatarPlaceHolder  @"MaleDefault"
+#define UIImageNamed(name)  [UIImage imageNamed:(name)]
 
 #endif

@@ -20,13 +20,23 @@
     [self constructTableView];
 }
 
-- (void)constructTableView
-{
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+- (void)constructTableView{
+    //  TableView
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.tableFooterView = [[UIView alloc] init];
-    [self.view addSubview:self.tableView];;
+    if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+    self.tableView.backgroundColor = kTableViewBackgroudColor;
+    [self.view addSubview:self.tableView];
+    
+    if ( kSystemVersion < 7) {
+        self.tableView.top -= 64;
+        self.tableView.height += 20;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

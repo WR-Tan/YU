@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 LZH. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BSBaseView.h"
 
-@interface BSRankHeader : UIView
+@interface BSRankHeader : BSBaseView
 
 @property (nonatomic ,strong) UIImageView *icon;
 @property (nonatomic ,strong) UILabel *introduce;

@@ -9,9 +9,11 @@
 #import "BSBaseTableViewController.h"
 @class BSProfileUserModel;
 
+@protocol BSProfileEditViewControllerDelegate <NSObject>
+- (void)updateUseInfo;
+@end
+
 @interface BSProfileEditViewController : BSBaseTableViewController
-
-@property (nonatomic, strong) BSProfileUserModel *userInfo ;
-@property (nonatomic, strong) id object;
-
+//@property (nonatomic, strong) BSProfileUserModel *userInfo ;
+@property (nonatomic, weak) id <BSProfileEditViewControllerDelegate> delegate;
 @end

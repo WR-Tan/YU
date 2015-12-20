@@ -10,6 +10,19 @@
 #define AVObjectProperty_h
 
 
+#pragma mark - Common
+///========================================================================
+/// @name Common
+///========================================================================
+#define AVPropertyName        @"name"
+
+
+
+#pragma mark - Game
+///========================================================================
+/// @name Game
+///========================================================================
+
 #define AVPropertyARankScore        @"aRankScore"
 #define AVPropertyBRankScore        @"bRankScore"
 #define AVPropertyEndTime           @"endTime"
@@ -46,12 +59,16 @@
 #define AVPropertyHeight        @"height"
 #define AVPropertyWeight        @"weight"
 #define AVPropertyBirthDay      @"birthday"
+#define AVPropertyBirthDayStr   @"birthdayStr"
 #define AVPropertyNation        @"nation"
 #define AVPropertyProvince      @"province"
 #define AVPropertyCity          @"city"
+#define AVPropertyDisctrict     @"disctrit"
 #define AVPropertyStreet        @"street"
 #define AVPropertySchool        @"school"
 #define AVPropertyCompany       @"company"
+#define AVPropertyAccessSchoolTime     @"accessSchoolTime"
+#define AVPropertyJob           @"job"
 #define AVPropertyDesc          @"desc"
 
 #endif /* AVObjectProperty_h */
