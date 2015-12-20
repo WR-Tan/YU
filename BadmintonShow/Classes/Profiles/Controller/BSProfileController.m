@@ -114,8 +114,7 @@
     BSProfileModel *about = BSProfileModel(@"AliPay",@"关于我们",nil,clasName);
     BSProfileModel *feedBack = BSProfileModel(@"AliPay",@"意见反馈",nil,clasName);
     BSProfileModel *praise = BSProfileModel(@"AliPay",@"给个好评",nil,clasName);
-    BSProfileModel *setting = BSProfileModel(@"AliPay",@"设置",nil,clasName);
-    [_dataArr addObject:@[about,feedBack,praise,setting]];
+    [_dataArr addObject:@[about,feedBack,praise]];
     
     [self.tableView reloadData];
     

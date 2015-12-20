@@ -6,6 +6,11 @@
 //  Copyright © 2015 LZH. All rights reserved.
 //
 
+
+/**
+ *  @author lizhihua, 15-12-20 16:12:01
+ *  目前这个类比BSUserModel更多，BSUserModel将会被废弃
+ */
 #import <Foundation/Foundation.h>
 
 

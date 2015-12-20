@@ -16,8 +16,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
 }
 
-- (void)dismiss
-{
+- (void)dismiss{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -31,19 +30,6 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
-    
-    
-//    if (indexPath.section == 0) {
-//        SEL selector = NSSelectorFromString(self.headerSectionDatas[indexPath.row][kCellSelectorKey]);
-//        [self performSelector:selector withObject:nil afterDelay:0];
-//    }
-//    else {
-//        AVUser *user = [self.dataSource objectAtIndex:indexPath.row];
-//        [[CDIMService service] goWithUserId:user.objectId fromVC:self];
-//    }
-    
-    
-    
 }
 
 

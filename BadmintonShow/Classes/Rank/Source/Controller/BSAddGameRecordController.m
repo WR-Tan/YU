@@ -14,6 +14,8 @@
 #import "SVProgressHUD.h"
 #import "Masonry.h"
 #import "BSSetGameTypeController.h"
+#import "BSChooseSinglePlayerController.h"
+#import "BSChooseTeamPlayerController.h"
 
 @interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,BSChoosePlayerViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSInteger _numberOfRows ;
@@ -26,7 +28,7 @@
 @property (nonatomic, weak )  UIButton *btn ;
 @property (nonatomic, strong)  UIButton *sendBtn ;
 @property (nonatomic, assign ) BMTGameType gameType;
-
+@property (nonatomic, strong) NSDictionary *titleDict;
 @end
 
 @implementation BSAddGameRecordController
@@ -36,7 +38,7 @@
     self = [super init];
     if (self) {
         _numberOfRows = 1 ;
-        
+        _titleDict = @{@0:@"男单",@1:@"男双",@2:@"女单",@3:@"女双",@4:@"混双",};
         _gameModel = [[BSGameModel alloc] init];
         _gameModel.playerA_objectId = [AVUser currentUser].objectId;
         AVFile *aAvatar = [[AVUser currentUser] objectForKey:AVPropertyAvatar];
@@ -110,10 +112,24 @@
 
 #pragma mark - Cell Delegate
 -(void)presentFriendListVC{
-    BSChoosePlayerViewController *choosePlayVC = [[BSChoosePlayerViewController alloc] init];
-    choosePlayVC.title = @"选择对友/对手";
-    choosePlayVC.delegate = self;
-    [self.navigationController pushViewController:choosePlayVC animated:YES];
+    //   如果是单打，则选择对手
+    if (self.gameType == BMTGameTypeManSingle ||
+        self.gameType == BMTGameTypeWomanSingle ) {
+      
+        BSChooseSinglePlayerController *singleVC = [[BSChooseSinglePlayerController alloc] init];
+        singleVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
+        [self.navigationController pushViewController:singleVC animated:YES];
+        
+    } else {  // 选择双打对手
+        
+        BSChooseTeamPlayerController *teamVC = [[BSChooseTeamPlayerController alloc] init];
+        teamVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
+        [self.navigationController pushViewController:teamVC animated:YES];
+    }
+    
+    
+   
+    
 }
 
 

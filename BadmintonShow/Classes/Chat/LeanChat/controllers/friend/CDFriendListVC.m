@@ -37,7 +37,6 @@ static NSString *kCellSelectorKey = @"selector";
     if ((self = [super init])) {
         self.title = @"联系人";
         self.tabBarItem.image = [UIImage imageNamed:@"tabbar_contacts_active"];
-//        [self setNewAddRequestBadge];
     }
     return self;
 }
