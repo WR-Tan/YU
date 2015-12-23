@@ -14,8 +14,8 @@
 ///========================================================================
 /// @name Common
 ///========================================================================
-#define AVPropertyName        @"name"
-
+#define AVPropertyName              @"name"
+#define AVPropertyObjectId          @"objectId"
 
 
 #pragma mark - Game
@@ -27,6 +27,7 @@
 #define AVPropertyBRankScore        @"bRankScore"
 #define AVPropertyEndTime           @"endTime"
 #define AVPropertyGameType          @"GameType"
+#define AVPropertyGameId            @"GameId"
 #define AVPropertyPlayerA_name      @"playerA_name"
 #define AVPropertyPlayerA_objectId  @"playerA_objectId"
 #define AVPropertyPlayerA_score     @"playerA_score"
@@ -49,7 +50,7 @@
 /// @name ProfileUser
 ///========================================================================
 #define AVPropertyAvatarUrl     @"avatarUrl" 
-#define AVPropertyUserName      @"userName"
+#define AVPropertyUserName      @"userName"   // 注意后台数据是username
 #define AVPropertyYuXiuId       @"yuxiuId"
 #define AVPropertyQRCode        @"QRCode"
 #define AVPropertyGenderStr     @"genderStr"
@@ -71,4 +72,8 @@
 #define AVPropertyJob           @"job"
 #define AVPropertyDesc          @"desc"
 
+
+#define AVPropertyIsFollower    @"isFollower"
+#define AVPropertyIsFollowee    @"isFollowee"
+#define AVPropertyIsFriend      @"isFriend"
 #endif /* AVObjectProperty_h */

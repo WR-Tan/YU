@@ -73,9 +73,8 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField.text.length >= 30 || ![string isEqualToString:@""]) {
-        return NO;
-    }
+    if ([string isEqualToString:@""]) return YES;
+    if (textField.text.length >= 30) return NO;
     return YES;
 }
 

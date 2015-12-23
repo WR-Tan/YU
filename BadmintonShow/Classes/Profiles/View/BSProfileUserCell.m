@@ -18,7 +18,6 @@
 #define kCellPadding 10
 #define kCellInnerPadding 5
 
-#define kDefaultUserAvatar @"bs_def_userAvatar"
 
 @implementation BSProfileUserCell {
     UILabel *_nickNameLabel;

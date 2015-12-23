@@ -7,14 +7,14 @@
 //
 
 #import "BSContactMainController.h"
-#import "BSContactResultsController.h"
 #import "BSUserDetailViewController.h"
+#import "BSChatBuiness.h"
 
 
 @interface BSContactMainController ()<UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
 // our secondary search results table view
-@property (nonatomic, strong)  BSContactResultsController *resultsTableController;
+
 // for state restoration
 @property BOOL searchControllerWasActive;
 @property BOOL searchControllerSearchFieldWasFirstResponder;
@@ -36,6 +36,8 @@
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
     self.searchController.searchBar.delegate = self;
     self.definesPresentationContext = YES;
+    
+    [self fetchDataFromDB];
 }
 
 
@@ -54,11 +56,28 @@
     }
 }
 
+#pragma mark - InitDataFromDB
+
+- (void)fetchDataFromDB{
+    self.contactsArr = [BSChatBuiness allFriendsFromDB].mutableCopy;
+    [self.tableView reloadData];
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+
+    // 使用SearchBar.text，查询指定用户
+    [BSChatBuiness querySpecifyUsersWithUserName:searchBar.text block:^(BSProfileUserModel *userModel, NSError *error) {
+        if (error || !userModel) return ;
+        NSMutableArray *searchResults = @[userModel].mutableCopy;
+        BSContactResultsController *tableController = (BSContactResultsController *)self.searchController.searchResultsController;
+        tableController.filteredProducts = searchResults;
+        [tableController.tableView reloadData];
+    }];
 }
+
 
 
 #pragma mark - UISearchControllerDelegate
@@ -94,19 +113,19 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.products.count;
+    return self.contactsArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = (UITableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-    BSProfileUserModel *user = self.products[indexPath.row];
+    BSProfileUserModel *user = self.contactsArr[indexPath.row];
     [self configureCell:cell forUser:user];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BSProfileUserModel *selectedProduct = (tableView == self.tableView) ?
-    self.products[indexPath.row] : self.resultsTableController.filteredProducts[indexPath.row];
+    self.contactsArr[indexPath.row] : self.resultsTableController.filteredProducts[indexPath.row];
     BSUserDetailViewController *detailViewController = [BSUserDetailViewController new];
     detailViewController.title = selectedProduct.nickName;
     
@@ -120,7 +139,7 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     // update the filtered array based on the search text
     NSString *searchText = searchController.searchBar.text;
-    NSMutableArray *searchResults = [self.products mutableCopy];
+    NSMutableArray *searchResults = [self.contactsArr mutableCopy];
     
     // strip out all the leading and trailing spaces
     NSString *strippedString = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

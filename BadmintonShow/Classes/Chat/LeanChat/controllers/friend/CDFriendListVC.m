@@ -17,6 +17,7 @@
 #import "CDUtils.h"
 #import "CDUserManager.h"
 #import "CDIMService.h"
+#import "BSChatBuiness.h"
 
 static NSString *kCellImageKey = @"image";
 static NSString *kCellBadgeKey = @"badge";
@@ -106,7 +107,8 @@ static NSString *kCellSelectorKey = @"selector";
 }
 
 - (void)findFriendsAndBadgeNumberWithBlock:(void (^)(NSArray *friends, NSInteger badgeNumber, NSError *error))block {
-    [[CDUserManager manager] findFriendsWithBlock : ^(NSArray *objects, NSError *error) {
+    
+    [BSChatBuiness queryFollowersAndFolloweeWithBlock:^(NSArray *objects, NSError *error) {
         // why kAVErrorInternalServer ?
         if (error && error.code != kAVErrorCacheMiss && error.code == kAVErrorInternalServer) {
             // for the first start
@@ -120,6 +122,21 @@ static NSString *kCellSelectorKey = @"selector";
             }];
         };
     }];
+    
+//    [[CDUserManager manager] findFriendsWithBlock : ^(NSArray *objects, NSError *error) {
+//        // why kAVErrorInternalServer ?
+//        if (error && error.code != kAVErrorCacheMiss && error.code == kAVErrorInternalServer) {
+//            // for the first start
+//            block(nil, 0, error) ;
+//        } else {
+//            if (objects == nil) {
+//                objects = [NSMutableArray array];
+//            }
+//            [self countNewAddRequestBadge:^(NSInteger number, NSError *error) {
+//                block (objects, number, nil);
+//            }];
+//        };
+//    }];
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {

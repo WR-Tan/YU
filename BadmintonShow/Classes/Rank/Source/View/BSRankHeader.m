@@ -91,7 +91,7 @@
 
     //  头像
     _icon = [[UIImageView alloc] init];
-    _icon.backgroundColor = [UIColor yellowColor];
+    
     [self addSubview:_icon];
     
     _nickNamePlaceholder = [UILabel new];

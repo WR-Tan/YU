@@ -12,24 +12,29 @@
 #import "BSAddGameRecordController.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "BSGameModel.h"
+#import "BSGameRecordHeaderView.h"
+#import "BSDBManager.h"
+#import "BSGameBusiness.h"
+#import "BSSingleGameRecordController.h"
+#import "BSDoubleGameRecordController.h"
 
-@interface BSGameRecordController ()
-{
+@interface BSGameRecordController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>{
     NSMutableArray *_gameRecordData;
 }
-@property (nonatomic ,strong )AVUser *oppUser;
-@property (nonatomic ,strong )AVUser *myUser;
-
+@property (nonatomic, strong) BSGameRecordHeaderView *header;
+@property (nonatomic, strong) AVUser *oppUser;
+@property (nonatomic, strong) AVUser *myUser;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UISegmentedControl *seg;
 @end
 
 @implementation BSGameRecordController
 
-- (instancetype)init
-{
+- (instancetype)init{
     self = [super init ];
     if (self) {
         _gameRecordData = [NSMutableArray array];
-        self.title = @"比赛记录";
+       
     }
     return self;
 }
@@ -37,115 +42,89 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupBaseView];
-    [self initData];
-}
-
-- (void)setupBaseView
-{
-    [self.tableView registerNib:[UINib nibWithNibName:@"BSGameRecordCell" bundle:nil] forCellReuseIdentifier:@"BSGameRecordCell"];
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
-//    [self initNavigationItem];
-}
-
-
-- (void)initData
-{
-    AVRelation *relation  = [[AVUser currentUser] relationforKey:AVRelationUserGamesRelation];
+#if 0
+    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"单打",@"双打"]];
+    seg.selectedSegmentIndex = 0 ;
+    seg.bounds = CGRectMake(0, 0, 160, 30);
+    seg.center = CGPointMake(50, 15);
+    self.navigationItem.titleView = seg;
+    self.seg = seg;
+#endif
+ 
+    UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    scroll.contentSize = CGSizeMake(self.view.bounds.size.width * 2, self.view.bounds.size.height);
+    scroll.backgroundColor = kTableViewBackgroudColor;
+    scroll.delegate = self;
+    scroll.pagingEnabled = YES;
+    [self.view addSubview:scroll];
     
-    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            // 呃，报错了
-        } else {
-            
-            
-            
-            for (AVObject *gameObj in objects) {
-                //  avobject to gameModel
-                BSGameModel *gameModel = [[BSGameModel alloc] init];
-                gameModel.endTime = gameObj[@"endTime"];
-                gameModel.gameType = [gameObj[@"gameType"] integerValue];
-                gameModel.isConfirmed = [gameObj[@"isConfirmed"] boolValue];
-                gameModel.startTime = gameObj[@"startTime"];
-                
-                
-                self.myUser = [AVUser currentUser];
-                if ([gameObj[@"aPlayer"][@"objectId"] isEqualToString:[AVUser currentUser].objectId]) {
-                    self.oppUser = gameObj[@"bPlayer"];
-                    gameModel.playerA_score =  [gameObj[@"aScore"] stringValue];
-                    gameModel.playerB_score =  [gameObj[@"bScore"] stringValue];
-                }else {
-                    self.oppUser = gameObj[@"aPlayer"];
-                    gameModel.playerA_score =  [gameObj[@"bScore"] stringValue];
-                    gameModel.playerB_score =  [gameObj[@"aScore"] stringValue];
-                }
-                
-                gameModel.playerA_name = self.myUser.username;
-                gameModel.playerB_name =  gameObj[@"oppUsername"] ;  //self.oppUser.username;
-                gameModel.playerA_objectId = self.myUser.objectId;
-                gameModel.playerB_objectId = self.oppUser.objectId;
-                
-                [_gameRecordData addObject:gameModel];
-            }
-            
-            
-            [self.tableView reloadData];
-        }
-    }];
+//    scroll.top -= 64;
+    
+    BSSingleGameRecordController *singleVC = [[BSSingleGameRecordController alloc] init];
+    [self addChildViewController:singleVC];
+    singleVC.view.frame = scroll.bounds;
+    [scroll addSubview:singleVC.view];
+    
+#if 0
+    BSDoubleGameRecordController *doubleVC = [[BSDoubleGameRecordController alloc] init];
+    [self addChildViewController:doubleVC];
+    doubleVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, scroll.height);
+    [scroll addSubview:doubleVC.view];
+#endif
 }
-
 
 
 #pragma mark - 初始化导航按钮
-- (void)initNavigationItem
-{
+- (void)initNavigationItem{
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加新比赛" style:UIBarButtonItemStyleDone target:self  action:@selector(addGameRecord)];
-    
 }
 
-- (void)addGameRecord
-{
+- (void)addGameRecord{
     BSAddGameRecordController *add = [[BSAddGameRecordController alloc] init ];
     [self.navigationController pushViewController:add animated:YES];
 }
 
 #pragma mark - TableView数据源
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+#pragma mark TableViewHeader
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (!_gameRecordData.count)  return nil;
     
+    if (!_header)  _header = [[BSGameRecordHeaderView alloc] init];
+    _header.frame = CGRectMake(0, 0, kScreenWidth, 30);
+    return section ? nil : _header;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return section ? 0 : 30;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _gameRecordData.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 150;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 70;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"BSGameRecordCell";
     BSGameRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[BSGameRecordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.playerAIcon.image = [UIImage imageNamed:@"林丹.jpg"];
-    cell.playerBIcon.image = [UIImage imageNamed:@"李宗伟.jpg"];
-    
-    
     BSGameModel *model = [_gameRecordData objectAtIndex:indexPath.row];
-    
-    cell.playerAName.text = model.playerA_name;
-    cell.playerBName.text = model.playerB_name;
-    cell.score.text = [NSString stringWithFormat:@"%@ : %@",model.playerA_score,model.playerB_score];
-    cell.creatAt.text = model.startTime;
-
-    
+    [cell setObject:model indexPath:indexPath];
     return cell;
-    
 }
 
 #pragma mark - TableView代理
@@ -153,6 +132,18 @@
     
     BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
     [self.navigationController pushViewController:detail animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+#if 0
+    if (scrollView.contentOffset.x == kScreenWidth) {
+        self.seg.selectedSegmentIndex = 1;
+    } else if(scrollView.contentOffset.x == 0) {
+        self.seg.selectedSegmentIndex = 0;
+    }
+#endif
+    
 }
 
 @end

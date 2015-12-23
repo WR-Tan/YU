@@ -46,13 +46,6 @@ static NSString *cellId = @"BSConfirmGameCellId";
     self = [super init];
     if (self) {
         _myGame = [[BSGameModel alloc] init];
-        
-        _myGame.playerA_name =  kNullLongText;
-        _myGame.playerB_name =  kNullLongText;
-        
-        _myGame.playerA_score = kNullShortText;
-        _myGame.playerB_score = kNullShortText;
-        
         _isGameLoaded = NO;
     }
     return self;
@@ -141,27 +134,13 @@ static NSString *cellId = @"BSConfirmGameCellId";
     
     //  获取self.oppUser的完整信息-（包含username等）
     [self.oppUser fetchInBackgroundWithKeys:@[@"username",@"nickname"] block:^(AVObject *object, NSError *error) {
-        
-        _myGame.playerA_name = [AVUser currentUser].username ? : kNullLongText;
-        _myGame.playerB_name = self.oppUser.username ? : kNullLongText;
+    
         
         NSString *aScore = [game[@"aScore"] stringValue]  ? : kNullShortText;
         NSString *bScore = [game[@"bScore"] stringValue] ? : kNullShortText;
         
-        _myGame.playerA_score = isAPlayerSelf ? aScore : bScore;
-        _myGame.playerB_score = isAPlayerSelf ? bScore : aScore;
-        
-        AVFile *aAvatar = [[AVUser currentUser] objectForKey:AVPropertyAvatar];
-        AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
-
-        _myGame.aAVatar = [UIImage imageWithData:[aAvatar getData]];
-        _myGame.bAVatar = [UIImage imageWithData:[bAvatar getData]];
-       
-        if ([game[@"winner"][@"objectId"] isEqualToString:[AVUser currentUser].objectId]) {
-            _myGame.isAWin = YES ;
-        }else {
-            _myGame.isAWin = NO ;
-        }
+        _myGame.aScore = isAPlayerSelf ? aScore : bScore;
+        _myGame.bScore = isAPlayerSelf ? bScore : aScore;
         
         block();
     }];
@@ -204,7 +183,7 @@ static NSString *cellId = @"BSConfirmGameCellId";
     [[AVUser currentUser] fetchInBackgroundWithKeys:@[@"score"]  block:^(AVObject *object, NSError *error) {
        
         [self.oppUser fetchInBackgroundWithKeys:@[@"score"]  block:^(AVObject *object, NSError *error) {
-            NSString *winner =  [self.myGame.playerA_score integerValue] >   [self.myGame.playerB_score integerValue] ? @"a" : @"b";
+            NSString *winner =  [self.myGame.aScore integerValue] >   [self.myGame.bScore integerValue] ? @"a" : @"b";
           
             NSLog(@"比赛后的分数：A=%f,  B=%f",[[AVUser currentUser][@"score"] floatValue],[self.oppUser[@"score"] floatValue]);
             
@@ -248,17 +227,17 @@ static NSString *cellId = @"BSConfirmGameCellId";
     BSConfirmGameCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     // Configure the cell...
-    cell.aNameLabel.text = self.myGame.playerA_name;
-    cell.bNameLabel.text = self.myGame.playerB_name;
+    cell.aNameLabel.text = self.myGame.aPlayer.nickName;
+    cell.bNameLabel.text = self.myGame.bPlayer.nickName;
     
-    cell.aScoreLabel.text = self.myGame.playerA_score;
-    cell.bScoreLabel.text = self.myGame.playerB_score;
+    cell.aScoreLabel.text = self.myGame.aScore;
+    cell.bScoreLabel.text = self.myGame.bScore;
     
-    cell.aAvatarImageView.image = self.myGame.aAVatar;
-    cell.bAvatarImageView.image = self.myGame.bAVatar;
+    [cell.aAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.aPlayer.avatarUrl] placeholder:kUserAvatarImage];
+    [cell.bAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.bPlayer.avatarUrl] placeholder:kUserAvatarImage];
 
     cell.confirmImageView.hidden = !self.myGame.isConfirmed;
-    BOOL isAWinner =  [self.myGame.playerA_score integerValue] >     [self.myGame.playerB_score integerValue];
+    BOOL isAWinner =  [self.myGame.aScore integerValue] >     [self.myGame.bScore integerValue];
     cell.resultLabel.text = [NSString stringWithFormat:@"比赛结果: %@",isAWinner? @"胜利" : @"失败"];
     
     

@@ -36,7 +36,14 @@
     [rightItem addTarget:self action:@selector(contacts) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItem];
-    self.navigationItem.leftBarButtonItem = [BSCommonTool createRightBarButtonItem:@"通讯录" target:self selector:@selector(gotoContactController) ImageName:nil];
+    
+    
+    UIButton *leftItem = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftItem.frame = CGRectMake(0, 0, 20, 20);
+    [leftItem setImage:[UIImage imageNamed:@"user-green-128*128"] forState:UIControlStateNormal];
+    [leftItem addTarget:self action:@selector(gotoContactController) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItem];
 }
 
 - (void)gotoContactController{
@@ -51,7 +58,7 @@
     user2.userName = @"swelzh";
     user2.avatarUrl = @"http://pic.818today.com/imgsy/image/201511/17_101628yg.jpg";
     
-    vc.products = @[user1,user2];
+    vc.contactsArr = @[user1,user2];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

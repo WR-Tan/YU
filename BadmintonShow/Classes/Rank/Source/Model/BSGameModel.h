@@ -14,11 +14,11 @@
 
 
 #import <Foundation/Foundation.h>
+#import "BSProfileUserModel.h"
 
 
-
-typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
-    eBSGameTypeManSingle , //男单
+typedef NS_ENUM(NSInteger,BSGameType){ // 比赛类型
+    eBSGameTypeManSingle = 0, //男单
     eBSGameTypeWomanSingle ,// 女单
     eBSGameTypeMenDouble , // 男双
     eBSGameTypeWomenDouble, //女双
@@ -32,41 +32,35 @@ typedef NS_ENUM(NSUInteger,BSGameType){ // 比赛类型
  */
 @interface BSGameModel : NSObject
 
-//  默认A是赢者 ，OK  2015.10.18
+@property (nonatomic, strong) BSProfileUserModel *aPlayer;
+@property (nonatomic, strong) BSProfileUserModel *bPlayer;
 
-@property (nonatomic, copy) NSString *playerA_score ;  //  玩家A的得分
-@property (nonatomic, copy) NSString *playerB_score ;  //  玩家B的得分
-
-@property (nonatomic, copy) NSString *playerA_platformScore ;  //  玩家A的平台分数
-@property (nonatomic, copy) NSString *playerB_platformScore ;  //  玩家B的平台分数
+@property (nonatomic, copy) NSString *aScore ;  //  玩家A的平台分数
+@property (nonatomic, copy) NSString *bScore ;  //  玩家B的平台分数
 
 @property (nonatomic, copy) NSString *aRankScore ;  //  玩家A的排名分数
 @property (nonatomic, copy) NSString *bRankScore ;  //  玩家B的排名分数
 
-@property (nonatomic, copy) NSString *playerA_avatar ;  //  玩家A的队头像
-@property (nonatomic, copy) NSString *playerB_avatar ;  //  玩家B的队头像
+@property (nonatomic, copy) NSString *aAvatarUrl ;  //  玩家A的队头像
+@property (nonatomic, copy) NSString *bAvatarUrl ;  //  玩家B的队头像
 
 
 @property (nonatomic, copy) NSString *objectId ; // 模型对应的AVOSCloud的objectId
-@property (nonatomic, copy) NSString *gameId ; // 自己产生的比赛模型id （暂未实现）
+@property (nonatomic, copy) NSString *gameId ;   // 自己产生的比赛模型id. 后台返回Number
 @property (nonatomic, assign) BSGameType gameType ;  // 比赛的类型
 
-@property (nonatomic, copy) NSString *playerA_name ; // 玩家A
-@property (nonatomic, copy) NSString *playerB_name ; // 玩家B
-@property (nonatomic, copy) NSString *playerA_objectId ;  //  玩家A的id
-@property (nonatomic, copy) NSString *playerB_objectId ;  //  玩家B的id
+@property (nonatomic, copy) NSString *aObjectId ;  //  玩家A的id
+@property (nonatomic, copy) NSString *bObjectId ;  //  玩家B的id
 
 @property (nonatomic, copy) NSString *winner_objectId ;
-@property (nonatomic, assign) BOOL isAWin ;   // 是a赢了吗
-
 
 @property (nonatomic, copy) NSString *startTime ; // 结束时间
 @property (nonatomic, copy) NSString *endTime ;   // 开始时间
 
 @property (nonatomic, assign) BOOL isConfirmed ;   // 已经确认
+@property (nonatomic, assign) BOOL isMyGame ;   //是我参加的比赛
 
-@property (nonatomic, strong) UIImage * aAVatar ;   // a的头像
-@property (nonatomic, strong) UIImage * bAVatar ;   // b的头像
++ (instancetype)modelWithAVObject:(AVObject *)object;
 
 @end
 

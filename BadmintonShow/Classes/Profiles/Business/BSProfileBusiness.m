@@ -13,6 +13,8 @@
 #import <AVUser.h>
 #import "BSUserDefaultStorage.h"
 #import "AFNetworking.h"
+#import "CDChatManager.h"
+#import <LeanCloudSocial/AVOSCloudSNS.h>
 
 @implementation BSProfileBusiness
 
@@ -99,6 +101,39 @@
     }];
 }
 
+
++ (void)logOutWithBlock:(void (^)(id, NSError *))block {
+    
+    [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
+        //  退出成功
+        if (!error) {
+            [self deleteAuthDataCache];
+            [AVUser logOut];
+            if (block)  block(@(succeeded),nil);
+            return ;
+        }
+        
+        //  退出失败
+        if (block)  block(@(succeeded),error);
+    }];
+}
+
+/** 调用这个，下次 SNS 登录的时候会重新去第三方应用请求，而不会用本地缓存 */
++ (void)deleteAuthDataCache {
+    NSDictionary *authData = [[AVUser currentUser] objectForKey:@"authData"];
+    // Tag:YUXIU   [NSNull objectForKey:]
+    
+    if (authData && ![authData isKindOfClass:[NSNull class]]) {
+        if ([authData objectForKey:AVOSCloudSNSPlatformQQ]) {
+            [AVOSCloudSNS logout:AVOSCloudSNSQQ];
+        } else if ([authData objectForKey:AVOSCloudSNSPlatformWeiXin]) {
+            [AVOSCloudSNS logout:AVOSCloudSNSWeiXin];
+        } else if ([authData objectForKey:AVOSCloudSNSPlatformWeiBo]) {
+            [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
+        }
+    }
+    
+}
 + (void)queryCompanyInfoWithKey:(NSString *)key block:(void (^)(id, NSError *))block {
 //    http://www.qixin007.com/search/?key=深圳平安科技&type=enterprise&source=&isGlobal=Y
 //    只能查询几次，有毛用

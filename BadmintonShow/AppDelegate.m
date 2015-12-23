@@ -36,6 +36,7 @@
 #import <iVersion/iVersion.h>
 #import <LeanCloudSocial/AVOSCloudSNS.h>
 #import <OpenShare/OpenShareHeader.h>
+#import "BSDBManager.h"
 
 //  自己的appID和key
 //  羽秀
@@ -58,9 +59,10 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
+    [BSDBManager initDBWithID:[AVUser currentUser].objectId];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    
     
     // 1.Override point for customization after application launch.
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x25B6ED)];
@@ -88,29 +90,29 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 #pragma mark - 设置首页
 - (void)setFirstPage:(UIApplication *)application
 {
-    NSString *key = (NSString *)kCFBundleVersionKey;
-    NSString *version = [NSBundle mainBundle].infoDictionary[key];
-    NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
-        
-        application.statusBarHidden = NO;
-        
-        // 如果已经注册、或者跳过注册环节
-        AVUser *currentUser = [AVUser currentUser];
-        
-        if (currentUser) {
-            self.window.rootViewController = self.tabBarCtl;
-            [self toMain]; // 主要是设置聊天
-            
-            
-        } else {
-            self.window.rootViewController = self.loginCtl;
-        }
-    } else {// 将新版本号写入沙盒
-        [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+//    NSString *key = (NSString *)kCFBundleVersionKey;
+//    NSString *version = [NSBundle mainBundle].infoDictionary[key];
+//    NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+//    if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
+//        
+//        application.statusBarHidden = NO;
+//        
+//        // 如果已经注册、或者跳过注册环节
+//        AVUser *currentUser = [AVUser currentUser];
+//        
+//        if (currentUser) {
+//            self.window.rootViewController = self.tabBarCtl;
+//            [self toMain]; // 主要是设置聊天
+//            
+//            
+//        } else {
+//            self.window.rootViewController = self.loginCtl;
+//        }
+//    } else {// 将新版本号写入沙盒
+//        [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
         self.window.rootViewController = [[NewFeatureController alloc] init];
-    }
+//    }
     
 }
 
@@ -181,6 +183,8 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 
 - (void)toLogin {
     self.window.rootViewController = self.loginCtl;
+    self.tabBarCtl.selectedIndex = 0;
+    
 }
 
 - (void)addItemController:(UIViewController *)itemController toTabBarController:(CDBaseTabC *)tab {

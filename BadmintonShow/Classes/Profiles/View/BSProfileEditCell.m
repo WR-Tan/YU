@@ -75,7 +75,7 @@
         if (item.thumbnailUrl) {
             _imageUrl = item.thumbnailUrl;
             _detailImageView.hidden = NO;
-            [_detailImageView setImageWithURL:[NSURL URLWithString:item.thumbnailUrl] placeholder:nil];
+            [_detailImageView setImageWithURL:[NSURL URLWithString:item.thumbnailUrl] placeholder:UIImageNamed(kDefaultUserAvatar)];
         } else {
             _detailImageView.hidden = YES;
         }

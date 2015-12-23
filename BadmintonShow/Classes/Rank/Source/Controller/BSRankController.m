@@ -15,6 +15,8 @@
 #import "BSConfirmGameTableViewController.h"
 
 #import <AVOSCloud/AVOSCloud.h>
+#import "BSSingleGameRecordController.h"
+#import "BSFriendsRankingController.h"
 
 
 @interface BSRankController () <UITableViewDelegate,UITableViewDataSource>{
@@ -85,7 +87,7 @@
         _header = [[BSRankHeader alloc] init];
     }
     _header.frame = CGRectMake(0, 0, kScreenWidth, 200);
-    [_header.icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:nil];
+    [_header.icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
     _header.name.text = AppContext.user.nickName;
     _header.ranking.text = @"未知";
     _header.backgroundColor = [UIColor whiteColor];
@@ -122,13 +124,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
+    if (indexPath.row == 0) {
         BSGameRecordController *gameRecord = [[BSGameRecordController  alloc] init ];
         [self.navigationController pushViewController:gameRecord animated:YES];
-    }else if(indexPath.section == 1) {
+    }else if(indexPath.row == 3) {
         BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]init ];
         [self.navigationController pushViewController:tech animated:YES];
-    } 
+    } else if(indexPath.row == 1) {
+        BSFriendsRankingController *friendRankVC = [[BSFriendsRankingController alloc] init];
+        [self.navigationController pushViewController:friendRankVC animated:YES];
+    }
 }
 
 

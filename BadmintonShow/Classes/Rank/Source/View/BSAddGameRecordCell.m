@@ -76,23 +76,16 @@
 - (void)setGame:(BSGameModel *)game{
     _game = game;
     
-    UIImage *aImage = game.aAVatar ? : [UIImage imageNamed:@"MaleDefault"];
-    UIImage *bImage = game.bAVatar ? : [UIImage imageNamed:@"MaleDefault"];
-    
-    _aImageView.image = aImage;
-    _bImageView.image = bImage;
-    
-    _playerA_nameLabel.text = AppContext.user.nickName;
-    _playerB_nameLabel.text = game.playerB_name ? :@"请选择你的对手";
-
+    [_aImageView setImageWithURL:[NSURL URLWithString:game.aPlayer.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
+    [_bImageView setImageWithURL:[NSURL URLWithString:game.bPlayer.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
+    _playerA_nameLabel.text = game.aPlayer.nickName;
+    _playerB_nameLabel.text = game.bPlayer.nickName ? :@"请选择你的对手";
 }
 
 
 
 #pragma mark - TF Delegate
 #pragma mark - IBActions
-
-
 
 - (IBAction)uploadAction:(id)sender {
     NSString *aScore = _firstGameA_scoreTF.text;

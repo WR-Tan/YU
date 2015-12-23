@@ -48,5 +48,9 @@ alpha:1.0]
 #define kBSAvatarRadius   36
 #define kBSAvatarPlaceHolder  @"MaleDefault"
 #define UIImageNamed(name)  [UIImage imageNamed:(name)]
+#define kDefaultUserAvatar   @"bs_def_userAvatar"
+#define kUserAvatarImage  UIImageNamed(kBSAvatarPlaceHolder)
+
+typedef void (^BSArrayResultBlock)(NSArray *objects, NSError *error);
 
 #endif

@@ -12,7 +12,7 @@
  *  目前这个类比BSUserModel更多，BSUserModel将会被废弃
  */
 #import <Foundation/Foundation.h>
-
+#import "AVUser.h"
 
 @interface BSProfileUserModel : NSObject
 
@@ -32,6 +32,7 @@
 
 @property (nonatomic, assign) NSInteger mbLevel ;
 @property (nonatomic, assign) NSInteger rankLevel ;
+@property (nonatomic, assign) double score;
 
 //  Profile Edit
 @property (nonatomic, assign) NSInteger gender;
@@ -51,5 +52,18 @@
 @property (nonatomic, copy) NSString *job;
 
 @property (nonatomic, copy) NSString *desc;
+
+
+
+
+#pragma mark - RelationShip
+///=====================================================
+/// @name RelationShip
+///=====================================================
+@property (nonatomic, assign) BOOL isFollower;
+@property (nonatomic, assign) BOOL isFollowee;
+@property (nonatomic, assign) BOOL isFriend; // 这个定义目前代表（isFollower||isFollowee）
+
++ (instancetype)modelFromAVUser:(AVUser *)user;
 
 @end

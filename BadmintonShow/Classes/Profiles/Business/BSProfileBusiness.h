@@ -31,10 +31,11 @@
 
 /**
  *  @author lizhihua, 15-12-19 21:12:18
- *
  *  @brief 查询公司信息
  */
 + (void)queryCompanyInfoWithKey:(NSString *)key block:(void (^)(id object, NSError *err))block;
+
++ (void)logOutWithBlock:(void (^)(id object, NSError *err))block;
 
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import "BSBaseContactTableViewController.h"
+#import "BSContactResultsController.h"
 
 @interface BSContactMainController : BSBaseContactTableViewController
-@property (nonatomic, copy) NSArray *products;
+@property (nonatomic, strong)  BSContactResultsController *resultsTableController;
+@property (nonatomic, copy) NSArray *contactsArr;
 @end

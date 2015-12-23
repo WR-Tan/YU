@@ -25,7 +25,7 @@
 
 #import "BSGameModel.h"
 #import "BSAddGameRecordController.h"
-#import "BSAddGameBusiness.h"
+#import "BSGameBusiness.h"
 
 #import "AppMarcos.h"
 #import "BSConfirmGameTableViewController.h"

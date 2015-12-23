@@ -10,12 +10,12 @@
 
 @interface BSGameRecordCell : UITableViewCell
 
-
 @property (weak, nonatomic) IBOutlet UIImageView *playerAIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *playerBIcon;
-@property (weak, nonatomic) IBOutlet UILabel *playerAName;
-@property (weak, nonatomic) IBOutlet UILabel *playerBName;
 @property (weak, nonatomic) IBOutlet UILabel *score;
 @property (weak, nonatomic) IBOutlet UILabel *creatAt;
+@property (weak, nonatomic) IBOutlet UILabel *winLabel;
+
+- (void)setObject:(id)object indexPath:(NSIndexPath *)indexPath;
 
 @end

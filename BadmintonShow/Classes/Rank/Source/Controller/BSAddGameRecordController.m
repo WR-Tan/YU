@@ -10,14 +10,13 @@
 #import "BSAddGameRecordCell.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "CDFriendListVC.h"
-#import "BSChoosePlayerViewController.h"
 #import "SVProgressHUD.h"
 #import "Masonry.h"
 #import "BSSetGameTypeController.h"
 #import "BSChooseSinglePlayerController.h"
 #import "BSChooseTeamPlayerController.h"
 
-@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,BSChoosePlayerViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>{
+@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,UITableViewDataSource,UITableViewDelegate,BSChooseSinglePlayerControllerDelegate>{
     NSInteger _numberOfRows ;
 }
 
@@ -29,6 +28,8 @@
 @property (nonatomic, strong)  UIButton *sendBtn ;
 @property (nonatomic, assign ) BMTGameType gameType;
 @property (nonatomic, strong) NSDictionary *titleDict;
+
+@property (nonatomic, strong) BSProfileUserModel *singlePlayerOpponent;
 @end
 
 @implementation BSAddGameRecordController
@@ -39,13 +40,6 @@
     if (self) {
         _numberOfRows = 1 ;
         _titleDict = @{@0:@"男单",@1:@"男双",@2:@"女单",@3:@"女双",@4:@"混双",};
-        _gameModel = [[BSGameModel alloc] init];
-        _gameModel.playerA_objectId = [AVUser currentUser].objectId;
-        AVFile *aAvatar = [[AVUser currentUser] objectForKey:AVPropertyAvatar];
-        _gameModel.aAVatar = [UIImage imageWithData:[aAvatar getData]];
-        AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
-        _gameModel.bAVatar = [UIImage imageWithData:[bAvatar getData]];
-        _gameModel.playerA_name = [AVUser currentUser].username;
     }
     return self;
 }
@@ -53,8 +47,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.gameModel.aPlayer = AppContext.user;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"类型" style:UIBarButtonItemStylePlain target:self action:@selector(gameSettings)];
-    
     [self setupBaseViews];
 }
 
@@ -81,55 +75,40 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
     [SVProgressHUD dismiss];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     NSDictionary *titleDict = @{@0 : @"男单", @1 : @"男双", @2 : @"女单",
                                 @3 : @"女双", @4 : @"混双"};
     self.title = titleDict[@(self.gameType)];
 }
 
 
-#pragma mark - BSChoosePlayerViewControllerDelegate
-- (void)didSelectPlayer:(AVUser *)user{
-    self.oppUser = user ;
-    
-    [self.oppUser fetchInBackgroundWithKeys:@[@"username",@"nickname"] block:^(AVObject *object, NSError *error) {
-       
-        AVFile *bAvatar = [self.oppUser objectForKey:AVPropertyAvatar];
-        _gameModel.bAVatar = [UIImage imageWithData:[bAvatar getData]];
-        _gameModel.playerB_name = self.oppUser.username;
-        
-        [self.tableView reloadData];
-    }];
-   
+#pragma mark - ChooseSinglePlayer
+
+- (void)selectedSinglePlayer:(BSProfileUserModel *)player{
+    self.gameModel.bPlayer = player;
+    [self.tableView reloadData];
 }
 
 
 #pragma mark - Cell Delegate
 -(void)presentFriendListVC{
-    //   如果是单打，则选择对手
-    if (self.gameType == BMTGameTypeManSingle ||
+    if (self.gameType == BMTGameTypeManSingle ||      //   如果是单打，则选择对手
         self.gameType == BMTGameTypeWomanSingle ) {
       
         BSChooseSinglePlayerController *singleVC = [[BSChooseSinglePlayerController alloc] init];
         singleVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
+        singleVC.delegate = self;
         [self.navigationController pushViewController:singleVC animated:YES];
         
     } else {  // 选择双打对手
-        
         BSChooseTeamPlayerController *teamVC = [[BSChooseTeamPlayerController alloc] init];
         teamVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
         [self.navigationController pushViewController:teamVC animated:YES];
     }
-    
-    
-   
-    
 }
 
 
@@ -140,33 +119,22 @@
 }
 
 - (void)uploadGameWithAScore:(NSString *)aScoreStr bScore:(NSString *)bScoreStr button:(UIButton *)btn{
+    [self.view endEditing:YES];
     
-    if (!self.oppUser) {
+    if (!self.gameModel.bPlayer) {
         [SVProgressHUD showErrorWithStatus:@"请选择对手"];
         return;
     }
-    
-    [self.view endEditing:YES];
-    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
-    
-    NSError *myError;
-    NSError *oppError ;
-    [[AVUser currentUser] fetchIfNeeded:&myError];
-    [self.oppUser fetchIfNeeded:&oppError];
-    
-    if (myError || oppError) {
-        [SVProgressHUD showErrorWithStatus:@"网络错误，请检查网络"];
-        return ;
-    }
-
     //  构造gameModel
-    self.gameModel.gameType   = eBSGameTypeManSingle;
-    self.gameModel.playerA_score =  aScoreStr;
-    self.gameModel.playerB_score =  bScoreStr;
+    self.gameModel.gameType   =  self.gameType;
+    self.gameModel.aScore =  aScoreStr;
+    self.gameModel.bScore =  bScoreStr;
     
     if (![self valiateGame:self.gameModel]) {
         return;
     };
+    
+    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
     
     AVObject *gameObj = [self AVObjectWithGameModel:self.gameModel];
     
@@ -174,22 +142,24 @@
 }
 
 
-- (AVObject *)AVObjectWithGameModel:(BSGameModel *)game
-{
+- (AVObject *)AVObjectWithGameModel:(BSGameModel *)game{
+    AVUser *opponentPlayer = [AVUser user];
+    opponentPlayer.objectId = game.bPlayer.objectId;
+    
     AVObject *gameObj = [AVObject objectWithClassName:@"Game"];
     gameObj[@"startTime"]  = game.startTime = self.currentDateString;
     gameObj[@"endTime"]    = game.endTime = self.currentDateString ;
     gameObj[@"gameType"]   = @(game.gameType);
-    gameObj[@"aScore"]     =   @([game.playerA_score integerValue]) ;//  玩家A的每场比赛得分
-    gameObj[@"bScore"]     =   @([game.playerB_score integerValue]);//  玩家B的每场比赛得分
+    gameObj[@"aScore"]     = @([game.aScore integerValue]) ;//  玩家A的每场比赛得分
+    gameObj[@"bScore"]     = @([game.bScore integerValue]);//  玩家B的每场比赛得分
     [gameObj setObject:[AVUser currentUser] forKey:@"aPlayer"];
-    [gameObj setObject:self.oppUser forKey:@"bPlayer"];
+    [gameObj setObject:opponentPlayer forKey:@"bPlayer"];
     return gameObj;
 }
 
 - (BOOL)valiateGame:(BSGameModel *)game
 {
-    if (!game.playerA_score || !game.playerB_score) {
+    if (!game.aScore || !game.bScore) {
         [SVProgressHUD showErrorWithStatus:@"请填写比分"];
         return  NO ;
     }
@@ -198,15 +168,15 @@
 
 
 // 保存比赛数据到TempGame表中
-- (void)saveGameToTemp:(AVObject *)gameObj
-{
+- (void)saveGameToTemp:(AVObject *)gameObj{
+    
     [gameObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [SVProgressHUD showSuccessWithStatus:@"上传成功"];
             if (self.delegate && [self.delegate respondsToSelector:@selector(saveGameObject:)]) {
                 [self.delegate  saveGameObject:gameObj ];
             }
-            [self turnBack];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:@"上传失败，请检查网络"];
         }
@@ -215,13 +185,9 @@
 
 
 
-- (void)turnBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
-- (void)segmentCtlAction:(UISegmentedControl *)segmentControl
-{
+
+- (void)segmentCtlAction:(UISegmentedControl *)segmentControl{
     //  改变选择条件·查询条件
     
 }
@@ -277,9 +243,22 @@
 }
 
 - (BMTGameType)gameType {
-     _gameType = [BSAddGameBusiness BMTGameTypeFromUserDefault];
+     _gameType = [BSGameBusiness BMTGameTypeFromUserDefault];
     return _gameType;
 }
 
+- (BSProfileUserModel *)singlePlayerOpponent {
+    if (!_singlePlayerOpponent) {
+        _singlePlayerOpponent = [[BSProfileUserModel alloc] init];
+    }
+    return _singlePlayerOpponent;
+}
+
+- (BSGameModel *)gameModel {
+    if (!_gameModel) {
+        _gameModel = [[BSGameModel alloc] init];
+    }
+    return _gameModel;
+}
 
 @end

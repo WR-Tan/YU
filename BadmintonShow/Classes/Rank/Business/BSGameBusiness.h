@@ -1,5 +1,5 @@
 //
-//  BSAddGameBusiness.h
+//  BSGameBusiness.h
 //  BadmintonShow
 //
 //  Created by LZH on 15/11/18.
@@ -11,12 +11,16 @@
 @class AVObject ;
 @class BSGameModel ;
 
-@interface BSAddGameBusiness : NSObject
+@interface BSGameBusiness : NSObject
 
 + (AVObject *)AVObjectWithGameModel:(BSGameModel *)game;
 
 + (NSInteger)BMTGameTypeFromUserDefault;
 
 + (void)setBMTGameTypeToUserDefault:(NSInteger)gameType;
+
++ (void)queryGameFromNetWithBlock:(BSArrayResultBlock)block;
+
++ (void)queryGameFromDBWithBlock:(BSArrayResultBlock)block;
 
 @end

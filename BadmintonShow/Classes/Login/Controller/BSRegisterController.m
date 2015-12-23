@@ -15,6 +15,8 @@
 
 
 @interface BSRegisterController ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UIView *phoneBgView;
+@property (weak, nonatomic) IBOutlet UIView *verifyCodeBgView;
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumTF;
 @property (weak, nonatomic) IBOutlet UITextField *verifyCodeTF;
@@ -31,11 +33,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"注册界面";
+    self.title = @"注册";
     
     _phoneNumTF.delegate = self;
     _verifyCodeTF.delegate = self;
     _passwordTF.delegate = self;
+    
+    
+    [self.phoneBgView.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [self.phoneBgView.layer setBorderWidth:1.0f];
+    self.phoneBgView.layer.cornerRadius = 3.0f;
+    
+    [self.verifyCodeBgView.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [self.verifyCodeBgView.layer setBorderWidth:1.0f];
+    self.verifyCodeBgView.layer.cornerRadius = 3.0f;
+    
+    UIEdgeInsets inset = UIEdgeInsetsMake(0, 6, 0, 6) ;
+    
+    UIImage *loginImage = [[UIImage imageNamed:@"common_button_green"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    UIImage *loginImageHightlighted = [[UIImage imageNamed:@"common_button_green_highlighted"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    [self.verifyCodeBtn setBackgroundImage:loginImage forState:UIControlStateNormal];
+    [self.verifyCodeBtn setBackgroundImage:loginImageHightlighted forState:UIControlStateHighlighted];
 }
 
 #pragma mark - textField代理
@@ -61,6 +79,23 @@
         [MBProgressHUD showText:@"手机号错误，请填写手机号" atView:self.view animated:YES];
         return;
     }
+    
+    
+    self.verifyCodeBtn.enabled = NO;
+    
+    NSString *originBtnTitle = [self.verifyCodeBtn titleForState:UIControlStateNormal];
+    __block NSInteger second = 60;
+    [NSTimer scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
+        NSString *title = [NSString stringWithFormat:@"重新发送 %ld s",--second];
+        [self.verifyCodeBtn setTitle:title forState:UIControlStateDisabled];
+        if (second == 0) {
+            [timer fire];
+            self.verifyCodeBtn.enabled = YES;
+            [self.verifyCodeBtn setTitle:originBtnTitle forState:UIControlStateNormal];
+        }
+    } repeats:YES];
+    
+    return;
     
     //发送验证码
     [AVOSCloud requestSmsCodeWithPhoneNumber:phoneNum callback:^(BOOL succeeded, NSError *error) {
@@ -96,6 +131,18 @@
     if (  !_verifyCodeTF.text.length || !_phoneNumTF.text.length ) {
         return;
     }
+    
+    if (!_verifyCodeTF.text.length) {
+        [MBProgressHUD showText:@"请输入验证码" atView:self.view animated:YES];
+        return;
+    }
+    
+    BOOL isVerifyCodeNum = [RegularExpressionUtils validateMobile:_verifyCodeTF.text];
+    if (!isVerifyCodeNum ) {
+        [MBProgressHUD showText:@"验证码必须是数字" atView:self.view animated:YES];
+        return;
+    }
+    
     
     //  2.1使用验证码注册用户。
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phoneNum smsCode:smsCode block:^(AVUser *user, NSError *error) {

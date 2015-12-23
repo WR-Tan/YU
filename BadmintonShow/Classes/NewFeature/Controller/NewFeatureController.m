@@ -141,7 +141,8 @@
 {
 
 //    [(AppDelegate *)[UIApplication sharedApplication].delegate toMainCtl];
-    self.view.window.rootViewController = [[BSLoginController alloc] initWithNibName:@"BSLoginController" bundle:nil] ;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[BSLoginController alloc] initWithNibName:@"BSLoginController" bundle:nil]];
+    self.view.window.rootViewController = nav ;
 }
 
 #pragma mark - 滚动代理方法

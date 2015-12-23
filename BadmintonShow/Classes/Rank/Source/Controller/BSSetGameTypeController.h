@@ -7,7 +7,7 @@
 //  设置比赛类型： 男单，女单，男双，女双，混双
 
 #import "BSBaseTableViewController.h"
-#import "BSAddGameBusiness.h"
+#import "BSGameBusiness.h"
 
 typedef NS_OPTIONS(NSInteger, BMTGameType) {
     BMTGameTypeManSingle = 0,

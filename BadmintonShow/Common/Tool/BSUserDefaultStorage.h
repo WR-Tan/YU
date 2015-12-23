@@ -9,13 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "AVUser.h"
 
-#ifndef UserObjectIdKey
-#define UserObjectIdKey(key)  [NSString stringWithFormat:@"_User_%@",(key)]
-#endif
 
-#ifndef UserDefaultKeyWithUsertId
+#define kLastSuccessRankRequestDateKey  @"lastSuccessRankRequestDate"
+
+#define UserObjectIdKey(key)  [NSString stringWithFormat:@"_User_%@",(key)]
 #define UserDefaultKeyWithUsertId(key)  [NSString stringWithFormat:@"_User_%@_%@",([AVUser currentUser].objectId),(key)]
-#endif
+
 
 
 

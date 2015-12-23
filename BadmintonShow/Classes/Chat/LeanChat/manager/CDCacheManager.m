@@ -82,6 +82,7 @@ static CDCacheManager *cacheManager;
     }
 }
 
+
 #pragma mark - current conversation
 
 - (void)setCurConv:(AVIMConversation *)conv {

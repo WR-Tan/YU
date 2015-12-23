@@ -24,6 +24,7 @@
 #import "SVProgressHUD.h"
 #import "BSMyEquipmentViewController.h"
 #import "BSMyTeamsController.h"
+#import "BSSettingViewController.h"
 
 @interface BSProfileController ()<UITableViewDelegate,UITableViewDataSource,BSProfileEditViewControllerDelegate>
 @property (strong, nonatomic) UITableView *tableView;
@@ -89,7 +90,9 @@
 }
 
 - (void)setting {
-    
+    BSSettingViewController *setting = [[BSSettingViewController alloc] init];
+    setting.title = @"设置";
+    [self.navigationController pushViewController:setting animated:YES];
 }
 
 - (void)createData{

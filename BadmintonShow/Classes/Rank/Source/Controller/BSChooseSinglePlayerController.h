@@ -6,8 +6,13 @@
 //  Copyright © 2015 LZH. All rights reserved.
 //  选择单打对手
 
-#import "BSBaseTableViewController.h"
+#import "BSContactMainController.h"
+#import "BSProfileUserModel.h"
 
-@interface BSChooseSinglePlayerController : BSBaseTableViewController
+@protocol BSChooseSinglePlayerControllerDelegate <NSObject>
+- (void)selectedSinglePlayer:(BSProfileUserModel *)player;
+@end
 
+@interface BSChooseSinglePlayerController : BSContactMainController
+@property (nonatomic, weak) id <BSChooseSinglePlayerControllerDelegate> delegate;
 @end

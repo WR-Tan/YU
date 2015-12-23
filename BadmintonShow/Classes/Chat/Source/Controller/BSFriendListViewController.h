@@ -4,7 +4,7 @@
 //
 //  Created by mac on 15/10/13.
 //  Copyright © 2015年 LZH. All rights reserved.
-//  朋友列表
+//  LeanChat-通讯录-朋友列表
 
 #import "CDFriendListVC.h"
 

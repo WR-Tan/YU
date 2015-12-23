@@ -89,7 +89,7 @@
     
     self.bmtGameType = selectedGameType;
     [tableView reloadData];
-    [BSAddGameBusiness setBMTGameTypeToUserDefault:self.bmtGameType];
+    [BSGameBusiness setBMTGameTypeToUserDefault:self.bmtGameType];
     if ([self.delegate respondsToSelector:@selector(selectedBMTGameType:)]) {
         [self.delegate selectedBMTGameType:self.bmtGameType];
     }

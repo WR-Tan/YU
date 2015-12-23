@@ -111,7 +111,7 @@
     self.avatarItem = [BSProfileModel new];
     self.avatarItem.thumbnailUrl = defaultURLStr;
     self.avatarItem.title = @"头像";
-    self.nameItem = BSProfileModel(nil, @"名字", nil, @"BSSetTextFieldController");
+    self.nameItem = BSProfileModel(nil, @"昵称", nil, @"BSSetTextFieldController");
     self.yuxiuItem = BSProfileModel(nil, @"羽秀号", nil, nil);
     //  Section 1
     
