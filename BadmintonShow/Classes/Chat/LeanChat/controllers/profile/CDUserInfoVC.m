@@ -68,13 +68,21 @@
     [[CDIMService service] goWithUserId:self.user.objectId fromVC:self];
 }
 
+/**
+ *  @author lizhihua, 15-12-23 20:12:37
+ *  @brief 添加好友
+ */
 - (void)tryCreateAddRequest {
     [self showProgress];
+    
+    //  创建"AddRequest添加好友"请求
     [[CDUserManager manager] tryCreateAddRequestWithToUser:self.user callback: ^(BOOL succeeded, NSError *error) {
         [self hideProgress];
         if ([self filterError:error]) {
             [self showProgress];
             NSString *text = [NSString stringWithFormat:@"%@ 申请加你为好友", self.user.username];
+            // 推送消息给_User，不需要关注或者粉丝关系！
+            // 推送一个"申请加你为好友"的推送给User
             [[LZPushManager manager] pushMessage:text userIds:@[self.user.objectId] block:^(BOOL succeeded, NSError *error) {
                 [self hideProgress];
                 [self showHUDText:@"申请成功"];

@@ -9,7 +9,7 @@
 #import "BSBaseViewController.h"
 #import "BSSkyLadderHeaderView.h"
 
-@interface BSBasePlayerRankingController : BSBaseViewController{
+@interface BSBasePlayerRankingController : BSBaseViewController<UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *_rankArray ;
     BSSkyLadderHeaderView *_header;
 }

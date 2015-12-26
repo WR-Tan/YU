@@ -44,7 +44,7 @@
     //  排名
     BSRankController *rank = [[BSRankController alloc] init ];
     BSNavigationController *rankNav = [[BSNavigationController alloc] initWithRootViewController:rank];
-    UITabBarItem *rankItem = [[UITabBarItem alloc] initWithTitle:@"排名" image:userImage tag:2];
+    UITabBarItem *rankItem = [[UITabBarItem alloc] initWithTitle:@"羽秀" image:userImage tag:2];
     rankNav.tabBarItem = rankItem;
     
   

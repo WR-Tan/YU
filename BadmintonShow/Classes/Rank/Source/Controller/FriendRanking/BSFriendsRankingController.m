@@ -8,6 +8,7 @@
 
 #import "BSFriendsRankingController.h"
 #import "BSRankDataBusiness.h"
+#import "SVProgressHUD.h"
 
 @interface BSFriendsRankingController ()
 
@@ -18,11 +19,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"好友排名";
 }
 
 - (void)loadRankData {
-    
+    [SVProgressHUD show];
     [BSRankDataBusiness queryFriendRankDataWithBlock:^(NSArray *objects, NSError *error) {
+        [SVProgressHUD dismiss];
         if (error) {
             [self.view addSubview:self.showErrorLabel];
             return ;

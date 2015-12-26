@@ -40,6 +40,7 @@
     _icon.contentMode = UIViewContentModeScaleAspectFill;
     _icon.layer.borderColor = (__bridge CGColorRef)([UIColor purpleColor]);
     _icon.layer.borderWidth = 2;
+    [_icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:kUserAvatarImage];
     
     CGFloat labelWidth = 220 ;
     CGFloat placeholderWidth = 40 ;
@@ -56,6 +57,7 @@
     CGFloat nameX = _nickNamePlaceholder.right + kBSViewBorder;
     CGFloat nameY = _nickNamePlaceholder.top;
     _name.frame = CGRectMake( nameX, nameY,nameWidth, nameHeight);
+    _name.text = AppContext.user.nickName;
     
     
     _rankPlaceholder.left = kBSViewBorder;

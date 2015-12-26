@@ -18,6 +18,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bImageView;
 @property (assign, nonatomic) NSInteger aScore;
 @property (assign, nonatomic) NSInteger bScore;
+@property (weak, nonatomic) IBOutlet UIImageView *aScoreBgView;
+@property (weak, nonatomic) IBOutlet UIImageView *bScoreBgView;
+
+
+
 @end
 
 @implementation BSAddGameRecordCell{
@@ -52,6 +57,10 @@
         [SVProgressHUD showWithStatus:@"请先登录才能添加比赛"];
     }
     
+    
+    self.firstGameA_scoreTF.delegate = self;
+    self.firstGameB_scoreTF.delegate = self;
+    
     _playerB_nameLabel.text = @"请选择你的对手";
 }
 
@@ -79,12 +88,32 @@
     [_aImageView setImageWithURL:[NSURL URLWithString:game.aPlayer.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
     [_bImageView setImageWithURL:[NSURL URLWithString:game.bPlayer.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
     _playerA_nameLabel.text = game.aPlayer.nickName;
-    _playerB_nameLabel.text = game.bPlayer.nickName ? :@"请选择你的对手";
+
+    
+    if (game.bPlayer.nickName) {
+        _playerB_nameLabel.text = game.bPlayer.nickName;
+        _playerB_nameLabel.textColor = [UIColor blackColor];
+    } else {
+        _playerB_nameLabel.text = @"请选择你的对手";
+        _playerB_nameLabel.textColor = [UIColor lightGrayColor];
+    }
 }
 
 
 
 #pragma mark - TF Delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    if (textField == self.firstGameA_scoreTF) {
+        self.aScoreBgView.backgroundColor = [UIColor redColor];
+        self.bScoreBgView.backgroundColor = [UIColor lightGrayColor];
+    } else {
+        self.aScoreBgView.backgroundColor = [UIColor lightGrayColor];
+        self.bScoreBgView.backgroundColor = [UIColor redColor];
+    }
+}
+
 #pragma mark - IBActions
 
 - (IBAction)uploadAction:(id)sender {

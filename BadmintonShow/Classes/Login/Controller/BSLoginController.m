@@ -109,6 +109,9 @@
     }];
 }
 
+- (IBAction)forgetPassword:(id)sender {
+    
+}
 
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

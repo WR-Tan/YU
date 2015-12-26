@@ -10,8 +10,12 @@
 #define AVObjectClass_h
 
 
-#define AVClassPlayerInfo @"PlayerInfo"   // TempGame类名
-#define AVClassTempGame @"TempGame"   // TempGame类名
-#define AVClassGame     @"Game"       // Game类名
-#define AVClassUser     @"_User"
+#define AVClassPlayerInfo   @"PlayerInfo"   // TempGame类名
+#define AVClassTempGame     @"TempGame"   // TempGame类名
+#define AVClassGame         @"Game"       // Game类名
+#define AVClassFeedback     @"Feedback"       // Game类名
+#define AVClassUser         @"_User"
+#define AVClassSchool       @"School"       // Game类名
+#define AVClassCircle       @"Circle"       // 球圈 
+
 #endif /* AVObjectClass_h */

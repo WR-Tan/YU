@@ -37,6 +37,7 @@
 #import <LeanCloudSocial/AVOSCloudSNS.h>
 #import <OpenShare/OpenShareHeader.h>
 #import "BSDBManager.h"
+#import "BSRegisterUserNameController.h"
 
 //  自己的appID和key
 //  羽秀
@@ -90,30 +91,27 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 #pragma mark - 设置首页
 - (void)setFirstPage:(UIApplication *)application
 {
-//    NSString *key = (NSString *)kCFBundleVersionKey;
-//    NSString *version = [NSBundle mainBundle].infoDictionary[key];
-//    NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-//    if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
-//        
-//        application.statusBarHidden = NO;
-//        
-//        // 如果已经注册、或者跳过注册环节
-//        AVUser *currentUser = [AVUser currentUser];
-//        
-//        if (currentUser) {
-//            self.window.rootViewController = self.tabBarCtl;
-//            [self toMain]; // 主要是设置聊天
-//            
-//            
-//        } else {
-//            self.window.rootViewController = self.loginCtl;
-//        }
-//    } else {// 将新版本号写入沙盒
-//        [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+    NSString *key = (NSString *)kCFBundleVersionKey;
+    NSString *version = [NSBundle mainBundle].infoDictionary[key];
+    NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
+        
+        application.statusBarHidden = NO;
+        if ([AVUser currentUser]) {
+            self.window.rootViewController = self.tabBarCtl;
+            [self toMain]; // 主要是设置聊天
+        } else {
+            self.window.rootViewController =  [[UINavigationController alloc] initWithRootViewController:self.loginCtl];
+        }
+    } else {// 将新版本号写入沙盒
+        [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         self.window.rootViewController = [[NewFeatureController alloc] init];
-//    }
+    }
     
+
+//    UIViewController *VC =  [[BSRegisterUserNameController alloc] init];
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:VC ];
 }
 
 
@@ -127,7 +125,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
     [[LZPushManager manager] registerForRemoteNotification];
     
 #ifdef DEBUG
-    [AVPush setProductionMode:NO];  // 如果要测试申请好友是否有推送，请设置为 YES
+    [AVPush setProductionMode:YES];  // 如果要测试申请好友是否有推送，请设置为 YES
     [AVAnalytics setAnalyticsEnabled:NO];
     [AVOSCloud setAllLogsEnabled:YES];
 #endif
@@ -182,7 +180,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 }
 
 - (void)toLogin {
-    self.window.rootViewController = self.loginCtl;
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:self.loginCtl];
     self.tabBarCtl.selectedIndex = 0;
     
 }

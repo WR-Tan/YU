@@ -6,10 +6,9 @@
 //  Copyright © 2015年 LZH. All rights reserved.
 //
 
-#import "BSBaseViewController.h"
+#import "BSBaseTableViewController.h"
 
-@interface BSTimeLineViewController : BSBaseViewController
+@interface BSTimeLineViewController : BSBaseTableViewController
 
-@property (nonatomic, strong) UITableView *tableView;
 
 @end

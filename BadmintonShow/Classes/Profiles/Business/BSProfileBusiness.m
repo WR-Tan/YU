@@ -153,5 +153,12 @@
 }
 
 
++ (void)uploadFeedback:(NSString *)feedbackString block:(AVBooleanResultBlock)block{
+    
+    AVObject *feedBack = [AVObject objectWithClassName:AVClassFeedback];
+    [feedBack setObject:[AVUser currentUser] forKey:AVPropertyCreateBy];
+    [feedBack setObject:feedbackString forKey:AVPropertyText];
+    [feedBack saveInBackgroundWithBlock:block];
+}
 
 @end

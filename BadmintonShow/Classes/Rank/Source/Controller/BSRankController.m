@@ -9,7 +9,6 @@
 #import "BSRankController.h"
 #import "BSRankHeader.h"
 #import "BSGameRecordController.h"
-#import "BSGameRankController.h"
 #import "BSSkyLadderViewController.h"
 #import "BSAddGameRecordController.h"
 #import "BSConfirmGameTableViewController.h"
@@ -17,10 +16,13 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "BSSingleGameRecordController.h"
 #import "BSFriendsRankingController.h"
+#import "BSCircleRankingController.h"
+#import "BSTimeLineViewController.h"
 
 
 @interface BSRankController () <UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *_data;
+    NSMutableArray *_classArr;
     BSRankHeader *_header;
 }
 @end
@@ -31,10 +33,12 @@
 - (instancetype)init {
     self = [super init ];
     if (self) {
-        self.title = @"排名";
+        self.title = @"羽秀";
         self.hidesBottomBarWhenPushed = NO;
         self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
-        _data = [@[@"比赛记录",@"好友排名",@"圈子排名",@"羽秀天梯" ] mutableCopy];;
+        _data = [@[@[@"比赛记录"],@[@"好友排名",@"圈子排名",@"羽秀天梯"],@[@"广场"]] mutableCopy];
+        _classArr = @[@[@"BSGameRecordController"],@[@"BSFriendsRankingController",@"BSCircleRankingController",@"BSSkyLadderViewController"],@[@"BSTimeLineViewController"]].mutableCopy;
+        
     }
     return self;
 }
@@ -73,12 +77,12 @@
 
 #pragma mark TableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _data.count;
+    NSArray *sectionData = _data[section];
+    return sectionData.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 1;
+    return _data.count;
 }
 
 #pragma mark - Header
@@ -86,9 +90,9 @@
     if (!_header)  {
         _header = [[BSRankHeader alloc] init];
     }
-    _header.frame = CGRectMake(0, 0, kScreenWidth, 200);
+    _header.frame = CGRectMake(0, 0, kScreenWidth, 205);
     [_header.icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
-    _header.name.text = AppContext.user.nickName;
+    _header.name.text = AppContext.user.nickName ? :@"未设置";
     _header.ranking.text = @"未知";
     _header.backgroundColor = [UIColor whiteColor];
     _header.introduce.text = AppContext.user.desc;
@@ -98,8 +102,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return section ? 0 : 220;
+    return section ? 20 : 225;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.1f;
+}
+
 
 #pragma mark
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,7 +121,8 @@
     }
     
     // 1.取出这行对应的字典数据
-    NSString *title = _data[indexPath.row];
+    NSArray *sectionData = _data[indexPath.section];
+    NSString *title = sectionData[indexPath.row];
     
     // 2.设置文字
     cell.textLabel.text = title;
@@ -124,15 +134,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        BSGameRecordController *gameRecord = [[BSGameRecordController  alloc] init ];
-        [self.navigationController pushViewController:gameRecord animated:YES];
-    }else if(indexPath.row == 3) {
-        BSSkyLadderViewController *tech = [[BSSkyLadderViewController alloc ]init ];
-        [self.navigationController pushViewController:tech animated:YES];
-    } else if(indexPath.row == 1) {
-        BSFriendsRankingController *friendRankVC = [[BSFriendsRankingController alloc] init];
-        [self.navigationController pushViewController:friendRankVC animated:YES];
+
+    NSArray *sectionData = _classArr[indexPath.section];
+    NSString  *className = sectionData[indexPath.row];
+    Class class = NSClassFromString(className);
+    if (class) {
+        UIViewController *ctrl = class.new ;
+        ctrl.view.backgroundColor = [UIColor whiteColor];
+        [self.navigationController pushViewController:ctrl animated:YES];
     }
 }
 
@@ -140,39 +149,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@end
+ @end

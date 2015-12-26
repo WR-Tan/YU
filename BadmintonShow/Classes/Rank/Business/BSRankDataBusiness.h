@@ -17,6 +17,12 @@
 
 
 
+#pragma mark - 圈子内排名
+
++ (void)queryCircleRankDataCircleClass:(NSString *)cls property:(NSString *)property block:(BSArrayResultBlock)block ;
+    
+//+ (void)queryCircleRankDataWithBlock:(BSArrayResultBlock)block;
+
 
 #pragma mark - 羽秀天梯排名
 

@@ -31,8 +31,8 @@
                                 <constraint firstAttribute="height" constant="0.5" id="HXZ-Ay-pJz"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sh0-AT-ets">
-                            <rect key="frame" x="5" y="16" width="175" height="17"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sh0-AT-ets">
+                            <rect key="frame" x="2" y="16" width="128" height="17"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="4eg-lc-jpS"/>
@@ -49,7 +49,7 @@
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="sh0-AT-ets" secondAttribute="trailing" id="01K-xT-GCE"/>
-                        <constraint firstItem="sh0-AT-ets" firstAttribute="leading" secondItem="mvy-NY-vG7" secondAttribute="leading" constant="5" id="1Lt-NM-Zmc"/>
+                        <constraint firstItem="sh0-AT-ets" firstAttribute="leading" secondItem="mvy-NY-vG7" secondAttribute="leading" constant="2" id="1Lt-NM-Zmc"/>
                         <constraint firstAttribute="trailing" secondItem="9wa-oI-bph" secondAttribute="trailing" id="2eC-2w-qwj"/>
                         <constraint firstItem="9wa-oI-bph" firstAttribute="leading" secondItem="mvy-NY-vG7" secondAttribute="leading" id="AtS-E1-3as"/>
                         <constraint firstAttribute="bottom" secondItem="9wa-oI-bph" secondAttribute="bottom" constant="0.5" id="TE4-X9-ZeW"/>
@@ -126,8 +126,8 @@
                         <action selector="nextStepAction:" destination="-1" eventType="touchUpInside" id="GsT-nH-3mN"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7c-er-fEc">
-                    <rect key="frame" x="160" y="162.5" width="140" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7c-er-fEc">
+                    <rect key="frame" x="160" y="162" width="140" height="50"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="140" id="3Lo-bk-fji"/>

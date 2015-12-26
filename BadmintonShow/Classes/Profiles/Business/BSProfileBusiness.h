@@ -38,4 +38,8 @@
 + (void)logOutWithBlock:(void (^)(id object, NSError *err))block;
 
 
++ (void)uploadFeedback:(NSString *)feedback block:(AVBooleanResultBlock)block;
+
+
+
 @end

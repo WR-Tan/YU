@@ -5,6 +5,10 @@
 //  Copyright (c) 2015年 lzw. All rights reserved.
 //
 
+/**
+ *  @author lizhihua, 15-12-23 21:12:13
+ *  @brief 推送的助手类！吊吊吊
+ */
 #import <AVOSCloud/AVOSCloud.h>
 
 static NSString *const kAVIMInstallationKeyChannels = @"channels";

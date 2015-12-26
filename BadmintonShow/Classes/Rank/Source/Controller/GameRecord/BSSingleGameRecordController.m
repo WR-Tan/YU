@@ -16,6 +16,7 @@
 #import "BSGameRecordHeaderView.h"
 #import "BSDBManager.h"
 #import "BSGameBusiness.h"
+#import "SVProgressHUD.h"
 
 @interface BSSingleGameRecordController () <UITableViewDataSource,UITableViewDelegate>{
     NSMutableArray *_gameRecordData;
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) AVUser *oppUser;
 @property (nonatomic, strong) AVUser *myUser;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UILabel *showErrorLabel;
 @end
 
 @implementation BSSingleGameRecordController
@@ -74,7 +76,15 @@
 #endif
     
     //    用户上下拉刷新的时候，再去获取数据
+    [SVProgressHUD show];
     [BSGameBusiness queryGameFromNetWithBlock:^(NSArray *objects, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (error) {
+            [self.view addSubview:self.showErrorLabel];
+            return ;
+        }
+        [self.showErrorLabel removeFromSuperview];
+        
         _gameRecordData = objects.mutableCopy;
         [self.tableView reloadData];
     }];
@@ -137,5 +147,23 @@
     BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
     [self.navigationController pushViewController:detail animated:YES];
 }
+
+
+
+#pragma mark - lazy
+
+- (UILabel *)showErrorLabel {
+    if (!_showErrorLabel) {
+        _showErrorLabel = [[UILabel alloc] init];;
+        _showErrorLabel.text = @"网络状况较差，查询失败";
+        _showErrorLabel.textAlignment = NSTextAlignmentCenter;
+        CGFloat labelWidth = 300 ;
+        CGFloat labelHeight = 100;
+        _showErrorLabel.bounds = CGRectMake(0, 0, labelWidth, labelHeight);
+        _showErrorLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 50);
+    }
+    return _showErrorLabel;
+}
+
 
 @end

@@ -68,4 +68,41 @@
     return  profileUser;
 }
 
+//+ (instancetype)modelFromRealtionAVUser:(AVUser *)user  {
+//    
+//    NSDictionary *localData = user[@"localData"];
+//    
+//    AVFile *avatar = localData[AVPropertyAvatar] ;
+//    AVObject *school = localData[AVPropertySchool] ;
+//    AVObject *company = localData[AVPropertyCompany];
+//    
+//    NSString *schoolName = school[AVPropertyName] ? : @"";
+//    NSString *companyName = company[AVPropertyName] ? : @"";
+//    
+//    NSString *birthDayStr = user[AVPropertyBirthDayStr] ? : @"";
+//    
+//    NSDictionary *userDict = @{
+//                               @"objectId" : user.objectId ? : @"",
+//                               @"userName" : localData[@"username"] ? : @"",
+//                               @"nickName" : localData[AVPropertyNickName] ? : @"",
+//                               @"avatarUrl": avatar.url ? : @"",
+//                               AVPropertyNation: localData[AVPropertyNation]?:@"",
+//                               AVPropertyProvince: localData[AVPropertyProvince]?:@"",
+//                               AVPropertyCity: localData[AVPropertyCity]?:@"",
+//                               AVPropertyDisctrict: localData[AVPropertyDisctrict]?:@"",
+//                               AVPropertyGenderStr: localData[AVPropertyGenderStr]?:@"",
+//                               AVPropertySchool: schoolName,
+//                               AVPropertyBirthDayStr : birthDayStr,
+//                               AVPropertyCompany: companyName,
+//                               AVPropertyDesc: localData[AVPropertyDesc]?:@"",
+//                               AVPropertyScore: localData[AVPropertyScore]?:@"",
+//                               AVPropertyIsFollowee: localData[AVPropertyIsFollowee]?:@(NO),
+//                               AVPropertyIsFollower: localData[AVPropertyIsFollower]?:@(NO),
+//                               AVPropertyIsFriend: localData[AVPropertyIsFriend]?:@(NO)
+//                               };
+//    BSProfileUserModel *profileUser = [BSProfileUserModel modelWithDictionary:userDict];
+//    
+//    return  profileUser;
+//}
+
 @end

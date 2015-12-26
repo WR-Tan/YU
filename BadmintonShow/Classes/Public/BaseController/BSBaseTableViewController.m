@@ -34,17 +34,14 @@
     if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     _tableView.frame = self.view.bounds;
-    _tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     _tableView.scrollIndicatorInsets = _tableView.contentInset;
     _tableView.backgroundColor = kTableViewBackgroudViewColor ;
     _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
-    
-    if ( kSystemVersion < 7) {
-        _tableView.top -= 64;
-        _tableView.height += 20;
-    }
 }
 
 

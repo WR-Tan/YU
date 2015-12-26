@@ -10,7 +10,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface BSBaseViewController : UIViewController
-
+ 
 
 -(void)showNetworkIndicator;
 

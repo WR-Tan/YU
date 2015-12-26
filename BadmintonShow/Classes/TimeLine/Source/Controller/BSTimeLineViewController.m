@@ -9,6 +9,8 @@
 #import "BSTimeLineViewController.h"
 #import "YYTableView.h"
 #import "YYKit.h"
+#import "AVQuery.h"
+#import "BSTLModel.h"
 
 @interface BSTimeLineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *layouts;
@@ -16,41 +18,52 @@
 
 @implementation BSTimeLineViewController
 
-
 - (instancetype)init {
     self = [super init];
-    _tableView = [YYTableView new];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
+    if (self) {
+        
+    }
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.919];
-    if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    _tableView.frame = self.view.bounds;
-    _tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    _tableView.scrollIndicatorInsets = _tableView.contentInset;
-    _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.backgroundView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_tableView];
+  
     
-    if ( kSystemVersion < 7) {
-        _tableView.top -= 64;
-        _tableView.height += 20;
-    }
     
-
+    
+    AVQuery *quer = [AVQuery queryWithClassName:@"Status"];
+    [quer includeKey:@"pics"];
+    [quer includeKey:@"user"];
+    [quer findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        AVObject *status = objects[0];
+        
+        BSTLModel *tlModel = [BSTLModel modelWithAVObject:status];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *cellId = @"cellId";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId ];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]  initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    return cell;
+}
+
+
 
 /*
 #pragma mark - Navigation

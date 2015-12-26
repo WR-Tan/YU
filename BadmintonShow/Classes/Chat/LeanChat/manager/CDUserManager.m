@@ -292,6 +292,7 @@ static CDUserManager *userManager;
     }];
 }
 
+/// 查询有没有申请过"添加好友"
 - (void)haveWaitAddRequestWithToUser:(AVUser *)toUser callback:(AVBooleanResultBlock)callback {
     AVUser *user = [AVUser currentUser];
     AVQuery *q = [CDAddRequest query];
@@ -327,16 +328,20 @@ static CDUserManager *userManager;
     [AVObject saveAllInBackground:addRequests block:block];
 }
 
+/**
+ *  @author lizhihua, 15-12-23 21:12:46
+ *  @brief 申请添加好友 
+ */
 - (void)tryCreateAddRequestWithToUser:(AVUser *)user callback:(AVBooleanResultBlock)callback {
     [self haveWaitAddRequestWithToUser:user callback: ^(BOOL succeeded, NSError *error) {
-        if (error) {
+        if (error) {   // 请求错误
             callback(NO, error);
         }
-        else {
+        else {        //  查到有这个请求（状态为等待执行）
             if (succeeded) {
                 callback(YES, [NSError errorWithDomain:@"Add Request" code:0 userInfo:@{ NSLocalizedDescriptionKey:@"已经请求过了" }]);
             }
-            else {
+            else {    //  创建这个"添加好友"请求
                 AVUser *curUser = [AVUser currentUser];
                 CDAddRequest *addRequest = [[CDAddRequest alloc] init];
                 addRequest.fromUser = curUser;

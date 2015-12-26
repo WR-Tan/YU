@@ -522,10 +522,7 @@
 		663D154B1C2538D500E2AA46 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 663D154A1C2538D500E2AA46 /* address.plist */; };
 		663D15501C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D154D1C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m */; };
 		663D15511C253AF400E2AA46 /* PAFFCustomModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D154F1C253AF400E2AA46 /* PAFFCustomModalView.m */; };
-		6667F2811C29831D003B5220 /* BSDoubleGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667F2801C29831D003B5220 /* BSDoubleGameRecordController.m */; };
-		6667F2841C29833C003B5220 /* BSSingleGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667F2831C29833C003B5220 /* BSSingleGameRecordController.m */; };
 		6667F2871C298DA3003B5220 /* BSBasePlayerRankingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */; };
-		6667F28A1C2990B3003B5220 /* BSFriendsRankingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667F2891C2990B3003B5220 /* BSFriendsRankingController.m */; };
 		66724D441C2075F500DC2A7D /* BSProfileEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66724D431C2075F500DC2A7D /* BSProfileEditCell.m */; };
 		6675D66B1C1F00D300C10DCA /* BSProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675D6641C1F00D300C10DCA /* BSProfileController.m */; };
 		6675D66D1C1F00D300C10DCA /* BSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675D6681C1F00D300C10DCA /* BSProfileViewController.m */; };
@@ -542,14 +539,9 @@
 		667EC7341C22ABCF0077F4CF /* BSProfileUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7331C22ABCF0077F4CF /* BSProfileUserModel.m */; };
 		667EC7371C22B2CC0077F4CF /* BSRank.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667EC7361C22B2CC0077F4CF /* BSRank.xcassets */; };
 		667EC7671C22B8460077F4CF /* BSGameBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC73A1C22B8460077F4CF /* BSGameBusiness.m */; };
-		667EC7681C22B8460077F4CF /* BSAddGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7421C22B8460077F4CF /* BSAddGameRecordController.m */; };
-		667EC7691C22B8460077F4CF /* BSChoosePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7441C22B8460077F4CF /* BSChoosePlayerViewController.m */; };
 		667EC76A1C22B8460077F4CF /* BSConfirmGameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7461C22B8460077F4CF /* BSConfirmGameTableViewController.m */; };
-		667EC76B1C22B8460077F4CF /* BSGameRankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7481C22B8460077F4CF /* BSGameRankController.m */; };
-		667EC76C1C22B8460077F4CF /* BSGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC74A1C22B8460077F4CF /* BSGameRecordController.m */; };
 		667EC76D1C22B8460077F4CF /* BSGameRecordDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC74C1C22B8460077F4CF /* BSGameRecordDetailController.m */; };
 		667EC76E1C22B8460077F4CF /* BSRankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC74E1C22B8460077F4CF /* BSRankController.m */; };
-		667EC76F1C22B8460077F4CF /* BSSkyLadderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7501C22B8460077F4CF /* BSSkyLadderViewController.m */; };
 		667EC7701C22B8460077F4CF /* BSGameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7531C22B8460077F4CF /* BSGameModel.m */; };
 		667EC7711C22B8460077F4CF /* BSMatchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7551C22B8460077F4CF /* BSMatchModel.m */; };
 		667EC7721C22B8460077F4CF /* BSPlayerScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7571C22B8460077F4CF /* BSPlayerScore.m */; };
@@ -562,6 +554,14 @@
 		667EC7791C22B8460077F4CF /* BSGameRecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7631C22B8460077F4CF /* BSGameRecordDetailCell.m */; };
 		667EC77A1C22B8460077F4CF /* BSGameRecordDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667EC7641C22B8460077F4CF /* BSGameRecordDetailCell.xib */; };
 		667EC77B1C22B8460077F4CF /* BSRankHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7661C22B8460077F4CF /* BSRankHeader.m */; };
+		66A612971C2C260600A285B1 /* BSAddGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A6128E1C2C260600A285B1 /* BSAddGameRecordController.m */; };
+		66A612981C2C260600A285B1 /* BSChoosePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612901C2C260600A285B1 /* BSChoosePlayerViewController.m */; };
+		66A612991C2C260600A285B1 /* BSChooseSinglePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612921C2C260600A285B1 /* BSChooseSinglePlayerController.m */; };
+		66A6129A1C2C260600A285B1 /* BSChooseTeamPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612941C2C260600A285B1 /* BSChooseTeamPlayerController.m */; };
+		66A6129B1C2C260600A285B1 /* BSSetGameTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612961C2C260600A285B1 /* BSSetGameTypeController.m */; };
+		66A6129F1C2C26D400A285B1 /* BSCircleRankingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A6129E1C2C26D400A285B1 /* BSCircleRankingController.m */; };
+		66A612A31C2C277700A285B1 /* BSSkyLadderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612A21C2C277700A285B1 /* BSSkyLadderViewController.m */; };
+		66A612A71C2C278E00A285B1 /* BSFriendsRankingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612A61C2C278E00A285B1 /* BSFriendsRankingController.m */; };
 		66ABD1851C1D206C00777A46 /* BSTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66ABD1841C1D206C00777A46 /* BSTeamViewController.m */; };
 		66ABD18B1C1D209500777A46 /* BSSelectTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66ABD18A1C1D209500777A46 /* BSSelectTeamController.m */; };
 		66AEC6E61C26A52A00580E0B /* BSBaseContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66AEC6E51C26A52A00580E0B /* BSBaseContactTableViewController.m */; };
@@ -585,13 +585,18 @@
 		66C74C4C1C25A968007E2D3F /* BSSelectSchoolController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C4B1C25A968007E2D3F /* BSSelectSchoolController.m */; };
 		66C74C4F1C264A42007E2D3F /* BSMyEquipmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C4E1C264A42007E2D3F /* BSMyEquipmentViewController.m */; };
 		66C74C521C264EF1007E2D3F /* BSBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C511C264EF1007E2D3F /* BSBaseView.m */; };
-		66C74C551C2662B5007E2D3F /* BSSetGameTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C541C2662B5007E2D3F /* BSSetGameTypeController.m */; };
 		66C74C581C2676D0007E2D3F /* BSMyTeamsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C571C2676D0007E2D3F /* BSMyTeamsController.m */; };
 		66C74C5B1C2676E0007E2D3F /* BSAddTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C5A1C2676E0007E2D3F /* BSAddTeamController.m */; };
-		66E4911C1C26861D00EF332A /* BSChooseSinglePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E4911B1C26861D00EF332A /* BSChooseSinglePlayerController.m */; };
-		66E4911F1C26864000EF332A /* BSChooseTeamPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E4911E1C26864000EF332A /* BSChooseTeamPlayerController.m */; };
 		66E491221C268CBF00EF332A /* BSChooseSinglePlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E491211C268CBF00EF332A /* BSChooseSinglePlayerCell.m */; };
 		66E491281C2696CF00EF332A /* PAFFSelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E491271C2696CF00EF332A /* PAFFSelectCityViewController.m */; };
+		66E51B261C2A8F4C0057773F /* BSFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E51B251C2A8F4C0057773F /* BSFeedBackViewController.m */; };
+		66E51B2C1C2AF4800057773F /* BSAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E51B2B1C2AF4800057773F /* BSAboutUsViewController.m */; };
+		66E721771C2CDEB0005240E7 /* BSTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721761C2CDEB0005240E7 /* BSTLModel.m */; };
+		66E7217A1C2CE279005240E7 /* BSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721791C2CE279005240E7 /* BSBaseModel.m */; };
+		66E7217D1C2CE804005240E7 /* BSPicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7217C1C2CE804005240E7 /* BSPicModel.m */; };
+		66E721801C2CE9F7005240E7 /* BSTLLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */; };
+		66E721841C2CEAB6005240E7 /* BSTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721821C2CEAB6005240E7 /* BSTimeLineCell.m */; };
+		66E721851C2CEAB6005240E7 /* BSTimeLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E721831C2CEAB6005240E7 /* BSTimeLineCell.xib */; };
 		66F04CF01C27D226003FE2FF /* BSSkyLadderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CEE1C27D225003FE2FF /* BSSkyLadderTableViewCell.m */; };
 		66F04CF11C27D226003FE2FF /* BSSkyLadderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F04CEF1C27D225003FE2FF /* BSSkyLadderTableViewCell.xib */; };
 		66F04CF41C27DC88003FE2FF /* BSSkyLadderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CF31C27DC88003FE2FF /* BSSkyLadderHeaderView.m */; };
@@ -602,6 +607,18 @@
 		66F04D021C281CCD003FE2FF /* BSGameRecordHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04D011C281CCD003FE2FF /* BSGameRecordHeaderView.m */; };
 		66F04D041C281CDB003FE2FF /* BSGameRecordHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F04D031C281CDB003FE2FF /* BSGameRecordHeaderView.xib */; };
 		66F04D071C2853DB003FE2FF /* BSCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04D061C2853DB003FE2FF /* BSCacheManager.m */; };
+		66F402C41C2C2FD500B5E555 /* BSDoubleGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402BF1C2C2FD500B5E555 /* BSDoubleGameRecordController.m */; };
+		66F402C51C2C2FD500B5E555 /* BSGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402C11C2C2FD500B5E555 /* BSGameRecordController.m */; };
+		66F402C61C2C2FD500B5E555 /* BSSingleGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402C31C2C2FD500B5E555 /* BSSingleGameRecordController.m */; };
+		66F402C91C2C301E00B5E555 /* BSCircleMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402C81C2C301E00B5E555 /* BSCircleMenuView.m */; };
+		66F402CB1C2C303100B5E555 /* BSCircleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402CA1C2C303100B5E555 /* BSCircleMenuView.xib */; };
+		66F402CE1C2C3A8300B5E555 /* BSCreateCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402CD1C2C3A8300B5E555 /* BSCreateCircleController.m */; };
+		66F402D41C2C3F0C00B5E555 /* BSCircleBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402D31C2C3F0C00B5E555 /* BSCircleBusiness.m */; };
+		66F402D81C2C408100B5E555 /* BSJionCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */; };
+		66F402D91C2C408100B5E555 /* BSJionCircleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */; };
+		66F402DF1C2C507C00B5E555 /* BSCircelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402DE1C2C507C00B5E555 /* BSCircelModel.m */; };
+		66F402E31C2C53EA00B5E555 /* BSCircleResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402E11C2C53EA00B5E555 /* BSCircleResultCell.m */; };
+		66F402E41C2C53EA00B5E555 /* BSCircleResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402E21C2C53EA00B5E555 /* BSCircleResultCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1398,14 +1415,8 @@
 		663D154D1C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFFApplyCreditCardNormalEditCell.m; sourceTree = "<group>"; };
 		663D154E1C253AF400E2AA46 /* PAFFCustomModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFFCustomModalView.h; sourceTree = "<group>"; };
 		663D154F1C253AF400E2AA46 /* PAFFCustomModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFFCustomModalView.m; sourceTree = "<group>"; };
-		6667F27F1C29831D003B5220 /* BSDoubleGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSDoubleGameRecordController.h; sourceTree = "<group>"; };
-		6667F2801C29831D003B5220 /* BSDoubleGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSDoubleGameRecordController.m; sourceTree = "<group>"; };
-		6667F2821C29833C003B5220 /* BSSingleGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSingleGameRecordController.h; sourceTree = "<group>"; };
-		6667F2831C29833C003B5220 /* BSSingleGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSingleGameRecordController.m; sourceTree = "<group>"; };
 		6667F2851C298DA3003B5220 /* BSBasePlayerRankingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBasePlayerRankingController.h; sourceTree = "<group>"; };
 		6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBasePlayerRankingController.m; sourceTree = "<group>"; };
-		6667F2881C2990B3003B5220 /* BSFriendsRankingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFriendsRankingController.h; sourceTree = "<group>"; };
-		6667F2891C2990B3003B5220 /* BSFriendsRankingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFriendsRankingController.m; sourceTree = "<group>"; };
 		66724D421C2075F500DC2A7D /* BSProfileEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileEditCell.h; sourceTree = "<group>"; };
 		66724D431C2075F500DC2A7D /* BSProfileEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProfileEditCell.m; sourceTree = "<group>"; };
 		6675D6631C1F00D300C10DCA /* BSProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileController.h; sourceTree = "<group>"; };
@@ -1439,22 +1450,12 @@
 		667EC73C1C22B8460077F4CF /* AVObjectClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVObjectClass.h; sourceTree = "<group>"; };
 		667EC73D1C22B8460077F4CF /* AVObjectProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVObjectProperty.h; sourceTree = "<group>"; };
 		667EC73E1C22B8460077F4CF /* AVObjectRelationMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVObjectRelationMacros.h; sourceTree = "<group>"; };
-		667EC7411C22B8460077F4CF /* BSAddGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddGameRecordController.h; sourceTree = "<group>"; };
-		667EC7421C22B8460077F4CF /* BSAddGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddGameRecordController.m; sourceTree = "<group>"; };
-		667EC7431C22B8460077F4CF /* BSChoosePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChoosePlayerViewController.h; sourceTree = "<group>"; };
-		667EC7441C22B8460077F4CF /* BSChoosePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChoosePlayerViewController.m; sourceTree = "<group>"; };
 		667EC7451C22B8460077F4CF /* BSConfirmGameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSConfirmGameTableViewController.h; sourceTree = "<group>"; };
 		667EC7461C22B8460077F4CF /* BSConfirmGameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSConfirmGameTableViewController.m; sourceTree = "<group>"; };
-		667EC7471C22B8460077F4CF /* BSGameRankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGameRankController.h; sourceTree = "<group>"; };
-		667EC7481C22B8460077F4CF /* BSGameRankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGameRankController.m; sourceTree = "<group>"; };
-		667EC7491C22B8460077F4CF /* BSGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGameRecordController.h; sourceTree = "<group>"; };
-		667EC74A1C22B8460077F4CF /* BSGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGameRecordController.m; sourceTree = "<group>"; };
 		667EC74B1C22B8460077F4CF /* BSGameRecordDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGameRecordDetailController.h; sourceTree = "<group>"; };
 		667EC74C1C22B8460077F4CF /* BSGameRecordDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGameRecordDetailController.m; sourceTree = "<group>"; };
 		667EC74D1C22B8460077F4CF /* BSRankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSRankController.h; sourceTree = "<group>"; };
 		667EC74E1C22B8460077F4CF /* BSRankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSRankController.m; sourceTree = "<group>"; };
-		667EC74F1C22B8460077F4CF /* BSSkyLadderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderViewController.h; sourceTree = "<group>"; };
-		667EC7501C22B8460077F4CF /* BSSkyLadderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderViewController.m; sourceTree = "<group>"; };
 		667EC7521C22B8460077F4CF /* BSGameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGameModel.h; sourceTree = "<group>"; };
 		667EC7531C22B8460077F4CF /* BSGameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGameModel.m; sourceTree = "<group>"; };
 		667EC7541C22B8460077F4CF /* BSMatchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMatchModel.h; sourceTree = "<group>"; };
@@ -1475,6 +1476,22 @@
 		667EC7641C22B8460077F4CF /* BSGameRecordDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSGameRecordDetailCell.xib; sourceTree = "<group>"; };
 		667EC7651C22B8460077F4CF /* BSRankHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSRankHeader.h; sourceTree = "<group>"; };
 		667EC7661C22B8460077F4CF /* BSRankHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSRankHeader.m; sourceTree = "<group>"; };
+		66A6128D1C2C260600A285B1 /* BSAddGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddGameRecordController.h; sourceTree = "<group>"; };
+		66A6128E1C2C260600A285B1 /* BSAddGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddGameRecordController.m; sourceTree = "<group>"; };
+		66A6128F1C2C260600A285B1 /* BSChoosePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChoosePlayerViewController.h; sourceTree = "<group>"; };
+		66A612901C2C260600A285B1 /* BSChoosePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChoosePlayerViewController.m; sourceTree = "<group>"; };
+		66A612911C2C260600A285B1 /* BSChooseSinglePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChooseSinglePlayerController.h; sourceTree = "<group>"; };
+		66A612921C2C260600A285B1 /* BSChooseSinglePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChooseSinglePlayerController.m; sourceTree = "<group>"; };
+		66A612931C2C260600A285B1 /* BSChooseTeamPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChooseTeamPlayerController.h; sourceTree = "<group>"; };
+		66A612941C2C260600A285B1 /* BSChooseTeamPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChooseTeamPlayerController.m; sourceTree = "<group>"; };
+		66A612951C2C260600A285B1 /* BSSetGameTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSetGameTypeController.h; sourceTree = "<group>"; };
+		66A612961C2C260600A285B1 /* BSSetGameTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSetGameTypeController.m; sourceTree = "<group>"; };
+		66A6129D1C2C26D400A285B1 /* BSCircleRankingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleRankingController.h; sourceTree = "<group>"; };
+		66A6129E1C2C26D400A285B1 /* BSCircleRankingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleRankingController.m; sourceTree = "<group>"; };
+		66A612A11C2C277700A285B1 /* BSSkyLadderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderViewController.h; sourceTree = "<group>"; };
+		66A612A21C2C277700A285B1 /* BSSkyLadderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderViewController.m; sourceTree = "<group>"; };
+		66A612A51C2C278E00A285B1 /* BSFriendsRankingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFriendsRankingController.h; sourceTree = "<group>"; };
+		66A612A61C2C278E00A285B1 /* BSFriendsRankingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFriendsRankingController.m; sourceTree = "<group>"; };
 		66ABD1831C1D206C00777A46 /* BSTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTeamViewController.h; sourceTree = "<group>"; };
 		66ABD1841C1D206C00777A46 /* BSTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTeamViewController.m; sourceTree = "<group>"; };
 		66ABD1891C1D209500777A46 /* BSSelectTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSelectTeamController.h; sourceTree = "<group>"; };
@@ -1519,20 +1536,29 @@
 		66C74C4E1C264A42007E2D3F /* BSMyEquipmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyEquipmentViewController.m; sourceTree = "<group>"; };
 		66C74C501C264EF1007E2D3F /* BSBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseView.h; sourceTree = "<group>"; };
 		66C74C511C264EF1007E2D3F /* BSBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseView.m; sourceTree = "<group>"; };
-		66C74C531C2662B5007E2D3F /* BSSetGameTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSetGameTypeController.h; sourceTree = "<group>"; };
-		66C74C541C2662B5007E2D3F /* BSSetGameTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSetGameTypeController.m; sourceTree = "<group>"; };
 		66C74C561C2676D0007E2D3F /* BSMyTeamsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMyTeamsController.h; sourceTree = "<group>"; };
 		66C74C571C2676D0007E2D3F /* BSMyTeamsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyTeamsController.m; sourceTree = "<group>"; };
 		66C74C591C2676E0007E2D3F /* BSAddTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddTeamController.h; sourceTree = "<group>"; };
 		66C74C5A1C2676E0007E2D3F /* BSAddTeamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddTeamController.m; sourceTree = "<group>"; };
-		66E4911A1C26861D00EF332A /* BSChooseSinglePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChooseSinglePlayerController.h; sourceTree = "<group>"; };
-		66E4911B1C26861D00EF332A /* BSChooseSinglePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChooseSinglePlayerController.m; sourceTree = "<group>"; };
-		66E4911D1C26864000EF332A /* BSChooseTeamPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChooseTeamPlayerController.h; sourceTree = "<group>"; };
-		66E4911E1C26864000EF332A /* BSChooseTeamPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChooseTeamPlayerController.m; sourceTree = "<group>"; };
 		66E491201C268CBF00EF332A /* BSChooseSinglePlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChooseSinglePlayerCell.h; sourceTree = "<group>"; };
 		66E491211C268CBF00EF332A /* BSChooseSinglePlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChooseSinglePlayerCell.m; sourceTree = "<group>"; };
 		66E491261C2696CF00EF332A /* PAFFSelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFFSelectCityViewController.h; sourceTree = "<group>"; };
 		66E491271C2696CF00EF332A /* PAFFSelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFFSelectCityViewController.m; sourceTree = "<group>"; };
+		66E51B241C2A8F4C0057773F /* BSFeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFeedBackViewController.h; sourceTree = "<group>"; };
+		66E51B251C2A8F4C0057773F /* BSFeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFeedBackViewController.m; sourceTree = "<group>"; };
+		66E51B2A1C2AF4800057773F /* BSAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAboutUsViewController.h; sourceTree = "<group>"; };
+		66E51B2B1C2AF4800057773F /* BSAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAboutUsViewController.m; sourceTree = "<group>"; };
+		66E721751C2CDEB0005240E7 /* BSTLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTLModel.h; sourceTree = "<group>"; };
+		66E721761C2CDEB0005240E7 /* BSTLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTLModel.m; sourceTree = "<group>"; };
+		66E721781C2CE279005240E7 /* BSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseModel.h; sourceTree = "<group>"; };
+		66E721791C2CE279005240E7 /* BSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseModel.m; sourceTree = "<group>"; };
+		66E7217B1C2CE804005240E7 /* BSPicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPicModel.h; sourceTree = "<group>"; };
+		66E7217C1C2CE804005240E7 /* BSPicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPicModel.m; sourceTree = "<group>"; };
+		66E7217E1C2CE9F7005240E7 /* BSTLLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTLLayout.h; sourceTree = "<group>"; };
+		66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTLLayout.m; sourceTree = "<group>"; };
+		66E721811C2CEAB6005240E7 /* BSTimeLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTimeLineCell.h; sourceTree = "<group>"; };
+		66E721821C2CEAB6005240E7 /* BSTimeLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTimeLineCell.m; sourceTree = "<group>"; };
+		66E721831C2CEAB6005240E7 /* BSTimeLineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSTimeLineCell.xib; sourceTree = "<group>"; };
 		66F04CEC1C2795BC003FE2FF /* BSDBSQLString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSDBSQLString.h; sourceTree = "<group>"; };
 		66F04CED1C27D225003FE2FF /* BSSkyLadderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderTableViewCell.h; sourceTree = "<group>"; };
 		66F04CEE1C27D225003FE2FF /* BSSkyLadderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderTableViewCell.m; sourceTree = "<group>"; };
@@ -1551,6 +1577,27 @@
 		66F04D031C281CDB003FE2FF /* BSGameRecordHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSGameRecordHeaderView.xib; sourceTree = "<group>"; };
 		66F04D051C2853DB003FE2FF /* BSCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCacheManager.h; sourceTree = "<group>"; };
 		66F04D061C2853DB003FE2FF /* BSCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCacheManager.m; sourceTree = "<group>"; };
+		66F402BE1C2C2FD500B5E555 /* BSDoubleGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSDoubleGameRecordController.h; sourceTree = "<group>"; };
+		66F402BF1C2C2FD500B5E555 /* BSDoubleGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSDoubleGameRecordController.m; sourceTree = "<group>"; };
+		66F402C01C2C2FD500B5E555 /* BSGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGameRecordController.h; sourceTree = "<group>"; };
+		66F402C11C2C2FD500B5E555 /* BSGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGameRecordController.m; sourceTree = "<group>"; };
+		66F402C21C2C2FD500B5E555 /* BSSingleGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSingleGameRecordController.h; sourceTree = "<group>"; };
+		66F402C31C2C2FD500B5E555 /* BSSingleGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSingleGameRecordController.m; sourceTree = "<group>"; };
+		66F402C71C2C301E00B5E555 /* BSCircleMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleMenuView.h; sourceTree = "<group>"; };
+		66F402C81C2C301E00B5E555 /* BSCircleMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleMenuView.m; sourceTree = "<group>"; };
+		66F402CA1C2C303100B5E555 /* BSCircleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleMenuView.xib; sourceTree = "<group>"; };
+		66F402CC1C2C3A8300B5E555 /* BSCreateCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCreateCircleController.h; sourceTree = "<group>"; };
+		66F402CD1C2C3A8300B5E555 /* BSCreateCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCreateCircleController.m; sourceTree = "<group>"; };
+		66F402D21C2C3F0C00B5E555 /* BSCircleBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleBusiness.h; sourceTree = "<group>"; };
+		66F402D31C2C3F0C00B5E555 /* BSCircleBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleBusiness.m; sourceTree = "<group>"; };
+		66F402D51C2C408100B5E555 /* BSJionCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSJionCircleViewController.h; sourceTree = "<group>"; };
+		66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSJionCircleViewController.m; sourceTree = "<group>"; };
+		66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSJionCircleViewController.xib; sourceTree = "<group>"; };
+		66F402DD1C2C507C00B5E555 /* BSCircelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircelModel.h; sourceTree = "<group>"; };
+		66F402DE1C2C507C00B5E555 /* BSCircelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircelModel.m; sourceTree = "<group>"; };
+		66F402E01C2C53EA00B5E555 /* BSCircleResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleResultCell.h; sourceTree = "<group>"; };
+		66F402E11C2C53EA00B5E555 /* BSCircleResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleResultCell.m; sourceTree = "<group>"; };
+		66F402E21C2C53EA00B5E555 /* BSCircleResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleResultCell.xib; sourceTree = "<group>"; };
 		B188B1BC2BE8455C932E8A36 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D1945C8900BD47FAC5384220 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F04F77C79960B37F45D59C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2373,6 +2420,7 @@
 		340025C51C19E0B000E93215 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				66E721741C2CDEA7005240E7 /* Model */,
 				340025DC1C19E1AB00E93215 /* Controller */,
 				340025C91C19E18700E93215 /* Utilities */,
 			);
@@ -2403,6 +2451,9 @@
 			children = (
 				340025DD1C19E1AB00E93215 /* BSTimeLineViewController.h */,
 				340025DE1C19E1AB00E93215 /* BSTimeLineViewController.m */,
+				66E721811C2CEAB6005240E7 /* BSTimeLineCell.h */,
+				66E721821C2CEAB6005240E7 /* BSTimeLineCell.m */,
+				66E721831C2CEAB6005240E7 /* BSTimeLineCell.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2938,6 +2989,8 @@
 				663D15231C24F61D00E2AA46 /* BaseView */,
 				663D152A1C24F61D00E2AA46 /* PublicView */,
 				342461EE1C00148B00755C09 /* BaseController */,
+				66E721781C2CE279005240E7 /* BSBaseModel.h */,
+				66E721791C2CE279005240E7 /* BSBaseModel.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -3484,6 +3537,10 @@
 				6675D6841C1F2B3900C10DCA /* BSProfileEditViewController.m */,
 				66AEC6F51C26CBD000580E0B /* BSSettingViewController.h */,
 				66AEC6F61C26CBD000580E0B /* BSSettingViewController.m */,
+				66E51B2A1C2AF4800057773F /* BSAboutUsViewController.h */,
+				66E51B2B1C2AF4800057773F /* BSAboutUsViewController.m */,
+				66E51B241C2A8F4C0057773F /* BSFeedBackViewController.h */,
+				66E51B251C2A8F4C0057773F /* BSFeedBackViewController.m */,
 				6675D6671C1F00D300C10DCA /* BSProfileViewController.h */,
 				6675D6681C1F00D300C10DCA /* BSProfileViewController.m */,
 				663D15421C25021300E2AA46 /* BSSelectGenderController.h */,
@@ -3568,6 +3625,8 @@
 				667EC73A1C22B8460077F4CF /* BSGameBusiness.m */,
 				66F04CF71C27EB2E003FE2FF /* BSRankDataBusiness.h */,
 				66F04CF81C27EB2E003FE2FF /* BSRankDataBusiness.m */,
+				66F402D21C2C3F0C00B5E555 /* BSCircleBusiness.h */,
+				66F402D31C2C3F0C00B5E555 /* BSCircleBusiness.m */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -3585,6 +3644,11 @@
 		667EC73F1C22B8460077F4CF /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				66F402BD1C2C2FD500B5E555 /* GameRecord */,
+				66A612A41C2C278E00A285B1 /* FriendRanking */,
+				66A612A01C2C277700A285B1 /* SkyLadder */,
+				66A6129C1C2C26D400A285B1 /* CircleRanking */,
+				66A6128C1C2C260600A285B1 /* AddGames */,
 				667EC7401C22B8460077F4CF /* Controller */,
 				667EC7511C22B8460077F4CF /* Model */,
 				667EC7581C22B8460077F4CF /* View */,
@@ -3597,32 +3661,10 @@
 			children = (
 				667EC74D1C22B8460077F4CF /* BSRankController.h */,
 				667EC74E1C22B8460077F4CF /* BSRankController.m */,
-				667EC7411C22B8460077F4CF /* BSAddGameRecordController.h */,
-				667EC7421C22B8460077F4CF /* BSAddGameRecordController.m */,
-				66C74C531C2662B5007E2D3F /* BSSetGameTypeController.h */,
-				66C74C541C2662B5007E2D3F /* BSSetGameTypeController.m */,
-				667EC7431C22B8460077F4CF /* BSChoosePlayerViewController.h */,
-				667EC7441C22B8460077F4CF /* BSChoosePlayerViewController.m */,
-				66E4911A1C26861D00EF332A /* BSChooseSinglePlayerController.h */,
-				66E4911B1C26861D00EF332A /* BSChooseSinglePlayerController.m */,
-				66E4911D1C26864000EF332A /* BSChooseTeamPlayerController.h */,
-				66E4911E1C26864000EF332A /* BSChooseTeamPlayerController.m */,
 				667EC7451C22B8460077F4CF /* BSConfirmGameTableViewController.h */,
 				667EC7461C22B8460077F4CF /* BSConfirmGameTableViewController.m */,
-				667EC7471C22B8460077F4CF /* BSGameRankController.h */,
-				667EC7481C22B8460077F4CF /* BSGameRankController.m */,
-				667EC7491C22B8460077F4CF /* BSGameRecordController.h */,
-				667EC74A1C22B8460077F4CF /* BSGameRecordController.m */,
-				6667F2821C29833C003B5220 /* BSSingleGameRecordController.h */,
-				6667F2831C29833C003B5220 /* BSSingleGameRecordController.m */,
-				6667F27F1C29831D003B5220 /* BSDoubleGameRecordController.h */,
-				6667F2801C29831D003B5220 /* BSDoubleGameRecordController.m */,
 				667EC74B1C22B8460077F4CF /* BSGameRecordDetailController.h */,
 				667EC74C1C22B8460077F4CF /* BSGameRecordDetailController.m */,
-				6667F2881C2990B3003B5220 /* BSFriendsRankingController.h */,
-				6667F2891C2990B3003B5220 /* BSFriendsRankingController.m */,
-				667EC74F1C22B8460077F4CF /* BSSkyLadderViewController.h */,
-				667EC7501C22B8460077F4CF /* BSSkyLadderViewController.m */,
 				6667F2851C298DA3003B5220 /* BSBasePlayerRankingController.h */,
 				6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */,
 			);
@@ -3638,6 +3680,8 @@
 				667EC7551C22B8460077F4CF /* BSMatchModel.m */,
 				667EC7561C22B8460077F4CF /* BSPlayerScore.h */,
 				667EC7571C22B8460077F4CF /* BSPlayerScore.m */,
+				66F402DD1C2C507C00B5E555 /* BSCircelModel.h */,
+				66F402DE1C2C507C00B5E555 /* BSCircelModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3680,6 +3724,65 @@
 				66BA5EE41C22BBBE006A1DA9 /* Classes */,
 			);
 			path = AppBaseModule;
+			sourceTree = "<group>";
+		};
+		66A6128C1C2C260600A285B1 /* AddGames */ = {
+			isa = PBXGroup;
+			children = (
+				66A6128D1C2C260600A285B1 /* BSAddGameRecordController.h */,
+				66A6128E1C2C260600A285B1 /* BSAddGameRecordController.m */,
+				66A6128F1C2C260600A285B1 /* BSChoosePlayerViewController.h */,
+				66A612901C2C260600A285B1 /* BSChoosePlayerViewController.m */,
+				66A612911C2C260600A285B1 /* BSChooseSinglePlayerController.h */,
+				66A612921C2C260600A285B1 /* BSChooseSinglePlayerController.m */,
+				66A612931C2C260600A285B1 /* BSChooseTeamPlayerController.h */,
+				66A612941C2C260600A285B1 /* BSChooseTeamPlayerController.m */,
+				66A612951C2C260600A285B1 /* BSSetGameTypeController.h */,
+				66A612961C2C260600A285B1 /* BSSetGameTypeController.m */,
+			);
+			name = AddGames;
+			path = Controller/AddGames;
+			sourceTree = "<group>";
+		};
+		66A6129C1C2C26D400A285B1 /* CircleRanking */ = {
+			isa = PBXGroup;
+			children = (
+				66A6129D1C2C26D400A285B1 /* BSCircleRankingController.h */,
+				66A6129E1C2C26D400A285B1 /* BSCircleRankingController.m */,
+				66F402CC1C2C3A8300B5E555 /* BSCreateCircleController.h */,
+				66F402CD1C2C3A8300B5E555 /* BSCreateCircleController.m */,
+				66F402D51C2C408100B5E555 /* BSJionCircleViewController.h */,
+				66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */,
+				66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */,
+				66F402C71C2C301E00B5E555 /* BSCircleMenuView.h */,
+				66F402C81C2C301E00B5E555 /* BSCircleMenuView.m */,
+				66F402CA1C2C303100B5E555 /* BSCircleMenuView.xib */,
+				66F402E01C2C53EA00B5E555 /* BSCircleResultCell.h */,
+				66F402E11C2C53EA00B5E555 /* BSCircleResultCell.m */,
+				66F402E21C2C53EA00B5E555 /* BSCircleResultCell.xib */,
+			);
+			name = CircleRanking;
+			path = Controller/CircleRanking;
+			sourceTree = "<group>";
+		};
+		66A612A01C2C277700A285B1 /* SkyLadder */ = {
+			isa = PBXGroup;
+			children = (
+				66A612A11C2C277700A285B1 /* BSSkyLadderViewController.h */,
+				66A612A21C2C277700A285B1 /* BSSkyLadderViewController.m */,
+			);
+			name = SkyLadder;
+			path = Controller/SkyLadder;
+			sourceTree = "<group>";
+		};
+		66A612A41C2C278E00A285B1 /* FriendRanking */ = {
+			isa = PBXGroup;
+			children = (
+				66A612A51C2C278E00A285B1 /* BSFriendsRankingController.h */,
+				66A612A61C2C278E00A285B1 /* BSFriendsRankingController.m */,
+			);
+			name = FriendRanking;
+			path = Controller/FriendRanking;
 			sourceTree = "<group>";
 		};
 		66ABD17D1C1D204500777A46 /* Team */ = {
@@ -3839,6 +3942,33 @@
 			children = (
 			);
 			path = DB;
+			sourceTree = "<group>";
+		};
+		66E721741C2CDEA7005240E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				66E721751C2CDEB0005240E7 /* BSTLModel.h */,
+				66E721761C2CDEB0005240E7 /* BSTLModel.m */,
+				66E7217B1C2CE804005240E7 /* BSPicModel.h */,
+				66E7217C1C2CE804005240E7 /* BSPicModel.m */,
+				66E7217E1C2CE9F7005240E7 /* BSTLLayout.h */,
+				66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		66F402BD1C2C2FD500B5E555 /* GameRecord */ = {
+			isa = PBXGroup;
+			children = (
+				66F402BE1C2C2FD500B5E555 /* BSDoubleGameRecordController.h */,
+				66F402BF1C2C2FD500B5E555 /* BSDoubleGameRecordController.m */,
+				66F402C01C2C2FD500B5E555 /* BSGameRecordController.h */,
+				66F402C11C2C2FD500B5E555 /* BSGameRecordController.m */,
+				66F402C21C2C2FD500B5E555 /* BSSingleGameRecordController.h */,
+				66F402C31C2C2FD500B5E555 /* BSSingleGameRecordController.m */,
+			);
+			name = GameRecord;
+			path = Controller/GameRecord;
 			sourceTree = "<group>";
 		};
 		824091CF32B667DC70A7ADDC /* Frameworks */ = {
@@ -4064,6 +4194,7 @@
 				3487B2C61B39527A00BB9843 /* QQ@2x.png in Resources */,
 				0409DABF1BCA97BC00B659B8 /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
 				0409DA941BCA97BC00B659B8 /* multiMedia_HL@2x.png in Resources */,
+				66F402D91C2C408100B5E555 /* BSJionCircleViewController.xib in Resources */,
 				0409DAAA1BCA97BC00B659B8 /* send.caf in Resources */,
 				342462741C00148B00755C09 /* tusijia5.gif in Resources */,
 				0409DAB91BCA97BC00B659B8 /* sharemore_wxtalk@2x.png in Resources */,
@@ -4087,6 +4218,7 @@
 				0409DA821BCA97BC00B659B8 /* face_HL@2x.png in Resources */,
 				342462921C00148B00755C09 /* menu_add_friend@2x.png in Resources */,
 				0409DA851BCA97BC00B659B8 /* input-bar-background.png in Resources */,
+				66E721851C2CEAB6005240E7 /* BSTimeLineCell.xib in Resources */,
 				3424626C1C00148B00755C09 /* tusijia11.gif in Resources */,
 				0409DA8A1BCA97BC00B659B8 /* input-field-cover@2x.png in Resources */,
 				342462711C00148B00755C09 /* tusijia2.gif in Resources */,
@@ -4096,6 +4228,7 @@
 				3424626A1C00148B00755C09 /* tusijia1.gif in Resources */,
 				0409DABC1BCA97BC00B659B8 /* VoiceBtn_Black@2x.png in Resources */,
 				0409DA341BCA97BC00B659B8 /* rabbit_1.gif in Resources */,
+				66F402CB1C2C303100B5E555 /* BSCircleMenuView.xib in Resources */,
 				0409DAA21BCA97BC00B659B8 /* RecordingSignal003@2x.png in Resources */,
 				0409DAA71BCA97BC00B659B8 /* RecordingSignal008@2x.png in Resources */,
 				342462781C00148B00755C09 /* tusijia9.gif in Resources */,
@@ -4208,6 +4341,7 @@
 				0409DA6C1BCA97BC00B659B8 /* tusiji_14_cover@2x.png in Resources */,
 				0409DAB51BCA97BC00B659B8 /* sharemore_video@2x.png in Resources */,
 				0409DAAD1BCA97BC00B659B8 /* SenderVoiceNodePlaying002@2x.png in Resources */,
+				66F402E41C2C53EA00B5E555 /* BSCircleResultCell.xib in Resources */,
 				0409DA571BCA97BC00B659B8 /* rabbit_5_cover@2x.png in Resources */,
 				0409DA481BCA97BC00B659B8 /* rabbit_19_cover@2x.png in Resources */,
 				0409DA741BCA97BC00B659B8 /* tusiji_4.gif in Resources */,
@@ -4274,6 +4408,7 @@
 				3424624D1C00148B00755C09 /* CDUser.m in Sources */,
 				342462B71C00148B00755C09 /* BSNearbyPlayerController.m in Sources */,
 				66BA62F51C240205006A1DA9 /* BSAppContext.m in Sources */,
+				66A6129A1C2C260600A285B1 /* BSChooseTeamPlayerController.m in Sources */,
 				3424622A1C00148B00755C09 /* CDBaseTabC.m in Sources */,
 				342462A21C00148B00755C09 /* LZPushManager.m in Sources */,
 				0409DA1A1BCA97BC00B659B8 /* XHShareMenuView.m in Sources */,
@@ -4282,8 +4417,10 @@
 				0409DA1C1BCA97BC00B659B8 /* XHRefreshCircleView.m in Sources */,
 				34C34CDE1C0DB49E00B72AF9 /* ELORankingBusiness.m in Sources */,
 				342462B81C00148B00755C09 /* BSNearbyHallCell.m in Sources */,
+				66F402C41C2C2FD500B5E555 /* BSDoubleGameRecordController.m in Sources */,
 				0409D9DB1BCA97BC00B659B8 /* XHPullRefreshTableViewController.m in Sources */,
 				0409D9C81BCA97BC00B659B8 /* UIImage+Alpha.m in Sources */,
+				66A612981C2C260600A285B1 /* BSChoosePlayerViewController.m in Sources */,
 				6675D6791C1F068800C10DCA /* BSProfileUserCell.m in Sources */,
 				66AEC6F71C26CBD000580E0B /* BSSettingViewController.m in Sources */,
 				3424623D1C00148B00755C09 /* CDAddFriendVC.m in Sources */,
@@ -4316,10 +4453,11 @@
 				344247501C149BAF00BBC194 /* BSGameGIFCollectionSectionHeaderView.m in Sources */,
 				0409D9C71BCA97BC00B659B8 /* UIButton+XHButtonTitlePosition.m in Sources */,
 				345417EF1C15EFE50030E990 /* BSNewCommerViewController.m in Sources */,
+				66F402D41C2C3F0C00B5E555 /* BSCircleBusiness.m in Sources */,
 				344D017C1C17417C000B8DD6 /* YZXiMaViewController.m in Sources */,
+				66A6129B1C2C260600A285B1 /* BSSetGameTypeController.m in Sources */,
 				0409DA011BCA97BC00B659B8 /* SETextMagnifierRanged.m in Sources */,
 				345D364E1B2D0BD0004C226A /* UIViewController+x.m in Sources */,
-				66E4911C1C26861D00EF332A /* BSChooseSinglePlayerController.m in Sources */,
 				344D017B1C17417C000B8DD6 /* YZJRViewController.m in Sources */,
 				340025D61C19E18700E93215 /* YYControl.m in Sources */,
 				342462391C00148B00755C09 /* CDEntryVC.m in Sources */,
@@ -4329,6 +4467,7 @@
 				0409D9C01BCA97BC00B659B8 /* Emoji.m in Sources */,
 				6675D6761C1F065C00C10DCA /* BSProfileCell.m in Sources */,
 				342462BC1C00148B00755C09 /* BSLoginController.m in Sources */,
+				66F402C91C2C301E00B5E555 /* BSCircleMenuView.m in Sources */,
 				667EC70D1C21C0710077F4CF /* BSUserModel.m in Sources */,
 				342462BE1C00148B00755C09 /* BSRegisterUserNameController.m in Sources */,
 				0409D9CA1BCA97BC00B659B8 /* UIImage+RoundedCorner.m in Sources */,
@@ -4336,7 +4475,6 @@
 				66F04CFF1C28078B003FE2FF /* BSTimeManager.m in Sources */,
 				6675D6701C1F010F00C10DCA /* BSMineHeaderView.m in Sources */,
 				66BA62EF1C22CE10006A1DA9 /* BSUserDefaultStorage.m in Sources */,
-				6667F2841C29833C003B5220 /* BSSingleGameRecordController.m in Sources */,
 				345D36551B2D0BD0004C226A /* SenseSwitcher.m in Sources */,
 				342462CC1C00148B00755C09 /* BSBaseTableViewController.m in Sources */,
 				667EC76E1C22B8460077F4CF /* BSRankController.m in Sources */,
@@ -4347,6 +4485,7 @@
 				0409D9BF1BCA97BC00B659B8 /* CDSoundManager.m in Sources */,
 				0409D9D01BCA97BC00B659B8 /* UIView+XHRemoteImage.m in Sources */,
 				340025D81C19E18700E93215 /* YYPhotoGroupView.m in Sources */,
+				66E51B261C2A8F4C0057773F /* BSFeedBackViewController.m in Sources */,
 				0409D9F11BCA97BC00B659B8 /* XHShareMenuItem.m in Sources */,
 				344247561C14A0F100BBC194 /* BSGameGIFCollectionViewCell.m in Sources */,
 				345D364D1B2D0BD0004C226A /* UIView+x.m in Sources */,
@@ -4358,21 +4497,24 @@
 				342462AD1C00148B00755C09 /* CDPopMenuItem.m in Sources */,
 				342462A81C00148B00755C09 /* CDImageLabelTableCell.m in Sources */,
 				663D15491C2538C100E2AA46 /* CNCityPickerView.m in Sources */,
+				66F402C51C2C2FD500B5E555 /* BSGameRecordController.m in Sources */,
 				66F04D021C281CCD003FE2FF /* BSGameRecordHeaderView.m in Sources */,
 				3424622C1C00148B00755C09 /* CDBaseVC.m in Sources */,
 				342462BA1C00148B00755C09 /* BSNearbyPlayerCell.m in Sources */,
 				66E491221C268CBF00EF332A /* BSChooseSinglePlayerCell.m in Sources */,
 				0409D9F41BCA97BC00B659B8 /* FLAnimatedImageView.m in Sources */,
 				0409D9E51BCA97BC00B659B8 /* XHOperationNetworkKit.m in Sources */,
-				667EC76C1C22B8460077F4CF /* BSGameRecordController.m in Sources */,
 				0409D9CF1BCA97BC00B659B8 /* UIView+XHBadgeView.m in Sources */,
 				342462351C00148B00755C09 /* CDConvReportAbuseVC.m in Sources */,
 				0409DA171BCA97BC00B659B8 /* XHEmotionCollectionViewFlowLayout.m in Sources */,
+				66E721771C2CDEB0005240E7 /* BSTLModel.m in Sources */,
 				0409D9C61BCA97BC00B659B8 /* NSString+XHMD5.m in Sources */,
 				342462481C00148B00755C09 /* CDUtils.m in Sources */,
 				3424624C1C00148B00755C09 /* CDAddRequest.m in Sources */,
 				0409D9CB1BCA97BC00B659B8 /* UIImage+Utility.m in Sources */,
+				66F402DF1C2C507C00B5E555 /* BSCircelModel.m in Sources */,
 				0409D9D81BCA97BC00B659B8 /* XHVoiceRecordHelper.m in Sources */,
+				66F402C61C2C2FD500B5E555 /* BSSingleGameRecordController.m in Sources */,
 				3424623B1C00148B00755C09 /* CDPhoneRegisterVC.m in Sources */,
 				0409D9ED1BCA97BC00B659B8 /* XHContact.m in Sources */,
 				0409D9DE1BCA97BC00B659B8 /* XHDisplayLocationViewController.m in Sources */,
@@ -4398,11 +4540,11 @@
 				342462381C00148B00755C09 /* CDEntryBaseVC.m in Sources */,
 				0409D9E21BCA97BC00B659B8 /* XHCacheManager.m in Sources */,
 				0409D9DF1BCA97BC00B659B8 /* XHDisplayMediaViewController.m in Sources */,
-				6667F2811C29831D003B5220 /* BSDoubleGameRecordController.m in Sources */,
 				345D36581B2D0BD0004C226A /* Util.m in Sources */,
 				342462291C00148B00755C09 /* CDBaseNavC.m in Sources */,
 				0409D9EA1BCA97BC00B659B8 /* XHVideoOutputSampleBufferFactory.m in Sources */,
 				345D363C1B2D0BD0004C226A /* GeneralUtil.m in Sources */,
+				66A6129F1C2C26D400A285B1 /* BSCircleRankingController.m in Sources */,
 				345D36441B2D0BD0004C226A /* NSObject+x.m in Sources */,
 				667EC7771C22B8460077F4CF /* BSGameRecordCell.m in Sources */,
 				0409DA0D1BCA97BC00B659B8 /* XHBubblePhotoImageView.m in Sources */,
@@ -4422,8 +4564,9 @@
 				66F04CFC1C27ED2F003FE2FF /* BSBaseBusiness.m in Sources */,
 				0409DA191BCA97BC00B659B8 /* XHEmotionSectionBar.m in Sources */,
 				0409DA091BCA97BC00B659B8 /* XHSoundManager.m in Sources */,
-				667EC7681C22B8460077F4CF /* BSAddGameRecordController.m in Sources */,
 				0409D9C21BCA97BC00B659B8 /* LZConversationCell.m in Sources */,
+				66E721841C2CEAB6005240E7 /* BSTimeLineCell.m in Sources */,
+				66E721801C2CE9F7005240E7 /* BSTLLayout.m in Sources */,
 				0409DA1B1BCA97BC00B659B8 /* XHLoadMoreView.m in Sources */,
 				345417E31C15BDBF0030E990 /* BaseTableViewController.m in Sources */,
 				345D36401B2D0BD0004C226A /* NSDictionary+x.m in Sources */,
@@ -4439,10 +4582,10 @@
 				342462A71C00148B00755C09 /* CDEntryBottomButton.m in Sources */,
 				0409D9B71BCA97BC00B659B8 /* CDChatRoomVC.m in Sources */,
 				0409DA181BCA97BC00B659B8 /* XHEmotionManagerView.m in Sources */,
+				66E51B2C1C2AF4800057773F /* BSAboutUsViewController.m in Sources */,
 				342462AF1C00148B00755C09 /* CDResizableButton.m in Sources */,
 				345417EC1C15DE850030E990 /* BSGameTipModel.m in Sources */,
 				66ABD18B1C1D209500777A46 /* BSSelectTeamController.m in Sources */,
-				66E4911F1C26864000EF332A /* BSChooseTeamPlayerController.m in Sources */,
 				0409DA001BCA97BC00B659B8 /* SETextMagnifierCaret.m in Sources */,
 				345D36411B2D0BD0004C226A /* NSFileManager+x.m in Sources */,
 				0409D9C31BCA97BC00B659B8 /* LZStatusView.m in Sources */,
@@ -4450,6 +4593,7 @@
 				345D36501B2D0BD0004C226A /* ColorName.m in Sources */,
 				667EC7071C21BEBC0077F4CF /* BSProfileBusiness.m in Sources */,
 				0409D9E41BCA97BC00B659B8 /* XHHTTPClient.m in Sources */,
+				66F402E31C2C53EA00B5E555 /* BSCircleResultCell.m in Sources */,
 				34C34CE11C0DB81400B72AF9 /* BSELORankingModel.m in Sources */,
 				0409D9E31BCA97BC00B659B8 /* XHFileAttribute.m in Sources */,
 				340025DF1C19E1AB00E93215 /* BSTimeLineViewController.m in Sources */,
@@ -4461,7 +4605,6 @@
 				345417F81C15F3930030E990 /* BSSmashGIFViewController.m in Sources */,
 				66AEC6E91C26A6D300580E0B /* BSContactMainController.m in Sources */,
 				0409D9D51BCA97BC00B659B8 /* XHMessageBubbleHelper.m in Sources */,
-				667EC76B1C22B8460077F4CF /* BSGameRankController.m in Sources */,
 				345D36491B2D0BD0004C226A /* UIImage+x.m in Sources */,
 				349EF2271B3D10A0003A1C4E /* MBProgressHUD+ZH.m in Sources */,
 				0409DA1E1BCA97BC00B659B8 /* XHRefreshView.m in Sources */,
@@ -4479,6 +4622,7 @@
 				0409D9B81BCA97BC00B659B8 /* AVIMConversation+Custom.m in Sources */,
 				6667F2871C298DA3003B5220 /* BSBasePlayerRankingController.m in Sources */,
 				345417F51C15F0190030E990 /* BSMasterViewController.m in Sources */,
+				66A612A71C2C278E00A285B1 /* BSFriendsRankingController.m in Sources */,
 				342462301C00148B00755C09 /* CDConvsVC.m in Sources */,
 				66C74C4C1C25A968007E2D3F /* BSSelectSchoolController.m in Sources */,
 				0409D9C41BCA97BC00B659B8 /* NSString+MessageInputView.m in Sources */,
@@ -4488,6 +4632,7 @@
 				345D363F1B2D0BD0004C226A /* NSDate+x.m in Sources */,
 				342462CA1C00148B00755C09 /* BSNavigationController.m in Sources */,
 				0409D9E71BCA97BC00B659B8 /* XHMessageBubbleFactory.m in Sources */,
+				66E7217D1C2CE804005240E7 /* BSPicModel.m in Sources */,
 				342462B61C00148B00755C09 /* BSNearbyController.m in Sources */,
 				342462461C00148B00755C09 /* CDIMService.m in Sources */,
 				342462321C00148B00755C09 /* CDConvDetailVC.m in Sources */,
@@ -4500,6 +4645,7 @@
 				3424622B1C00148B00755C09 /* CDBaseTableVC.m in Sources */,
 				0409DA0C1BCA97BC00B659B8 /* XHBaseTableViewCell.m in Sources */,
 				342462441C00148B00755C09 /* CDUserInfoVC.m in Sources */,
+				66E7217A1C2CE279005240E7 /* BSBaseModel.m in Sources */,
 				66BA61C41C22BD01006A1DA9 /* BSConfig.m in Sources */,
 				342462451C00148B00755C09 /* CDCacheManager.m in Sources */,
 				345D364B1B2D0BD0004C226A /* UITableView+x.m in Sources */,
@@ -4509,14 +4655,12 @@
 				0409D9F51BCA97BC00B659B8 /* LKBadgeView.m in Sources */,
 				3424622E1C00148B00755C09 /* MCMutipleSectionTC.m in Sources */,
 				66C74C5B1C2676E0007E2D3F /* BSAddTeamController.m in Sources */,
-				667EC7691C22B8460077F4CF /* BSChoosePlayerViewController.m in Sources */,
 				0409D9E81BCA97BC00B659B8 /* XHMessageVideoConverPhotoFactory.m in Sources */,
 				342462331C00148B00755C09 /* CDConvNameVC.m in Sources */,
 				0409DA111BCA97BC00B659B8 /* XHMessageTableView.m in Sources */,
 				0409D9D21BCA97BC00B659B8 /* XHCaptureHelper.m in Sources */,
 				342462311C00148B00755C09 /* CDAddMemberVC.m in Sources */,
 				0409D9BA1BCA97BC00B659B8 /* CDChatManager.m in Sources */,
-				66C74C551C2662B5007E2D3F /* BSSetGameTypeController.m in Sources */,
 				667EC7341C22ABCF0077F4CF /* BSProfileUserModel.m in Sources */,
 				663D15341C24F61D00E2AA46 /* PAFFDatePickerDateModel.m in Sources */,
 				667EC7751C22B8460077F4CF /* BSConfirmGameCell.m in Sources */,
@@ -4529,6 +4673,7 @@
 				345D36541B2D0BD0004C226A /* RatingPromotor.m in Sources */,
 				345D36561B2D0BD0004C226A /* Toast.m in Sources */,
 				342462A61C00148B00755C09 /* CDEntryActionButton.m in Sources */,
+				66F402D81C2C408100B5E555 /* BSJionCircleViewController.m in Sources */,
 				0409D9DD1BCA97BC00B659B8 /* XHDisplayEmotionViewController.m in Sources */,
 				0409DA051BCA97BC00B659B8 /* XHImageViewer.m in Sources */,
 				0409D9C51BCA97BC00B659B8 /* NSString+XHDiskSizeTransfrom.m in Sources */,
@@ -4536,6 +4681,7 @@
 				0409D9EC1BCA97BC00B659B8 /* XHAnnotation.m in Sources */,
 				667EC6FD1C218ABA0077F4CF /* BSCommonTool.m in Sources */,
 				663D15441C25021300E2AA46 /* BSSelectGenderController.m in Sources */,
+				66A612A31C2C277700A285B1 /* BSSkyLadderViewController.m in Sources */,
 				3424622F1C00148B00755C09 /* CDChatVC.m in Sources */,
 				0409DA201BCA97BC00B659B8 /* UIImage+Icon.m in Sources */,
 				345D36421B2D0BD0004C226A /* NSNumber+x.m in Sources */,
@@ -4556,8 +4702,8 @@
 				0409D9DA1BCA97BC00B659B8 /* XHBaseTableViewController.m in Sources */,
 				342462CD1C00148B00755C09 /* BSBaseViewController.m in Sources */,
 				0409D9F71BCA97BC00B659B8 /* SEConstants.m in Sources */,
-				6667F28A1C2990B3003B5220 /* BSFriendsRankingController.m in Sources */,
 				667EC77B1C22B8460077F4CF /* BSRankHeader.m in Sources */,
+				66A612991C2C260600A285B1 /* BSChooseSinglePlayerController.m in Sources */,
 				0409DA161BCA97BC00B659B8 /* XHEmotionCollectionViewCell.m in Sources */,
 				66AEC6F31C26AA3200580E0B /* BSContactTableViewCell.m in Sources */,
 				0409DA141BCA97BC00B659B8 /* XHMessageTextView.m in Sources */,
@@ -4568,7 +4714,9 @@
 				0409D9F91BCA97BC00B659B8 /* SELinkText.m in Sources */,
 				340025DB1C19E18700E93215 /* YYTableViewCell.m in Sources */,
 				345D36511B2D0BD0004C226A /* ImageCache.m in Sources */,
+				66F402CE1C2C3A8300B5E555 /* BSCreateCircleController.m in Sources */,
 				667EC7731C22B8460077F4CF /* BSAddGameRecordCell.m in Sources */,
+				66A612971C2C260600A285B1 /* BSAddGameRecordController.m in Sources */,
 				0409DA081BCA97BC00B659B8 /* XHPathCover.m in Sources */,
 				0409D9E91BCA97BC00B659B8 /* XHMessageVoiceFactory.m in Sources */,
 				342462B01C00148B00755C09 /* CDSNSView.m in Sources */,
@@ -4584,7 +4732,6 @@
 				667EC7701C22B8460077F4CF /* BSGameModel.m in Sources */,
 				0409D9F81BCA97BC00B659B8 /* SELineLayout.m in Sources */,
 				342E69841C143C2300C0D60E /* BSGameGIFCollectionHeaderView.m in Sources */,
-				667EC76F1C22B8460077F4CF /* BSSkyLadderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

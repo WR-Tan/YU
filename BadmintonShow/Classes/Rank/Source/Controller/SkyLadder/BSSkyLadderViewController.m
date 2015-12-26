@@ -16,5 +16,10 @@
 
 @implementation BSSkyLadderViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"羽秀·天梯";
+}
+
 @end
 

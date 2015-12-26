@@ -85,8 +85,8 @@
     }
     
     // NavBar
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setting)];
-    self.navigationItem.rightBarButtonItem.tintColor = RGB(80, 80, 80);
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setting)];
+//    self.navigationItem.rightBarButtonItem.tintColor = RGB(80, 80, 80);
 }
 
 - (void)setting {
@@ -110,15 +110,12 @@
     //  附近
     BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);
     BSProfileModel *teamNearby = BSProfileModel(@"AliPay",@"附近球队",@"享受双打的乐趣",clasName);
-    BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"附近圈子",@"到组织,找高手",clasName);
+    BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"羽秀`圈子",@"到组织,找高手",clasName);
     [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
     
-    //  关于
-    BSProfileModel *about = BSProfileModel(@"AliPay",@"关于我们",nil,clasName);
-    BSProfileModel *feedBack = BSProfileModel(@"AliPay",@"意见反馈",nil,clasName);
-    BSProfileModel *praise = BSProfileModel(@"AliPay",@"给个好评",nil,clasName);
-    [_dataArr addObject:@[about,feedBack,praise]];
-    
+    BSProfileModel *setting = BSProfileModel(@"AliPay",@"设置",nil,@"BSSettingViewController");
+    [_dataArr addObject:@[setting]];
+     
     [self.tableView reloadData];
     
 }

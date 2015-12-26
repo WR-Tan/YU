@@ -76,4 +76,13 @@
 #define AVPropertyIsFollower    @"isFollower"
 #define AVPropertyIsFollowee    @"isFollowee"
 #define AVPropertyIsFriend      @"isFriend"
+
+
+#define AVPropertyCreateBy      @"createBy"
+#define AVPropertyText          @"text"
+
+
+#define AVPropertyCreator         @"creator"
+#define AVPropertyType         @"type"
+
 #endif /* AVObjectProperty_h */

@@ -11,6 +11,7 @@
 #import "BSDBManager.h"
 #import "BSTimeManager.h"
 #import "BSChatBuiness.h"
+#import "AVRelation.h"
 
 @implementation BSRankDataBusiness
 
@@ -34,6 +35,39 @@
 }
 
 
+
+#pragma mark - 圈子排名
+///========================================================================
+/// @name 圈子排名
+///========================================================================
+
++ (void)queryCircleRankDataCircleClass:(NSString *)cls property:(NSString *)property block:(BSArrayResultBlock)block {
+    
+    // query _User realtions to School
+    AVObject *SZU = [AVObject objectWithoutDataWithClassName:cls objectId:@"5672d77a60b2298f12177a17"];
+
+    AVQuery *rankQuery = [AVQuery queryWithClassName:AVClassUser];
+    [rankQuery whereKey:property equalTo:SZU];
+//    rankQuery.limit = 200 ;
+//    
+    [rankQuery addDescendingOrder:AVPropertyScore];
+    [rankQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            block(nil, error);
+            return ;
+        }
+        
+        AppTimeManager.lastSuccessRankRequestDate = [NSDate date];
+        
+        NSMutableArray *rankUsers = [ NSMutableArray array];
+        for (AVUser *user in objects) {
+            BSProfileUserModel *useModel = [BSProfileUserModel modelFromAVUser:user];
+            [rankUsers addObject:useModel];
+        }
+        [self saveRankUsers:rankUsers];
+        block(rankUsers,nil);
+    }];
+}
 
 
 #pragma mark - 天梯排名

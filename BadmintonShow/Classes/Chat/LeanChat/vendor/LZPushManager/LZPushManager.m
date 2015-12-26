@@ -40,6 +40,12 @@
     }
 }
 
+/**
+ *  @author lizhihua, 15-12-23 21:12:38
+ *  @brief 推送消息
+ *  @param message - MessageBody
+ *  @param userIds - Receiver's objectId
+ */
 - (void)pushMessage:(NSString *)message userIds:(NSArray *)userIds block:(AVBooleanResultBlock)block {
     AVPush *push = [[AVPush alloc] init];
     [push setChannels:userIds];

@@ -18,7 +18,7 @@
 #import "SVProgressHUD.h"
 
 
-@interface BSBasePlayerRankingController ()<UITableViewDelegate,UITableViewDataSource>
+@interface BSBasePlayerRankingController ()
 
 @end
 
@@ -47,6 +47,11 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
 
 
 - (void)constructTableView{
+    //  IOS7以上适配
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+
     //  TableView
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
@@ -54,37 +59,42 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
     if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.backgroundColor = kTableViewBackgroudColor;
     [self.view addSubview:self.tableView];
-    
-    if ( kSystemVersion < 7) {
-        self.tableView.top -= 64;
-        self.tableView.height += 20;
-    }
 }
 
 
 - (void)loadRankData{
+    
+    //  数据库查询1信息
+    [SVProgressHUD show];
     [BSRankDataBusiness queryAllRankUserWithBlock:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
             _rankArray = objects.mutableCopy;
             [self.tableView reloadData];
+            
+            //  数据库操作成功后，再去网络请求
+            [BSRankDataBusiness queryRankUserDataWithBlock:^(NSArray *objects, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SVProgressHUD dismiss];
+                });
+                
+                if (error) {
+                    [self.view addSubview:self.showErrorLabel];
+                    return ;
+                }
+                [self.showErrorLabel removeFromSuperview];
+                
+                _rankArray = objects.mutableCopy;
+                [self.tableView reloadData];
+            }];
         });
     }];
     
     
-    [BSRankDataBusiness queryRankUserDataWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            [self.view addSubview:self.showErrorLabel];
-            return ;
-        }
-        [self.showErrorLabel removeFromSuperview];
-        
-        _rankArray = objects.mutableCopy;
-        [self.tableView reloadData];
-    }];
+   
 }
 
 

@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSString *signatureString;
 @property (nonatomic, assign) BOOL isBubbleChatCtl;
 @property (nonatomic, assign) int tag;
+@property (nonatomic, assign) int limitCount;
+@property (nonatomic, copy) NSString *tipText;
 @property (nonatomic, weak) id <BSSetTextViewControllerDelegate> delegate;
 @end

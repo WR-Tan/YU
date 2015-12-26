@@ -113,7 +113,7 @@
 + (BOOL) validateMonth: (NSString *)month
 {
     BOOL flag;
-    if (!month.length == 2) {
+    if (!(month.length == 2)) {
         flag = NO;
         return flag;
     }
@@ -125,7 +125,7 @@
 + (BOOL) validateYear: (NSString *)year
 {
     BOOL flag;
-    if (!year.length == 2) {
+    if (!(year.length == 2)) {
         flag = NO;
         return flag;
     }
@@ -137,7 +137,7 @@
 + (BOOL) validateVerifyCode: (NSString *)verifyCode
 {
     BOOL flag;
-    if (!verifyCode.length == 6) {
+    if (!(verifyCode.length == 6)) {
         flag = NO;
         return flag;
     }

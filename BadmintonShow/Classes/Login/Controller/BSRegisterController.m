@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *verifyCodeTF;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UIButton *verifyCodeBtn;
-
+@property (strong, nonatomic) NSTimer *timer;
 @end
 
 @implementation BSRegisterController
@@ -30,6 +30,8 @@
     NSString *_password;
     BOOL      _didSendSmsCode;
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -56,6 +58,11 @@
     [self.verifyCodeBtn setBackgroundImage:loginImageHightlighted forState:UIControlStateHighlighted];
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
 #pragma mark - textField代理
 -(void)textFieldDidEndEditing:(UITextField *)textField{
 
@@ -66,7 +73,7 @@
 
 #pragma mark - 发送验证码
 - (IBAction)sendVerifyCode:(id)sender {
-    
+    [self.view endEditing:YES];
     
     NSString *phoneNum =  _phoneNumTF.text ;
     if (phoneNum.length != 11) {
@@ -80,12 +87,11 @@
         return;
     }
     
-    
     self.verifyCodeBtn.enabled = NO;
     
     NSString *originBtnTitle = [self.verifyCodeBtn titleForState:UIControlStateNormal];
     __block NSInteger second = 60;
-    [NSTimer scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
+   self.timer =  [NSTimer scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
         NSString *title = [NSString stringWithFormat:@"重新发送 %ld s",--second];
         [self.verifyCodeBtn setTitle:title forState:UIControlStateDisabled];
         if (second == 0) {
@@ -95,22 +101,17 @@
         }
     } repeats:YES];
     
-    return;
-    
     //发送验证码
     [AVOSCloud requestSmsCodeWithPhoneNumber:phoneNum callback:^(BOOL succeeded, NSError *error) {
-        
-        NSString *text ;
+        //  发送成功
         if ([error.localizedDescription rangeOfString:@"短信发送过于频繁"].length) {
-            text = @"短信发送过于频繁";
+            [MBProgressHUD showText:@"短信发送过于频繁" atView:self.view animated:YES];
         }else if(succeeded){
-            text = @"短信验证码已发送";
+            [MBProgressHUD showText:@"短信验证码已发送" atView:self.view animated:YES];
+            _didSendSmsCode = YES;
+        } else {
+            [MBProgressHUD showText:@"验证码发送失败" atView:self.view animated:YES];
         }
-        
-        [MBProgressHUD showText:text atView:self.view animated:YES];
-        _didSendSmsCode = YES;
-        
-        
     }];
 }
 
@@ -137,37 +138,49 @@
         return;
     }
     
-    BOOL isVerifyCodeNum = [RegularExpressionUtils validateMobile:_verifyCodeTF.text];
+    BOOL isVerifyCodeNum = [RegularExpressionUtils validateVerifyCode:_verifyCodeTF.text];
     if (!isVerifyCodeNum ) {
         [MBProgressHUD showText:@"验证码必须是数字" atView:self.view animated:YES];
         return;
     }
     
+    //
+   MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
+    
+    HUD.labelText = @"验证短信验证码...";
+    [HUD show:YES];
+//    [self verifyingCodingWithPhone:phoneNum code:smsCode ];
     
     //  2.1使用验证码注册用户。
     [AVUser signUpOrLoginWithMobilePhoneNumberInBackground:phoneNum smsCode:smsCode block:^(AVUser *user, NSError *error) {
-
-        NSLog(@"当前、缓存中的用户名：%@\n密码  %@ \n手机号 %@ \n用户本身:%@",user.username ,user.password,user.mobilePhoneNumber,user);
         
-        //跳转到下个页面修改用户名和密码
-        BSRegisterUserNameController *userNameVC = [[BSRegisterUserNameController alloc] init];
-        userNameVC.tempPassword = user.password;
-        [self.navigationController pushViewController:userNameVC animated:YES];
-        return;
-
+        [HUD hide:YES];
+        if (user) {
+            //跳转到下个页面修改用户名和密码
+            BSRegisterUserNameController *userNameVC = [[BSRegisterUserNameController alloc] init];
+            userNameVC.tempPassword = user.password;
+            [self.navigationController pushViewController:userNameVC animated:YES];
+            return ;
+        }
+        [MBProgressHUD showText:error.localizedDescription atView:self.view animated:YES];
     }];
 }
 
+- (void)verifyingCodingWithPhone:(NSString *)phoneNum code:(NSString *)code hud:(MBProgressHUD *)hud {
+  
+}
 
 
 
 
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }
 
+- (void)dealloc {
+    [self.timer fire];
+    self.timer = nil;
+}
 
 @end
