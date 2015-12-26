@@ -14,6 +14,15 @@
 #import <Foundation/Foundation.h>
 #import "AVUser.h"
 
+/// 认证方式
+typedef NS_ENUM(NSUInteger, BSUserVerifyType){
+    BSUserVerifyTypeNone = 0,     ///< 没有认证
+    BSUserVerifyTypeStandard,     ///< 个人认证，黄V
+    BSUserVerifyTypeOrganization, ///< 官方认证，蓝V
+    BSUserVerifyTypeClub,         ///< 达人认证，红星
+};
+
+
 @interface BSProfileUserModel : NSObject
 
 #define ShareInstance  [BSProfileUserModel instance]
@@ -52,6 +61,8 @@
 @property (nonatomic, copy) NSString *job;
 
 @property (nonatomic, copy) NSString *desc;
+
+@property (nonatomic, assign) BSUserVerifyType userVerifyType;
 
 
 

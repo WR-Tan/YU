@@ -522,8 +522,13 @@
 		663D154B1C2538D500E2AA46 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 663D154A1C2538D500E2AA46 /* address.plist */; };
 		663D15501C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D154D1C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m */; };
 		663D15511C253AF400E2AA46 /* PAFFCustomModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D154F1C253AF400E2AA46 /* PAFFCustomModalView.m */; };
+		665570DF1C2E4F9000FA6BD5 /* T1StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570DE1C2E4F9000FA6BD5 /* T1StatusCell.m */; };
+		665570E61C2EE62300FA6BD5 /* BSStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E11C2EE62300FA6BD5 /* BSStatusCell.m */; };
+		665570E71C2EE62300FA6BD5 /* BSStatusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E31C2EE62300FA6BD5 /* BSStatusHelper.m */; };
+		665570E81C2EE62300FA6BD5 /* BSStatusLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */; };
 		6667F2871C298DA3003B5220 /* BSBasePlayerRankingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */; };
 		66724D441C2075F500DC2A7D /* BSProfileEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66724D431C2075F500DC2A7D /* BSProfileEditCell.m */; };
+		667250971C2E44F7006DABB4 /* BSTLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 667250961C2E44F7006DABB4 /* BSTLHelper.m */; };
 		6675D66B1C1F00D300C10DCA /* BSProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675D6641C1F00D300C10DCA /* BSProfileController.m */; };
 		6675D66D1C1F00D300C10DCA /* BSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675D6681C1F00D300C10DCA /* BSProfileViewController.m */; };
 		6675D6701C1F010F00C10DCA /* BSMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675D66F1C1F010F00C10DCA /* BSMineHeaderView.m */; };
@@ -593,10 +598,7 @@
 		66E51B2C1C2AF4800057773F /* BSAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E51B2B1C2AF4800057773F /* BSAboutUsViewController.m */; };
 		66E721771C2CDEB0005240E7 /* BSTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721761C2CDEB0005240E7 /* BSTLModel.m */; };
 		66E7217A1C2CE279005240E7 /* BSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721791C2CE279005240E7 /* BSBaseModel.m */; };
-		66E7217D1C2CE804005240E7 /* BSPicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7217C1C2CE804005240E7 /* BSPicModel.m */; };
 		66E721801C2CE9F7005240E7 /* BSTLLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */; };
-		66E721841C2CEAB6005240E7 /* BSTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721821C2CEAB6005240E7 /* BSTimeLineCell.m */; };
-		66E721851C2CEAB6005240E7 /* BSTimeLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E721831C2CEAB6005240E7 /* BSTimeLineCell.xib */; };
 		66F04CF01C27D226003FE2FF /* BSSkyLadderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CEE1C27D225003FE2FF /* BSSkyLadderTableViewCell.m */; };
 		66F04CF11C27D226003FE2FF /* BSSkyLadderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F04CEF1C27D225003FE2FF /* BSSkyLadderTableViewCell.xib */; };
 		66F04CF41C27DC88003FE2FF /* BSSkyLadderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CF31C27DC88003FE2FF /* BSSkyLadderHeaderView.m */; };
@@ -1415,10 +1417,20 @@
 		663D154D1C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFFApplyCreditCardNormalEditCell.m; sourceTree = "<group>"; };
 		663D154E1C253AF400E2AA46 /* PAFFCustomModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFFCustomModalView.h; sourceTree = "<group>"; };
 		663D154F1C253AF400E2AA46 /* PAFFCustomModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAFFCustomModalView.m; sourceTree = "<group>"; };
+		665570DD1C2E4F9000FA6BD5 /* T1StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = T1StatusCell.h; path = ../Controller/T1StatusCell.h; sourceTree = "<group>"; };
+		665570DE1C2E4F9000FA6BD5 /* T1StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = T1StatusCell.m; path = ../Controller/T1StatusCell.m; sourceTree = "<group>"; };
+		665570E01C2EE62300FA6BD5 /* BSStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSStatusCell.h; sourceTree = "<group>"; };
+		665570E11C2EE62300FA6BD5 /* BSStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStatusCell.m; sourceTree = "<group>"; };
+		665570E21C2EE62300FA6BD5 /* BSStatusHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSStatusHelper.h; sourceTree = "<group>"; };
+		665570E31C2EE62300FA6BD5 /* BSStatusHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStatusHelper.m; sourceTree = "<group>"; };
+		665570E41C2EE62300FA6BD5 /* BSStatusLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSStatusLayout.h; sourceTree = "<group>"; };
+		665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStatusLayout.m; sourceTree = "<group>"; };
 		6667F2851C298DA3003B5220 /* BSBasePlayerRankingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBasePlayerRankingController.h; sourceTree = "<group>"; };
 		6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBasePlayerRankingController.m; sourceTree = "<group>"; };
 		66724D421C2075F500DC2A7D /* BSProfileEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileEditCell.h; sourceTree = "<group>"; };
 		66724D431C2075F500DC2A7D /* BSProfileEditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProfileEditCell.m; sourceTree = "<group>"; };
+		667250951C2E44F7006DABB4 /* BSTLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTLHelper.h; sourceTree = "<group>"; };
+		667250961C2E44F7006DABB4 /* BSTLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTLHelper.m; sourceTree = "<group>"; };
 		6675D6631C1F00D300C10DCA /* BSProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileController.h; sourceTree = "<group>"; };
 		6675D6641C1F00D300C10DCA /* BSProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSProfileController.m; sourceTree = "<group>"; };
 		6675D6671C1F00D300C10DCA /* BSProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileViewController.h; sourceTree = "<group>"; };
@@ -1552,13 +1564,8 @@
 		66E721761C2CDEB0005240E7 /* BSTLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTLModel.m; sourceTree = "<group>"; };
 		66E721781C2CE279005240E7 /* BSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseModel.h; sourceTree = "<group>"; };
 		66E721791C2CE279005240E7 /* BSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseModel.m; sourceTree = "<group>"; };
-		66E7217B1C2CE804005240E7 /* BSPicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPicModel.h; sourceTree = "<group>"; };
-		66E7217C1C2CE804005240E7 /* BSPicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPicModel.m; sourceTree = "<group>"; };
 		66E7217E1C2CE9F7005240E7 /* BSTLLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTLLayout.h; sourceTree = "<group>"; };
 		66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTLLayout.m; sourceTree = "<group>"; };
-		66E721811C2CEAB6005240E7 /* BSTimeLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTimeLineCell.h; sourceTree = "<group>"; };
-		66E721821C2CEAB6005240E7 /* BSTimeLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTimeLineCell.m; sourceTree = "<group>"; };
-		66E721831C2CEAB6005240E7 /* BSTimeLineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSTimeLineCell.xib; sourceTree = "<group>"; };
 		66F04CEC1C2795BC003FE2FF /* BSDBSQLString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSDBSQLString.h; sourceTree = "<group>"; };
 		66F04CED1C27D225003FE2FF /* BSSkyLadderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderTableViewCell.h; sourceTree = "<group>"; };
 		66F04CEE1C27D225003FE2FF /* BSSkyLadderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderTableViewCell.m; sourceTree = "<group>"; };
@@ -2451,9 +2458,12 @@
 			children = (
 				340025DD1C19E1AB00E93215 /* BSTimeLineViewController.h */,
 				340025DE1C19E1AB00E93215 /* BSTimeLineViewController.m */,
-				66E721811C2CEAB6005240E7 /* BSTimeLineCell.h */,
-				66E721821C2CEAB6005240E7 /* BSTimeLineCell.m */,
-				66E721831C2CEAB6005240E7 /* BSTimeLineCell.xib */,
+				665570E01C2EE62300FA6BD5 /* BSStatusCell.h */,
+				665570E11C2EE62300FA6BD5 /* BSStatusCell.m */,
+				665570E21C2EE62300FA6BD5 /* BSStatusHelper.h */,
+				665570E31C2EE62300FA6BD5 /* BSStatusHelper.m */,
+				665570E41C2EE62300FA6BD5 /* BSStatusLayout.h */,
+				665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3949,10 +3959,12 @@
 			children = (
 				66E721751C2CDEB0005240E7 /* BSTLModel.h */,
 				66E721761C2CDEB0005240E7 /* BSTLModel.m */,
-				66E7217B1C2CE804005240E7 /* BSPicModel.h */,
-				66E7217C1C2CE804005240E7 /* BSPicModel.m */,
 				66E7217E1C2CE9F7005240E7 /* BSTLLayout.h */,
 				66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */,
+				667250951C2E44F7006DABB4 /* BSTLHelper.h */,
+				667250961C2E44F7006DABB4 /* BSTLHelper.m */,
+				665570DD1C2E4F9000FA6BD5 /* T1StatusCell.h */,
+				665570DE1C2E4F9000FA6BD5 /* T1StatusCell.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4218,7 +4230,6 @@
 				0409DA821BCA97BC00B659B8 /* face_HL@2x.png in Resources */,
 				342462921C00148B00755C09 /* menu_add_friend@2x.png in Resources */,
 				0409DA851BCA97BC00B659B8 /* input-bar-background.png in Resources */,
-				66E721851C2CEAB6005240E7 /* BSTimeLineCell.xib in Resources */,
 				3424626C1C00148B00755C09 /* tusijia11.gif in Resources */,
 				0409DA8A1BCA97BC00B659B8 /* input-field-cover@2x.png in Resources */,
 				342462711C00148B00755C09 /* tusijia2.gif in Resources */,
@@ -4429,6 +4440,7 @@
 				0409DA041BCA97BC00B659B8 /* SETextView.m in Sources */,
 				0409DA1D1BCA97BC00B659B8 /* XHRefreshControl.m in Sources */,
 				663D15501C253AF400E2AA46 /* PAFFApplyCreditCardNormalEditCell.m in Sources */,
+				667250971C2E44F7006DABB4 /* BSTLHelper.m in Sources */,
 				66F04D071C2853DB003FE2FF /* BSCacheManager.m in Sources */,
 				66AEC6EC1C26A6E400580E0B /* BSContactResultsController.m in Sources */,
 				0409DA0E1BCA97BC00B659B8 /* XHMessageBubbleView.m in Sources */,
@@ -4538,6 +4550,7 @@
 				3424623A1C00148B00755C09 /* CDLoginVC.m in Sources */,
 				66AEC7071C26DBAF00580E0B /* BSFriendListViewController.m in Sources */,
 				342462381C00148B00755C09 /* CDEntryBaseVC.m in Sources */,
+				665570E81C2EE62300FA6BD5 /* BSStatusLayout.m in Sources */,
 				0409D9E21BCA97BC00B659B8 /* XHCacheManager.m in Sources */,
 				0409D9DF1BCA97BC00B659B8 /* XHDisplayMediaViewController.m in Sources */,
 				345D36581B2D0BD0004C226A /* Util.m in Sources */,
@@ -4565,7 +4578,7 @@
 				0409DA191BCA97BC00B659B8 /* XHEmotionSectionBar.m in Sources */,
 				0409DA091BCA97BC00B659B8 /* XHSoundManager.m in Sources */,
 				0409D9C21BCA97BC00B659B8 /* LZConversationCell.m in Sources */,
-				66E721841C2CEAB6005240E7 /* BSTimeLineCell.m in Sources */,
+				665570DF1C2E4F9000FA6BD5 /* T1StatusCell.m in Sources */,
 				66E721801C2CE9F7005240E7 /* BSTLLayout.m in Sources */,
 				0409DA1B1BCA97BC00B659B8 /* XHLoadMoreView.m in Sources */,
 				345417E31C15BDBF0030E990 /* BaseTableViewController.m in Sources */,
@@ -4625,6 +4638,7 @@
 				66A612A71C2C278E00A285B1 /* BSFriendsRankingController.m in Sources */,
 				342462301C00148B00755C09 /* CDConvsVC.m in Sources */,
 				66C74C4C1C25A968007E2D3F /* BSSelectSchoolController.m in Sources */,
+				665570E71C2EE62300FA6BD5 /* BSStatusHelper.m in Sources */,
 				0409D9C41BCA97BC00B659B8 /* NSString+MessageInputView.m in Sources */,
 				345D35D81B2D0B1A004C226A /* main.m in Sources */,
 				0409D9D91BCA97BC00B659B8 /* XHBaseNavigationController.m in Sources */,
@@ -4632,7 +4646,6 @@
 				345D363F1B2D0BD0004C226A /* NSDate+x.m in Sources */,
 				342462CA1C00148B00755C09 /* BSNavigationController.m in Sources */,
 				0409D9E71BCA97BC00B659B8 /* XHMessageBubbleFactory.m in Sources */,
-				66E7217D1C2CE804005240E7 /* BSPicModel.m in Sources */,
 				342462B61C00148B00755C09 /* BSNearbyController.m in Sources */,
 				342462461C00148B00755C09 /* CDIMService.m in Sources */,
 				342462321C00148B00755C09 /* CDConvDetailVC.m in Sources */,
@@ -4707,6 +4720,7 @@
 				0409DA161BCA97BC00B659B8 /* XHEmotionCollectionViewCell.m in Sources */,
 				66AEC6F31C26AA3200580E0B /* BSContactTableViewCell.m in Sources */,
 				0409DA141BCA97BC00B659B8 /* XHMessageTextView.m in Sources */,
+				665570E61C2EE62300FA6BD5 /* BSStatusCell.m in Sources */,
 				667EC6FA1C2188D30077F4CF /* BSSetTextViewController.m in Sources */,
 				667EC7711C22B8460077F4CF /* BSMatchModel.m in Sources */,
 				6675D66D1C1F00D300C10DCA /* BSProfileViewController.m in Sources */,

@@ -10,6 +10,19 @@
 
 #import "BSTLModel.h"
 
+@implementation BSTLMedia
+
++ (instancetype)modelWithAVFile:(AVFile *)image {
+    BSTLMedia  *model = [[BSTLMedia alloc] init];
+    model.objectId = image.objectId;
+    model.url = [NSURL URLWithString:image.url];
+    // size in metaData : (@"size" : (long)70048) ?
+    return  model;
+}
+
+@end
+
+
 @implementation BSTLModel
 
 + (BSTLModel *)modelWithAVObject:(AVObject *)object{
@@ -22,9 +35,16 @@
     model.user = [BSProfileUserModel modelFromAVUser: dict[@"user"]];
     
     model.text = dict[@"text"];
-    model.attitudesCount = [(NSNumber *)dict[@"attitudes_count"] unsignedIntegerValue];
+    model.favoriteCount = [(NSNumber *)dict[@"attitudes_count"] unsignedIntegerValue];
     model.commentsCount = [(NSNumber *)dict[@"comments_count"] unsignedIntegerValue];
-    model.pics = dict[@"pics"];
+    NSMutableArray *picM = [NSMutableArray array];
+    for (AVFile *image in dict[@"pics"]) {
+        BSTLMedia *picModel = [BSTLMedia modelWithAVFile:image];
+        if (picModel) {
+            [picM addObject:picModel];
+        }
+    }
+    model.medias = picM;
     
     return model;
 }
