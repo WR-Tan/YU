@@ -10,6 +10,73 @@
 
 #import "BSTLModel.h"
 
+
+@implementation BSEmoticon
++ (NSArray *)modelPropertyBlacklist {
+    return @[@"group"];
+}
+@end
+
+@implementation BSEmoticonGroup
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"groupID" : @"id",
+             @"nameCN" : @"group_name_cn",
+             @"nameEN" : @"group_name_en",
+             @"nameTW" : @"group_name_tw",
+             @"displayOnly" : @"display_only",
+             @"groupType" : @"group_type"};
+}
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"emoticons" : [BSEmoticon class]};
+}
+- (void)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    [_emoticons enumerateObjectsUsingBlock:^(BSEmoticon *emoticon, NSUInteger idx, BOOL *stop) {
+        emoticon.group = self;
+    }];
+}
+@end
+ 
+
+@implementation BSPictureMetadata
+
+@end
+
+
+@implementation BSPicture
+
+@end
+
+
+@implementation BSURL
+
+@end
+
+
+@implementation BSTopic
+
+@end
+
+@implementation BSTag
+
+@end
+
+@implementation BSButtonLink
+
+@end
+
+
+@implementation BSPageInfo
+
+@end
+
+
+
+@implementation BSStatusTitle
+
+@end
+
+
+/*------------------------------------------------------------------------*/
 @implementation BSTLMedia
 
 + (instancetype)modelWithAVFile:(AVFile *)image {

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BSCreateCircleTypeCell" rowHeight="128" id="KGk-i7-Jjw" customClass="BSCreateCircleTypeCell">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="115"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="114.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="私密圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIa-T1-itv">
+                        <rect key="frame" x="12" y="12" width="51" height="20.5"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="51m-g2-MvI"/>
+                            <constraint firstAttribute="width" constant="80" id="7Pr-ty-OeT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="51m-g2-MvI"/>
+                                <exclude reference="7Pr-ty-OeT"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        私密圈是朋友间的分享、竞赛的小圈，需要创建人才能添加其他玩家到圈子中。在这里友谊第一，比赛第二。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qj0-7p-Vtn">
+                        <rect key="frame" x="12" y="40" width="321" height="50.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="（只有创建人能添加其他玩家）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOp-YP-YJn">
+                        <rect key="frame" x="63" y="15" width="168" height="14.5"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="ThP-yK-XeE"/>
+                            <constraint firstAttribute="height" constant="30" id="eSt-iq-Exo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="eSt-iq-Exo"/>
+                                <exclude reference="ThP-yK-XeE"/>
+                            </mask>
+                        </variation>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="EOp-YP-YJn" firstAttribute="leading" secondItem="RIa-T1-itv" secondAttribute="trailing" id="0on-IJ-0OJ"/>
+                    <constraint firstItem="qj0-7p-Vtn" firstAttribute="top" secondItem="RIa-T1-itv" secondAttribute="bottom" constant="8" id="8Wi-G0-Nvg"/>
+                    <constraint firstAttribute="trailing" secondItem="qj0-7p-Vtn" secondAttribute="trailing" constant="12" id="PQ5-84-fax"/>
+                    <constraint firstItem="RIa-T1-itv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="bsT-ys-Cy7"/>
+                    <constraint firstItem="EOp-YP-YJn" firstAttribute="centerY" secondItem="RIa-T1-itv" secondAttribute="centerY" id="jrM-TL-Tpn"/>
+                    <constraint firstItem="qj0-7p-Vtn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="n0D-pK-zWd"/>
+                    <constraint firstItem="RIa-T1-itv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="vhs-Gc-6WI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="descLabel" destination="qj0-7p-Vtn" id="WAX-sq-yAG"/>
+                <outlet property="markLable" destination="EOp-YP-YJn" id="Lpd-5g-rLD"/>
+                <outlet property="nameLabel" destination="RIa-T1-itv" id="dCS-vR-3fF"/>
+            </connections>
+            <point key="canvasLocation" x="253.5" y="279"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -8,39 +8,84 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="185" id="KGk-i7-Jjw" customClass="BSCircleResultCell">
-            <rect key="frame" x="0.0" y="0.0" width="314" height="185"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BSCircleResultCell" rowHeight="105" id="KGk-i7-Jjw" customClass="BSCircleResultCell">
+            <rect key="frame" x="0.0" y="0.0" width="314" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="314" height="184.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="314" height="83.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R1M-mR-4y0">
-                        <rect key="frame" x="13" y="13" width="48" height="48"/>
+                        <rect key="frame" x="8" y="12" width="60" height="60"/>
                         <animations/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="48" id="JPZ-DG-Jaa"/>
-                            <constraint firstAttribute="width" constant="48" id="sCb-st-lYX"/>
+                            <constraint firstAttribute="height" constant="60" id="JPZ-DG-Jaa"/>
+                            <constraint firstAttribute="width" constant="60" id="sCb-st-lYX"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URz-pa-ciw">
-                        <rect key="frame" x="69" y="13" width="37.5" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="angleababy女神萌萌哒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URz-pa-ciw">
+                        <rect key="frame" x="76" y="12" width="228" height="19.5"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2999人" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37G-g2-Cr6" userLabel="peopleCount">
+                        <rect key="frame" x="78" y="34" width="45.5" height="15"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.073098971499999998" green="0.77073985550000002" blue="0.01704185884" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="8XT-2J-wAN"/>
+                            <constraint firstAttribute="height" constant="15" id="IR0-y2-mOW"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8XT-2J-wAN"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本群是angleababy杨颖的粉丝群，希望" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOP-9z-6ib">
+                        <rect key="frame" x="76" y="52" width="228" height="16"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
                 <constraints>
+                    <constraint firstItem="37G-g2-Cr6" firstAttribute="leading" secondItem="R1M-mR-4y0" secondAttribute="trailing" constant="10" id="1d5-2w-kti"/>
+                    <constraint firstItem="BOP-9z-6ib" firstAttribute="leading" secondItem="R1M-mR-4y0" secondAttribute="trailing" constant="8" id="6Uf-1H-sQY"/>
+                    <constraint firstItem="37G-g2-Cr6" firstAttribute="top" secondItem="URz-pa-ciw" secondAttribute="bottom" constant="3" id="9Ly-2T-wl2"/>
                     <constraint firstItem="URz-pa-ciw" firstAttribute="leading" secondItem="R1M-mR-4y0" secondAttribute="trailing" constant="8" id="AK7-Zg-5W5"/>
                     <constraint firstItem="R1M-mR-4y0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="E7S-Ch-UFh"/>
+                    <constraint firstItem="R1M-mR-4y0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="LcC-hQ-fzP"/>
+                    <constraint firstAttribute="trailing" secondItem="BOP-9z-6ib" secondAttribute="trailing" constant="10" id="Nh6-cD-Hvu"/>
+                    <constraint firstItem="R1M-mR-4y0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Pr3-HD-ajL"/>
                     <constraint firstItem="R1M-mR-4y0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="RGu-2s-Tf7"/>
+                    <constraint firstAttribute="trailing" secondItem="URz-pa-ciw" secondAttribute="trailing" constant="10" id="kch-mU-rjp"/>
+                    <constraint firstItem="BOP-9z-6ib" firstAttribute="top" secondItem="37G-g2-Cr6" secondAttribute="bottom" constant="3" id="oUi-h4-uit"/>
                     <constraint firstItem="URz-pa-ciw" firstAttribute="top" secondItem="R1M-mR-4y0" secondAttribute="top" id="pLX-m1-8as"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="E7S-Ch-UFh"/>
+                        <exclude reference="RGu-2s-Tf7"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <animations/>
-            <point key="canvasLocation" x="203" y="221.5"/>
+            <connections>
+                <outlet property="descLabel" destination="BOP-9z-6ib" id="Moj-GQ-hbi"/>
+                <outlet property="iconView" destination="R1M-mR-4y0" id="qlp-po-rA7"/>
+                <outlet property="nameLabel" destination="URz-pa-ciw" id="opg-nr-hBN"/>
+                <outlet property="peopleCountLabel" destination="37G-g2-Cr6" id="2NP-4g-Ftz"/>
+            </connections>
+            <point key="canvasLocation" x="203" y="181.5"/>
         </tableViewCell>
     </objects>
 </document>

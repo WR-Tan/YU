@@ -18,13 +18,23 @@ typedef NS_ENUM(NSUInteger, BSPictureBadgeType) {
     BSPictureBadgeTypeGIF,      ///< GIF
 };
 
-@class BSEmoticonGroup;
+//@class BSEmoticonGroup;
 
 typedef NS_ENUM(NSUInteger, BSEmoticonType) {
     BSEmoticonTypeImage = 0, ///< 图片表情
     BSEmoticonTypeEmoji = 1, ///< Emoji表情
 };
 
+@interface BSEmoticonGroup : NSObject
+@property (nonatomic, strong) NSString *groupID; ///< 例如 com.sina.default
+@property (nonatomic, assign) NSInteger version;
+@property (nonatomic, strong) NSString *nameCN; ///< 例如 浪小花
+@property (nonatomic, strong) NSString *nameEN;
+@property (nonatomic, strong) NSString *nameTW;
+@property (nonatomic, assign) NSInteger displayOnly;
+@property (nonatomic, assign) NSInteger groupType;
+@property (nonatomic, strong) NSArray *emoticons; ///< Array<BSEmoticon>
+@end
 
 @interface BSEmoticon : NSObject
 @property (nonatomic, strong) NSString *chs;  ///< 例如 [吃惊]
@@ -37,16 +47,7 @@ typedef NS_ENUM(NSUInteger, BSEmoticonType) {
 @end
 
 
-@interface BSEmoticonGroup : NSObject
-@property (nonatomic, strong) NSString *groupID; ///< 例如 com.sina.default
-@property (nonatomic, assign) NSInteger version;
-@property (nonatomic, strong) NSString *nameCN; ///< 例如 浪小花
-@property (nonatomic, strong) NSString *nameEN;
-@property (nonatomic, strong) NSString *nameTW;
-@property (nonatomic, assign) NSInteger displayOnly;
-@property (nonatomic, assign) NSInteger groupType;
-@property (nonatomic, strong) NSArray *emoticons; ///< Array<BSEmoticon>
-@end
+
 
 
 @interface BSTLMedia : BSBaseModel

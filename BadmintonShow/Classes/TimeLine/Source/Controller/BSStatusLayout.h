@@ -32,8 +32,8 @@
 // 字体 应该做成动态的，这里只是 Demo，临时写死了。
 #define kBSCellNameFontSize 16      // 名字字体大小
 #define kBSCellSourceFontSize 12    // 来源字体大小
-#define kBSCellTextFontSize 17      // 文本字体大小
-#define kBSCellTextFontRetweetSize 16 // 转发字体大小
+#define kBSCellTextFontSize 13      // 文本字体大小
+#define kBSCellTextFontRetweetSize 14 // 转发字体大小
 #define kBSCellCardTitleFontSize 16 // 卡片标题文本字体大小
 #define kBSCellCardDescFontSize 12 // 卡片描述文本字体大小
 #define kBSCellTitlebarFontSize 14 // 标题栏字体大小

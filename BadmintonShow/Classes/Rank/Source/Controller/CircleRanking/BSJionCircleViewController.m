@@ -8,6 +8,9 @@
 
 #import "BSJionCircleViewController.h"
 #import "BSCircleBusiness.h"
+#import "BSJionCircleCategoryCell.h"
+#import "BSCircleResultCell.h"
+#import "BSCircleDetailController.h"
 
 @interface BSJionCircleViewController () <UITableViewDelegate, UITableViewDataSource>{
     NSMutableArray *_circleTypeArrM;
@@ -18,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *circleResultTableView;
 
 @end
+
+static NSString *circleCategoryCellId = @"BSJionCircleCategoryCell";
+static NSString *circleResultCellId = @"BSCircleResultCell";
 
 @implementation BSJionCircleViewController
 
@@ -41,7 +47,11 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    // Do any additional setup after loading the view from its nib.
+    
+    self.circleTypeTableView.tableFooterView = [UIView new];
+    self.circleResultTableView.tableFooterView = [UIView new];
+    [self.circleTypeTableView registerNib:[UINib nibWithNibName:@"BSJionCircleCategoryCell" bundle:nil] forCellReuseIdentifier:circleCategoryCellId];
+     [self.circleResultTableView registerNib:[UINib nibWithNibName:@"BSCircleResultCell" bundle:nil] forCellReuseIdentifier:circleResultCellId];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -49,33 +59,34 @@
     if (tableView == self.circleTypeTableView) {
         return _circleTypeArrM.count;
     }
-    
+
     NSMutableArray *resultArr = _circleDict[_circleTypeArrM[_selectType]];
-    return resultArr.count;
+    return resultArr.count ? : 5; // avoding empty data
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return tableView == self.circleTypeTableView ? 44 : 84;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+       return tableView == self.circleTypeTableView ? @"分类" : nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return tableView == self.circleTypeTableView ? 35 : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (tableView == self.circleTypeTableView) {
-        static NSString *CellIdentifier = @"circleTitleCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.textLabel.text = _circleTypeArrM[indexPath.row];
-        cell.imageView.image = UIImageNamed(kDefaultUserAvatar);
+        BSJionCircleCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:circleCategoryCellId];
+        cell.titleLabel.text = _circleTypeArrM[indexPath.row];
+//        cell.imageView.image = UIImageNamed(kDefaultUserAvatar);
         return cell;
     } else {
-        static NSString *CellIdentifier = @"circleResultCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.textLabel.text = [@(indexPath.row) stringValue];
+
+        BSCircleResultCell *cell = [tableView dequeueReusableCellWithIdentifier:circleResultCellId];
+//        cell.textLabel.text = [@(indexPath.row) stringValue];
 
         return cell;
     }
@@ -86,6 +97,8 @@
     if (tableView == self.circleResultTableView) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
+        BSCircleDetailController *detailVC = [[BSCircleDetailController alloc] init];
+        [self.navigationController pushViewController:detailVC animated:YES];
         // 进入圈子主页
         return;
     }
@@ -94,6 +107,7 @@
     _selectType = indexPath.row;
    __block NSMutableArray *resultArr = _circleDict[_circleTypeArrM[indexPath.row]];
     [resultArr removeAllObjects];
+    self.title = _circleTypeArrM[indexPath.row];
     [BSCircleBusiness  queryCircleWithType:_circleTypeArrM[indexPath.row] block:^(NSArray *objects, NSError *error) {
         resultArr = objects.mutableCopy;
         [tableView reloadData];

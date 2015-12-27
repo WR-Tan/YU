@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = kBackgroudColor;
     
+    self.textField.placeholder = self.placeholder;
     self.navigationItem.rightBarButtonItem = [BSCommonTool createRightBarButtonItem:@"保存" target:self selector:@selector(backtohome) ImageName:@""];
     UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:
               CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-49)];

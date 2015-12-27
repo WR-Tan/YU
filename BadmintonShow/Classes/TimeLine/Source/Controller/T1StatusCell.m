@@ -22,7 +22,7 @@
     self.layer.borderWidth = CGFloatFromPixel(1);
     
     NSMutableArray *imageViews = [NSMutableArray new];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 9; i++) {
         UIImageView *imageView = [UIImageView new];
         imageView.backgroundColor = [UIColor colorWithWhite:0.958 alpha:1.000];
         imageView.clipsToBounds = YES;
@@ -149,6 +149,10 @@
         default: break;
     }
 }
+
+#if 1 //  from weibo status
+
+#endif
 
 @end
 

@@ -38,6 +38,10 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     _tableView.frame = self.view.bounds;
+//    if (self.tabBarController.tabBar.isHidden == NO) {
+//        _tableView.height = _tableView.height - 44;
+//    }
+//    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
     _tableView.scrollIndicatorInsets = _tableView.contentInset;
     _tableView.backgroundColor = kTableViewBackgroudViewColor ;
     _tableView.tableFooterView = [UIView new];

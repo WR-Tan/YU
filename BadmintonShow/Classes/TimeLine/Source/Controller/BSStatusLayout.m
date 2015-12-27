@@ -402,25 +402,25 @@
     len1_3 = CGFloatPixelRound(len1_3);
     switch (status.medias.count) {
         case 1: {
-            BSPicture *pic = _status.medias.firstObject;
-            BSPictureMetadata *bmiddle = pic.bmiddle;
-            if (pic.keepSize || bmiddle.width < 1 || bmiddle.height < 1) {
+//            BSPicture *pic = _status.medias.firstObject;
+//            BSPictureMetadata *bmiddle = pic.bmiddle;
+//            if (pic.keepSize || bmiddle.width < 1 || bmiddle.height < 1) {
                 CGFloat maxLen = kBSCellContentWidth / 2.0;
                 maxLen = CGFloatPixelRound(maxLen);
                 picSize = CGSizeMake(maxLen, maxLen);
                 picHeight = maxLen;
-            } else {
-                CGFloat maxLen = len1_3 * 2 + kBSCellPaddingPic;
-                if (bmiddle.width < bmiddle.height) {
-                    picSize.width = (float)bmiddle.width / (float)bmiddle.height * maxLen;
-                    picSize.height = maxLen;
-                } else {
-                    picSize.width = maxLen;
-                    picSize.height = (float)bmiddle.height / (float)bmiddle.width * maxLen;
-                }
-                picSize = CGSizePixelRound(picSize);
-                picHeight = picSize.height;
-            }
+//            } else {
+//                CGFloat maxLen = len1_3 * 2 + kBSCellPaddingPic;
+//                if (bmiddle.width < bmiddle.height) {
+//                    picSize.width = (float)bmiddle.width / (float)bmiddle.height * maxLen;
+//                    picSize.height = maxLen;
+//                } else {
+//                    picSize.width = maxLen;
+//                    picSize.height = (float)bmiddle.height / (float)bmiddle.width * maxLen;
+//                }
+//                picSize = CGSizePixelRound(picSize);
+//                picHeight = picSize.height;
+//            }
         } break;
         case 2: case 3: {
             picSize = CGSizeMake(len1_3, len1_3);

@@ -101,11 +101,16 @@
     
     NSString *clasName = @"UIViewController";
     
+#if 0
     // 相册/收藏
     BSProfileModel *data = BSProfileModel(@"AliPay",@"我的数据",nil,clasName);
     BSProfileModel *team = BSProfileModel(@"AliPay",@"我的球队",nil,@"BSMyTeamsController");
     BSProfileModel *collection = BSProfileModel(@"AliPay",@"我的装备",nil,@"BSMyEquipmentViewController");
     [_dataArr addObject:@[data,team,collection]];
+#endif
+    
+    BSProfileModel *circle = BSProfileModel(@"AliPay",@"我的圈子",nil,nil);
+        [_dataArr addObject:@[circle]];
     
     //  附近
     BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);

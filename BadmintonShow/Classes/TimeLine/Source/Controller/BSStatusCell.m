@@ -291,19 +291,20 @@
     
     _repostButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _repostButton.exclusiveTouch = YES;
-    _repostButton.size = CGSizeMake(CGFloatPixelRound(self.width / 3.0), self.height);
+//    _repostButton.hidden = YES;
+    _repostButton.size = CGSizeMake(CGFloatPixelRound(self.width / 5.0 * 3.0), self.height);
     [_repostButton setBackgroundImage:[UIImage imageWithColor:kBSCellHighlightColor] forState:UIControlStateHighlighted];
     
     _commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _commentButton.exclusiveTouch = YES;
-    _commentButton.size = CGSizeMake(CGFloatPixelRound(self.width / 3.0), self.height);
-    _commentButton.left = CGFloatPixelRound(self.width / 3.0);
+    _commentButton.size = CGSizeMake(CGFloatPixelRound(self.width / 5.0), self.height);
+    _commentButton.left = _repostButton.right;//CGFloatPixelRound(self.width / 2.5);
     [_commentButton setBackgroundImage:[UIImage imageWithColor:kBSCellHighlightColor] forState:UIControlStateHighlighted];
     
     _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _likeButton.exclusiveTouch = YES;
-    _likeButton.size = CGSizeMake(CGFloatPixelRound(self.width / 3.0), self.height);
-    _likeButton.left = CGFloatPixelRound(self.width / 3.0 * 2.0);
+    _likeButton.size = CGSizeMake(CGFloatPixelRound(self.width / 5.0), self.height);
+    _likeButton.left = _commentButton.right;
     [_likeButton setBackgroundImage:[UIImage imageWithColor:kBSCellHighlightColor] forState:UIControlStateHighlighted];
     
     _repostImageView = [[UIImageView alloc] initWithImage:[BSStatusHelper imageNamed:@"timeline_icon_retweet"]];
@@ -334,6 +335,7 @@
     _commentLabel.ignoreCommonProperties = YES;
     _commentLabel.fadeOnHighlight = NO;
     _commentLabel.fadeOnAsynchronouslyDisplay = NO;
+    _commentLabel.font = [UIFont systemFontOfSize:10];
     [_commentButton addSubview:_commentLabel];
     
     _likeLabel = [YYLabel new];
@@ -344,8 +346,10 @@
     _likeLabel.ignoreCommonProperties = YES;
     _likeLabel.fadeOnHighlight = NO;
     _likeLabel.fadeOnAsynchronouslyDisplay = NO;
+    _likeLabel.font = [UIFont systemFontOfSize:10];
     [_likeButton addSubview:_likeLabel];
     
+ 
     UIColor *dark = [UIColor colorWithWhite:0 alpha:0.2];
     UIColor *clear = [UIColor colorWithWhite:0 alpha:0];
     NSArray *colors = @[(id)clear.CGColor,(id)dark.CGColor, (id)clear.CGColor];
@@ -868,52 +872,52 @@
             imageView.frame = (CGRect){.origin = origin, .size = picSize};
             imageView.hidden = NO;
             [imageView.layer removeAnimationForKey:@"contents"];
-            BSPicture *pic = pics[i];
+            BSTLMedia *pic = pics[i];
             
             UIView *badge = imageView.subviews.firstObject;
-            switch (pic.largest.badgeType) {
-                case BSPictureBadgeTypeNone: {
+//            switch (pic.largest.badgeType) {
+//                case BSPictureBadgeTypeNone: {
                     if (badge.layer.contents) {
                         badge.layer.contents = nil;
                         badge.hidden = YES;
                     }
-                } break;
-                case BSPictureBadgeTypeLong: {
-                    badge.layer.contents = (__bridge id)([BSStatusHelper imageNamed:@"timeline_image_longimage"].CGImage);
-                    badge.hidden = NO;
-                } break;
-                case BSPictureBadgeTypeGIF: {
-                    badge.layer.contents = (__bridge id)([BSStatusHelper imageNamed:@"timeline_image_gif"].CGImage);
-                    badge.hidden = NO;
-                } break;
-            }
+//                } break;
+//                case BSPictureBadgeTypeLong: {
+//                    badge.layer.contents = (__bridge id)([BSStatusHelper imageNamed:@"timeline_image_longimage"].CGImage);
+//                    badge.hidden = NO;
+//                } break;
+//                case BSPictureBadgeTypeGIF: {
+//                    badge.layer.contents = (__bridge id)([BSStatusHelper imageNamed:@"timeline_image_gif"].CGImage);
+//                    badge.hidden = NO;
+//                } break;
+//            }
             
             @weakify(imageView);
-            [imageView.layer setImageWithURL:pic.bmiddle.url
+            [imageView.layer setImageWithURL:pic.url
                                  placeholder:nil
                                      options:YYWebImageOptionAvoidSetImage
                                   completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
                 @strongify(imageView);
                 if (!imageView) return;
                 if (image && stage == YYWebImageStageFinished) {
-                    int width = pic.bmiddle.width;
-                    int height = pic.bmiddle.height;
-                    CGFloat scale = (height / width) / (imageView.height / imageView.width);
-                    if (scale < 0.99 || isnan(scale)) { // 宽图把左右两边裁掉
+//                    int width = pic.bmiddle.width;
+//                    int height = pic.bmiddle.height;
+//                    CGFloat scale = (height / width) / (imageView.height / imageView.width);
+//                    if (scale < 0.99 || isnan(scale)) { // 宽图把左右两边裁掉
                         imageView.contentMode = UIViewContentModeScaleAspectFill;
                         imageView.layer.contentsRect = CGRectMake(0, 0, 1, 1);
-                    } else { // 高图只保留顶部
-                        imageView.contentMode = UIViewContentModeScaleToFill;
-                        imageView.layer.contentsRect = CGRectMake(0, 0, 1, (float)width / height);
-                    }
+//                    } else { // 高图只保留顶部
+//                        imageView.contentMode = UIViewContentModeScaleToFill;
+//                        imageView.layer.contentsRect = CGRectMake(0, 0, 1, (float)width / height);
+//                    }
                     imageView.image = image;
-                    if (from != YYWebImageFromMemoryCacheFast) {
-                        CATransition *transition = [CATransition animation];
-                        transition.duration = 0.15;
-                        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-                        transition.type = kCATransitionFade;
-                        [imageView.layer addAnimation:transition forKey:@"contents"];
-                    }
+//                    if (from != YYWebImageFromMemoryCacheFast) {
+//                        CATransition *transition = [CATransition animation];
+//                        transition.duration = 0.15;
+//                        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+//                        transition.type = kCATransitionFade;
+//                        [imageView.layer addAnimation:transition forKey:@"contents"];
+//                    }
                 }
             }];
         }

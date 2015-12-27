@@ -18,11 +18,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sc0-DC-6v1">
-                    <rect key="frame" x="0.0" y="0.0" width="150" height="667"/>
+                    <rect key="frame" x="0.0" y="0.0" width="70" height="667"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="150" id="7vc-ih-Vm6"/>
+                        <constraint firstAttribute="width" constant="70" id="7vc-ih-Vm6"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="o0H-Ih-Nhr"/>
@@ -30,7 +30,7 @@
                     </connections>
                 </tableView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gts-vm-qWs">
-                    <rect key="frame" x="150" y="0.0" width="225" height="667"/>
+                    <rect key="frame" x="70" y="0.0" width="305" height="667"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -40,12 +40,15 @@
                 </tableView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.92704326923076918" green="0.92704326923076918" blue="0.92704326923076918" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="Gts-vm-qWs" firstAttribute="leading" secondItem="Sc0-DC-6v1" secondAttribute="trailing" constant="0.20000000000000001" id="2DM-Y3-0B5"/>
+                <constraint firstItem="Gts-vm-qWs" firstAttribute="leading" secondItem="Sc0-DC-6v1" secondAttribute="trailing" constant="0.5" id="AsN-7v-pQb"/>
                 <constraint firstItem="Gts-vm-qWs" firstAttribute="leading" secondItem="Sc0-DC-6v1" secondAttribute="trailing" id="BrD-ly-Hab"/>
                 <constraint firstItem="Gts-vm-qWs" firstAttribute="top" secondItem="Sc0-DC-6v1" secondAttribute="top" id="DEt-ji-Orx"/>
                 <constraint firstAttribute="bottom" secondItem="Sc0-DC-6v1" secondAttribute="bottom" id="Z8b-bv-tu1"/>
                 <constraint firstAttribute="bottom" secondItem="Gts-vm-qWs" secondAttribute="bottom" id="akc-Ux-9IB"/>
+                <constraint firstItem="Gts-vm-qWs" firstAttribute="leading" secondItem="Sc0-DC-6v1" secondAttribute="trailing" constant="0.40000000000000002" id="bj7-pE-9ls"/>
                 <constraint firstAttribute="trailing" secondItem="Gts-vm-qWs" secondAttribute="trailing" id="mDS-3c-Fnw"/>
                 <constraint firstItem="Sc0-DC-6v1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="njd-tm-jsc"/>
                 <constraint firstItem="Sc0-DC-6v1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wAi-te-FNd"/>
@@ -54,6 +57,9 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="2DM-Y3-0B5"/>
+                    <exclude reference="AsN-7v-pQb"/>
+                    <exclude reference="BrD-ly-Hab"/>
                     <exclude reference="yR6-RC-53G"/>
                 </mask>
             </variation>
