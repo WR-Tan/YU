@@ -15,5 +15,8 @@
 
 + (void)queryCircleWithType:(NSString *)typeString  block:(BSArrayResultBlock)block;
 
++ (NSDictionary *)circleCateogry;
+
++ (void)saveCircleWithName:(NSString *)name category:(NSString *)category isOpen:(BOOL)isOpen block:(BSBooleanResultBlock)block ;
 
 @end

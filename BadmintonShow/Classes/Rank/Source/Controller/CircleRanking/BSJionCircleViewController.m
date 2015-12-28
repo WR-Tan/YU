@@ -31,7 +31,7 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     self = [super init];
     if (self) {
        self = [self initWithNibName:@"BSJionCircleViewController" bundle:nil];
-        _circleTypeArrM  = @[@"学校",@"公司",@"城市",@"区域",@"小区",@"球会",@"其他"].mutableCopy;
+        _circleTypeArrM  = @[@"公司",@"学校",@"城市",@"区域",@"小区",@"球会",@"其他"].mutableCopy;
         _selectType = 0;
         _circleDict = [NSMutableDictionary dictionary];
         for (NSString *key in _circleTypeArrM) {
@@ -81,6 +81,7 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     if (tableView == self.circleTypeTableView) {
         BSJionCircleCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:circleCategoryCellId];
         cell.titleLabel.text = _circleTypeArrM[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 //        cell.imageView.image = UIImageNamed(kDefaultUserAvatar);
         return cell;
     } else {
@@ -110,7 +111,7 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     self.title = _circleTypeArrM[indexPath.row];
     [BSCircleBusiness  queryCircleWithType:_circleTypeArrM[indexPath.row] block:^(NSArray *objects, NSError *error) {
         resultArr = objects.mutableCopy;
-        [tableView reloadData];
+        [self.circleResultTableView reloadData];
     }];
 }
 

@@ -36,8 +36,10 @@
         self.title = @"羽秀";
         self.hidesBottomBarWhenPushed = NO;
         self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
-        _data = [@[@[@"比赛记录"],@[@"好友排名",@"圈子排名",@"羽秀天梯"],@[@"广场"]] mutableCopy];
-        _classArr = @[@[@"BSGameRecordController"],@[@"BSFriendsRankingController",@"BSCircleRankingController",@"BSSkyLadderViewController"],@[@"BSTimeLineViewController"]].mutableCopy;
+        _data = [@[@[@"比赛记录"],@[@"好友排名",@"圈子排名",@"羽秀天梯"]] mutableCopy];
+        _classArr = @[@[@"BSGameRecordController"],@[@"BSFriendsRankingController",@"BSCircleRankingController",@"BSSkyLadderViewController"]].mutableCopy;
+//        @[@"广场"]
+//        ,@[@"BSTimeLineViewController"]
         
     }
     return self;
@@ -66,7 +68,7 @@
     
     NSLog(@"kScreenHeight = %f",kScreenHeight);
     if (kScreenHeight <= 568) {
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 140, 0);
     }
 
 //    if ( kSystemVersion < 7) {   

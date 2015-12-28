@@ -6,8 +6,9 @@
 //  Copyright (c) 2015年 LZH. All rights reserved.
 //  我的
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
+#import "BSBaseTableViewController.h"
 
-@interface BSProfileController : UIViewController
+@interface BSProfileController : BSBaseTableViewController
 
 @end

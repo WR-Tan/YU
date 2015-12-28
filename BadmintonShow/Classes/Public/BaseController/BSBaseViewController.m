@@ -7,6 +7,7 @@
 //
 
 #import "BSBaseViewController.h"
+#import "SVProgressHUD.h"
 
 @interface BSBaseViewController ()
 
@@ -22,6 +23,11 @@
         self.view.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark ------警告信息------

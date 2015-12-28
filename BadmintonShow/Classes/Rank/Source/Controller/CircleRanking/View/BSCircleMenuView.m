@@ -16,14 +16,14 @@
 - (id)init{
     self = [[[NSBundle mainBundle] loadNibNamed:@"BSCircleMenuView" owner:nil options:nil] lastObject];
     self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.layer.borderWidth = 0.5f;
+    self.layer.borderWidth = 1.0f;
     return self;
 }
 
 + (BSCircleMenuView *)menuView {
     BSCircleMenuView *menuView = [[BSCircleMenuView alloc] init];
-    CGFloat width = 90;
-    CGFloat height = 70;
+    CGFloat width = 100;
+    CGFloat height = 80;
     CGFloat x = kScreenWidth - width - 5;
     CGFloat y = 5;
     menuView.frame = CGRectMake(x, y, width, height);

@@ -52,5 +52,6 @@ alpha:1.0]
 #define kUserAvatarImage  UIImageNamed(kBSAvatarPlaceHolder)
 
 typedef void (^BSArrayResultBlock)(NSArray *objects, NSError *error);
+typedef void (^BSBooleanResultBlock)(BOOL succeeded, NSError *error);
 
 #endif

@@ -54,6 +54,31 @@
 
 
 
++ (NSDictionary *)circleCateogry {
+    static NSDictionary *dict = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dict = @{@"公司":@"company",
+                 @"学校":@"school",
+                 @"城市":@"city",
+                 @"区域":@"district",
+                 @"小区":@"court",
+                 @"球会":@"club",
+                 @"其他":@"other"};
+    });
+    return dict;
+}
+
++ (void)saveCircleWithName:(NSString *)name category:(NSString *)category isOpen:(BOOL)isOpen block:(BSBooleanResultBlock)block {
+    AVObject *circle = [AVObject objectWithClassName:AVClassCircle];
+    [circle setObject:name forKey:AVPropertyName];
+    [circle setObject:category forKey:AVPropertyCategory];
+    [circle setObject:@(isOpen) forKey:AVPropertyOpen];
+    [circle saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+    }];
+}
+
 
 
 @end

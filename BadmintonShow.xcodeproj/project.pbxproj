@@ -526,11 +526,7 @@
 		665570E61C2EE62300FA6BD5 /* BSStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E11C2EE62300FA6BD5 /* BSStatusCell.m */; };
 		665570E71C2EE62300FA6BD5 /* BSStatusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E31C2EE62300FA6BD5 /* BSStatusHelper.m */; };
 		665570E81C2EE62300FA6BD5 /* BSStatusLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */; };
-		665577601C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6655775E1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.m */; };
-		665577611C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6655775F1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.xib */; };
 		665577651C2F04D000FA6BD5 /* BSCircleDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 665577631C2F04D000FA6BD5 /* BSCircleDetailController.m */; };
-		665577661C2F04D000FA6BD5 /* BSCircleDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 665577641C2F04D000FA6BD5 /* BSCircleDetailHeader.xib */; };
-		665577691C2F0DB900FA6BD5 /* BSCircleDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 665577681C2F0DB900FA6BD5 /* BSCircleDetailHeader.m */; };
 		66557CF81C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CF61C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png */; };
 		66557CF91C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CF71C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png */; };
 		66557CFC1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CFA1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png */; };
@@ -540,9 +536,18 @@
 		66557D041C2F9EA300FA6BD5 /* timeline_icon_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557D001C2F9EA300FA6BD5 /* timeline_icon_like@2x.png */; };
 		66557D051C2F9EA300FA6BD5 /* timeline_icon_like@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557D011C2F9EA300FA6BD5 /* timeline_icon_like@3x.png */; };
 		66557D081C2FAFDC00FA6BD5 /* BSCreateCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D071C2FAFDC00FA6BD5 /* BSCreateCircleController.m */; };
-		66557D0C1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D0A1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.m */; };
-		66557D0D1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66557D0B1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.xib */; };
 		66557D131C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D121C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m */; };
+		66557D241C2FD5D300FA6BD5 /* BSCircleDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D161C2FD5D300FA6BD5 /* BSCircleDetailHeader.m */; };
+		66557D251C2FD5D300FA6BD5 /* BSCircleDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66557D171C2FD5D300FA6BD5 /* BSCircleDetailHeader.xib */; };
+		66557D261C2FD5D300FA6BD5 /* BSCircleMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D191C2FD5D300FA6BD5 /* BSCircleMenuView.m */; };
+		66557D271C2FD5D300FA6BD5 /* BSCircleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66557D1A1C2FD5D300FA6BD5 /* BSCircleMenuView.xib */; };
+		66557D281C2FD5D300FA6BD5 /* BSCircleResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D1C1C2FD5D300FA6BD5 /* BSCircleResultCell.m */; };
+		66557D291C2FD5D300FA6BD5 /* BSCircleResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66557D1D1C2FD5D300FA6BD5 /* BSCircleResultCell.xib */; };
+		66557D2A1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D1F1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.m */; };
+		66557D2B1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66557D201C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.xib */; };
+		66557D2C1C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D221C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.m */; };
+		66557D2D1C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66557D231C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.xib */; };
+		66557D301C2FD63800FA6BD5 /* BSSelectCircleCategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D2F1C2FD63800FA6BD5 /* BSSelectCircleCategoryController.m */; };
 		6667F2871C298DA3003B5220 /* BSBasePlayerRankingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */; };
 		66724D441C2075F500DC2A7D /* BSProfileEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66724D431C2075F500DC2A7D /* BSProfileEditCell.m */; };
 		667250971C2E44F7006DABB4 /* BSTLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 667250961C2E44F7006DABB4 /* BSTLHelper.m */; };
@@ -629,14 +634,10 @@
 		66F402C41C2C2FD500B5E555 /* BSDoubleGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402BF1C2C2FD500B5E555 /* BSDoubleGameRecordController.m */; };
 		66F402C51C2C2FD500B5E555 /* BSGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402C11C2C2FD500B5E555 /* BSGameRecordController.m */; };
 		66F402C61C2C2FD500B5E555 /* BSSingleGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402C31C2C2FD500B5E555 /* BSSingleGameRecordController.m */; };
-		66F402C91C2C301E00B5E555 /* BSCircleMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402C81C2C301E00B5E555 /* BSCircleMenuView.m */; };
-		66F402CB1C2C303100B5E555 /* BSCircleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402CA1C2C303100B5E555 /* BSCircleMenuView.xib */; };
 		66F402D41C2C3F0C00B5E555 /* BSCircleBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402D31C2C3F0C00B5E555 /* BSCircleBusiness.m */; };
 		66F402D81C2C408100B5E555 /* BSJionCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */; };
 		66F402D91C2C408100B5E555 /* BSJionCircleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */; };
 		66F402DF1C2C507C00B5E555 /* BSCircelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402DE1C2C507C00B5E555 /* BSCircelModel.m */; };
-		66F402E31C2C53EA00B5E555 /* BSCircleResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402E11C2C53EA00B5E555 /* BSCircleResultCell.m */; };
-		66F402E41C2C53EA00B5E555 /* BSCircleResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402E21C2C53EA00B5E555 /* BSCircleResultCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1441,14 +1442,8 @@
 		665570E31C2EE62300FA6BD5 /* BSStatusHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStatusHelper.m; sourceTree = "<group>"; };
 		665570E41C2EE62300FA6BD5 /* BSStatusLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSStatusLayout.h; sourceTree = "<group>"; };
 		665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStatusLayout.m; sourceTree = "<group>"; };
-		6655775D1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSJionCircleCategoryCell.h; sourceTree = "<group>"; };
-		6655775E1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSJionCircleCategoryCell.m; sourceTree = "<group>"; };
-		6655775F1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSJionCircleCategoryCell.xib; sourceTree = "<group>"; };
 		665577621C2F04D000FA6BD5 /* BSCircleDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleDetailController.h; sourceTree = "<group>"; };
 		665577631C2F04D000FA6BD5 /* BSCircleDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleDetailController.m; sourceTree = "<group>"; };
-		665577641C2F04D000FA6BD5 /* BSCircleDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleDetailHeader.xib; sourceTree = "<group>"; };
-		665577671C2F0DB900FA6BD5 /* BSCircleDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleDetailHeader.h; sourceTree = "<group>"; };
-		665577681C2F0DB900FA6BD5 /* BSCircleDetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleDetailHeader.m; sourceTree = "<group>"; };
 		66557CF61C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_comment@2x.png"; sourceTree = "<group>"; };
 		66557CF71C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_comment@3x.png"; sourceTree = "<group>"; };
 		66557CFA1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_unlike@2x.png"; sourceTree = "<group>"; };
@@ -1459,11 +1454,25 @@
 		66557D011C2F9EA300FA6BD5 /* timeline_icon_like@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_like@3x.png"; sourceTree = "<group>"; };
 		66557D061C2FAFDC00FA6BD5 /* BSCreateCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCreateCircleController.h; sourceTree = "<group>"; };
 		66557D071C2FAFDC00FA6BD5 /* BSCreateCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCreateCircleController.m; sourceTree = "<group>"; };
-		66557D091C2FB01800FA6BD5 /* BSCreateCircleTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCreateCircleTypeCell.h; sourceTree = "<group>"; };
-		66557D0A1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCreateCircleTypeCell.m; sourceTree = "<group>"; };
-		66557D0B1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCreateCircleTypeCell.xib; sourceTree = "<group>"; };
 		66557D111C2FB4A200FA6BD5 /* BSSelectCircleTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSelectCircleTypeController.h; sourceTree = "<group>"; };
 		66557D121C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSelectCircleTypeController.m; sourceTree = "<group>"; };
+		66557D151C2FD5D300FA6BD5 /* BSCircleDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleDetailHeader.h; sourceTree = "<group>"; };
+		66557D161C2FD5D300FA6BD5 /* BSCircleDetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleDetailHeader.m; sourceTree = "<group>"; };
+		66557D171C2FD5D300FA6BD5 /* BSCircleDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleDetailHeader.xib; sourceTree = "<group>"; };
+		66557D181C2FD5D300FA6BD5 /* BSCircleMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleMenuView.h; sourceTree = "<group>"; };
+		66557D191C2FD5D300FA6BD5 /* BSCircleMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleMenuView.m; sourceTree = "<group>"; };
+		66557D1A1C2FD5D300FA6BD5 /* BSCircleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleMenuView.xib; sourceTree = "<group>"; };
+		66557D1B1C2FD5D300FA6BD5 /* BSCircleResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleResultCell.h; sourceTree = "<group>"; };
+		66557D1C1C2FD5D300FA6BD5 /* BSCircleResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleResultCell.m; sourceTree = "<group>"; };
+		66557D1D1C2FD5D300FA6BD5 /* BSCircleResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleResultCell.xib; sourceTree = "<group>"; };
+		66557D1E1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCreateCircleTypeCell.h; sourceTree = "<group>"; };
+		66557D1F1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCreateCircleTypeCell.m; sourceTree = "<group>"; };
+		66557D201C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCreateCircleTypeCell.xib; sourceTree = "<group>"; };
+		66557D211C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSJionCircleCategoryCell.h; sourceTree = "<group>"; };
+		66557D221C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSJionCircleCategoryCell.m; sourceTree = "<group>"; };
+		66557D231C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSJionCircleCategoryCell.xib; sourceTree = "<group>"; };
+		66557D2E1C2FD63800FA6BD5 /* BSSelectCircleCategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSelectCircleCategoryController.h; sourceTree = "<group>"; };
+		66557D2F1C2FD63800FA6BD5 /* BSSelectCircleCategoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSelectCircleCategoryController.m; sourceTree = "<group>"; };
 		6667F2851C298DA3003B5220 /* BSBasePlayerRankingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBasePlayerRankingController.h; sourceTree = "<group>"; };
 		6667F2861C298DA3003B5220 /* BSBasePlayerRankingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBasePlayerRankingController.m; sourceTree = "<group>"; };
 		66724D421C2075F500DC2A7D /* BSProfileEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSProfileEditCell.h; sourceTree = "<group>"; };
@@ -1629,9 +1638,6 @@
 		66F402C11C2C2FD500B5E555 /* BSGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSGameRecordController.m; sourceTree = "<group>"; };
 		66F402C21C2C2FD500B5E555 /* BSSingleGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSingleGameRecordController.h; sourceTree = "<group>"; };
 		66F402C31C2C2FD500B5E555 /* BSSingleGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSingleGameRecordController.m; sourceTree = "<group>"; };
-		66F402C71C2C301E00B5E555 /* BSCircleMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleMenuView.h; sourceTree = "<group>"; };
-		66F402C81C2C301E00B5E555 /* BSCircleMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleMenuView.m; sourceTree = "<group>"; };
-		66F402CA1C2C303100B5E555 /* BSCircleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleMenuView.xib; sourceTree = "<group>"; };
 		66F402D21C2C3F0C00B5E555 /* BSCircleBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleBusiness.h; sourceTree = "<group>"; };
 		66F402D31C2C3F0C00B5E555 /* BSCircleBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleBusiness.m; sourceTree = "<group>"; };
 		66F402D51C2C408100B5E555 /* BSJionCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSJionCircleViewController.h; sourceTree = "<group>"; };
@@ -1639,9 +1645,6 @@
 		66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSJionCircleViewController.xib; sourceTree = "<group>"; };
 		66F402DD1C2C507C00B5E555 /* BSCircelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircelModel.h; sourceTree = "<group>"; };
 		66F402DE1C2C507C00B5E555 /* BSCircelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircelModel.m; sourceTree = "<group>"; };
-		66F402E01C2C53EA00B5E555 /* BSCircleResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleResultCell.h; sourceTree = "<group>"; };
-		66F402E11C2C53EA00B5E555 /* BSCircleResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleResultCell.m; sourceTree = "<group>"; };
-		66F402E21C2C53EA00B5E555 /* BSCircleResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSCircleResultCell.xib; sourceTree = "<group>"; };
 		B188B1BC2BE8455C932E8A36 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D1945C8900BD47FAC5384220 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F04F77C79960B37F45D59C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3566,6 +3569,28 @@
 			path = AlertView;
 			sourceTree = "<group>";
 		};
+		66557D141C2FD5D300FA6BD5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				66557D151C2FD5D300FA6BD5 /* BSCircleDetailHeader.h */,
+				66557D161C2FD5D300FA6BD5 /* BSCircleDetailHeader.m */,
+				66557D171C2FD5D300FA6BD5 /* BSCircleDetailHeader.xib */,
+				66557D181C2FD5D300FA6BD5 /* BSCircleMenuView.h */,
+				66557D191C2FD5D300FA6BD5 /* BSCircleMenuView.m */,
+				66557D1A1C2FD5D300FA6BD5 /* BSCircleMenuView.xib */,
+				66557D1B1C2FD5D300FA6BD5 /* BSCircleResultCell.h */,
+				66557D1C1C2FD5D300FA6BD5 /* BSCircleResultCell.m */,
+				66557D1D1C2FD5D300FA6BD5 /* BSCircleResultCell.xib */,
+				66557D1E1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.h */,
+				66557D1F1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.m */,
+				66557D201C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.xib */,
+				66557D211C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.h */,
+				66557D221C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.m */,
+				66557D231C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6675D6581C1EFBCA00C10DCA /* ProfilesModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -3810,26 +3835,14 @@
 				66557D071C2FAFDC00FA6BD5 /* BSCreateCircleController.m */,
 				66557D111C2FB4A200FA6BD5 /* BSSelectCircleTypeController.h */,
 				66557D121C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m */,
-				66557D091C2FB01800FA6BD5 /* BSCreateCircleTypeCell.h */,
-				66557D0A1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.m */,
-				66557D0B1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.xib */,
+				66557D2E1C2FD63800FA6BD5 /* BSSelectCircleCategoryController.h */,
+				66557D2F1C2FD63800FA6BD5 /* BSSelectCircleCategoryController.m */,
 				66F402D51C2C408100B5E555 /* BSJionCircleViewController.h */,
 				66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */,
 				66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */,
 				665577621C2F04D000FA6BD5 /* BSCircleDetailController.h */,
 				665577631C2F04D000FA6BD5 /* BSCircleDetailController.m */,
-				665577671C2F0DB900FA6BD5 /* BSCircleDetailHeader.h */,
-				665577681C2F0DB900FA6BD5 /* BSCircleDetailHeader.m */,
-				665577641C2F04D000FA6BD5 /* BSCircleDetailHeader.xib */,
-				6655775D1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.h */,
-				6655775E1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.m */,
-				6655775F1C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.xib */,
-				66F402C71C2C301E00B5E555 /* BSCircleMenuView.h */,
-				66F402C81C2C301E00B5E555 /* BSCircleMenuView.m */,
-				66F402CA1C2C303100B5E555 /* BSCircleMenuView.xib */,
-				66F402E01C2C53EA00B5E555 /* BSCircleResultCell.h */,
-				66F402E11C2C53EA00B5E555 /* BSCircleResultCell.m */,
-				66F402E21C2C53EA00B5E555 /* BSCircleResultCell.xib */,
+				66557D141C2FD5D300FA6BD5 /* View */,
 			);
 			name = CircleRanking;
 			path = Controller/CircleRanking;
@@ -4147,7 +4160,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				665577661C2F04D000FA6BD5 /* BSCircleDetailHeader.xib in Resources */,
 				342462511C00148B00755C09 /* contact_IconAdd@2x.png in Resources */,
 				342462891C00148B00755C09 /* login_selected@2x.png in Resources */,
 				0409DA4F1BCA97BC00B659B8 /* rabbit_22.gif in Resources */,
@@ -4216,6 +4228,7 @@
 				0409DA871BCA97BC00B659B8 /* input-bar-flat.png in Resources */,
 				0409DA4B1BCA97BC00B659B8 /* rabbit_20.gif in Resources */,
 				342462981C00148B00755C09 /* new_friends_icon@2x.png in Resources */,
+				66557D251C2FD5D300FA6BD5 /* BSCircleDetailHeader.xib in Resources */,
 				0409DAB01BCA97BC00B659B8 /* sharemore_friendcard@2x.png in Resources */,
 				0409DA581BCA97BC00B659B8 /* rabbit_6.gif in Resources */,
 				0409DA6E1BCA97BC00B659B8 /* tusiji_15_cover@2x.png in Resources */,
@@ -4236,6 +4249,7 @@
 				3457AD0C1BB0739E00D3ACA6 /* user-green-128*128.png in Resources */,
 				0409DA751BCA97BC00B659B8 /* tusiji_4_cover@2x.png in Resources */,
 				0409DA591BCA97BC00B659B8 /* rabbit_6_cover@2x.png in Resources */,
+				66557D291C2FD5D300FA6BD5 /* BSCircleResultCell.xib in Resources */,
 				3487B2761B385ADB00BB9843 /* LinDan.jpg in Resources */,
 				0409DA671BCA97BC00B659B8 /* tusiji_12.gif in Resources */,
 				0409DA771BCA97BC00B659B8 /* tusiji_5_cover@2x.png in Resources */,
@@ -4303,7 +4317,6 @@
 				3424626A1C00148B00755C09 /* tusijia1.gif in Resources */,
 				0409DABC1BCA97BC00B659B8 /* VoiceBtn_Black@2x.png in Resources */,
 				0409DA341BCA97BC00B659B8 /* rabbit_1.gif in Resources */,
-				66F402CB1C2C303100B5E555 /* BSCircleMenuView.xib in Resources */,
 				0409DAA21BCA97BC00B659B8 /* RecordingSignal003@2x.png in Resources */,
 				0409DAA71BCA97BC00B659B8 /* RecordingSignal008@2x.png in Resources */,
 				342462781C00148B00755C09 /* tusijia9.gif in Resources */,
@@ -4343,6 +4356,7 @@
 				3424627F1C00148B00755C09 /* blue_expand_highlight@2x.png in Resources */,
 				0409DA611BCA97BC00B659B8 /* tusiji_0_cover@2x.png in Resources */,
 				0409DA531BCA97BC00B659B8 /* rabbit_3_cover@2x.png in Resources */,
+				66557D2B1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.xib in Resources */,
 				349B48BE1B36AFCD0016E02C /* 林丹.jpg in Resources */,
 				0409DA9C1BCA97BC00B659B8 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				0409DA931BCA97BC00B659B8 /* multiMedia@2x.png in Resources */,
@@ -4356,8 +4370,8 @@
 				0409DAAC1BCA97BC00B659B8 /* SenderVoiceNodePlaying001@2x.png in Resources */,
 				342462C31C00148B00755C09 /* BSRegisterWithPhoneController.xib in Resources */,
 				3424623E1C00148B00755C09 /* CDAddFriendVC.xib in Resources */,
+				66557D271C2FD5D300FA6BD5 /* BSCircleMenuView.xib in Resources */,
 				0409DAA51BCA97BC00B659B8 /* RecordingSignal006@2x.png in Resources */,
-				665577611C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.xib in Resources */,
 				0409DA831BCA97BC00B659B8 /* Fav_Cell_Loc@2x.png in Resources */,
 				34C490981B4821BB0009AE93 /* Hall.png in Resources */,
 				342462791C00148B00755C09 /* group_icon@2x.png in Resources */,
@@ -4371,7 +4385,6 @@
 				34CE470C1B39A6E000C1612F /* eye.png in Resources */,
 				342462501C00148B00755C09 /* contact_face_group_icon@2x.png in Resources */,
 				0409DA801BCA97BC00B659B8 /* MessageDisplayKitString.strings in Resources */,
-				66557D0D1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.xib in Resources */,
 				0409DABA1BCA97BC00B659B8 /* voice@2x.png in Resources */,
 				0409DA991BCA97BC00B659B8 /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				0409DA8F1BCA97BC00B659B8 /* MessageVideoPlay@2x.png in Resources */,
@@ -4385,6 +4398,7 @@
 				0409DAA61BCA97BC00B659B8 /* RecordingSignal007@2x.png in Resources */,
 				0409DAB31BCA97BC00B659B8 /* sharemore_openapi@2x.png in Resources */,
 				0409DAC01BCA97BC00B659B8 /* weChatBubble_Receiving_Solid@2x.png in Resources */,
+				66557D2D1C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.xib in Resources */,
 				0409DA281BCA97BC00B659B8 /* CellGraySelected@2x.png in Resources */,
 				342462C41C00148B00755C09 /* TemporaryViews.xib in Resources */,
 				0409DAC31BCA97BC00B659B8 /* weChatBubble_Sending_Solid@2x.png in Resources */,
@@ -4421,7 +4435,6 @@
 				0409DA6C1BCA97BC00B659B8 /* tusiji_14_cover@2x.png in Resources */,
 				0409DAB51BCA97BC00B659B8 /* sharemore_video@2x.png in Resources */,
 				0409DAAD1BCA97BC00B659B8 /* SenderVoiceNodePlaying002@2x.png in Resources */,
-				66F402E41C2C53EA00B5E555 /* BSCircleResultCell.xib in Resources */,
 				0409DA571BCA97BC00B659B8 /* rabbit_5_cover@2x.png in Resources */,
 				0409DA481BCA97BC00B659B8 /* rabbit_19_cover@2x.png in Resources */,
 				0409DA741BCA97BC00B659B8 /* tusiji_4.gif in Resources */,
@@ -4548,9 +4561,9 @@
 				342462AA1C00148B00755C09 /* CDLabelButtonTableCell.m in Sources */,
 				66557D131C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m in Sources */,
 				0409D9C01BCA97BC00B659B8 /* Emoji.m in Sources */,
+				66557D2C1C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.m in Sources */,
 				6675D6761C1F065C00C10DCA /* BSProfileCell.m in Sources */,
 				342462BC1C00148B00755C09 /* BSLoginController.m in Sources */,
-				66F402C91C2C301E00B5E555 /* BSCircleMenuView.m in Sources */,
 				667EC70D1C21C0710077F4CF /* BSUserModel.m in Sources */,
 				342462BE1C00148B00755C09 /* BSRegisterUserNameController.m in Sources */,
 				0409D9CA1BCA97BC00B659B8 /* UIImage+RoundedCorner.m in Sources */,
@@ -4559,6 +4572,7 @@
 				6675D6701C1F010F00C10DCA /* BSMineHeaderView.m in Sources */,
 				66BA62EF1C22CE10006A1DA9 /* BSUserDefaultStorage.m in Sources */,
 				345D36551B2D0BD0004C226A /* SenseSwitcher.m in Sources */,
+				66557D301C2FD63800FA6BD5 /* BSSelectCircleCategoryController.m in Sources */,
 				342462CC1C00148B00755C09 /* BSBaseTableViewController.m in Sources */,
 				667EC76E1C22B8460077F4CF /* BSRankController.m in Sources */,
 				345D36431B2D0BD0004C226A /* NSObject+Description.m in Sources */,
@@ -4592,16 +4606,16 @@
 				0409DA171BCA97BC00B659B8 /* XHEmotionCollectionViewFlowLayout.m in Sources */,
 				66E721771C2CDEB0005240E7 /* BSTLModel.m in Sources */,
 				0409D9C61BCA97BC00B659B8 /* NSString+XHMD5.m in Sources */,
-				66557D0C1C2FB01800FA6BD5 /* BSCreateCircleTypeCell.m in Sources */,
+				66557D2A1C2FD5D300FA6BD5 /* BSCreateCircleTypeCell.m in Sources */,
 				342462481C00148B00755C09 /* CDUtils.m in Sources */,
 				3424624C1C00148B00755C09 /* CDAddRequest.m in Sources */,
 				0409D9CB1BCA97BC00B659B8 /* UIImage+Utility.m in Sources */,
 				66F402DF1C2C507C00B5E555 /* BSCircelModel.m in Sources */,
 				0409D9D81BCA97BC00B659B8 /* XHVoiceRecordHelper.m in Sources */,
 				66F402C61C2C2FD500B5E555 /* BSSingleGameRecordController.m in Sources */,
+				66557D261C2FD5D300FA6BD5 /* BSCircleMenuView.m in Sources */,
 				3424623B1C00148B00755C09 /* CDPhoneRegisterVC.m in Sources */,
 				0409D9ED1BCA97BC00B659B8 /* XHContact.m in Sources */,
-				665577601C2EFCB700FA6BD5 /* BSJionCircleCategoryCell.m in Sources */,
 				0409D9DE1BCA97BC00B659B8 /* XHDisplayLocationViewController.m in Sources */,
 				04C08E831BD1F86E00385888 /* UserDefaultManager.m in Sources */,
 				344247531C149C7200BBC194 /* BSGameGIFCollectionSectionFooterView.m in Sources */,
@@ -4659,7 +4673,6 @@
 				340025D71C19E18700E93215 /* YYFPSLabel.m in Sources */,
 				345D365A1B2D0BD0004C226A /* WWView.m in Sources */,
 				0409D9B91BCA97BC00B659B8 /* AVIMEmotionMessage.m in Sources */,
-				665577691C2F0DB900FA6BD5 /* BSCircleDetailHeader.m in Sources */,
 				345D36461B2D0BD0004C226A /* UIAlertView+x.m in Sources */,
 				344D01781C17417C000B8DD6 /* ChildViewController.m in Sources */,
 				345D36471B2D0BD0004C226A /* UIButton+TM.m in Sources */,
@@ -4680,7 +4693,6 @@
 				345D36501B2D0BD0004C226A /* ColorName.m in Sources */,
 				667EC7071C21BEBC0077F4CF /* BSProfileBusiness.m in Sources */,
 				0409D9E41BCA97BC00B659B8 /* XHHTTPClient.m in Sources */,
-				66F402E31C2C53EA00B5E555 /* BSCircleResultCell.m in Sources */,
 				34C34CE11C0DB81400B72AF9 /* BSELORankingModel.m in Sources */,
 				0409D9E31BCA97BC00B659B8 /* XHFileAttribute.m in Sources */,
 				340025DF1C19E1AB00E93215 /* BSTimeLineViewController.m in Sources */,
@@ -4720,6 +4732,7 @@
 				345D363F1B2D0BD0004C226A /* NSDate+x.m in Sources */,
 				342462CA1C00148B00755C09 /* BSNavigationController.m in Sources */,
 				0409D9E71BCA97BC00B659B8 /* XHMessageBubbleFactory.m in Sources */,
+				66557D281C2FD5D300FA6BD5 /* BSCircleResultCell.m in Sources */,
 				342462B61C00148B00755C09 /* BSNearbyController.m in Sources */,
 				342462461C00148B00755C09 /* CDIMService.m in Sources */,
 				342462321C00148B00755C09 /* CDConvDetailVC.m in Sources */,
@@ -4807,6 +4820,7 @@
 				66A612971C2C260600A285B1 /* BSAddGameRecordController.m in Sources */,
 				0409DA081BCA97BC00B659B8 /* XHPathCover.m in Sources */,
 				0409D9E91BCA97BC00B659B8 /* XHMessageVoiceFactory.m in Sources */,
+				66557D241C2FD5D300FA6BD5 /* BSCircleDetailHeader.m in Sources */,
 				342462B01C00148B00755C09 /* CDSNSView.m in Sources */,
 				0409D9D31BCA97BC00B659B8 /* XHFoundationCommon.m in Sources */,
 				0409DA0B1BCA97BC00B659B8 /* XHBaseCollectionViewCell.m in Sources */,

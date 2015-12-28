@@ -57,30 +57,9 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self constructBaseView];
-    [self getUserInfoFromNet];
-}
-
-- (void)constructBaseView{
     self.title = @"个人信息";
-    
-    //  TableView
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-    self.tableView.backgroundColor = kTableViewBackgroudColor;
-    [self.view addSubview:self.tableView];
-    
-    if ( kSystemVersion < 7) {
-        self.tableView.top -= 64;
-        self.tableView.height += 20;
-    }
+    [super viewDidLoad];
+    [self getUserInfoFromNet];
 }
 
 - (void)getUserInfoFromNet{
@@ -157,7 +136,7 @@
 #pragma mark Section Header
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return section ? 20 : 0.1;
+    return 20;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

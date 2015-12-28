@@ -7,7 +7,7 @@
 //
 
 #import "BSSkyLadderViewController.h"
-
+#import "SVProgressHUD.h"
 
 @interface BSSkyLadderViewController ()
 
@@ -15,6 +15,12 @@
 @end
 
 @implementation BSSkyLadderViewController
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

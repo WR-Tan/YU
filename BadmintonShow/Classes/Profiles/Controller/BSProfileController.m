@@ -26,7 +26,8 @@
 #import "BSMyTeamsController.h"
 #import "BSSettingViewController.h"
 
-@interface BSProfileController ()<UITableViewDelegate,UITableViewDataSource,BSProfileEditViewControllerDelegate>
+@interface BSProfileController ()<BSProfileEditViewControllerDelegate>
+//UITableViewDelegate,UITableViewDataSource,
 @property (strong, nonatomic) UITableView *tableView;
 @end
 
@@ -51,43 +52,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createData];
-    [self constructBaseView];
+
     [self getUserData];
 }
 
 //- (void)viewWillAppear:(BOOL)animated {
 //    [super viewWillAppear:animated];
 //    self.navigationController.navigationBar.hidden = YES ;
-//
 //}
 //
 //- (void)viewWillDisappear:(BOOL)animated {
 //    [super viewWillDisappear:animated];
 //    self.navigationController.navigationBar.hidden = NO ;
 //}
-
-- (void)constructBaseView{
-    //  TableView
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 49, 0);
-    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-    self.tableView.backgroundColor = kTableViewBackgroudColor;
-    [self.view addSubview:self.tableView];
-    
-    if ( kSystemVersion < 7) {
-        self.tableView.top -= 64;
-        self.tableView.height += 20;
-    }
-    
-    // NavBar
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setting)];
-//    self.navigationItem.rightBarButtonItem.tintColor = RGB(80, 80, 80);
-}
 
 - (void)setting {
     BSSettingViewController *setting = [[BSSettingViewController alloc] init];
@@ -113,11 +90,13 @@
         [_dataArr addObject:@[circle]];
     
     //  附近
+#if 0
     BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);
     BSProfileModel *teamNearby = BSProfileModel(@"AliPay",@"附近球队",@"享受双打的乐趣",clasName);
     BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"羽秀`圈子",@"到组织,找高手",clasName);
     [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
-    
+#endif
+
     BSProfileModel *setting = BSProfileModel(@"AliPay",@"设置",nil,@"BSSettingViewController");
     [_dataArr addObject:@[setting]];
      

@@ -213,7 +213,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return  250 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
+    return  270 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

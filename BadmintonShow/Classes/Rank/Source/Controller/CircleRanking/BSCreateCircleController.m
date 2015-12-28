@@ -12,11 +12,14 @@
 #import "BSProfileCell.h"
 #import "BSSelectCircleTypeController.h"
 #import "BSSetTextFieldController.h"
+#import "BSSelectCircleCategoryController.h"
 #import "SVProgressHUD.h"
+#import "BSCircleBusiness.h"
+#import "BSCircleDetailController.h"
 
 static NSUInteger nameLengthLimit = 15;
 
-@interface BSCreateCircleController () <BSSelectCircleTypeControllerDelegate,BSSetTextFieldControllerDelegate> {
+@interface BSCreateCircleController () <BSSelectCircleTypeControllerDelegate,BSSetTextFieldControllerDelegate, BSSelectCircleCategoryControllerDelegate> {
 
     
     BOOL _isCircleOpen;
@@ -59,8 +62,52 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
     
     self.title = @"创建圈子";
     self.tableView.tableFooterView = [UIView new];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"创建" style:UIBarButtonItemStyleDone target:self action:@selector(complete)];
 }
 
+/// 完创建
+- (void)complete {
+    // 验证圈子数据完整性
+    if (![self validateCircleData]) return;
+    
+    [SVProgressHUD showWithStatus:@"创建中.."];
+    
+    _isCircleOpen = YES;
+    NSDictionary *categoryDict = [BSCircleBusiness circleCateogry];
+    NSString *circleCategory = categoryDict[_circleCategoryStr];
+    
+    [BSCircleBusiness saveCircleWithName:_circleNameStr category:circleCategory isOpen:_isCircleOpen block:^(BOOL succeeded, NSError *error) {
+       [SVProgressHUD dismiss];
+
+        if (succeeded) {
+            [SVProgressHUD showSuccessWithStatus:@"创建成功"];
+            BSCircleDetailController *detail =[[BSCircleDetailController alloc ] init];
+            [self.navigationController pushViewController:detail animated:YES];
+            return ;
+        }
+        
+        [SVProgressHUD showErrorWithStatus:@"创建失败..请检查网络并重试"];
+    }];
+}
+
+///  验证圈子数据
+- (BOOL)validateCircleData {
+    if ([_circleType isEqualToString:@"请选择圈子类型"]) {
+        [SVProgressHUD showInfoWithStatus:@"请选择圈子类型"];
+        return NO;
+    }
+    
+    if ([_circleCategoryStr isEqualToString:@"请选择圈子分类"]) {
+        [SVProgressHUD showInfoWithStatus:@"请选择圈子分类"];
+        return NO;
+    }
+    
+    if ([_circleNameStr isEqualToString:@"请给圈子取一个名字吧"]) {
+        [SVProgressHUD showInfoWithStatus:@"请给圈子取一个名字吧"];
+        return NO;
+    }
+    return YES;
+}
 
 #pragma mark Cell
 
@@ -70,7 +117,7 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 44;
 }
 
 
@@ -108,7 +155,8 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        BSSelectCircleTypeController *vc = [[BSSelectCircleTypeController alloc] init];vc.delegate = self;
+        BSSelectCircleTypeController *vc = [[BSSelectCircleTypeController alloc] init];
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
@@ -119,6 +167,14 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
         nameVC.placeholder = @"请输入圈子名称（至少2个字）";
         nameVC.delegate = self;
         [self.navigationController pushViewController:nameVC animated:YES];
+        return;
+    }
+    
+    if (indexPath.row == 1 && self.titleArr.count == 3) {
+        BSSelectCircleCategoryController *categoryVC = [[BSSelectCircleCategoryController alloc] init];
+        categoryVC.title = @"选择圈子分类";  //circleResultTableView
+        categoryVC.delegate = self;
+        [self.navigationController pushViewController:categoryVC animated:YES];
         return;
     }
 }
@@ -142,6 +198,10 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
 }
 
 
+- (void)didSelectCircleCategory:(NSString *)category {
+    _circleCategoryStr = category;
+    [self.tableView reloadData];
+}
 
 /*
  #pragma mark - Navigation

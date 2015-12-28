@@ -82,7 +82,10 @@
 #define AVPropertyText          @"text"
 
 
-#define AVPropertyCreator         @"creator"
-#define AVPropertyType         @"type"
+#define AVPropertyCreator       @"creator"
+#define AVPropertyType          @"type"
+
+#define AVPropertyCategory      @"category"
+#define AVPropertyOpen          @"open"
 
 #endif /* AVObjectProperty_h */

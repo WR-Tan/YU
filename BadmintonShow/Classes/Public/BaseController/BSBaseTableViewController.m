@@ -7,6 +7,7 @@
 //
 
 #import "BSBaseTableViewController.h"
+#import "SVProgressHUD.h"
 #import "YYTableView.h"
 #import "LeanChatLib.h"
 #import "YYKit.h"
@@ -27,6 +28,12 @@
     
     return self;
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
