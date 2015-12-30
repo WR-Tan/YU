@@ -26,7 +26,7 @@
 /// User 除了NSString和NSNumber，不放其他东西
 #define kDBSqlUserCreate @"CREATE TABLE IF NOT EXISTS '%@'('objectId' VARCHAR PRIMARY KEY NOT NULL UNIQUE,'avatarUrl' VARCHAR, 'nickName' VARCHAR,'userName' VARCHAR, 'yuxiuId' VARCHAR,'QRCode' VARCHAR,'genderStr' VARCHAR,'mbLevel' VARCHAR,'rankLevel' VARCHAR,'gender' VARCHAR,'height' VARCHAR,'weight' VARCHAR,'birthdayStr' VARCHAR,'nation' VARCHAR,'province' VARCHAR,'city' VARCHAR,'disctrit' VARCHAR,'school' VARCHAR,'accessSchoolTime' VARCHAR,'company' VARCHAR,'job' VARCHAR,'desc' VARCHAR,'score' NUMBER,'isFollower' NUMBER,'isFollowee' NUMBER,'isFriend' NUMBER)"
 
-#define kDBSqlUserInsertOrUpdate @"INSERT OR REPLACE INTO '%@' ('objectId','avatarUrl','nickName','userName','yuxiuId', 'QRCode', 'genderStr', 'mbLevel', 'rankLevel', 'gender', 'height', 'weight', 'birthdayStr', 'nation', 'province', 'city', 'disctrit', 'school', 'accessSchoolTime', 'company', 'job', 'desc','score') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+#define kDBSqlUserInsertOrUpdate @"INSERT OR REPLACE INTO '%@' ('objectId','avatarUrl','nickName','userName','yuxiuId', 'QRCode', 'genderStr', 'mbLevel', 'rankLevel', 'gender', 'height', 'weight', 'birthdayStr', 'nation', 'province', 'city', 'disctrit', 'school', 'accessSchoolTime', 'company', 'job', 'desc','score', 'isFollower', 'isFollowee', 'isFriend') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 #define kDBSqlSelectObject @"SELECT * FROM '%@' WHERE objectId = '%@'"
 #define kDBSqlSelectRankUser @"SELECT * FROM '%@'"  // ORDER BY score DESC -- 操作未完善

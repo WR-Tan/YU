@@ -40,7 +40,7 @@
     _icon.contentMode = UIViewContentModeScaleAspectFill;
     _icon.layer.borderColor = (__bridge CGColorRef)([UIColor purpleColor]);
     _icon.layer.borderWidth = 2;
-    [_icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:kUserAvatarImage];
+    [_icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:kImageUserAvatar];
     
     CGFloat labelWidth = 220 ;
     CGFloat placeholderWidth = 40 ;
@@ -50,7 +50,7 @@
     _nickNamePlaceholder.top = CGRectGetMaxY(_icon.frame) + kBSViewBorder;
     _nickNamePlaceholder.width = placeholderWidth ;
     _nickNamePlaceholder.height = labelHeight ;
-    _nickNamePlaceholder.text = @"昵称:";
+    _nickNamePlaceholder.text = @"名称:";
     
     CGFloat nameWidth  =  labelWidth;
     CGFloat nameHeight =  labelHeight;

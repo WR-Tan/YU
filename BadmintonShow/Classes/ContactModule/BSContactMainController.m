@@ -38,6 +38,17 @@
     self.definesPresentationContext = YES;
     
     [self fetchDataFromDB];
+    
+    [BSChatBuiness queryUserModelForFollowersAndFolloweeWithBlock:^(NSArray *objects, NSError *error) {
+        if (error && error.code != kAVErrorCacheMiss && error.code == kAVErrorInternalServer) {
+            
+        } else {
+            if (objects) {
+                self.contactsArr = objects.mutableCopy;
+                [self.tableView reloadData];
+            }
+        };
+    }];
 }
 
 

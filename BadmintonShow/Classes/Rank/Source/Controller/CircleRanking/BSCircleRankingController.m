@@ -12,34 +12,77 @@
 #import "BSCircleMenuView.h"
 #import "BSCreateCircleController.h"
 #import "BSJionCircleViewController.h"
+#import "BSSwitchCircleView.h"
 
-@interface BSCircleRankingController () <BSCircleMenuViewDelegate>
+@interface BSCircleRankingController () <BSCircleMenuViewDelegate, BSSwitchCircleViewDelegate>
 @property (nonatomic, strong) BSCircleMenuView *menuView;
+@property (nonatomic, strong) BSSwitchCircleView *switchView;
 @end
 
 @implementation BSCircleRankingController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.title = @"深圳大学";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(jionCircle)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(displayMenuOrNot)];
+    
+    @weakify(self);
+    UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [titleButton setTitle:@"SZU" forState:UIControlStateNormal];
+    [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    titleButton.frame = CGRectMake(0, 0, 80, 30);
+    [titleButton addTarget:self forControlEvents:UIControlEventTouchUpInside action:^(id sender) {
+        [weak_self displayCategoryOrNot];
+    }];
+    self.navigationItem.titleView = titleButton;
+    
+    // 获取用户加入了什么圈子.
+    
+}
+
+#pragma mark - 切换分类
+
+- (BSSwitchCircleView *)switchView {
+    if (!_switchView) {
+        _switchView = [BSSwitchCircleView switchView];
+        _switchView.delegate = self;
+    }
+    return _switchView;
+}
+
+- (void)displayCategoryOrNot{
+    if (self.menuView.superview == self.view) {
+        [self.menuView removeFromSuperview];
+    }
+    
+    if (self.switchView.superview == self.view) {
+        [self.switchView removeFromSuperview];
+    } else {
+        [self.view addSubview:self.switchView];
+    }
+}
+
+- (void)switchView:(BSSwitchCircleView *)switchView didSelectCircle:(BSCircelModel *)circle {
+    
+    
+    [self displayCategoryOrNot];
 }
 
 #pragma mark - 加入圈子
 
-- (void)jionCircle{
-    if (!self.menuView) {
-        self.menuView = [BSCircleMenuView menuView];
-        self.menuView.delegate = self;
+- (BSCircleMenuView *)menuView {
+    if (!_menuView) {
+        _menuView = [BSCircleMenuView menuView];
+        _menuView.delegate = self;
     }
-    [self displayMenuOrNot];
+    return _menuView;
 }
 
 - (void)displayMenuOrNot{
+    if (self.switchView.superview == self.view) {
+        [self.switchView removeFromSuperview];
+    }
     if (self.menuView.superview == self.view) {
         [self.menuView removeFromSuperview];
     } else {
@@ -48,7 +91,10 @@
 }
 
 - (void)menu:(BSCircleMenuView *)menu didClickIndex:(NSUInteger)index {
+    
+    
     [self displayMenuOrNot];
+    
     
     if (index == 0) {
         BSJionCircleViewController *jiosnVC = [[BSJionCircleViewController alloc] init];
@@ -60,6 +106,7 @@
     
 }
 
+#pragma mark - 加载排名数据
 
 - (void)loadRankData{
     [SVProgressHUD show];
@@ -82,6 +129,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.menuView.superview == self.view) {
         [self.menuView removeFromSuperview];
+    }
+    if (self.switchView.superview == self.view) {
+        [self.switchView removeFromSuperview];
     }
 }
 

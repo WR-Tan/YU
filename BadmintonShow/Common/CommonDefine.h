@@ -38,7 +38,7 @@ alpha:1.0]
 #define RGB(R,G,B) [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:1.0f]
 #define RGBA(R,G,B,A) [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:(A)/255]
 
-#define  kTableViewBackgroudColor RGB(240,240,240)
+#define  kTableViewBackgroudColor RGB(250,250,250)
 #define  kBackgroudColor  kTableViewBackgroudColor
 #define  kDetailLabelFont [UIFont systemFontOfSize:15]
 #define  kDetailLabelFontLarge [UIFont systemFontOfSize:16]
@@ -49,9 +49,13 @@ alpha:1.0]
 #define kBSAvatarPlaceHolder  @"MaleDefault"
 #define UIImageNamed(name)  [UIImage imageNamed:(name)]
 #define kDefaultUserAvatar   @"bs_def_userAvatar"
-#define kUserAvatarImage  UIImageNamed(kBSAvatarPlaceHolder)
+#define kImageUserAvatar  UIImageNamed(kBSAvatarPlaceHolder)
 
 typedef void (^BSArrayResultBlock)(NSArray *objects, NSError *error);
 typedef void (^BSBooleanResultBlock)(BOOL succeeded, NSError *error);
+typedef void (^BSIdResultBlock)(id object, NSError *error);
+
+
+#define kNotificationKeyUserChanged  @"UserChanged"
 
 #endif

@@ -87,5 +87,7 @@
 
 #define AVPropertyCategory      @"category"
 #define AVPropertyOpen          @"open"
+#define AVPropertyPeopleCount   @"peopleCount"
+#define AVPropertyCircleId      @"circleId"
 
 #endif /* AVObjectProperty_h */

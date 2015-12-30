@@ -23,5 +23,6 @@
 #import "YYKit.h"
 #import "BSProfileUserModel.h"
 #import "BSAppContext.h"
+#import "SVProgressHUD.h"
 
 #endif

@@ -25,10 +25,10 @@
     return self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
-}
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    [SVProgressHUD dismiss];
+//}
 
 #pragma mark ------警告信息------
 -(void)alert:(NSString*)msg{

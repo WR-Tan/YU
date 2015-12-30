@@ -85,13 +85,17 @@
     
     // 提示语
     UITextView *feedBackTip = [UITextView new];
-    feedBackTip.frame = CGRectMake(10, 10, kScreenWidth - 20, 20);
-    feedBackTip.textColor = [UIColor blackColor];
-    feedBackTip.text = self.tipText ;
-    feedBackTip.font = kBSFontSize(14);
-    CGSize size = [feedBackTip sizeThatFits:CGSizeMake(kScreenWidth - 20, 100)];
-    feedBackTip.frame = (CGRect){{10,10}, {size.width, size.height}};
-    [self.tableView addSubview:feedBackTip];
+    feedBackTip.frame = CGRectZero;
+    if (self.tipText) {
+        feedBackTip.frame = CGRectMake(10, 10, kScreenWidth - 20, 20);
+        feedBackTip.textColor = [UIColor blackColor];
+        feedBackTip.text = self.tipText ;
+        feedBackTip.font = kBSFontSize(14);
+        CGSize size = [feedBackTip sizeThatFits:CGSizeMake(kScreenWidth - 20, 100)];
+        feedBackTip.frame = (CGRect){{10,10}, {size.width, size.height}};
+        [self.tableView addSubview:feedBackTip];
+    }
+   
     
     //  输入框背景View
     UIView *textBackgroudView = [UIView new];

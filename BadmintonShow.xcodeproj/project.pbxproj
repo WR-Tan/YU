@@ -512,6 +512,11 @@
 		34CDABFB1C12A0B9000AB551 /* BSHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CDABFA1C12A0B9000AB551 /* BSHomePageViewController.m */; };
 		34CE470C1B39A6E000C1612F /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 34CE470B1B39A6E000C1612F /* eye.png */; };
 		660F70271C1AF13100D970B3 /* LoginModule.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 660F70261C1AF13100D970B3 /* LoginModule.xcassets */; };
+		661400841C312AC500C5718D /* BSSwitchCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 661400831C312AC500C5718D /* BSSwitchCircleView.m */; };
+		661400861C312ADC00C5718D /* BSSwitchCircleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661400851C312ADC00C5718D /* BSSwitchCircleView.xib */; };
+		6614009A1C31631100C5718D /* BSPlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 661400991C31631100C5718D /* BSPlayerDetailViewController.m */; };
+		6614009D1C31638200C5718D /* BSPlayerDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6614009C1C31638200C5718D /* BSPlayerDetailHeader.m */; };
+		6614009F1C3163C600C5718D /* BSPlayerDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6614009E1C3163C600C5718D /* BSPlayerDetailHeader.xib */; };
 		663D15301C24F61D00E2AA46 /* BSBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D15251C24F61D00E2AA46 /* BSBaseCell.m */; };
 		663D15311C24F61D00E2AA46 /* BSBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D15271C24F61D00E2AA46 /* BSBaseTableViewCell.m */; };
 		663D15331C24F61D00E2AA46 /* PAFFDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D152D1C24F61D00E2AA46 /* PAFFDatePicker.m */; };
@@ -614,6 +619,8 @@
 		66C74C521C264EF1007E2D3F /* BSBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C511C264EF1007E2D3F /* BSBaseView.m */; };
 		66C74C581C2676D0007E2D3F /* BSMyTeamsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C571C2676D0007E2D3F /* BSMyTeamsController.m */; };
 		66C74C5B1C2676E0007E2D3F /* BSAddTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C74C5A1C2676E0007E2D3F /* BSAddTeamController.m */; };
+		66DF7A6C1C3192C4006FFBF1 /* BSNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DF7A6B1C3192C4006FFBF1 /* BSNotificationCenter.m */; };
+		66DF7AAB1C32ED4F006FFBF1 /* BSPhotoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DF7AAA1C32ED4F006FFBF1 /* BSPhotoPicker.m */; };
 		66E491221C268CBF00EF332A /* BSChooseSinglePlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E491211C268CBF00EF332A /* BSChooseSinglePlayerCell.m */; };
 		66E491281C2696CF00EF332A /* PAFFSelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E491271C2696CF00EF332A /* PAFFSelectCityViewController.m */; };
 		66E51B261C2A8F4C0057773F /* BSFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E51B251C2A8F4C0057773F /* BSFeedBackViewController.m */; };
@@ -1415,6 +1422,14 @@
 		34CDABFA1C12A0B9000AB551 /* BSHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSHomePageViewController.m; sourceTree = "<group>"; };
 		34CE470B1B39A6E000C1612F /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		660F70261C1AF13100D970B3 /* LoginModule.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LoginModule.xcassets; sourceTree = "<group>"; };
+		661400821C312AC500C5718D /* BSSwitchCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSwitchCircleView.h; sourceTree = "<group>"; };
+		661400831C312AC500C5718D /* BSSwitchCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSwitchCircleView.m; sourceTree = "<group>"; };
+		661400851C312ADC00C5718D /* BSSwitchCircleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSSwitchCircleView.xib; sourceTree = "<group>"; };
+		661400981C31631100C5718D /* BSPlayerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPlayerDetailViewController.h; sourceTree = "<group>"; };
+		661400991C31631100C5718D /* BSPlayerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPlayerDetailViewController.m; sourceTree = "<group>"; };
+		6614009B1C31638200C5718D /* BSPlayerDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPlayerDetailHeader.h; sourceTree = "<group>"; };
+		6614009C1C31638200C5718D /* BSPlayerDetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPlayerDetailHeader.m; sourceTree = "<group>"; };
+		6614009E1C3163C600C5718D /* BSPlayerDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSPlayerDetailHeader.xib; sourceTree = "<group>"; };
 		663D15241C24F61D00E2AA46 /* BSBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseCell.h; sourceTree = "<group>"; };
 		663D15251C24F61D00E2AA46 /* BSBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseCell.m; sourceTree = "<group>"; };
 		663D15261C24F61D00E2AA46 /* BSBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseTableViewCell.h; sourceTree = "<group>"; };
@@ -1600,6 +1615,10 @@
 		66C74C571C2676D0007E2D3F /* BSMyTeamsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyTeamsController.m; sourceTree = "<group>"; };
 		66C74C591C2676E0007E2D3F /* BSAddTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddTeamController.h; sourceTree = "<group>"; };
 		66C74C5A1C2676E0007E2D3F /* BSAddTeamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddTeamController.m; sourceTree = "<group>"; };
+		66DF7A6A1C3192C4006FFBF1 /* BSNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSNotificationCenter.h; sourceTree = "<group>"; };
+		66DF7A6B1C3192C4006FFBF1 /* BSNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSNotificationCenter.m; sourceTree = "<group>"; };
+		66DF7AA91C32ED4F006FFBF1 /* BSPhotoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotoPicker.h; sourceTree = "<group>"; };
+		66DF7AAA1C32ED4F006FFBF1 /* BSPhotoPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotoPicker.m; sourceTree = "<group>"; };
 		66E491201C268CBF00EF332A /* BSChooseSinglePlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChooseSinglePlayerCell.h; sourceTree = "<group>"; };
 		66E491211C268CBF00EF332A /* BSChooseSinglePlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSChooseSinglePlayerCell.m; sourceTree = "<group>"; };
 		66E491261C2696CF00EF332A /* PAFFSelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAFFSelectCityViewController.h; sourceTree = "<group>"; };
@@ -3251,6 +3270,8 @@
 				345D36201B2D0BD0004C226A /* CommonUtils.m */,
 				345D35F61B2D0BD0004C226A /* Category */,
 				345D36211B2D0BD0004C226A /* Tool */,
+				66DF7AA91C32ED4F006FFBF1 /* BSPhotoPicker.h */,
+				66DF7AAA1C32ED4F006FFBF1 /* BSPhotoPicker.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3343,6 +3364,8 @@
 				66F04CFE1C28078B003FE2FF /* BSTimeManager.m */,
 				66F04D051C2853DB003FE2FF /* BSCacheManager.h */,
 				66F04D061C2853DB003FE2FF /* BSCacheManager.m */,
+				66DF7A6A1C3192C4006FFBF1 /* BSNotificationCenter.h */,
+				66DF7A6B1C3192C4006FFBF1 /* BSNotificationCenter.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -3587,6 +3610,12 @@
 				66557D211C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.h */,
 				66557D221C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.m */,
 				66557D231C2FD5D300FA6BD5 /* BSJionCircleCategoryCell.xib */,
+				661400821C312AC500C5718D /* BSSwitchCircleView.h */,
+				661400831C312AC500C5718D /* BSSwitchCircleView.m */,
+				661400851C312ADC00C5718D /* BSSwitchCircleView.xib */,
+				6614009B1C31638200C5718D /* BSPlayerDetailHeader.h */,
+				6614009C1C31638200C5718D /* BSPlayerDetailHeader.m */,
+				6614009E1C3163C600C5718D /* BSPlayerDetailHeader.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3842,6 +3871,8 @@
 				66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */,
 				665577621C2F04D000FA6BD5 /* BSCircleDetailController.h */,
 				665577631C2F04D000FA6BD5 /* BSCircleDetailController.m */,
+				661400981C31631100C5718D /* BSPlayerDetailViewController.h */,
+				661400991C31631100C5718D /* BSPlayerDetailViewController.m */,
 				66557D141C2FD5D300FA6BD5 /* View */,
 			);
 			name = CircleRanking;
@@ -4285,6 +4316,7 @@
 				0409DABF1BCA97BC00B659B8 /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
 				0409DA941BCA97BC00B659B8 /* multiMedia_HL@2x.png in Resources */,
 				66F402D91C2C408100B5E555 /* BSJionCircleViewController.xib in Resources */,
+				6614009F1C3163C600C5718D /* BSPlayerDetailHeader.xib in Resources */,
 				0409DAAA1BCA97BC00B659B8 /* send.caf in Resources */,
 				342462741C00148B00755C09 /* tusijia5.gif in Resources */,
 				0409DAB91BCA97BC00B659B8 /* sharemore_wxtalk@2x.png in Resources */,
@@ -4321,6 +4353,7 @@
 				0409DAA71BCA97BC00B659B8 /* RecordingSignal008@2x.png in Resources */,
 				342462781C00148B00755C09 /* tusijia9.gif in Resources */,
 				0409DA511BCA97BC00B659B8 /* rabbit_2_cover@2x.png in Resources */,
+				661400861C312ADC00C5718D /* BSSwitchCircleView.xib in Resources */,
 				3424628F1C00148B00755C09 /* sns_qzone@2x.png in Resources */,
 				3487B2771B385ADB00BB9843 /* LiZongWei.jpg in Resources */,
 				0409DA301BCA97BC00B659B8 /* ContactsPanelDotRect@2x.png in Resources */,
@@ -4504,6 +4537,7 @@
 				66A6129A1C2C260600A285B1 /* BSChooseTeamPlayerController.m in Sources */,
 				3424622A1C00148B00755C09 /* CDBaseTabC.m in Sources */,
 				342462A21C00148B00755C09 /* LZPushManager.m in Sources */,
+				6614009D1C31638200C5718D /* BSPlayerDetailHeader.m in Sources */,
 				0409DA1A1BCA97BC00B659B8 /* XHShareMenuView.m in Sources */,
 				342462371C00148B00755C09 /* CDSelectMemberVC.m in Sources */,
 				3415283A1C0044EA001D6DE2 /* BSAVBusiness+Register.m in Sources */,
@@ -4552,6 +4586,7 @@
 				344D017C1C17417C000B8DD6 /* YZXiMaViewController.m in Sources */,
 				66A6129B1C2C260600A285B1 /* BSSetGameTypeController.m in Sources */,
 				0409DA011BCA97BC00B659B8 /* SETextMagnifierRanged.m in Sources */,
+				661400841C312AC500C5718D /* BSSwitchCircleView.m in Sources */,
 				345D364E1B2D0BD0004C226A /* UIViewController+x.m in Sources */,
 				344D017B1C17417C000B8DD6 /* YZJRViewController.m in Sources */,
 				340025D61C19E18700E93215 /* YYControl.m in Sources */,
@@ -4692,6 +4727,7 @@
 				66F04CF41C27DC88003FE2FF /* BSSkyLadderHeaderView.m in Sources */,
 				345D36501B2D0BD0004C226A /* ColorName.m in Sources */,
 				667EC7071C21BEBC0077F4CF /* BSProfileBusiness.m in Sources */,
+				6614009A1C31631100C5718D /* BSPlayerDetailViewController.m in Sources */,
 				0409D9E41BCA97BC00B659B8 /* XHHTTPClient.m in Sources */,
 				34C34CE11C0DB81400B72AF9 /* BSELORankingModel.m in Sources */,
 				0409D9E31BCA97BC00B659B8 /* XHFileAttribute.m in Sources */,
@@ -4715,6 +4751,7 @@
 				340025DA1C19E18700E93215 /* YYTableView.m in Sources */,
 				0409D9FE1BCA97BC00B659B8 /* SETextInput.m in Sources */,
 				0409DA0A1BCA97BC00B659B8 /* XHWaterDropRefresh.m in Sources */,
+				66DF7AAB1C32ED4F006FFBF1 /* BSPhotoPicker.m in Sources */,
 				0409D9E01BCA97BC00B659B8 /* XHDisplayTextViewController.m in Sources */,
 				345D35DB1B2D0B1A004C226A /* AppDelegate.m in Sources */,
 				3424622D1C00148B00755C09 /* CDWebViewVC.m in Sources */,
@@ -4793,6 +4830,7 @@
 				0409D9EB1BCA97BC00B659B8 /* XHAlbum.m in Sources */,
 				342462491C00148B00755C09 /* MCPhotographyHelper.m in Sources */,
 				66C74C4F1C264A42007E2D3F /* BSMyEquipmentViewController.m in Sources */,
+				66DF7A6C1C3192C4006FFBF1 /* BSNotificationCenter.m in Sources */,
 				344D017A1C17417C000B8DD6 /* YZTXViewController.m in Sources */,
 				0409D9F31BCA97BC00B659B8 /* FLAnimatedImage.m in Sources */,
 				0409DA031BCA97BC00B659B8 /* SETextSelectionView.m in Sources */,

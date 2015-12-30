@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -41,7 +41,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玩家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hx-A5-HUX">
-                    <rect key="frame" x="115" y="50" width="40" height="16"/>
+                    <rect key="frame" x="130" y="50" width="40" height="16"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="8pg-5G-Daj"/>
@@ -69,12 +69,13 @@
                 <constraint firstItem="RhC-a3-ep9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="OEZ-XI-BxY"/>
                 <constraint firstAttribute="trailing" secondItem="MRt-Jq-7qD" secondAttribute="trailing" constant="20" id="eWx-HL-52E"/>
                 <constraint firstItem="RhC-a3-ep9" firstAttribute="top" secondItem="bds-2S-AyZ" secondAttribute="bottom" constant="10" id="gEJ-uq-fct"/>
-                <constraint firstItem="1hx-A5-HUX" firstAttribute="leading" secondItem="RhC-a3-ep9" secondAttribute="trailing" constant="65" id="m53-rV-3mm"/>
+                <constraint firstItem="1hx-A5-HUX" firstAttribute="leading" secondItem="RhC-a3-ep9" secondAttribute="trailing" constant="80" id="m53-rV-3mm"/>
                 <constraint firstAttribute="trailing" secondItem="bds-2S-AyZ" secondAttribute="trailing" id="nhU-RH-jMH"/>
                 <constraint firstItem="MRt-Jq-7qD" firstAttribute="top" secondItem="1hx-A5-HUX" secondAttribute="top" id="u9p-cd-GCe"/>
                 <constraint firstItem="bds-2S-AyZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zk8-JI-YPg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="256.5" y="242.5"/>
         </view>
     </objects>
 </document>

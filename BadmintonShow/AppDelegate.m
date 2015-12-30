@@ -135,7 +135,7 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
 
 - (void)toMainCtl
 {
-//    self.window.rootViewController = _tabBar;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyUserChanged object:nil];
     self.window.rootViewController = self.tabBarCtl;
 }
 

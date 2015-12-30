@@ -6,8 +6,13 @@
 //  Copyright © 2015 LZH. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
+//
+//@interface BSCircleResultCell : UITableViewCell
+//
+//@end
+#import "BSBaseTableViewCell.h"
 
-@interface BSCircleResultCell : UITableViewCell
+@interface BSCircleResultCell : BSBaseTableViewCell
 
 @end

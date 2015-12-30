@@ -18,6 +18,7 @@
 #import "BSFriendsRankingController.h"
 #import "BSCircleRankingController.h"
 #import "BSTimeLineViewController.h"
+#import "BSProfileUserModel.h"
 
 
 @interface BSRankController () <UITableViewDelegate,UITableViewDataSource>{
@@ -70,11 +71,6 @@
     if (kScreenHeight <= 568) {
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 140, 0);
     }
-
-//    if ( kSystemVersion < 7) {   
-//        self.tableView.top -= 64;
-//        self.tableView.height += 20;
-//    }
 }
 
 - (void)addGameRecord{
@@ -102,8 +98,8 @@
     }
     _header.frame = CGRectMake(0, 0, kScreenWidth, 205);
     [_header.icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
-    _header.name.text = AppContext.user.nickName ? :@"未设置";
-    _header.ranking.text = @"未知";
+    _header.name.text = AppContext.user.userName ? :@"未登录";
+    _header.ranking.text =  [@(AppContext.user.score) stringValue];
     _header.backgroundColor = [UIColor whiteColor];
     _header.introduce.text = AppContext.user.desc;
     
@@ -129,16 +125,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
-    // 1.取出这行对应的字典数据
     NSArray *sectionData = _data[indexPath.section];
     NSString *title = sectionData[indexPath.row];
-    
-    // 2.设置文字
+
     cell.textLabel.text = title;
     
     return cell;
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

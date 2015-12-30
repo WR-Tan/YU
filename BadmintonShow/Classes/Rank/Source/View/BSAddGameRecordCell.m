@@ -70,10 +70,7 @@
 }
 
 - (void)aTapGest:(id)sender {
-    //  默认选中的就是自己咯
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(presentFriendListVC)]) {
-//        [self.delegate presentFriendListVC];
-//    }
+    
 }
 
 - (void)bTapGest:(id)sender {

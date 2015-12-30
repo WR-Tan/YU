@@ -23,8 +23,8 @@ NSString *const kTableCellNibName = @"BSContactTableViewCell";
 
 - (void)configureCell:(UITableViewCell *)cell forUser:(BSProfileUserModel *)user {
     [cell.imageView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
-    cell.textLabel.text = user.nickName;
-    cell.detailTextLabel.text = user.userName;
+    cell.textLabel.text = user.userName;
+    cell.detailTextLabel.text = user.yuxiuId;
 }
 
 

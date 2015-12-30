@@ -233,8 +233,8 @@ static NSString *cellId = @"BSConfirmGameCellId";
     cell.aScoreLabel.text = self.myGame.aScore;
     cell.bScoreLabel.text = self.myGame.bScore;
     
-    [cell.aAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.aPlayer.avatarUrl] placeholder:kUserAvatarImage];
-    [cell.bAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.bPlayer.avatarUrl] placeholder:kUserAvatarImage];
+    [cell.aAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.aPlayer.avatarUrl] placeholder:kImageUserAvatar];
+    [cell.bAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.bPlayer.avatarUrl] placeholder:kImageUserAvatar];
 
     cell.confirmImageView.hidden = !self.myGame.isConfirmed;
     BOOL isAWinner =  [self.myGame.aScore integerValue] >     [self.myGame.bScore integerValue];

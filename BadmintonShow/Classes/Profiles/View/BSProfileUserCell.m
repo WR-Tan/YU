@@ -91,7 +91,7 @@
     if ([object isKindOfClass:[BSProfileUserModel class]]) {
         BSProfileUserModel *user = (BSProfileUserModel *)object;
         _nickNameLabel.text = user.nickName ? : @" ";
-        _yuxiuLabel.text = user.userName ? : @"羽秀号:";
+        _yuxiuLabel.text = user.userName ? : @" ";
         UIImage *placeholder =  [UIImage imageNamed:kDefaultUserAvatar];
         [_iconView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:placeholder];
     }

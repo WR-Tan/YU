@@ -47,9 +47,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"单打";
     self.gameModel.aPlayer = AppContext.user;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"类型" style:UIBarButtonItemStylePlain target:self action:@selector(gameSettings)];
     [self setupBaseViews];
+    
+    // 下个版本
+#if 0
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"类型" style:UIBarButtonItemStylePlain target:self action:@selector(gameSettings)];
+#endif
 }
 
 
@@ -88,6 +93,7 @@
 
 #pragma mark - ChooseSinglePlayer
 
+//  选择了对手
 - (void)selectedSinglePlayer:(BSProfileUserModel *)player{
     self.gameModel.bPlayer = player;
     [self.tableView reloadData];
@@ -96,6 +102,7 @@
 
 #pragma mark - Cell Delegate
 -(void)presentFriendListVC{
+    
     if (self.gameType == BMTGameTypeManSingle ||      //   如果是单打，则选择对手
         self.gameType == BMTGameTypeWomanSingle ) {
       
@@ -109,6 +116,8 @@
         teamVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
         [self.navigationController pushViewController:teamVC animated:YES];
     }
+    
+    
 }
 
 
@@ -118,6 +127,7 @@
     [self.navigationController pushViewController:setGameVC animated:YES];
 }
 
+//  发送比赛
 - (void)uploadGameWithAScore:(NSString *)aScoreStr bScore:(NSString *)bScoreStr button:(UIButton *)btn{
     [self.view endEditing:YES];
     
@@ -125,6 +135,7 @@
         [SVProgressHUD showErrorWithStatus:@"请选择对手"];
         return;
     }
+    
     //  构造gameModel
     self.gameModel.gameType   =  self.gameType;
     self.gameModel.aScore =  aScoreStr;
@@ -157,8 +168,7 @@
     return gameObj;
 }
 
-- (BOOL)valiateGame:(BSGameModel *)game
-{
+- (BOOL)valiateGame:(BSGameModel *)game{
     if (!game.aScore || !game.bScore) {
         [SVProgressHUD showErrorWithStatus:@"请填写比分"];
         return  NO ;

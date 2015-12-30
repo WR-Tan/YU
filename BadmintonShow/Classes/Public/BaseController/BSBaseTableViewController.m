@@ -29,10 +29,10 @@
     return self;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [SVProgressHUD dismiss];
-}
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    [SVProgressHUD dismiss];
+//}
 
 
 - (void)viewDidLoad {
@@ -44,6 +44,7 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
     _tableView.frame = self.view.bounds;
 //    if (self.tabBarController.tabBar.isHidden == NO) {
 //        _tableView.height = _tableView.height - 44;

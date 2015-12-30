@@ -7,7 +7,9 @@
 //  圈子详情--头像，名称，ID，简介，人数
 
 #import "BSBaseTableViewController.h"
+#import "BSCircelModel.h"
+
 
 @interface BSCircleDetailController : BSBaseTableViewController
-
+@property (nonatomic, strong) BSCircelModel *circle;
 @end

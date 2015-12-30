@@ -37,13 +37,14 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightItem];
     
-    
+#if 0
     UIButton *leftItem = [UIButton buttonWithType:UIButtonTypeCustom];
     leftItem.frame = CGRectMake(0, 0, 20, 20);
     [leftItem setImage:[UIImage imageNamed:@"user-green-128*128"] forState:UIControlStateNormal];
     [leftItem addTarget:self action:@selector(gotoContactController) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItem];
+#endif
+
 }
 
 - (void)gotoContactController{

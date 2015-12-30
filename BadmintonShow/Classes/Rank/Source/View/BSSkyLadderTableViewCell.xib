@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -25,22 +25,6 @@
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dai练+Q6614289" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrP-g5-v5C">
-                        <rect key="frame" x="116" y="11" width="185" height="21"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="150" id="MBw-ej-xuk"/>
-                            <constraint firstAttribute="height" constant="21" id="O4d-G3-eNR"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="MBw-ej-xuk"/>
-                            </mask>
-                        </variation>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SDd-p5-oDI">
                         <rect key="frame" x="366" y="9" width="20" height="25"/>
@@ -69,15 +53,52 @@
                             <constraint firstAttribute="width" constant="36" id="q2y-rh-4hL"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JBU-xL-IBb">
+                        <rect key="frame" x="99" y="13" width="20" height="18"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="bxD-y2-kn3"/>
+                            <constraint firstAttribute="width" constant="20" id="jxF-3i-PkV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dai练+Q6614289" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrP-g5-v5C">
+                        <rect key="frame" x="127" y="11" width="174" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="MBw-ej-xuk"/>
+                            <constraint firstAttribute="height" constant="21" id="O4d-G3-eNR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="MBw-ej-xuk"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="plH-CL-Psa">
+                        <rect key="frame" x="13.5" y="7.5" width="28" height="28"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="KSe-eo-4gF"/>
+                            <constraint firstAttribute="width" constant="28" id="cVH-eY-u8a"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="01N-4J-yLu" firstAttribute="leading" secondItem="hrP-g5-v5C" secondAttribute="trailing" constant="30" id="CTR-3u-De2"/>
+                    <constraint firstItem="plH-CL-Psa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="3" id="MVo-EP-zQL"/>
+                    <constraint firstItem="JBU-xL-IBb" firstAttribute="leading" secondItem="590-Bh-emy" secondAttribute="trailing" constant="8" id="Qdl-Gf-pVD"/>
                     <constraint firstItem="01N-4J-yLu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="R0B-VC-W3g"/>
+                    <constraint firstItem="plH-CL-Psa" firstAttribute="centerY" secondItem="sXr-tb-9Db" secondAttribute="centerY" id="UDN-x8-aJV"/>
+                    <constraint firstItem="plH-CL-Psa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XGY-We-yiP"/>
                     <constraint firstItem="sXr-tb-9Db" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Yha-Ff-xab"/>
                     <constraint firstItem="sXr-tb-9Db" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="74" id="adB-uQ-43J"/>
                     <constraint firstItem="hrP-g5-v5C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="chW-yb-z9G"/>
                     <constraint firstAttribute="trailingMargin" secondItem="SDd-p5-oDI" secondAttribute="trailing" constant="6" id="fTH-Mh-zgW"/>
+                    <constraint firstItem="plH-CL-Psa" firstAttribute="centerX" secondItem="sXr-tb-9Db" secondAttribute="centerX" id="fpx-ei-tKs"/>
                     <constraint firstItem="SDd-p5-oDI" firstAttribute="leading" secondItem="01N-4J-yLu" secondAttribute="trailing" constant="-5" id="gos-qq-7al"/>
                     <constraint firstItem="590-Bh-emy" firstAttribute="leading" secondItem="sXr-tb-9Db" secondAttribute="trailing" constant="10" id="hAq-Nc-H9f"/>
                     <constraint firstItem="SDd-p5-oDI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="htK-vj-vA7"/>
@@ -85,17 +106,24 @@
                     <constraint firstItem="sXr-tb-9Db" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="m2F-d7-DXi"/>
                     <constraint firstItem="590-Bh-emy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rdp-1c-I9n"/>
                     <constraint firstItem="hrP-g5-v5C" firstAttribute="leading" secondItem="590-Bh-emy" secondAttribute="trailing" constant="25" id="v4Q-YA-MF3"/>
+                    <constraint firstItem="JBU-xL-IBb" firstAttribute="centerY" secondItem="590-Bh-emy" secondAttribute="centerY" id="wc0-yq-tTw"/>
+                    <constraint firstItem="hrP-g5-v5C" firstAttribute="leading" secondItem="JBU-xL-IBb" secondAttribute="trailing" constant="8" id="ziv-z1-zne"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="adB-uQ-43J"/>
                         <exclude reference="m2F-d7-DXi"/>
+                        <exclude reference="MVo-EP-zQL"/>
+                        <exclude reference="XGY-We-yiP"/>
+                        <exclude reference="v4Q-YA-MF3"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <animations/>
             <connections>
+                <outlet property="genderImageView" destination="JBU-xL-IBb" id="M9R-jA-bYq"/>
                 <outlet property="iconView" destination="590-Bh-emy" id="VuF-qd-J1g"/>
+                <outlet property="rankImageView" destination="plH-CL-Psa" id="3S1-Jc-Skj"/>
                 <outlet property="rankLabel" destination="sXr-tb-9Db" id="tuI-RM-DCV"/>
                 <outlet property="scoreLabel" destination="01N-4J-yLu" id="gZ8-M2-mWK"/>
                 <outlet property="userNameLabel" destination="hrP-g5-v5C" id="MZy-YF-Uk8"/>

@@ -50,8 +50,8 @@
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="eSt-iq-Exo"/>
                                 <exclude reference="ThP-yK-XeE"/>
+                                <exclude reference="eSt-iq-Exo"/>
                             </mask>
                         </variation>
                     </label>

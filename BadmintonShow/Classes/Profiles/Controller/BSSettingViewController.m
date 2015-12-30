@@ -30,7 +30,7 @@
     self.title = @"设置";
     
     BSProfileModel *howToUse = BSProfileModel(nil,@"如何使用",nil,nil);
-    BSProfileModel *about = BSProfileModel(nil,@"关于我们",nil,@"BSAboutUsViewController");
+    BSProfileModel *about = BSProfileModel(nil,@"关于羽秀",nil,@"BSAboutUsViewController");
     BSProfileModel *feedBack = BSProfileModel(nil,@"意见反馈",nil,@"BSFeedBackViewController");
     BSProfileModel *praise = BSProfileModel(nil,@"给个好评",nil,nil);
     [_dataArr addObject:@[howToUse,about,feedBack,praise]];

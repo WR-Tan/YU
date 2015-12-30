@@ -31,8 +31,8 @@
     if (![object isKindOfClass:[BSGameModel class]]) return;
     
     BSGameModel *model = (BSGameModel *)object;
-    [self.playerAIcon setImageWithURL:[NSURL URLWithString:model.aPlayer.avatarUrl] placeholder:kUserAvatarImage];
-    [self.playerBIcon setImageWithURL:[NSURL URLWithString:model.aPlayer.avatarUrl] placeholder:kUserAvatarImage];
+    [self.playerAIcon setImageWithURL:[NSURL URLWithString:model.aPlayer.avatarUrl] placeholder:kImageUserAvatar];
+    [self.playerBIcon setImageWithURL:[NSURL URLWithString:model.aPlayer.avatarUrl] placeholder:kImageUserAvatar];
     
     self.score.text = [NSString stringWithFormat:@"%@ : %@",model.aScore,model.bScore];
     self.creatAt.text = model.startTime;

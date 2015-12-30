@@ -7,6 +7,7 @@
 //
 
 #import "BSCircleResultCell.h"
+#import "BSCircelModel.h"
 
 @interface BSCircleResultCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *iconView;
@@ -32,5 +33,17 @@
 
     // Configure the view for the selected state
 }
+
+- (void)setObject:(id)object {
+    if ([object isKindOfClass:[BSCircelModel class]]) {
+        BSCircelModel *circle = (BSCircelModel *)object;
+        [self.iconView setImageWithURL:circle.avatarUrl  placeholder:kImageUserAvatar];
+        self.nameLabel.text = circle.name;
+        self.descLabel.text = circle.desc;
+        self.peopleCountLabel.text = @"1999人";
+    }
+    
+}
+
 
 @end

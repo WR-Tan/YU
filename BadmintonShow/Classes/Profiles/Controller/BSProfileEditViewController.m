@@ -110,7 +110,7 @@
 
 - (void)updateRowItems {
     
-    self.avatarItem.thumbnailUrl = AppContext.user.avatarUrl;
+    self.avatarItem.thumbnailUrl = AppContext.user.avatarUrl ? : @"nilurl"; //forCell
     self.nameItem.detail = AppContext.user.nickName;
     self.yuxiuItem.detail = AppContext.user.userName;
     self.genderItem.detail = AppContext.user.genderStr;

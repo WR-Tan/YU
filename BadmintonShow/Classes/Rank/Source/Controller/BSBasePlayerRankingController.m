@@ -9,6 +9,7 @@
 #import "BSBasePlayerRankingController.h"
 
 #import "BSSkyLadderViewController.h"
+#import "BSPlayerDetailViewController.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "BSGameModel.h"
 #import "CDUser.h"
@@ -133,7 +134,13 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
     BSProfileUserModel *user = [_rankArray objectAtIndex:indexPath.row];
     [cell setObject:user indexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    BSPlayerDetailViewController *vc = [[BSPlayerDetailViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

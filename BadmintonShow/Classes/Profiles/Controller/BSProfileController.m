@@ -54,6 +54,12 @@
     [self createData];
 
     [self getUserData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChanged) name:kNotificationKeyUserChanged object:nil];
+}
+
+- (void)userChanged{
+    [self getUserData];
 }
 
 //- (void)viewWillAppear:(BOOL)animated {
@@ -212,6 +218,8 @@
 }
 
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

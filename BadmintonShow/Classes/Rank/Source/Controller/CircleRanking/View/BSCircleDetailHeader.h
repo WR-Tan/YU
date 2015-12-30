@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class BSProfileUserModel;
+@class BSCircleDetailHeader;
+
+@protocol BSCircleDetailHeaderDelegate <NSObject>
+- (void)circleDetailHeader:(BSCircleDetailHeader *)header didClickCreator:(BSProfileUserModel *)creator;
+
+- (void)didClickPeopleCountButton;
+
+@end
+
 @interface BSCircleDetailHeader : UIView
+@property (nonatomic, weak) id <BSCircleDetailHeaderDelegate> delegate;
+- (void)setObject:(id)object;
 
 @end
