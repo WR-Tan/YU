@@ -35,6 +35,7 @@ static NSUInteger nameLengthLimit = 15;
 @property (nonatomic, strong) NSMutableArray *titleArr;
 @property (nonatomic, strong) NSMutableArray *detailArr;
 @property (nonatomic, strong) BSProfileModel *avatarItem;
+
 @end
 
 static NSString *cellId = @"BSCreateCircleTypeCell";
@@ -55,18 +56,18 @@ static NSString *circleName = @"请给圈子取一个名字吧";
         _circleCategoryStr = circleCategory;
         _circleNameStr = circleName;
         _circleDesc = circleDesc;
-        self.avatarItem = BSProfileModel(nil, @"头像", nil, nil);
+//        self.avatarItem = BSProfileModel(nil, @"头像", nil, nil);
     }
     return self;
 }
 
 - (NSMutableArray *)titleArr {
-    _titleArr = _isCircleOpen ? @[@"圈子形象",@"类型",@"分类",@"名称",@"简介"].mutableCopy : @[@"圈子形象",@"类型",@"名称",@"简介"].mutableCopy;
+    _titleArr = _isCircleOpen ? @[@"类型",@"分类",@"名称",@"简介"].mutableCopy : @[@"类型",@"名称",@"简介"].mutableCopy;
     return _titleArr;
 }
 
 - (NSMutableArray *)detailArr {
-    _titleArr = _isCircleOpen ? @[@" ",_circleType,_circleCategoryStr,_circleNameStr,_circleDesc].mutableCopy : @[@" ",_circleType,_circleNameStr,_circleDesc].mutableCopy;
+    _titleArr = _isCircleOpen ? @[_circleType,_circleCategoryStr,_circleNameStr,_circleDesc].mutableCopy : @[_circleType,_circleNameStr,_circleDesc].mutableCopy;
     return _titleArr;
 }
 
@@ -81,46 +82,61 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 
 /// 完创建
 - (void)complete {
-    // 验证圈子数据完整性
-    if (![self validateCircleData]) return;
-    
-    [SVProgressHUD showWithStatus:@"创建中.."];
-    
-    _isCircleOpen = YES;
-    NSDictionary *categoryDict = [BSCircleBusiness circleCateogry];
-    NSString *circleCategory = categoryDict[_circleCategoryStr];
-  
-    [BSCircleBusiness saveCircleWithName:_circleNameStr category:circleCategory isOpen:_isCircleOpen block:^(id object  , NSError *error) {
-        
-       [SVProgressHUD dismiss];
-        BSCircelModel *model = (BSCircelModel *)object;
-        
-        if ( model) {
-            [SVProgressHUD showSuccessWithStatus:@"创建成功"];
-            BSCircleDetailController *detail =[[BSCircleDetailController alloc ] init];
-            detail.circle = model;
-            [self.navigationController pushViewController:detail animated:YES];
+    if (![self validateCircleData]) return;    // 验证圈子数据完整性
+    [SVProgressHUD show];
+    [BSCircleBusiness queryIfCircleExistsWithName:_circleNameStr block:^(BOOL exists, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:@"请求数据失败"];
             return ;
         }
         
-        [SVProgressHUD showErrorWithStatus:@"创建失败..请检查网络并重试"];
+        if (exists) {
+            [SVProgressHUD showErrorWithStatus:@"名称已经存在，请更换其他名称"];
+            return ;
+        }
+        
+        [self createCircle];
     }];
+}
+
+- (void)createCircle{
+    [SVProgressHUD showWithStatus:@"创建中.."];
+    
+    NSDictionary *categoryDict = [BSCircleBusiness circleCateogry];
+    NSString *circleCategory = categoryDict[_circleCategoryStr];
+    
+    [BSCircleBusiness saveCircleWithName:_circleNameStr category:circleCategory desc:_circleDesc  isOpen:_isCircleOpen  block:^(id object, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            BSCircelModel *model = (BSCircelModel *)object;
+            if ( model) {
+                [SVProgressHUD showSuccessWithStatus:@"创建成功"];
+                BSCircleDetailController *detail =[[BSCircleDetailController alloc ] init];
+                detail.circle = model;
+                [self.navigationController pushViewController:detail animated:YES];
+                return ;
+            }
+            [SVProgressHUD showErrorWithStatus:@"创建失败..请检查网络并重试"];
+        });
+    }];
+
 }
 
 ///  验证圈子数据
 - (BOOL)validateCircleData {
     
-    if (!_avatarImage) {
-        [SVProgressHUD showInfoWithStatus:@"请选择头像"];
-        return NO;
-    }
+//    if (!_avatarImage) {
+//        [SVProgressHUD showInfoWithStatus:@"请选择头像"];
+//        return NO;
+//    }
     
     if ([_circleType isEqualToString:circleType]) {
         [SVProgressHUD showInfoWithStatus:circleType];
         return NO;
     }
     
-    if ([_circleCategoryStr isEqualToString:circleCategory]) {
+    if (_isCircleOpen && [_circleCategoryStr isEqualToString:circleCategory]) {
         [SVProgressHUD showInfoWithStatus:circleCategory];
         return NO;
     }
@@ -146,7 +162,7 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) return 90;
+//    if (indexPath.row == 0) return 90;
     return 44;
 }
 
@@ -154,15 +170,15 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     
-    if (indexPath.row == 0) {
-        BSProfileEditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BSProfileEditCell"];
-        if (!cell) {
-            cell = [[BSProfileEditCell  alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BSProfileEditCell"];
-        }
-        cell.object = self.avatarItem;
-        cell.delegate = self;
-        return cell;
-    }
+//    if (indexPath.row == 0) {
+//        BSProfileEditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BSProfileEditCell"];
+//        if (!cell) {
+//            cell = [[BSProfileEditCell  alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BSProfileEditCell"];
+//        }
+//        cell.object = self.avatarItem;
+//        cell.delegate = self;
+//        return cell;
+//    }
     
     BSProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BSProfileCell"];
     if (!cell) {
@@ -196,13 +212,18 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == 0) {
-        [BSPhotoPicker viewController:self pickImageWithBlock:^(id object, NSError *error) {
-            
-        }];
-    }
+//    if (indexPath.row == 0) {
+//        [BSPhotoPicker viewController:self pickImageWithBlock:^(id object, NSError *error) {
+//            if ([object isKindOfClass:[UIImage class]]) {
+//                // 上传图片！成功后将URL赋给item
+//                _avatarImage = object;
+//            } else {
+//                [SVProgressHUD showErrorWithStatus:@"获取图片失败"];
+//            }
+//        }];
+//    }
     
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
         BSSelectCircleTypeController *vc = [[BSSelectCircleTypeController alloc] init];
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
@@ -212,13 +233,15 @@ static NSString *circleName = @"请给圈子取一个名字吧";
     if (indexPath.row == self.titleArr.count - 2) {
         BSSetTextFieldController *nameVC = [[BSSetTextFieldController alloc]init];
         nameVC.title = @"圈子名称";
+        nameVC.limitCount = 20;
+        nameVC.originalText = _circleNameStr;
         nameVC.placeholder = @"请输入圈子名称（至少2个字）";
         nameVC.delegate = self;
         [self.navigationController pushViewController:nameVC animated:YES];
         return;
     }
     
-    if (indexPath.row == 2 && self.titleArr.count == 5) {
+    if (indexPath.row == 1 && self.titleArr.count == 4) {
         BSSelectCircleCategoryController *categoryVC = [[BSSelectCircleCategoryController alloc] init];
         categoryVC.title = @"选择圈子分类";  //circleResultTableView
         categoryVC.delegate = self;

@@ -83,7 +83,7 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
                 });
                 
                 if (error) {
-                    [self.view addSubview:self.showErrorLabel];
+//                    [self.view addSubview:self.showErrorLabel];
                     return ;
                 }
                 [self.showErrorLabel removeFromSuperview];

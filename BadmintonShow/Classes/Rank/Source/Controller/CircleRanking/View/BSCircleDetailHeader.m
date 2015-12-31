@@ -42,10 +42,19 @@
     self.adminTwoAvatarView.layer.cornerRadius = 48 / 2.0;
     self.adminTwoAvatarView.clipsToBounds = YES;
     
+    
+    self.avatarView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id sender) {
+        if (!self.circle) return;
+        if ([self.delegate respondsToSelector:@selector(circleDetailHeader:didClickCircleAvatar:)]) {
+            [self.delegate circleDetailHeader:self didClickCircleAvatar:self.avatarView];
+        }
+    }];
+    [self.avatarView addGestureRecognizer:avatarTap];
+    
     self.creatorAvatarView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id sender) {
         if (!self.circle.creator) return;
-        
         if ([self.delegate respondsToSelector:@selector(circleDetailHeader:didClickCreator:) ]) {
             [self.delegate circleDetailHeader:self didClickCreator:self.circle.creator];
         }
@@ -72,7 +81,7 @@
         self.circleIdLabel.text = circle.circleId;
         self.createdAtLabel.text = [circle.createdAt toDateString];
         self.addressLabel.text = circle.address; 
-        self.descLabel.text = circle.desc;
+        self.descLabel.text = [NSString stringWithFormat:@"    %@",circle.desc];
         [self.creatorAvatarView setImageWithURL:[NSURL URLWithString:circle.creator.avatarUrl] placeholder:kImageUserAvatar];
         self.creatorUserName.text = circle.creator.userName;
         NSString *title = [NSString stringWithFormat:@"%ld >",circle.peopleCount];

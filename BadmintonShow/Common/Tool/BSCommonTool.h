@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^sender_block)(id sender);
+
 @interface BSCommonTool : NSObject
 
 
 + (UIBarButtonItem *)createRightBarButtonItem:(NSString *)title target:(id)obj selector:(SEL)selector ImageName:(NSString*)imageName ;
-    
+
++ (UIButton *)bottomButtomWithVC:(UIViewController *)VC ;
+
     
 @end

@@ -21,6 +21,14 @@
 
 @implementation BSSetTextFieldController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _limitCount = 15;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -59,8 +67,8 @@
     
     
     NSString *warnStr ;
-    if (self.textField.text.length >= 15 || self.textField.text.length == 0) {
-        warnStr = self.textField.text.length >= 15 ? @"昵称不能超过15字哦" : @"昵称不能为空哦";
+    if (self.textField.text.length >= self.limitCount || self.textField.text.length == 0) {
+        warnStr = self.textField.text.length >= self.limitCount ? [NSString stringWithFormat:@"不能超过%d字哦",self.limitCount] : @"文字不能为空";
         [SVProgressHUD showErrorWithStatus:warnStr maskType:SVProgressHUDMaskTypeBlack];
         return;
     }

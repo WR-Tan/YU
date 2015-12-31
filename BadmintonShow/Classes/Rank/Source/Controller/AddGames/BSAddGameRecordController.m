@@ -15,6 +15,7 @@
 #import "BSSetGameTypeController.h"
 #import "BSChooseSinglePlayerController.h"
 #import "BSChooseTeamPlayerController.h"
+#import "BSCommonTool.h"
 
 @interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,UITableViewDataSource,UITableViewDelegate,BSChooseSinglePlayerControllerDelegate>{
     NSInteger _numberOfRows ;
@@ -47,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"单打";
+    
     self.gameModel.aPlayer = AppContext.user;
     [self setupBaseViews];
     
@@ -61,6 +62,8 @@
 
 
 - (void)setupBaseViews{
+    self.title = @"单打";
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.translucent = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -76,6 +79,10 @@
         make.left.bottom.right.equalTo(self.view);
         make.top.equalTo(self.view).offset(5);
     }];
+    
+    UIButton *button = [BSCommonTool bottomButtomWithVC:self];
+    [button setTitle:@"发送给对手" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(sendGame) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -83,15 +90,50 @@
     [SVProgressHUD dismiss];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSDictionary *titleDict = @{@0 : @"男单", @1 : @"男双", @2 : @"女单",
-                                @3 : @"女双", @4 : @"混双"};
-    self.title = titleDict[@(self.gameType)];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    NSDictionary *titleDict = @{@0 : @"男单", @1 : @"男双", @2 : @"女单",
+//                                @3 : @"女双", @4 : @"混双"};
+//    self.title = titleDict[@(self.gameType)];
+//}
 
 
 #pragma mark - ChooseSinglePlayer
+
+- (void)sendGame{
+    [self.view endEditing:YES];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    BSAddGameRecordCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    NSString *aScore = cell.firstGameA_scoreTF.text;
+    NSString *bScore = cell.firstGameB_scoreTF.text;
+    
+    if (!aScore || !bScore) {
+        [SVProgressHUD showErrorWithStatus:@"请输入比分"];
+        return;
+    }
+    
+    if (!self.gameModel.bPlayer) {
+        [SVProgressHUD showErrorWithStatus:@"请选择对手"];
+        return;
+    }
+    
+    //  构造gameModel
+    self.gameModel.gameType   =  self.gameType;
+    self.gameModel.aScore =  aScore;
+    self.gameModel.bScore =  bScore;
+    
+    if (![self valiateGame:self.gameModel]) {
+        return;
+    };
+    
+    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
+    
+    AVObject *gameObj = [self AVObjectWithGameModel:self.gameModel];
+    
+    [self saveGameToTemp:gameObj ];
+}
+
 
 //  选择了对手
 - (void)selectedSinglePlayer:(BSProfileUserModel *)player{
@@ -127,30 +169,6 @@
     [self.navigationController pushViewController:setGameVC animated:YES];
 }
 
-//  发送比赛
-- (void)uploadGameWithAScore:(NSString *)aScoreStr bScore:(NSString *)bScoreStr button:(UIButton *)btn{
-    [self.view endEditing:YES];
-    
-    if (!self.gameModel.bPlayer) {
-        [SVProgressHUD showErrorWithStatus:@"请选择对手"];
-        return;
-    }
-    
-    //  构造gameModel
-    self.gameModel.gameType   =  self.gameType;
-    self.gameModel.aScore =  aScoreStr;
-    self.gameModel.bScore =  bScoreStr;
-    
-    if (![self valiateGame:self.gameModel]) {
-        return;
-    };
-    
-    [SVProgressHUD showWithStatus:@"正在上传比赛数据"];
-    
-    AVObject *gameObj = [self AVObjectWithGameModel:self.gameModel];
-    
-    [self saveGameToTemp:gameObj ];
-}
 
 
 - (AVObject *)AVObjectWithGameModel:(BSGameModel *)game{
@@ -223,7 +241,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return  270 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
+    return  250 ; //  暂时先只上传一场比赛的比分，3场比赛的暂时不做。
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

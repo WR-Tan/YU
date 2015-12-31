@@ -12,8 +12,8 @@
 @class BSCircleDetailHeader;
 
 @protocol BSCircleDetailHeaderDelegate <NSObject>
+- (void)circleDetailHeader:(BSCircleDetailHeader *)header didClickCircleAvatar:(UIImageView *)avatarView;
 - (void)circleDetailHeader:(BSCircleDetailHeader *)header didClickCreator:(BSProfileUserModel *)creator;
-
 - (void)didClickPeopleCountButton;
 
 @end

@@ -15,6 +15,7 @@
 
 @interface BSSetTextFieldController : UIViewController
 @property (nonatomic, assign) int tag ;
+@property (nonatomic, assign) int limitCount ;
 @property (nonatomic, copy) NSString *originalText ;
 @property (nonatomic, weak) id <BSSetTextFieldControllerDelegate> delegate;
 @property (nonatomic, copy) NSString *placeholder;

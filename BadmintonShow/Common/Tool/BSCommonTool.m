@@ -31,4 +31,22 @@
     return item;
 }
 
+
++ (UIButton *)bottomButtomWithVC:(UIViewController *)VC {
+    
+    UIView *bottomBackgroundView = [UIView new];
+    bottomBackgroundView.backgroundColor = RGB(240, 240, 240);
+    bottomBackgroundView.frame = CGRectMake(0, VC.view.height - 64 - 45, kScreenWidth, 45);
+    [VC.view addSubview:bottomBackgroundView];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(5, 5, kScreenWidth - 10, 35);
+    button.backgroundColor = [UIColor blueColor];
+
+    [bottomBackgroundView addSubview:button];
+   
+    
+    return button;
+}
+
 @end
