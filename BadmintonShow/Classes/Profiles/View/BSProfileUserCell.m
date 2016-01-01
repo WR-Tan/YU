@@ -90,8 +90,8 @@
 - (void)displayWithItem:(id)object{
     if ([object isKindOfClass:[BSProfileUserModel class]]) {
         BSProfileUserModel *user = (BSProfileUserModel *)object;
-        _nickNameLabel.text = user.nickName ? : @" ";
-        _yuxiuLabel.text = user.userName ? : @" ";
+        _nickNameLabel.text = user.userName ? : @" ";
+        _yuxiuLabel.text = user.yuxiuId ? : @" ";
         UIImage *placeholder =  [UIImage imageNamed:kDefaultUserAvatar];
         [_iconView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:placeholder];
     }

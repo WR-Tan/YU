@@ -77,7 +77,11 @@ static NSString *circleName = @"请给圈子取一个名字吧";
     self.title = @"创建圈子";
     self.tableView.tableFooterView = [UIView new];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"创建" style:UIBarButtonItemStyleDone target:self action:@selector(complete)];
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 /// 完创建

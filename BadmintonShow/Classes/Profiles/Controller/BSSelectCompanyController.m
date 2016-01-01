@@ -37,7 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self constructBaseView];
-     self.navigationItem.rightBarButtonItem =  [BSCommonTool createRightBarButtonItem:@"保存" target:self selector:@selector(sasveCompanyInfo) ImageName:nil];
+     self.navigationItem.rightBarButtonItem =  [BSCommonTool createRightBarButtonItem:@"保存" target:self selector:@selector(saveCompanyInfo) ImageName:nil];
 }
 
 - (void)constructBaseView{
@@ -92,19 +92,19 @@
     
     [self.view addSubview:jobView];
     
-    UILabel *infoLabel = [UILabel new];
-    infoLabel.font = kBSFontSize(12);
-    infoLabel.text = @"请输入公司的全名，便于精确匹配与推荐";
-    infoLabel.frame = CGRectMake(10, jobView.bottom + 10, kScreenWidth - 10, 20);
-    [self.view addSubview:infoLabel];
-    // Constarins
+//    UILabel *infoLabel = [UILabel new];
+//    infoLabel.font = kBSFontSize(12);
+//    infoLabel.text = @"请输入公司的全名，便于精确匹配与推荐";
+//    infoLabel.frame = CGRectMake(10, jobView.bottom + 10, kScreenWidth - 10, 20);
+//    [self.view addSubview:infoLabel];
+//    // Constarins
     
     self.companyTextField = comTextField;
     self.jobTextField = jobTextField;
 }
 
 
-- (void)sasveCompanyInfo{
+- (void)saveCompanyInfo{
     NSString *company = self.companyTextField.text ? : @"";
     NSString *job = self.jobTextField.text ? : @"";
     [BSProfileBusiness saveUserObjectArr:@[company,job] keys:@[AVPropertyCompany,AVPropertyJob] block:^(id result, NSError *err) {

@@ -114,7 +114,7 @@
     
     [BSProfileBusiness getProflieMessageFromNet:^(BSProfileUserModel *profileUserMoel, NSError *err) {
         if (!profileUserMoel || err) {
-            [MBProgressHUD showText:@"获取数据异常" atView:self.view  animated:YES];
+//            [MBProgressHUD showText:@"获取数据异常" atView:self.view  animated:YES];
             return;
         }
         [self reloadDataWithUser];

@@ -124,11 +124,11 @@
     
     [self.view addSubview:accessYearBgView];
     
-    UILabel *infoLabel = [UILabel new];
-    infoLabel.font = kBSFontSize(12);
-    infoLabel.text = @"请输入学校的全名，便于精确匹配与推荐";
-    infoLabel.frame = CGRectMake(10, accessYearBgView.bottom + 10, kScreenWidth - 10, 20);
-    [self.view addSubview:infoLabel];
+//    UILabel *infoLabel = [UILabel new];
+//    infoLabel.font = kBSFontSize(12);
+//    infoLabel.text = @"请输入学校的全名，便于精确匹配与推荐";
+//    infoLabel.frame = CGRectMake(10, accessYearBgView.bottom + 10, kScreenWidth - 10, 20);
+//    [self.view addSubview:infoLabel];
     // Constarins
     
 
@@ -162,7 +162,7 @@
 - (void)saveSchoolInfo{
     NSString *school = self.schoolTextField.text ? : @"";
     NSString *accessSchoolTime = [self accessSchoolTime];
-    [BSProfileBusiness saveUserObjectArr:@[school,accessSchoolTime] keys:@[AVPropertyCompany,AVPropertyAccessSchoolTime] block:^(id result, NSError *err) {
+    [BSProfileBusiness saveUserObjectArr:@[school,accessSchoolTime] keys:@[AVPropertySchool,AVPropertyAccessSchoolTime] block:^(id result, NSError *err) {
         if (err) {
             [SVProgressHUD showErrorWithStatus:@"保存学校信息失败..."];
             return ;

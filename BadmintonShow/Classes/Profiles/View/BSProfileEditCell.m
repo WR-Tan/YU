@@ -82,7 +82,7 @@
         }
     
         
-        self.accessoryType = [item.title isEqualToString:@"羽秀号"] ?
+        self.accessoryType = [item.title isEqualToString:@"名称"] ||  [item.title isEqualToString:@"羽秀ID"]?
         UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
         
 

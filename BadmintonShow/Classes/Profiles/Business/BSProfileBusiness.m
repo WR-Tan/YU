@@ -52,11 +52,9 @@
         }
         
         AVFile *avatar = object[AVPropertyAvatar] ;
-        AVObject *school = object[AVPropertySchool] ;
-        AVObject *company =object[AVPropertyCompany];
-        
-        NSString *schoolName = school[AVPropertyName] ? : @"";
-        NSString *companyName = company[AVPropertyName] ? : @"";
+        NSString *school = object[AVPropertySchool] ? : @"";;
+        NSString *company =object[AVPropertyCompany] ? : @"";;
+    
 
         NSString *birthDayStr = object[AVPropertyBirthDayStr] ? : @"";
         
@@ -70,10 +68,12 @@
                                    AVPropertyCity: object[AVPropertyCity]?:@"",
                                    AVPropertyDisctrict: object[AVPropertyDisctrict]?:@"",
                                    AVPropertyGenderStr: object[AVPropertyGenderStr]?:@"",
-                                   AVPropertySchool: schoolName,
+                                   AVPropertySchool: school,
                                    AVPropertyBirthDayStr : birthDayStr,
-                                   AVPropertyCompany: companyName,
+                                   AVPropertyCompany: company,
                                    AVPropertyDesc: object[AVPropertyDesc]?:@"",
+                                   AVPropertyYuXiuId: [object[AVPropertyYuXiuId] stringValue]?:@"",
+                                   AVPropertyAccessSchoolTime:object[AVPropertyAccessSchoolTime]?:@""
                                    };
         [BSUserDefaultStorage setObject:userDict forKey:UserObjectIdKey(object.objectId)];
         BSProfileUserModel *profileUser = [BSProfileUserModel modelWithDictionary:userDict];

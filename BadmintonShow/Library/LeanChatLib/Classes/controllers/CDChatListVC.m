@@ -181,7 +181,7 @@ static NSString *cellIdentifier = @"ContactCell";
     if (conversation.type == CDConvTypeSingle) {
         id <CDUserModel> user = [[CDChatManager manager].userDelegate getUserById:conversation.otherId];
         cell.nameLabel.text = user.username;
-        [cell.avatarImageView setImageWithURL:[NSURL URLWithString:user.avatarUrl]];
+        [cell.avatarImageView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:kImageUserAvatar];
     }
     else {
         [cell.avatarImageView setImage:conversation.icon];

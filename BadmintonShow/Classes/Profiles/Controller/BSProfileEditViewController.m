@@ -90,8 +90,8 @@
     self.avatarItem = [BSProfileModel new];
     self.avatarItem.thumbnailUrl = defaultURLStr;
     self.avatarItem.title = @"头像";
-    self.nameItem = BSProfileModel(nil, @"昵称", nil, @"BSSetTextFieldController");
-    self.yuxiuItem = BSProfileModel(nil, @"羽秀号", nil, nil);
+    self.nameItem = BSProfileModel(nil, @"名称", nil, @"BSSetTextFieldController");
+    self.yuxiuItem = BSProfileModel(nil, @"羽秀ID", nil, nil);
     //  Section 1
     
     self.genderItem = BSProfileModel(nil, @"性别", nil, nil);
@@ -111,8 +111,8 @@
 - (void)updateRowItems {
     
     self.avatarItem.thumbnailUrl = AppContext.user.avatarUrl ? : @"nilurl"; //forCell
-    self.nameItem.detail = AppContext.user.nickName;
-    self.yuxiuItem.detail = AppContext.user.userName;
+    self.nameItem.detail = AppContext.user.userName;
+    self.yuxiuItem.detail = AppContext.user.yuxiuId;
     self.genderItem.detail = AppContext.user.genderStr;
     self.birthdayItem.detail = AppContext.user.birthdayStr;
     
@@ -179,7 +179,7 @@
     NSInteger row = indexPath.section * 10 + indexPath.row;
     switch (row) {
         case 0 : { [self changeAvatar];  /*修改头像*/  } break;
-        case 1 : { [self setNickName];  /*修改昵称*/  } break;
+//        case 1 : { [self setNickName];  /*修改昵称*/  } break;
         case 10: { [self selectGender];  /*性别*/  } break;
         case 11: { [self selectBirthdayDate];  /*生日*/ } break;
         case 12: { [self selectRegion];  /*地区*/ } break;
@@ -249,7 +249,7 @@
     }];
     
     datePicker.titleLabel.text = @"选择地区";
-    datePicker.titleLabel.left = -70;
+//    datePicker.titleLabel.left = -70;
     datePicker.delegate = self;
     [datePicker show];
 }
@@ -259,6 +259,7 @@
     BSSetTextViewController *descVC = [[BSSetTextViewController alloc] init];
     descVC.signatureString = AppContext.user.desc ;
     descVC.delegate = self;
+    descVC.limitCount = 100;
     [self.navigationController pushViewController:descVC animated:YES];
 }
 
@@ -299,7 +300,7 @@
             [self updateRowItems];
             [self reloadData];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"保存昵称失败..." maskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showErrorWithStatus:@"上传简介失败..." maskType:SVProgressHUDMaskTypeBlack];
         }
     }];
 
