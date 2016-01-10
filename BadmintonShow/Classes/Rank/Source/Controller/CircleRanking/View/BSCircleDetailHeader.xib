@@ -100,7 +100,7 @@
                         <constraint firstAttribute="height" constant="20" id="jMK-wJ-Oad"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DN-Sz-PxN">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DN-Sz-PxN" userLabel="circleMemberView">
                     <rect key="frame" x="0.0" y="411" width="414" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="群成员" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDY-4I-PJ4">
@@ -124,6 +124,7 @@
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="5cX-oh-yym" firstAttribute="centerY" secondItem="0DN-Sz-PxN" secondAttribute="centerY" id="BNx-CX-OkM"/>
                         <constraint firstItem="VDY-4I-PJ4" firstAttribute="centerY" secondItem="0DN-Sz-PxN" secondAttribute="centerY" id="DPl-Ea-jvm"/>
@@ -254,6 +255,7 @@
                 <outlet property="addressLabel" destination="sC7-LO-zws" id="pJ9-ek-dF5"/>
                 <outlet property="avatarView" destination="7F9-gf-Ry0" id="uFm-4P-HjJ"/>
                 <outlet property="circleIdLabel" destination="RdX-Lx-Xok" id="qj3-vy-iM5"/>
+                <outlet property="circleMemberView" destination="0DN-Sz-PxN" id="vUi-ee-4Lb"/>
                 <outlet property="createdAtLabel" destination="lvc-Lf-F2X" id="2Cj-In-O8F"/>
                 <outlet property="creatorAvatarView" destination="py4-cU-zUB" id="elG-Mh-yHL"/>
                 <outlet property="creatorUserName" destination="wSS-K1-vxz" id="c1k-yd-V26"/>

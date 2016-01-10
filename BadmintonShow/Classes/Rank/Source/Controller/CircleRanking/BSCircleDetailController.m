@@ -10,6 +10,7 @@
 #import "BSCircleDetailHeader.h"
 #import "BSCircleBusiness.h"
 #import "BSPhotoPicker.h"
+#import "BSCircleMemberController.h"
 
 
 @interface BSCircleDetailController () <BSCircleDetailHeaderDelegate>
@@ -28,50 +29,39 @@
 
 - (void)constructBaseView{
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.title = self.circle.name;
-        self.tableView.backgroundColor = [UIColor whiteColor];
-        if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-        }
-        
-        CGFloat buttonHeight = 50;
-        CGFloat buttonWidth = kScreenWidth - 30;
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(15, self.view.height - buttonHeight, buttonWidth, 40 - 5);
-//        [button setBackgroundColor:[UIColor blueColor] ];
-        [button setBackgroundImage:[UIImage imageWithColor:[UIColor blueColor]] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setTitle:@"加入圈子" forState:UIControlStateNormal];
-        [button addTarget:self  action:@selector(queryIfJionedCricleCategory) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:button];
-        self.jionButton = button;
-    });
+    self.title = self.circle.name;
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
+    CGFloat buttonHeight = 50;
+    CGFloat buttonWidth = kScreenWidth - 30;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(15, self.view.height - buttonHeight - 64, buttonWidth, 40 - 5);
+    //        [button setBackgroundColor:[UIColor blueColor] ];
+    [button setBackgroundImage:[UIImage imageWithColor:[UIColor blueColor]] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitle:@"加入圈子" forState:UIControlStateNormal];
+    [button addTarget:self  action:@selector(queryIfJionedCricleCategory) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    self.jionButton = button;
 }
 
 - (void)updateCircle{
-    // 更新CircleId， User，跟下一步有重复的地方，以后修复。。
-    [BSCircleBusiness updateCircleInBackgroundWithCircle:self.circle block:^(id object, NSError *error) {
+    BOOL isCreatorSelf = [self.circle.creator.objectId isEqualToString:AppContext.user.objectId];
+    self.jionButton.enabled = !isCreatorSelf  ;
+    UIImage *buttonImage = isCreatorSelf ? [UIImage imageWithColor:[UIColor lightGrayColor]] :[UIImage imageWithColor:[UIColor blueColor]];
+    [self.jionButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [self.tableView reloadData];
+    
+    //  获取Circle的User，和圈子的人数。
+    [BSCircleBusiness fetchUserInBackgroundWithCircle:self.circle block:^(id object, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:@"获取数据失败"];
             return ;
         }
-        self.circle = (BSCircelModel *)object;
-        
-        BOOL isCreatorSelf = [self.circle.creator.objectId isEqualToString:AppContext.user.objectId];
-
-        self.jionButton.enabled = !isCreatorSelf  ;
-        UIImage *buttonImage = isCreatorSelf ? [UIImage imageWithColor:[UIColor lightGrayColor]] :[UIImage imageWithColor:[UIColor blueColor]];
-        [self.jionButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-        
-        //  获取Circle的User，和圈子的人数。
-        [BSCircleBusiness fetchUserInBackgroundWithCircle:self.circle block:^(id object, NSError *error) {
-            if (error) {
-                [SVProgressHUD showErrorWithStatus:@"获取数据失败"];
-                return ;
-            }
-            [self.tableView reloadData];
-        }];
+        [self.tableView reloadData];
     }];
 }
 
@@ -91,14 +81,17 @@
             return;
         }
         
+        
+        /// 暂时可以加入对应的其他公司/学校/公开圈吧。别太复杂
+#if 0
         if (!error && succeeded == NO) {
-            
             NSString *circleType = [[self typeDict] objectForKey:self.circle.type] ? : @"";
             NSString *title = [NSString stringWithFormat:@"你已经加入了%@分类圈，目前只支持加入一个分类圈(公开圈)中。如需加入当前圈子，请退出之前对应的分类圈",circleType];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:nil  delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
             [alert show];
             return ;
         }
+#endif
         
         //  符合加入条件！
         [self queryIfJionInCircle];
@@ -134,7 +127,7 @@
 - (void)jionCircle {
     
     [BSCircleBusiness jionCircel:self.circle object:^(BOOL succeeded, NSError *error) {
-       
+        
         if (error || !succeeded) {
             [SVProgressHUD showErrorWithStatus:@"加入失败"];
             return ;
@@ -143,10 +136,13 @@
         [SVProgressHUD showSuccessWithStatus:@"加入成功"];
         NSInteger index=[[self.navigationController viewControllers]indexOfObject:self];
         [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:index-2]animated:YES];
+        if (self.block) {
+            self.block();
+        }
     }];
     
     
-   
+    
 }
 
 
@@ -192,13 +188,13 @@
         if ([object isKindOfClass:[UIImage class]]) {  // 上传图片
             [BSCircleBusiness saveCircleAvatarWithId:self.circle.objectId image:object
                                                block:^(id object, NSError *error) {
-                if (error) {
-                    [SVProgressHUD showErrorWithStatus:@"上传图片失败"];
-                    return ;
-                }
-                self.circle.avatarUrl = (NSURL *)object;
-                [self.tableView reloadData];
-            }];
+                                                   if (error) {
+                                                       [SVProgressHUD showErrorWithStatus:@"上传图片失败"];
+                                                       return ;
+                                                   }
+                                                   self.circle.avatarUrl = (NSURL *)object;
+                                                   [self.tableView reloadData];
+                                               }];
         } else {
             [SVProgressHUD showErrorWithStatus:@"获取图片失败"];
         }
@@ -211,7 +207,9 @@
 }
 
 - (void)didClickPeopleCountButton{
-    
+    BSCircleMemberController *memberVC = [[BSCircleMemberController alloc] init];
+    memberVC.circle  = self.circle;
+    [self.navigationController pushViewController:memberVC animated:YES];
 }
 
 

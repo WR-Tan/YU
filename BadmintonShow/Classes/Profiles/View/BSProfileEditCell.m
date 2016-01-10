@@ -89,4 +89,14 @@
     }
 }
 
+- (void)setAvatar:(UIImage *)image {
+    if (image) {
+        _detailImageView.image = image;
+        _detailImageView.hidden = NO;
+    } else {
+        _detailImageView.hidden = YES;
+    }
+
+}
+
 @end

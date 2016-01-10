@@ -31,6 +31,8 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
     self = [super  init];
     if (self) {
         _rankArray = [NSMutableArray array];
+        _querySkip = 0;
+        _querySuccessCount = 0;
     }
     return self;
 }
@@ -42,10 +44,13 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
     self.title = @"天梯";
     [self constructTableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"BSSkyLadderTableViewCell" bundle:nil] forCellReuseIdentifier:CellIdentifier];
-    
+    // 增加下拉刷新
     [self loadRankData];
 }
 
+- (void)loadRankData{
+    
+}
 
 - (void)constructTableView{
     //  IOS7以上适配
@@ -63,39 +68,27 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.backgroundColor = kTableViewBackgroudColor;
     [self.view addSubview:self.tableView];
-}
-
-
-- (void)loadRankData{
     
-    //  数据库查询1信息
-    [SVProgressHUD show];
-    [BSRankDataBusiness queryAllRankUserWithBlock:^(NSArray *objects, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            _rankArray = objects.mutableCopy;
-            [self.tableView reloadData];
-            
-            //  数据库操作成功后，再去网络请求
-            [BSRankDataBusiness queryRankUserDataWithBlock:^(NSArray *objects, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                });
-                
-                if (error) {
-//                    [self.view addSubview:self.showErrorLabel];
-                    return ;
-                }
-                [self.showErrorLabel removeFromSuperview];
-                
-                _rankArray = objects.mutableCopy;
-                [self.tableView reloadData];
-            }];
-        });
+    
+    __weak UITableView *tableView = self.tableView;
+    // 下拉刷新
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadRankData];
+
     }];
     
+    // 设置自动切换透明度(在导航栏下面自动隐藏)
+    tableView.mj_header.automaticallyChangeAlpha = YES;
     
-   
+    
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreData];
+    }];
+
+}
+
+- (void)loadMoreData{
+    
 }
 
 
@@ -126,7 +119,7 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -139,7 +132,11 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    BSProfileUserModel *user = [_rankArray objectAtIndex:indexPath.row];
+    
     BSPlayerDetailViewController *vc = [[BSPlayerDetailViewController alloc] init];
+    vc.player = user;
+    vc.title = user.userName;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -149,7 +146,7 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
 - (UILabel *)showErrorLabel {
     if (!_showErrorLabel) {
         _showErrorLabel = [[UILabel alloc] init];;
-        _showErrorLabel.text = @"网络状况较差，查询失败";
+        _showErrorLabel.text = @"获取排名失败，请检查网络";
         _showErrorLabel.textAlignment = NSTextAlignmentCenter;
         CGFloat labelWidth = 300 ;
         CGFloat labelHeight = 100;

@@ -8,16 +8,18 @@
 
 #import "BSBaseViewController.h"
 #import "BSSkyLadderHeaderView.h"
+#import "MJRefresh.h"
 
 @interface BSBasePlayerRankingController : BSBaseViewController<UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *_rankArray ;
     BSSkyLadderHeaderView *_header;
+    NSInteger _querySkip;
+    NSInteger _querySuccessCount;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *showErrorLabel;
-
-//  加载比赛数据
 - (void)loadRankData;
+- (void)loadMoreData;
     
 @end

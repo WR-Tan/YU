@@ -16,6 +16,8 @@
 #define AVClassFeedback     @"Feedback"       // Game类名
 #define AVClassUser         @"_User"
 #define AVClassSchool       @"School"       // Game类名
-#define AVClassCircle       @"Circle"       // 球圈 
+#define AVClassCircle       @"Circle"       // 球圈
+
+#define AVClassAddRequest   @"AddRequest"       // Game类名
 
 #endif /* AVObjectClass_h */

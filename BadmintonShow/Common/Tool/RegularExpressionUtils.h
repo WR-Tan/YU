@@ -10,6 +10,8 @@
 
 @interface RegularExpressionUtils : NSObject
 
+//数字
++ (BOOL) validateNumberString:(NSString *)string;
 //邮箱
 + (BOOL) validateEmail:(NSString *)email;
 //手机号码验证

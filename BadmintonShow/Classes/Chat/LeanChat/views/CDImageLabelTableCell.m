@@ -32,7 +32,10 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
+    self.myImageView.clipsToBounds = YES;
+    self.myImageView.layer.cornerRadius = 48 /2 ;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

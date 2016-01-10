@@ -11,3 +11,8 @@
 @interface BSCircleRankingController : BSBasePlayerRankingController
 
 @end
+
+
+
+@interface DowArrowButton : UIButton
+@end

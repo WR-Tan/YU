@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *playerAIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *playerBIcon;
+@property (weak, nonatomic) IBOutlet UILabel *aNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *score;
 @property (weak, nonatomic) IBOutlet UILabel *creatAt;
 @property (weak, nonatomic) IBOutlet UILabel *winLabel;

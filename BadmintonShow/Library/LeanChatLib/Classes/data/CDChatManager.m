@@ -122,8 +122,12 @@ static CDChatManager *instance;
 
 - (void)fetchConvWithOtherId:(NSString *)otherId callback:(AVIMConversationResultBlock)callback {
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    [array addObject:[AVIMClient defaultClient].clientId];
-    [array addObject:otherId];
+    if ([AVIMClient defaultClient].clientId) { // what's this。 client信息从后台获取？
+        [array addObject:[AVIMClient defaultClient].clientId];
+    }
+    if (otherId) {
+        [array addObject:otherId];
+    }
     [self fetchConvWithMembers:array type:CDConvTypeSingle callback:callback];
 }
 

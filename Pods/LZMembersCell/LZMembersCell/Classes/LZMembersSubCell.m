@@ -25,6 +25,9 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.avatarImageView.clipsToBounds = YES;
+        self.avatarImageView.layer.cornerRadius = kLZMembersSubCellAvatarSize / 2.0;
         [self addSubview:self.avatarImageView];
         [self addSubview:self.usernameLabel];
     }

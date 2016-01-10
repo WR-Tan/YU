@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BSMyCircleHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="461" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的排名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HH-fx-tK1">
+                    <rect key="frame" x="394" y="7" width="52" height="16"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Et2-Nz-ao2">
+                    <rect key="frame" x="0.0" y="29" width="461" height="0.5"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="9Wf-8s-Fqg"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3N-vG-MSj">
+                    <rect key="frame" x="0.0" y="0.0" width="461" height="0.5"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="mAE-If-2wO"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="我的圈子" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUw-Ea-bfr">
+                    <rect key="frame" x="8" y="7" width="52" height="16"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="kUw-Ea-bfr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="738-8K-x7q"/>
+                <constraint firstItem="kUw-Ea-bfr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ElS-11-Kmn"/>
+                <constraint firstItem="M3N-vG-MSj" firstAttribute="leading" secondItem="kUw-Ea-bfr" secondAttribute="trailing" id="PEu-yW-MgS"/>
+                <constraint firstAttribute="trailing" secondItem="Et2-Nz-ao2" secondAttribute="trailing" id="Qfl-KC-hO1"/>
+                <constraint firstItem="Et2-Nz-ao2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TUl-Lf-NcW"/>
+                <constraint firstItem="M3N-vG-MSj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VOk-RY-cRC"/>
+                <constraint firstAttribute="bottom" secondItem="Et2-Nz-ao2" secondAttribute="bottom" id="cGC-54-Cjx"/>
+                <constraint firstAttribute="trailing" secondItem="M3N-vG-MSj" secondAttribute="trailing" id="iQW-W3-iY9"/>
+                <constraint firstItem="M3N-vG-MSj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lqE-AG-cgd"/>
+                <constraint firstItem="3HH-fx-tK1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="u1E-g0-k71"/>
+                <constraint firstAttribute="trailing" secondItem="3HH-fx-tK1" secondAttribute="trailing" constant="15" id="yVD-S4-iWc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="PEu-yW-MgS"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="rankLabel" destination="3HH-fx-tK1" id="pyr-Ev-sQa"/>
+                <outlet property="titleLabel" destination="kUw-Ea-bfr" id="VBE-kl-3bc"/>
+            </connections>
+            <point key="canvasLocation" x="160.5" y="58"/>
+        </view>
+    </objects>
+</document>

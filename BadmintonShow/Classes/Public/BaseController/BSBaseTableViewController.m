@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.919];
+    self.view.backgroundColor = kBackgroudColor;
     if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
@@ -51,7 +51,7 @@
 //    }
 //    _tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
     _tableView.scrollIndicatorInsets = _tableView.contentInset;
-    _tableView.backgroundColor = kTableViewBackgroudViewColor ;
+    _tableView.backgroundColor = kBackgroudColor ;
     _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
 }

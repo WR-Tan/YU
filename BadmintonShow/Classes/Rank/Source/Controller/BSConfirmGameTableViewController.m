@@ -41,8 +41,7 @@ static NSString *cellId = @"BSConfirmGameCellId";
 
 @implementation BSConfirmGameTableViewController
 
-- (instancetype)init
-{
+- (instancetype)init{
     self = [super init];
     if (self) {
         _myGame = [[BSGameModel alloc] init];
@@ -56,27 +55,19 @@ static NSString *cellId = @"BSConfirmGameCellId";
     [SVProgressHUD dismiss];
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
     [self setupBaseViews];
     [self initData];
 }
- 
 
-
-
-- (void)setupBaseViews
-{
-     self.title = @"确认比赛结果";
-    
+- (void)setupBaseViews{
+    self.title = @"确认比赛结果";
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
-    
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BSConfirmGameCell class]) bundle:nil] forCellReuseIdentifier:cellId];
     
     
@@ -89,66 +80,31 @@ static NSString *cellId = @"BSConfirmGameCellId";
     self.confirmBtn = confirmBtn;
 }
 
-- (void)initData
-{
-    AVObject *game = [AVObject objectWithoutDataWithClassName:AVClassGame objectId:self.gameObjectId];
-
-    [game fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
-        //  1.处理错误：
+- (void)initData {
+    
+    AVQuery *query = [AVQuery queryWithClassName:AVClassGame];
+    [query whereKey:AVPropertyObjectId equalTo:self.gameObjectId];
+    [query includeKey:AVPropertyAPlayer];
+    [query includeKey:AVPropertyBPlayer];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
-            NSString *errorMsg = [ NSString stringWithFormat:@"获取比赛结果失败,%@",error];
-            [SVProgressHUD showErrorWithStatus:errorMsg];
+            [SVProgressHUD showErrorWithStatus:@"获取比赛结果失败,请检查网络"];
             return ;
         }
-        
-        //  2.成功：
-        [self completeGameModelWithObject:object block:^{
-            
-            self.isGameLoaded = YES ;
-            
-            
-            //  刷新界面
-            [self.tableView reloadData];
-        }];
+        if (!objects.count) {
+            [SVProgressHUD showErrorWithStatus:@"获取比赛结果失败"];
+            return ;
+        }
+        self.myGame = [BSGameModel modelWithAVObject:objects[0]];
+        self.isGameLoaded = YES ;
+        [self.tableView reloadData];
     }];
+ 
 }
 
-
-//  获取Game中_User的完整信息！
-- (void)completeGameModelWithObject:(AVObject *)game  block:( void (^) (void) )block{
-    self.gameObject = game;
-    
-    //  1.取出比赛双方
-    
-    BOOL isAPlayerSelf = [game[@"aPlayer"][@"objectId"] isEqualToString:[AVUser currentUser].objectId];
-    if (isAPlayerSelf) {
-        self.oppUser = game[@"bPlayer"];
-    }else{
-        self.oppUser = game[@"aPlayer"];
-    }
-    
-    _myGame.isConfirmed = [game[@"isConfirmed"] boolValue]  ;
-    self.confirmBtn.enabled = !_myGame.isConfirmed;
-    self.confirmBtn.backgroundColor = _myGame.isConfirmed ? [UIColor lightGrayColor] : [UIColor blueColor];
-    
-    
-    //  获取self.oppUser的完整信息-（包含username等）
-    [self.oppUser fetchInBackgroundWithKeys:@[@"username",@"nickname"] block:^(AVObject *object, NSError *error) {
-    
-        
-        NSString *aScore = [game[@"aScore"] stringValue]  ? : kNullShortText;
-        NSString *bScore = [game[@"bScore"] stringValue] ? : kNullShortText;
-        
-        _myGame.aScore = isAPlayerSelf ? aScore : bScore;
-        _myGame.bScore = isAPlayerSelf ? bScore : aScore;
-        
-        block();
-    }];
-}
 
 #pragma mark - IBAction
-- (void)confirmAction:(id)sender
-{
+- (void)confirmAction:(id)sender{
     //  1.如果比赛还未被加载！
     if (NO == _isGameLoaded || self.gameObject == nil) {
         return;
@@ -160,7 +116,6 @@ static NSString *cellId = @"BSConfirmGameCellId";
         [SVProgressHUD showInfoWithStatus:@"你已经确认比赛了"];
         return;
     }
-    
     
     //  1.修改 Game的isConfirmed属性为YES
     [self.gameObject setObject:@YES forKey:AVPropertyIsConfirmed];
@@ -177,8 +132,8 @@ static NSString *cellId = @"BSConfirmGameCellId";
 
 - (void)debugMessage
 {
-    float aBeforeScore = [[AVUser currentUser][@"score"] floatValue];
-    float bBeforeScore = [self.oppUser[@"score"] floatValue];
+    float aBeforeScore = self.myGame.aPlayer.score;
+    float bBeforeScore = self.myGame.bPlayer.score;
     
     [[AVUser currentUser] fetchInBackgroundWithKeys:@[@"score"]  block:^(AVObject *object, NSError *error) {
        
@@ -202,10 +157,6 @@ static NSString *cellId = @"BSConfirmGameCellId";
 }
 
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-
-}
-
 
 #pragma mark - Table view data source
 
@@ -227,18 +178,28 @@ static NSString *cellId = @"BSConfirmGameCellId";
     BSConfirmGameCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     // Configure the cell...
-    cell.aNameLabel.text = self.myGame.aPlayer.nickName;
-    cell.bNameLabel.text = self.myGame.bPlayer.nickName;
+    cell.beginTimeLabel.text = self.myGame.startTime ? : @" ";
+    cell.aNameLabel.text = self.myGame.aPlayer.userName ?: @" ";
+    cell.bNameLabel.text = self.myGame.bPlayer.userName ?: @" ";
     
-    cell.aScoreLabel.text = self.myGame.aScore;
-    cell.bScoreLabel.text = self.myGame.bScore;
+    cell.aScoreLabel.text = self.myGame.aScore ?: @" ";
+    cell.bScoreLabel.text = self.myGame.bScore ?: @" ";
     
     [cell.aAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.aPlayer.avatarUrl] placeholder:kImageUserAvatar];
     [cell.bAvatarImageView setImageWithURL:[NSURL URLWithString:self.myGame.bPlayer.avatarUrl] placeholder:kImageUserAvatar];
 
     cell.confirmImageView.hidden = !self.myGame.isConfirmed;
     BOOL isAWinner =  [self.myGame.aScore integerValue] >     [self.myGame.bScore integerValue];
-    cell.resultLabel.text = [NSString stringWithFormat:@"比赛结果: %@",isAWinner? @"胜利" : @"失败"];
+    
+
+    BOOL shouldBeRed  = isAWinner || !self.myGame.aScore;
+    
+    
+    cell.resultLabel.text = [NSString stringWithFormat:@"%@",shouldBeRed? @"胜利" : @"失败"];
+    cell.resultLabel.backgroundColor = shouldBeRed ? [UIColor redColor] : [UIColor greenColor];
+    cell.resultLabel.textColor = shouldBeRed ? [UIColor whiteColor]:[UIColor blackColor];
+    cell.resultLabel.layer.cornerRadius = 2.0f;
+
     
     
     return cell;

@@ -25,7 +25,8 @@
 
 - (BSProfileUserModel *)user {
     if (!_user) {
-        _user = [BSProfileBusiness getUserProflieFromUserDefault];
+        _user = [BSProfileUserModel  modelFromAVUser:[AVUser currentUser]];
+//        _user = [BSProfileBusiness getUserProflieFromUserDefault];
     }
     return _user;
 }

@@ -29,6 +29,7 @@
 
 #import "AppMarcos.h"
 #import "BSConfirmGameTableViewController.h"
+#import "CDCacheManager.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -41,7 +42,7 @@ static NSInteger const kOnePageSize = 10;
 @property (nonatomic, strong) XHMessageTableViewCell *currentSelectedCell;
 @property (nonatomic, strong) NSArray *emotionManagers;
 @property (nonatomic, strong) LZStatusView *clientStatusView;
-
+@property (nonatomic, strong) AVUser *oppUser;
 @end
 
 @implementation CDChatRoomVC
@@ -66,6 +67,7 @@ static NSInteger const kOnePageSize = 10;
     self.conv = conv;
     return self;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -590,7 +592,7 @@ static NSInteger const kOnePageSize = 10;
         NSString *path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
         xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:fromUser.username timestamp:time];
     } else if(msg.mediaType ==kAVIMMessageMediaTypeFile ){
-/**************************************************************************************************************/
+/************************************************************************/
         // Tag:YUXIU   累似红包
         NSString *tempGameObjectId = [msg.attributes objectForKey:kGameMessageAttributeKey];
         if (tempGameObjectId.length) {
@@ -785,11 +787,55 @@ static NSInteger const kOnePageSize = 10;
 
 #pragma mark - save Game && send Game
 - (void)saveGame{
+    //getOppUserWithBlock
+    if (self.oppUser) {
+        [self toAddGameController];
+        return ;
+    }
+    
+    [self getOppUserWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self toAddGameController];
+            return ;
+        }
+        [SVProgressHUD showErrorWithStatus:@"获取数据错误"];
+    }];
+}
 
+- (void)toAddGameController{
     BSAddGameRecordController *addGame = [[BSAddGameRecordController alloc] init];
+    addGame.oppUser = self.oppUser;
     addGame.delegate = self ;
     [self.navigationController pushViewController:addGame animated:YES];
 }
+
+
+//  通过conv获取聊天对象*_User
+- (void)getOppUserWithBlock:(BSBooleanResultBlock)block{
+    
+    //  获取对象objectId
+    NSString *oppUserId ;
+    for (NSString *objectId in self.conv.members) {
+        if (![objectId isEqualToString:AppContext.user.objectId]) {
+            oppUserId = objectId;
+        }
+    }
+    
+    //  缓存获取
+    self.oppUser = [[CDCacheManager manager] lookupUser:oppUserId];
+    if (self.oppUser) return;
+    
+    //  后台获取
+    self.oppUser.objectId = oppUserId;
+    [self.oppUser fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+        if (error) {
+            if (block) block(NO,error);
+            return ;
+        }
+        if (block) block(YES,nil);
+    }];
+}
+
 
 
 #pragma mark - BSAddGameRecordControllerDelegate    Method

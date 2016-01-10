@@ -84,11 +84,11 @@
     
     [_aImageView setImageWithURL:[NSURL URLWithString:game.aPlayer.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
     [_bImageView setImageWithURL:[NSURL URLWithString:game.bPlayer.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
-    _playerA_nameLabel.text = game.aPlayer.nickName;
+    _playerA_nameLabel.text = game.aPlayer.userName;
 
     
-    if (game.bPlayer.nickName) {
-        _playerB_nameLabel.text = game.bPlayer.nickName;
+    if (game.bPlayer.userName) {
+        _playerB_nameLabel.text = game.bPlayer.userName;
         _playerB_nameLabel.textColor = [UIColor blackColor];
     } else {
         _playerB_nameLabel.text = @"请选择你的对手";

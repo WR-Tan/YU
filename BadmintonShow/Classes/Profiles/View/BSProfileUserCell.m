@@ -23,6 +23,7 @@
     UILabel *_nickNameLabel;
     UILabel *_yuxiuLabel;
     UIImageView *_iconView;
+    UIView *_bottomLine;
 }
 
 
@@ -63,6 +64,10 @@
     [self.contentView addSubview:yuxiuLabel];
     _yuxiuLabel = yuxiuLabel;
     
+    _bottomLine = [UIView new];
+    _bottomLine.backgroundColor = [UIColor lightGrayColor];
+    [self addSubview:_bottomLine];
+    
     [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).offset(kCellPadding);
         make.width.equalTo(@(iconRadius));
@@ -83,6 +88,15 @@
     [yuxiuLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(yuxiuPlaceHolder);
         make.left.equalTo(yuxiuPlaceHolder.mas_right).offset(kCellInnerPadding);
+    }];
+    
+    
+    
+    [_bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(0.5));
     }];
     
 }

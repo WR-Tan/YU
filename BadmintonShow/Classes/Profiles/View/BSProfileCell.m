@@ -8,12 +8,15 @@
 
 #import "BSProfileCell.h"
 #import "BSProfileModel.h"
+#import "Masonry.h"
 
 
 @implementation BSProfileCell{
     UIImageView *_imageView;
     UILabel *_title;
     UILabel *_detailLabel;
+    UIView *_topLine;
+    UIView *_bottomLine;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -31,6 +34,27 @@
     _title.font = kBSDefaultFont ;
     _detailLabel = self.detailTextLabel;
     _detailLabel.font = kDetailLabelFont;
+    _topLine = [UIView new];
+    _topLine.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
+    [self addSubview:_topLine];
+    _bottomLine = [UIView new];
+    _bottomLine.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
+    [self addSubview:_bottomLine];
+    
+    [_topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(0.5));
+    }];
+    
+    [_bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.bottom.equalTo(self);
+        make.height.equalTo(@(0.5));
+    }];
+    
 //    //  头像
 //    UIImageView *iconView = [UIImageView new];
 //    [self.contentView addSubview:iconView];

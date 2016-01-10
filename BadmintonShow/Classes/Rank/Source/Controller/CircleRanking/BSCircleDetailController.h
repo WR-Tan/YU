@@ -7,9 +7,11 @@
 //  圈子详情--头像，名称，ID，简介，人数
 
 #import "BSBaseTableViewController.h"
-#import "BSCircelModel.h"
+#import "BSCircleModel.h"
 
+typedef void (^JionCircleSuccessBlock)(void );
 
 @interface BSCircleDetailController : BSBaseTableViewController
-@property (nonatomic, strong) BSCircelModel *circle;
+@property (nonatomic, strong) BSCircleModel *circle;
+@property (nonatomic, copy) JionCircleSuccessBlock block;
 @end

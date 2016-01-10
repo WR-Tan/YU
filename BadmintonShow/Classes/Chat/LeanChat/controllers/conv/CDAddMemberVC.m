@@ -41,15 +41,17 @@ static NSString *reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [CDImageLabelTableCell registerCellToTalbeView:self.tableView];
     
+    
     self.title = @"邀请好友";
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     [self initBarButton];
     [self refresh];
 }
 
 - (void)initBarButton {
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(invite)];
 }
 

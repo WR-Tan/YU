@@ -6,7 +6,7 @@
 //  Copyright © 2015年 LZH. All rights reserved.
 //  LeanChat-通讯录-朋友列表
 
-#import "CDFriendListVC.h"
+#import "CDFriendListVC.h" 
 
 @interface BSFriendListViewController : CDFriendListVC
 

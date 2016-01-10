@@ -259,7 +259,7 @@ static CDUserManager *userManager;
 - (void)findAddRequestsWithBlock:(AVArrayResultBlock)block {
     AVUser *curUser = [AVUser currentUser];
     AVQuery *q = [CDAddRequest query];
-    [q includeKey:kAddRequestFromUser];
+    [q includeKey:kAddRequestFromUser ];
     [q whereKey:kAddRequestToUser equalTo:curUser];
     [q orderByDescending:@"createdAt"];
     [q findObjectsInBackgroundWithBlock:block];

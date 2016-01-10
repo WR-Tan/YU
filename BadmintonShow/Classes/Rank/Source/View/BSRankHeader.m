@@ -8,6 +8,7 @@
 
 #import "BSRankHeader.h"
 #define kBSViewBorder 10
+#define kBSViewInnerBorder 8
 
 @implementation BSRankHeader{
     UILabel *_nickNamePlaceholder;
@@ -43,11 +44,11 @@
     [_icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:kImageUserAvatar];
     
     CGFloat labelWidth = 220 ;
-    CGFloat placeholderWidth = 40 ;
+    CGFloat placeholderWidth = 35 ;
     CGFloat labelHeight = 20;
     
     _nickNamePlaceholder.left = kBSViewBorder;
-    _nickNamePlaceholder.top = CGRectGetMaxY(_icon.frame) + kBSViewBorder;
+    _nickNamePlaceholder.top = CGRectGetMaxY(_icon.frame) + kBSViewInnerBorder;
     _nickNamePlaceholder.width = placeholderWidth ;
     _nickNamePlaceholder.height = labelHeight ;
     _nickNamePlaceholder.text = @"名称:";
@@ -61,32 +62,29 @@
     
     
     _rankPlaceholder.left = kBSViewBorder;
-    _rankPlaceholder.top = _nickNamePlaceholder.bottom + kBSViewBorder;
-    _rankPlaceholder.width = placeholderWidth;
+    _rankPlaceholder.top = _nickNamePlaceholder.bottom + kBSViewInnerBorder;
+    _rankPlaceholder.width = 50;
     _rankPlaceholder.height = labelHeight;
-    _rankPlaceholder.text = @"等级:";
+    _rankPlaceholder.text = @"天梯分:";
     
     CGFloat rankWidth  =  labelWidth;
     CGFloat rankHeight =  labelHeight;
     CGFloat rankX = _rankPlaceholder.right + kBSViewBorder;
     CGFloat rankY = _rankPlaceholder.top;
     _ranking.frame = CGRectMake(rankX, rankY, rankWidth, rankHeight);
-    _ranking.text = @"第101名";
     
     
     _introducePlaceholder.left = kBSViewBorder;
-    _introducePlaceholder.top = _rankPlaceholder.bottom + kBSViewBorder;
+    _introducePlaceholder.top = _rankPlaceholder.bottom + kBSViewInnerBorder + 10 ;
     _introducePlaceholder.width = placeholderWidth;
     _introducePlaceholder.height = labelHeight;
-    _introducePlaceholder.text = @"简介:";
+    _introducePlaceholder.text = @"签名:";
     
     CGFloat introduceWidth  = labelWidth ;
-    CGFloat introduceHeight =  labelHeight;
+    CGFloat introduceHeight =  40;
     CGFloat introduceX =  _introducePlaceholder.right + kBSViewBorder;
-    CGFloat introduceY =  _introducePlaceholder.top;
-    _introduce.frame = CGRectMake(introduceX, introduceY, introduceWidth, introduceHeight);
-    _introduce.text = @"直!到!世界尽头";
-   
+    CGFloat introduceY =  _rankPlaceholder.bottom + kBSViewInnerBorder;
+    _introduce.frame = CGRectMake(introduceX, introduceY, kScreenWidth - introduceX - 10, introduceHeight);
 }
 
 - (void)addViews{
@@ -112,8 +110,15 @@
     _introducePlaceholder = [UILabel new];
     _introducePlaceholder.textColor = [UIColor darkGrayColor];
     _introduce = [[UILabel alloc ] init];
+    _introduce.numberOfLines = 2;
     [self addSubview:_introducePlaceholder];
     [self addSubview:_introduce];
+    
+    for (UILabel *label in self.subviews) {
+        if ([label isKindOfClass:[UILabel class]]) {
+        label.font = kBSFontSize(15);
+        }
+    }
 }
 
 

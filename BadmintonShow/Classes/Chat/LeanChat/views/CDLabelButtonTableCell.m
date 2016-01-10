@@ -13,6 +13,10 @@
 - (void)awakeFromNib {
     // Initialization code
     [super awakeFromNib];
+    self.leftImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.leftImageView.clipsToBounds = YES;
+    self.leftImageView.layer.cornerRadius = 48/ 2;
+    
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

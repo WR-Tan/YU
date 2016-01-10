@@ -84,7 +84,7 @@
              [delegate toLogin];
              [self.navigationController popToRootViewControllerAnimated:YES];
          } else {
-             [SVProgressHUD showErrorWithStatus:@"退出失败，请重试"];
+             [SVProgressHUD showErrorWithStatus:@"退出失败，请重试。(若重试仍无法退出，请关闭程序的后台运行，重新打开并退出)"];
          }
          
      }];

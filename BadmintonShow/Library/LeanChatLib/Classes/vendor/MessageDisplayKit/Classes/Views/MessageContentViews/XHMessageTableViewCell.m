@@ -174,6 +174,8 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 }
 
 - (void)configAvatorWithMessage:(id <XHMessageModel>)message {
+   
+    
     if (message.avator) {
         [self.avatorButton setImage:message.avator forState:UIControlStateNormal];
     } else if(message.avatorUrl){
@@ -398,6 +400,9 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             }
             
             UIButton *avatorButton = [[UIButton alloc] initWithFrame:avatorButtonFrame];
+            avatorButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+            avatorButton.imageView.layer.cornerRadius = 24;
+            avatorButton.imageView.clipsToBounds = YES;
             [avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatorType:XHMessageAvatorTypeCircle] forState:UIControlStateNormal];
             [avatorButton addTarget:self action:@selector(avatorButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:avatorButton];

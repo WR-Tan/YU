@@ -10,15 +10,30 @@
 #import "AVQuery.h"
 #import "AVRelation.h"
 #import "AVFile.h"
-#import "BSCircelModel.h"
+#import "BSCircleModel.h"
+#import "RegularExpressionUtils.h"
 
 @implementation BSCircleBusiness
 
-+ (void)queryRecommendedCircleWithBlock:(BSArrayResultBlock)block {
-    
-    // query _User realtions to School
-    
++ (void)queryMyCirclesWithBlock:(BSArrayResultBlock)block {
+    AVRelation *circleRelation = [[AVUser currentUser] relationforKey:AVRelationCircles];
+    [[circleRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            block(nil, error);
+            return ;
+        }
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (AVObject *circle in objects) {
+            BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
+            [arrM addObject:model];
+        }
+        block(arrM, nil);
+    }];
 }
+
+
+
 
 + (void)queryCircleWithType:(NSString *)typeString block:(BSArrayResultBlock)block {
  
@@ -47,7 +62,7 @@
         
         NSMutableArray *arrM = [NSMutableArray array];
         for (AVObject *circle in objects) {
-            BSCircelModel *model = [BSCircelModel modelWithAVObject:circle];
+            BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
             [arrM addObject:model];
         }
         block(arrM, nil);
@@ -58,16 +73,11 @@
     NSDictionary *dict = [self circleCateogry];
     NSString *categoryKey = dict[category] ? : nil;
     
-    NSError *error = [[NSError alloc] initWithDomain:@"xxx" code:200 userInfo:@{@"userInfo":@"doesn't match any category"}];
-    if (!categoryKey) {
-        block(nil,error);
-        return;
-    }
-    
     AVQuery *query = [AVQuery queryWithClassName:AVClassCircle];
-    [query whereKey:AVPropertyType equalTo:categoryKey];
+    if (categoryKey) { // 查询所有
+        [query whereKey:AVPropertyType equalTo:categoryKey];
+    }
     [query whereKey:AVPropertyOpen equalTo:@(isOpen)];
-//    [query includeKey:@"avatar"];
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
        
@@ -78,7 +88,7 @@
         
         NSMutableArray *circleArrM = [NSMutableArray array];
         for (AVObject *circleObject in objects) {
-            BSCircelModel *model = [BSCircelModel modelWithAVObject:circleObject];
+            BSCircleModel *model = [BSCircleModel modelWithAVObject:circleObject];
             [circleArrM addObject:model];
         }
         block(circleArrM,nil);
@@ -118,13 +128,18 @@
     
 }
 
-+ (void)saveCircleWithName:(NSString *)name category:(NSString *)type desc:(NSString *)desc isOpen:(BOOL)isOpen block:(BSIdResultBlock)block {
++ (void)saveCircleWithName:(NSString *)name category:(NSString *)type desc:(NSString *)desc isOpen:(BOOL)isOpen avatar:(UIImage *)avatar block:(BSIdResultBlock)block {
     AVObject *circle = [AVObject objectWithClassName:AVClassCircle];
+    
     [circle setObject:name forKey:AVPropertyName];
     [circle setObject:type forKey:AVPropertyType];
     [circle setObject:@(isOpen) forKey:AVPropertyOpen];
     [circle setObject:[AVUser currentUser] forKey:AVPropertyCreator];
     [circle setObject:desc forKey:AVPropertyDesc];
+    if (avatar) {
+        AVFile *avatarFile = [AVFile fileWithData:UIImageJPEGRepresentation(avatar, 0.4)];
+        [circle setObject:avatarFile forKey:AVPropertyAvatar];
+    }
     [circle saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         // generate a circleModel
         if (error) {
@@ -133,12 +148,18 @@
         }
         
         if (succeeded) {
-            BSCircelModel *model = [BSCircelModel modelWithAVObject:circle];
+            BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
             block(model, nil);
             
-            AVRelation *relation = [circle relationforKey:AVRelationPlayers];
-            [relation addObject:[AVUser currentUser]];
+            //  Circle's players relation...
+            AVRelation *relationForPlayersInCircle = [circle relationforKey:AVRelationPlayers];
+            [relationForPlayersInCircle addObject:[AVUser currentUser]];
             [circle  saveInBackground];
+            
+            //  _User's circle realtion
+            AVRelation *relationFroCirclesInUser = [[AVUser currentUser] relationforKey:AVRelationCircles];
+            [relationFroCirclesInUser addObject:circle];
+            [[AVUser currentUser] saveInBackground];
         }
     }];
 }
@@ -156,7 +177,7 @@
     }];
 }
 
-+ (void)updateCircleInBackgroundWithCircle:(BSCircelModel *)circle block:(BSIdResultBlock)block{
++ (void)updateCircleInBackgroundWithCircle:(BSCircleModel *)circle block:(BSIdResultBlock)block{
     AVQuery *query = [AVQuery queryWithClassName:AVClassCircle];
     [query whereKey:AVPropertyObjectId equalTo:circle.objectId];
     [query includeKey:AVPropertyCreator];
@@ -167,12 +188,12 @@
         }
         
         AVObject *circleObject = objects[0];
-        BSCircelModel *model = [BSCircelModel modelWithAVObject:circleObject];
+        BSCircleModel *model = [BSCircleModel modelWithAVObject:circleObject];
         block(model,nil);
     }];
 }
 
-+ (void)fetchUserInBackgroundWithCircle:(BSCircelModel *)circle block:(BSIdResultBlock)block{
++ (void)fetchUserInBackgroundWithCircle:(BSCircleModel *)circle block:(BSIdResultBlock)block{
     [BSCircleBusiness fetchUser:circle.creator.objectId block:^(id object, NSError *error) {
         if (error) {
             block(nil, error);
@@ -211,8 +232,9 @@
 
 + (void)queryPlayerCountWithCircleId:(NSString *)objectId block:(BSIdResultBlock)block{
     if (!objectId) return;
-    AVRelation *relation = [[AVObject objectWithoutDataWithClassName:AVClassCircle objectId:objectId] relationforKey:@"players"] ;
-    [[relation query]  countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+    AVObject *circle = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:objectId];
+    AVQuery *query = [AVRelation reverseQuery:AVClassUser relationKey:AVRelationCircles childObject:circle];
+    [query  countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
         if (number == -1 || error) {
             block(nil,error);
             return;
@@ -221,12 +243,13 @@
     }];
 }
 
-+ (void)queryIfJionCertainCircle:(BSCircelModel *)circle block:(BSBooleanResultBlock)block {
-    //  确定有没有在群中。
-    AVRelation *relation = [[AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId] relationforKey:@"players"] ;
-    AVQuery *playerQuery = [relation query];
-    [playerQuery whereKey:AVPropertyObjectId equalTo:AppContext.user.objectId];
-    [playerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//  确定用户有没有加入到圈子中。
++ (void)queryIfJionCertainCircle:(BSCircleModel *)circle block:(BSBooleanResultBlock)block {
+
+    AVObject *circleObject = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId];
+    AVQuery *query = [AVRelation reverseQuery:AVClassUser relationKey:AVRelationCircles childObject:circleObject]; 
+    [query whereKey:AVPropertyObjectId equalTo:[AVUser currentUser].objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {  // 请求错误，没有找到
             block(NO,error);
         }
@@ -257,7 +280,7 @@
 }
 
 
-+ (void)jionCircel:(BSCircelModel *)circle object:(BSBooleanResultBlock)block {
++ (void)jionCircel:(BSCircleModel *)circle object:(BSBooleanResultBlock)block {
     
     AVRelation *relation = [[AVUser currentUser] relationforKey:@"circles"];
     AVObject *circleObj = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId];
@@ -269,6 +292,50 @@
         } else {
             block(YES, nil);
         }
+    }];
+}
+
++ (void)queryCircleWIthNameOrId:(NSString *)nameOrId block:(BSArrayResultBlock)block {
+     AVQuery *query = [AVQuery queryWithClassName:AVClassCircle];
+//    [query whereKey:AVPropertyName equalTo:nameOrId];
+    [query whereKey:AVPropertyName hasPrefix:nameOrId];
+    
+    //   查询名字对应的圈子
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            block(nil, error);
+            return ;
+        }
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (AVObject *circle in objects) {
+            BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
+            [arrM addObject:model];
+        }
+
+        //  查询Id对应的圈
+        AVQuery *IdQuery = [AVQuery queryWithClassName:AVClassCircle];
+
+        BOOL isNumberString = [RegularExpressionUtils validateNumberString:nameOrId];
+        if (!isNumberString) {
+            block(arrM, nil);
+            return;
+        }
+        
+        
+        NSNumber *circleIdNumber = [NSNumber numberWithString:nameOrId];
+        [IdQuery whereKey:AVPropertyCircleId  equalTo:circleIdNumber];
+        [IdQuery findObjectsInBackgroundWithBlock:^(NSArray *objs, NSError *error) {
+            if (error) {
+                block(nil, error);
+                return ;
+            }
+            for (AVObject *circle in objs) {
+                BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
+                [arrM addObject:model];
+            }
+            block(arrM, nil);
+        }];
+        
     }];
 }
 

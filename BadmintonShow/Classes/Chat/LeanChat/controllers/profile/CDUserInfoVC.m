@@ -81,7 +81,6 @@
         if ([self filterError:error]) {
             [self showProgress];
             NSString *text = [NSString stringWithFormat:@"%@ 申请加你为好友", self.user.username];
-            // 推送消息给_User，不需要关注或者粉丝关系！
             // 推送一个"申请加你为好友"的推送给User
             [[LZPushManager manager] pushMessage:text userIds:@[self.user.objectId] block:^(BOOL succeeded, NSError *error) {
                 [self hideProgress];

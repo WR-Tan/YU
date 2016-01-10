@@ -16,14 +16,15 @@
 #import "SVProgressHUD.h"
 #import "BSCircleBusiness.h"
 #import "BSCircleDetailController.h"
-#import "BSCircelModel.h"
+#import "BSCircleModel.h"
 #import "BSSetTextViewController.h"
 #import "BSProfileEditCell.h"
 #import "BSPhotoPicker.h"
+#import "YYPhotoGroupView.h"
 
 static NSUInteger nameLengthLimit = 15;
 
-@interface BSCreateCircleController () <BSSelectCircleTypeControllerDelegate,BSSetTextFieldControllerDelegate, BSSelectCircleCategoryControllerDelegate, BSSetTextViewControllerDelegate> {
+@interface BSCreateCircleController () <BSSelectCircleTypeControllerDelegate,BSSetTextFieldControllerDelegate, BSSelectCircleCategoryControllerDelegate, BSSetTextViewControllerDelegate,BSProfileEditCellDelegate> {
 
     UIImage *_avatarImage;
     BOOL _isCircleOpen;
@@ -39,6 +40,7 @@ static NSUInteger nameLengthLimit = 15;
 @end
 
 static NSString *cellId = @"BSCreateCircleTypeCell";
+
 
 static NSString *circleDesc = @"请输入圈子简介/公告";
 static NSString *circleType = @"请选择圈子类型";
@@ -56,7 +58,7 @@ static NSString *circleName = @"请给圈子取一个名字吧";
         _circleCategoryStr = circleCategory;
         _circleNameStr = circleName;
         _circleDesc = circleDesc;
-//        self.avatarItem = BSProfileModel(nil, @"头像", nil, nil);
+        self.avatarItem = BSProfileModel(nil, @"头像", nil, nil);
     }
     return self;
 }
@@ -67,8 +69,8 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 }
 
 - (NSMutableArray *)detailArr {
-    _titleArr = _isCircleOpen ? @[_circleType,_circleCategoryStr,_circleNameStr,_circleDesc].mutableCopy : @[_circleType,_circleNameStr,_circleDesc].mutableCopy;
-    return _titleArr;
+    _detailArr = _isCircleOpen ? @[_circleType,_circleCategoryStr,_circleNameStr,_circleDesc].mutableCopy : @[_circleType,_circleNameStr,_circleDesc].mutableCopy;
+    return _detailArr;
 }
 
 - (void)viewDidLoad {
@@ -110,10 +112,9 @@ static NSString *circleName = @"请给圈子取一个名字吧";
     NSDictionary *categoryDict = [BSCircleBusiness circleCateogry];
     NSString *circleCategory = categoryDict[_circleCategoryStr];
     
-    [BSCircleBusiness saveCircleWithName:_circleNameStr category:circleCategory desc:_circleDesc  isOpen:_isCircleOpen  block:^(id object, NSError *error) {
+    [BSCircleBusiness saveCircleWithName:_circleNameStr category:circleCategory desc:_circleDesc  isOpen:_isCircleOpen  avatar:_avatarImage block:^(id object, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            BSCircelModel *model = (BSCircelModel *)object;
+            BSCircleModel *model = (BSCircleModel *)object;
             if ( model) {
                 [SVProgressHUD showSuccessWithStatus:@"创建成功"];
                 BSCircleDetailController *detail =[[BSCircleDetailController alloc ] init];
@@ -181,6 +182,7 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 //        }
 //        cell.object = self.avatarItem;
 //        cell.delegate = self;
+//        [cell setAvatar:_avatarImage];
 //        return cell;
 //    }
     
@@ -221,6 +223,8 @@ static NSString *circleName = @"请给圈子取一个名字吧";
 //            if ([object isKindOfClass:[UIImage class]]) {
 //                // 上传图片！成功后将URL赋给item
 //                _avatarImage = object;
+//                [self.tableView reloadData];
+//                
 //            } else {
 //                [SVProgressHUD showErrorWithStatus:@"获取图片失败"];
 //            }
@@ -269,6 +273,7 @@ static NSString *circleName = @"请给圈子取一个名字吧";
     _circleType = _isCircleOpen ? @"公开圈" : @"私密圈";
     [self.tableView reloadData];
 }
+
 
 /// 圈子名称
 -(void)resetText:(NSString *)text Tag:(int)tag {

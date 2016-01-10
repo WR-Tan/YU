@@ -18,27 +18,33 @@
     gameModel.gameType = [object[@"gameType"] integerValue];
     gameModel.isConfirmed = [object[@"isConfirmed"] boolValue];
     gameModel.startTime = object[@"startTime"];
-    
-    
+    gameModel.gameId = object[AVPropertyGameId];
+    gameModel.isConfirmed = [object[AVPropertyIsConfirmed] boolValue]?:NO;
+
     if ([object[@"aPlayer"][@"objectId"] isEqualToString:AppContext.user.objectId]) {
+        
+        gameModel.aPlayer = [BSProfileUserModel modelFromAVUser:object[@"aPlayer"]];
+        gameModel.bPlayer = [BSProfileUserModel modelFromAVUser:object[@"bPlayer"]];
+
         gameModel.aScore =  [object[@"aScore"] stringValue];
         gameModel.bScore =  [object[@"bScore"] stringValue];
+        
+        gameModel.aRankScore = [object[@"aRankScore"] stringValue] ? : @"";
+        gameModel.bRankScore = [object[@"bRankScore"] stringValue] ? : @"";
     }else {
+        
+        gameModel.aPlayer = [BSProfileUserModel modelFromAVUser:object[@"bPlayer"]];
+        gameModel.bPlayer = [BSProfileUserModel modelFromAVUser:object[@"aPlayer"]];
+        
         gameModel.aScore =  [object[@"bScore"] stringValue];
         gameModel.bScore =  [object[@"aScore"] stringValue];
+        
+        gameModel.aRankScore = [object[@"bRankScore"] stringValue] ? : @""; //  玩家A的排名分数
+        gameModel.bRankScore = [object[@"aRankScore"] stringValue] ? : @"";  //  玩家B的排名分数
     }
     
-    gameModel.aObjectId = object[@"aPlayer"][AVPropertyObjectId];
-    gameModel.bObjectId = object[@"bPlayer"][AVPropertyObjectId];
     
-    gameModel.aRankScore = [object[@"aRankScore"] stringValue] ? : @""; //  玩家A的排名分数
-    gameModel.bRankScore = [object[@"bRankScore"] stringValue] ? : @"";  //  玩家B的排名分数
-    gameModel.gameId = object[AVPropertyGameId];
-    
-    AVUser *aPlayer = object[@"aPlayer"];
-    AVUser *bPlayer = object[@"bPlayer"];
-    gameModel.aPlayer = [BSProfileUserModel modelFromAVUser:aPlayer];
-    gameModel.bPlayer = [BSProfileUserModel modelFromAVUser:bPlayer];
+  
     
     return gameModel;
 }

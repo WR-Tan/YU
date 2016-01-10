@@ -8,7 +8,7 @@
 
 #import "LZConversationCell.h"
 
-static CGFloat kLZImageSize = 45;
+static CGFloat kLZImageSize = 48;
 static CGFloat kLZVerticalSpacing = 8;
 static CGFloat kLZHorizontalSpacing = 10;
 static CGFloat kLZTimestampeLabelWidth = 100;
@@ -67,6 +67,9 @@ static CGFloat kLZLittleBadgeSize = 10;
 - (UIImageView *)avatarImageView {
     if (_avatarImageView == nil) {
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kLZHorizontalSpacing, kLZVerticalSpacing, kLZImageSize, kLZImageSize)];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _avatarImageView.layer.cornerRadius = kLZImageSize/2;
+        _avatarImageView.clipsToBounds = YES;
     }
     return _avatarImageView;
 }

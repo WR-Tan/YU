@@ -31,12 +31,52 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2999人" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37G-g2-Cr6" userLabel="peopleCount">
-                        <rect key="frame" x="78" y="34" width="45.5" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本群是angleababy杨颖的粉丝群，希望" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOP-9z-6ib">
+                        <rect key="frame" x="76" y="52" width="228" height="16"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiL-dn-VZQ" userLabel="peopleCount">
+                        <rect key="frame" x="101" y="34" width="42.5" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="LPU-G5-ZbF"/>
+                            <constraint firstAttribute="height" constant="15" id="TEd-ZZ-T11"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="LPU-G5-ZbF"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2999人" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gdW-bB-6Cv" userLabel="peopleCount">
+                        <rect key="frame" x="151" y="34" width="42.5" height="15"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.073098971499999998" green="0.77073985550000002" blue="0.01704185884" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="WIY-6R-6k3"/>
+                            <constraint firstAttribute="width" constant="80" id="nIj-fr-awf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="nIj-fr-awf"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37G-g2-Cr6" userLabel="peopleCount">
+                        <rect key="frame" x="78" y="34" width="20" height="15"/>
                         <animations/>
                         <color key="backgroundColor" red="0.073098971499999998" green="0.77073985550000002" blue="0.01704185884" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="8XT-2J-wAN"/>
+                            <constraint firstAttribute="width" constant="20" id="EjQ-bp-BRB"/>
                             <constraint firstAttribute="height" constant="15" id="IR0-y2-mOW"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -48,13 +88,6 @@
                             </mask>
                         </variation>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本群是angleababy杨颖的粉丝群，希望" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOP-9z-6ib">
-                        <rect key="frame" x="76" y="52" width="228" height="16"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <animations/>
                 <constraints>
@@ -65,11 +98,15 @@
                     <constraint firstItem="R1M-mR-4y0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="E7S-Ch-UFh"/>
                     <constraint firstItem="R1M-mR-4y0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="LcC-hQ-fzP"/>
                     <constraint firstAttribute="trailing" secondItem="BOP-9z-6ib" secondAttribute="trailing" constant="10" id="Nh6-cD-Hvu"/>
+                    <constraint firstItem="gdW-bB-6Cv" firstAttribute="centerY" secondItem="XiL-dn-VZQ" secondAttribute="centerY" id="OQl-V7-MYl"/>
                     <constraint firstItem="R1M-mR-4y0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Pr3-HD-ajL"/>
                     <constraint firstItem="R1M-mR-4y0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="RGu-2s-Tf7"/>
+                    <constraint firstItem="XiL-dn-VZQ" firstAttribute="leading" secondItem="37G-g2-Cr6" secondAttribute="trailing" constant="3" id="kce-pq-vOG"/>
                     <constraint firstAttribute="trailing" secondItem="URz-pa-ciw" secondAttribute="trailing" constant="10" id="kch-mU-rjp"/>
                     <constraint firstItem="BOP-9z-6ib" firstAttribute="top" secondItem="37G-g2-Cr6" secondAttribute="bottom" constant="3" id="oUi-h4-uit"/>
                     <constraint firstItem="URz-pa-ciw" firstAttribute="top" secondItem="R1M-mR-4y0" secondAttribute="top" id="pLX-m1-8as"/>
+                    <constraint firstItem="gdW-bB-6Cv" firstAttribute="leading" secondItem="XiL-dn-VZQ" secondAttribute="trailing" constant="7.5" id="uYV-K1-Gob"/>
+                    <constraint firstItem="XiL-dn-VZQ" firstAttribute="centerY" secondItem="37G-g2-Cr6" secondAttribute="centerY" id="xCy-9d-ek7"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -80,10 +117,11 @@
             </tableViewCellContentView>
             <animations/>
             <connections>
+                <outlet property="IDLabel" destination="XiL-dn-VZQ" id="cNa-tb-Ltt"/>
                 <outlet property="descLabel" destination="BOP-9z-6ib" id="Moj-GQ-hbi"/>
                 <outlet property="iconView" destination="R1M-mR-4y0" id="qlp-po-rA7"/>
                 <outlet property="nameLabel" destination="URz-pa-ciw" id="opg-nr-hBN"/>
-                <outlet property="peopleCountLabel" destination="37G-g2-Cr6" id="2NP-4g-Ftz"/>
+                <outlet property="playerCountLabel" destination="gdW-bB-6Cv" id="DSv-aX-yDM"/>
             </connections>
             <point key="canvasLocation" x="203" y="181.5"/>
         </tableViewCell>

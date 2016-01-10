@@ -32,7 +32,7 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     self = [super init];
     if (self) {
        self = [self initWithNibName:@"BSJionCircleViewController" bundle:nil];
-        _circleTypeArrM  = @[@"公司",@"学校",@"城市",@"区域",@"小区",@"球会",@"其他"].mutableCopy;
+        _circleTypeArrM  = @[@"所有",@"公司",@"学校",@"城市",@"区域",@"小区",@"球会",@"其他"].mutableCopy;
         _selectType = 0;
         _circleDict = [NSMutableDictionary dictionary];
         for (NSString *key in _circleTypeArrM) {
@@ -114,7 +114,7 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
         
         NSMutableArray *resultArr = _circleDict[_circleTypeArrM[_selectType]];
         if (indexPath.row < resultArr.count) {
-            BSCircelModel *circle = resultArr[indexPath.row];
+            BSCircleModel *circle = resultArr[indexPath.row];
             [cell setObject:circle];
         }
 
@@ -128,7 +128,7 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         NSMutableArray *resultArr = _circleDict[_circleTypeArrM[_selectType]];
-        BSCircelModel *circle = resultArr[indexPath.row];
+        BSCircleModel *circle = resultArr[indexPath.row];
         
         BSCircleDetailController *detailVC = [[BSCircleDetailController alloc] init];
         detailVC.circle = circle;

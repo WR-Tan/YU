@@ -13,7 +13,9 @@
 
 
 + (void)checkPlayerInfoExistence:(void (^)(bool isExisted))result{
-    
+
+    // not now, (seems useless)
+#if 0
     //  1.通过查询获取playerInfo对象
     AVQuery *query = [AVQuery queryWithClassName:@"PlayerInfo"];
     [query whereKey:@"userObjectId" equalTo:[AVUser currentUser].objectId];
@@ -26,6 +28,7 @@
             result(NO);
         }
     }];
+#endif
 }
 
 

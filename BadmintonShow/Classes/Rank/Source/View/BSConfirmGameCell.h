@@ -23,6 +23,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *confirmImageView;
 
+@property (weak, nonatomic) IBOutlet UILabel *beginTimeLabel;
+
 
 
 @end

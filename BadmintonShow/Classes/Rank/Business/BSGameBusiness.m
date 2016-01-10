@@ -68,6 +68,7 @@
     [query includeKey:@"bRankScore"];
     [query includeKey:@"aPlayer"];
     [query includeKey:@"bPlayer"];
+    [query addDescendingOrder:AVPropertyCreatedAt];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
             block(nil,error);

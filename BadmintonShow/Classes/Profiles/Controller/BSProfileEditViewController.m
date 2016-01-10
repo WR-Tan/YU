@@ -21,6 +21,7 @@
 #import "CNCityPickerView.h"
 #import "BSSelectCompanyController.h"
 #import "BSSelectSchoolController.h"
+#import "BSCommonBusiness.h"
 
 
 @interface BSProfileEditViewController () <BSProfileEditCellDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,BSSetTextFieldControllerDelegate,BSSetTextViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,BSSelectGenderControllerDelegate,PAFFCustomModalViewDelegate,BSSelectSchoolControllerDelegate,BSSelectCompanyControllerDelegate>
@@ -63,7 +64,7 @@
 }
 
 - (void)getUserInfoFromNet{
-    [BSProfileBusiness getProflieMessageFromNet:^(BSProfileUserModel *profileUserMoel, NSError *err) {
+    [BSCommonBusiness fetchUserInBackground:^(BSProfileUserModel *profileUserMoel, NSError *err) {
         if (err) return ;
         [self updateRowItems];
         [self reloadData];
@@ -97,7 +98,7 @@
     self.genderItem = BSProfileModel(nil, @"性别", nil, nil);
     self.ageItem = BSProfileModel(nil, @"年龄", nil, nil);
     self.districtItem = BSProfileModel(nil, @"地区", nil, nil);
-    self.signatureItem = BSProfileModel(nil, @"简介", nil, @"BSSetTextViewController");
+    self.signatureItem = BSProfileModel(nil, @"签名", nil, @"BSSetTextViewController");
 
     self.birthdayItem = BSProfileModel(nil, @"生日", nil, nil);
     //  Section 2
@@ -121,8 +122,12 @@
     self.signatureItem.detail = AppContext.user.desc;
     
     NSString *accessSchoolYear = [[AppContext.user .accessSchoolTime componentsSeparatedByString:@"-"] firstObject];
-    accessSchoolYear = [accessSchoolYear substringWithRange:NSMakeRange(2, 2)];
-    self.schoolItem.detail = [NSString stringWithFormat:@"%@ %@级",AppContext.user.school,accessSchoolYear];
+    if (accessSchoolYear.length >= 4) {
+         accessSchoolYear = [accessSchoolYear substringWithRange:NSMakeRange(2, 2)];
+        self.schoolItem.detail = [NSString stringWithFormat:@"%@ %@级",AppContext.user.school,accessSchoolYear];
+    }
+   
+    
     self.companyItem.detail = AppContext.user.company;
     //    self.ageItem.detail =  [self ageFromDate:AppContext.user.birthday] ;
     

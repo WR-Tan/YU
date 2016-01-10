@@ -44,13 +44,22 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.tableFooterView = [UIView new];
+    
     [LZConversationCell registerCellToTableView:self.tableView];
     self.refreshControl = [self getRefreshControl];
     // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationMessageReceived object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationUnreadsUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
+    // user changed
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChanged) name:kNotificationKeyUserChanged object:nil];
     [self updateStatusView];
+}
+
+- (void)userChanged{
+    [_conversations removeAllObjects];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -107,7 +116,7 @@ static NSString *cellIdentifier = @"ContactCell";
         dispatch_block_t finishBlock = ^{
             [self stopRefreshControl:refreshControl];
             if ([self filterError:error]) {
-                self.conversations = conversations;
+                self.conversations = conversations.mutableCopy;
                 [self.tableView reloadData];
                 if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
                     [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];

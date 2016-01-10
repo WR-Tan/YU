@@ -25,6 +25,8 @@
 #import "BSMyEquipmentViewController.h"
 #import "BSMyTeamsController.h"
 #import "BSSettingViewController.h"
+#import "BSCommonBusiness.h"
+#import "BSMyCirclesController.h"
 
 @interface BSProfileController ()<BSProfileEditViewControllerDelegate>
 //UITableViewDelegate,UITableViewDataSource,
@@ -84,24 +86,21 @@
     
     NSString *clasName = @"UIViewController";
     
-#if 0
     // 相册/收藏
-    BSProfileModel *data = BSProfileModel(@"AliPay",@"我的数据",nil,clasName);
-    BSProfileModel *team = BSProfileModel(@"AliPay",@"我的球队",nil,@"BSMyTeamsController");
-    BSProfileModel *collection = BSProfileModel(@"AliPay",@"我的装备",nil,@"BSMyEquipmentViewController");
-    [_dataArr addObject:@[data,team,collection]];
-#endif
+//    BSProfileModel *data = BSProfileModel(@"AliPay",@"我的数据",nil,clasName);
+//    BSProfileModel *team = BSProfileModel(@"AliPay",@"我的球队",nil,@"BSMyTeamsController");
+//    BSProfileModel *collection = BSProfileModel(@"AliPay",@"我的装备",nil,@"BSMyEquipmentViewController");
+//    [_dataArr addObject:@[data,team,collection]];
+
     
-    BSProfileModel *circle = BSProfileModel(@"AliPay",@"我的圈子",nil,nil);
+    BSProfileModel *circle = BSProfileModel(@"AliPay",@"我的圈子",nil,@"BSMyCirclesController");  
         [_dataArr addObject:@[circle]];
     
     //  附近
-#if 0
-    BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);
-    BSProfileModel *teamNearby = BSProfileModel(@"AliPay",@"附近球队",@"享受双打的乐趣",clasName);
-    BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"羽秀`圈子",@"到组织,找高手",clasName);
-    [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
-#endif
+//    BSProfileModel *peopleNearby = BSProfileModel(@"AliPay",@"附近的人",nil,clasName);
+//    BSProfileModel *teamNearby = BSProfileModel(@"AliPay",@"附近球队",@"享受双打的乐趣",clasName);
+//    BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"羽秀`圈子",@"到组织,找高手",clasName);
+//    [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
 
     BSProfileModel *setting = BSProfileModel(@"AliPay",@"设置",nil,@"BSSettingViewController");
     [_dataArr addObject:@[setting]];
@@ -112,7 +111,7 @@
 
 - (void)getUserData{
     
-    [BSProfileBusiness getProflieMessageFromNet:^(BSProfileUserModel *profileUserMoel, NSError *err) {
+    [BSCommonBusiness fetchUserInBackground:^(BSProfileUserModel *profileUserMoel, NSError *err) {
         if (!profileUserMoel || err) {
 //            [MBProgressHUD showText:@"获取数据异常" atView:self.view  animated:YES];
             return;

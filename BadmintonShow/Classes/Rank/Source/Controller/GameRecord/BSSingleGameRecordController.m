@@ -127,7 +127,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 70;
+    return 85;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -155,7 +155,7 @@
 - (UILabel *)showErrorLabel {
     if (!_showErrorLabel) {
         _showErrorLabel = [[UILabel alloc] init];;
-        _showErrorLabel.text = @"网络状况较差，查询失败";
+        _showErrorLabel.text = @"获取排名失败，请检查网络";
         _showErrorLabel.textAlignment = NSTextAlignmentCenter;
         CGFloat labelWidth = 300 ;
         CGFloat labelHeight = 100;

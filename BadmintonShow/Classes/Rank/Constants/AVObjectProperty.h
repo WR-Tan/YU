@@ -39,6 +39,8 @@
 #define AVPropertySender_objectId   @"sender_objectId"
 #define AVPropertyReceiver_objectId @"receiver_objectId"
 #define AVPropertyScore             @"score"
+#define AVPropertyAPlayer           @"aPlayer"
+#define AVPropertyBPlayer           @"bPlayer"
 
 
 #define AVPropertyAvatar            @"avatar"
@@ -79,6 +81,7 @@
 
 
 #define AVPropertyCreateBy      @"createBy"
+#define AVPropertyCreatedAt     @"createdAt"
 #define AVPropertyText          @"text"
 
 

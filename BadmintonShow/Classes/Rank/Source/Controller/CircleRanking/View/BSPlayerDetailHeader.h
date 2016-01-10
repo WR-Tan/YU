@@ -10,4 +10,6 @@
 
 @interface BSPlayerDetailHeader : UIView
 
+- (void)setObject:(NSObject *)object ;
+
 @end

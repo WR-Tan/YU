@@ -12,6 +12,7 @@
 #import "BSTimeManager.h"
 #import "BSChatBuiness.h"
 #import "AVRelation.h"
+#import "BSCircleModel.h"
 
 @implementation BSRankDataBusiness
 
@@ -40,6 +41,21 @@
 ///========================================================================
 /// @name 圈子排名
 ///========================================================================
+
+
+//  查询某个圈子内的排名
++ (void)queryRankingInCircle:(BSCircleModel *)circle limit:(NSInteger)limit skip:(NSInteger)skip block:(BSArrayResultBlock)block {
+    AVObject *circleObject = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId];
+    AVQuery *query = [AVRelation reverseQuery:AVClassUser relationKey:AVRelationCircles childObject:circleObject];
+    query.limit = limit;
+    query.skip = skip;
+    [query addDescendingOrder:AVPropertyScore];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self handleReceivedUsersArray:objects block:block];
+    }];
+}
+
+
 
 + (void)queryCircleRankDataCircleClass:(NSString *)cls property:(NSString *)property block:(BSArrayResultBlock)block {
     
@@ -74,22 +90,11 @@
 ///========================================================================
 /// @name 天梯排名
 ///========================================================================
-+ (void)queryRankUserDataWithBlock:(BSArrayResultBlock)block{
-    
-    //  以下代码正在考虑中……
-#if 0
-    //  如果今天已经请求过数据，不会再请求。
-    NSDate *lastSuccess = AppTimeManager.lastSuccessRankRequestDate;
-    if (lastSuccess && [lastSuccess isToday]) {
-        NSArray *rankData = [self queryRankUsersDataFromDB];
-        block(rankData,nil);
-        return;
-    }
-#endif
-    
++ (void)queryRankUserDataWithLimit:(NSInteger)limit skip:(NSInteger)skip block:(BSArrayResultBlock)block{
+
     AVQuery *rankQuery = [AVQuery queryWithClassName:AVClassUser];
-    rankQuery.limit = 200 ;
-    
+    rankQuery.limit = limit ;
+    rankQuery.skip = skip;
     [rankQuery addDescendingOrder:AVPropertyScore];
     [rankQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
@@ -118,7 +123,27 @@
    return [BSDBManager saveRankUsers:users];
 }
 
++ (void)queryRankingDataInCircle:(BSCircleModel *)circle {
+    
+}
 
+
+#pragma mark - inner public method
+///========================================================================
+/// @name invoked insided method
+///========================================================================
++ (void)handleReceivedUsersArray:(NSArray *)objects block:(BSArrayResultBlock)block{
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableArray *rankUsers = [ NSMutableArray array];
+        for (AVUser *user in objects) {
+            BSProfileUserModel *useModel = [BSProfileUserModel modelFromAVUser:user];
+            [rankUsers addObject:useModel];
+        }
+        [self saveRankUsers:rankUsers];
+        block(rankUsers,nil);
+    });
+}
 
 
 @end

@@ -36,11 +36,9 @@
 + (instancetype)modelFromAVUser:(AVUser *)user {
 
     AVFile *avatar = user[AVPropertyAvatar] ;
-    AVObject *school = user[AVPropertySchool] ;
-    AVObject *company = user[AVPropertyCompany];
     
-    NSString *schoolName = school[AVPropertyName] ? : @"";
-    NSString *companyName = company[AVPropertyName] ? : @"";
+    NSString *schoolName = user[AVPropertySchool] ? : @"";
+    NSString *companyName = user[AVPropertyCompany] ? : @"";
     
     NSString *birthDayStr = user[AVPropertyBirthDayStr] ? : @"";
     
@@ -49,6 +47,7 @@
                                @"userName" : user.username ? : @"",
                                @"nickName" : user[AVPropertyNickName] ? : @"",
                                @"avatarUrl": avatar.url ? : @"",
+                               AVPropertyYuXiuId:[user[AVPropertyYuXiuId] stringValue]?:@"",
                                AVPropertyNation: user[AVPropertyNation]?:@"",
                                AVPropertyProvince: user[AVPropertyProvince]?:@"",
                                AVPropertyCity: user[AVPropertyCity]?:@"",

@@ -20,7 +20,8 @@
 
 @interface BSAddGameRecordController : BSBaseViewController
 
-@property (nonatomic, weak) id<BSAddGameRecordControllerDelegate> delegate ;
+@property (nonatomic, strong) AVUser *oppUser; // 对手
 
+@property (nonatomic, weak) id<BSAddGameRecordControllerDelegate> delegate ;
 
 @end

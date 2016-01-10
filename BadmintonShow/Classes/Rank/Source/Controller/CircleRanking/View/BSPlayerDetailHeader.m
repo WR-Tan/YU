@@ -8,6 +8,7 @@
 
 #import "BSPlayerDetailHeader.h"
 #import "Masonry.h"
+#import "BSProfileUserModel.h"
 
 @interface BSPlayerDetailHeader ()
 
@@ -31,23 +32,34 @@
 - (id)init{
     self = [[[NSBundle mainBundle] loadNibNamed:@"BSPlayerDetailHeader" owner:nil options:nil] lastObject];
     
+    self.avatarImageView.layer.cornerRadius = 72/2.0f;
+    self.avatarImageView.clipsToBounds = YES;
+    self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     return self;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-//    CGFloat leftX = (kScreenWidth - 1) / 3;
-//    CGFloat rightX = ((kScreenWidth - 1) / 3 )* 2;
-//    self.scoreSepLineLeft.frame = CGRectMake(leftX, 10, 0.5, 50 - 20);
-//    self.scoreSepLineRight.frame = CGRectMake(rightX, 10, 0.5, 50 - 20);
-}
 
 - (IBAction)makeFriendAction:(id)sender {
     
 }
 
+
+- (void)setObject:(NSObject *)object {
+    if ([object isKindOfClass:[BSProfileUserModel class]]) {
+        BSProfileUserModel *user = (BSProfileUserModel *)object;
+        [_avatarImageView setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholder:kImageUserAvatar];
+        _userNameLabel.text = user.userName;
+        _idLabel.text = user.yuxiuId ? [NSString stringWithFormat:@"ID: %@",user.yuxiuId]: @"" ;
+        _gameCountLabel.text = [@(user.gameCount) stringValue];
+        _scoreLabel.text = [NSString stringWithFormat:@"%ld",(long)user.score ];
+        _winRateLabel.text = [NSString stringWithFormat:@"%.2f%%",user.winRate];
+        
+        NSString *occqupied = (user.company ? : user.school) ? : @"无";
+        _shoolOrCompanyNameLabel.text = occqupied;
+        _descLabel.text = user.desc?: @"无";
+    }
+}
 
 
 @end

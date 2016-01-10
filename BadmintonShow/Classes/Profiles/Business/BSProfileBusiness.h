@@ -17,7 +17,7 @@
     
 + (void)saveUserInBackgroundWithBlock:(void (^)(id object, NSError *err))block;
 
-+ (void)getProflieMessageFromNet:(void (^)(BSProfileUserModel *profileUserMoel, NSError *err))block;
+
 
 + (BSProfileUserModel *)getUserProflieFromUserDefault;
 

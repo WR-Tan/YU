@@ -16,18 +16,21 @@
 #import "BSChooseSinglePlayerController.h"
 #import "BSChooseTeamPlayerController.h"
 #import "BSCommonTool.h"
+#import "BSFriendListViewController.h"
+#import "BSChoosePlayerViewController.h"
 
-@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,UITableViewDataSource,UITableViewDelegate,BSChooseSinglePlayerControllerDelegate>{
+@interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,UITableViewDataSource,UITableViewDelegate,BSChooseSinglePlayerControllerDelegate,
+    BSChoosePlayerViewControllerDelegate>{
     NSInteger _numberOfRows ;
 }
 
 @property (nonatomic, strong) UITableView *tableView ;
 @property (nonatomic, strong) BSGameModel *gameModel ;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, strong) AVUser *oppUser;
-@property (nonatomic, weak )  UIButton *btn ;
-@property (nonatomic, strong)  UIButton *sendBtn ;
-@property (nonatomic, assign ) BMTGameType gameType;
+
+@property (nonatomic, weak) UIButton *btn ;
+@property (nonatomic, strong) UIButton *sendBtn ;
+@property (nonatomic, assign) BMTGameType gameType;
 @property (nonatomic, strong) NSDictionary *titleDict;
 
 @property (nonatomic, strong) BSProfileUserModel *singlePlayerOpponent;
@@ -47,17 +50,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     self.gameModel.aPlayer = AppContext.user;
+    self.gameModel.bPlayer = [BSProfileUserModel modelFromAVUser:self.oppUser];
     [self setupBaseViews];
-    
     // 下个版本
 #if 0
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"类型" style:UIBarButtonItemStylePlain target:self action:@selector(gameSettings)];
 #endif
 }
-
 
 
 
@@ -134,17 +134,31 @@
     [self saveGameToTemp:gameObj ];
 }
 
-
-//  选择了对手
+#if 0
+//  选择了对手 --- 统一用一个ViewController（基类为CDFriendList）
 - (void)selectedSinglePlayer:(BSProfileUserModel *)player{
     self.gameModel.bPlayer = player;
     [self.tableView reloadData];
 }
+#endif
+
+- (void)didSelectPlayer:(AVUser *)user {
+    self.gameModel.bPlayer = [BSProfileUserModel modelFromAVUser:user];
+    [self.tableView reloadData];
+}
 
 
+#if 0
+    // 暂时不事先这个了方法了。跟谁聊天，才能发送比赛给对方。
 #pragma mark - Cell Delegate
 -(void)presentFriendListVC{
     
+    BSChoosePlayerViewController *choosePlayerVC = [[BSChoosePlayerViewController alloc] init];
+    choosePlayerVC.title = @"请选择对手";
+    choosePlayerVC.delegate = self;
+    [self.navigationController pushViewController:choosePlayerVC animated:YES];
+    
+
     if (self.gameType == BMTGameTypeManSingle ||      //   如果是单打，则选择对手
         self.gameType == BMTGameTypeWomanSingle ) {
       
@@ -158,10 +172,9 @@
         teamVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
         [self.navigationController pushViewController:teamVC animated:YES];
     }
-    
-    
-}
 
+}
+#endif
 
 - (void)gameSettings{
     BSSetGameTypeController *setGameVC = [[BSSetGameTypeController alloc] init];

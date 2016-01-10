@@ -7,7 +7,7 @@
 //
 
 #import "BSCircleDetailHeader.h"
-#import "BSCircelModel.h"
+#import "BSCircleModel.h"
 
 @interface BSCircleDetailHeader ()
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
@@ -23,7 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *adminTwoAvatarView;
 @property (weak, nonatomic) IBOutlet UIButton *peopleCountButton;
 
-@property (weak, nonatomic) BSCircelModel *circle;
+@property (weak, nonatomic) IBOutlet UIView *circleMemberView;
+
+@property (weak, nonatomic) BSCircleModel *circle;
 @end
 
 @implementation BSCircleDetailHeader
@@ -61,7 +63,22 @@
     }];
     [self.creatorAvatarView addGestureRecognizer:tap];
     
+    self.circleMemberView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *circleMemberTap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id sender) {
+        if (!self.circle.creator) return;
+        if ([self.delegate respondsToSelector:@selector(didClickPeopleCountButton) ]) {
+            [self.delegate didClickPeopleCountButton];
+        }
+    }];
+    [self.circleMemberView addGestureRecognizer:circleMemberTap];
+    
+    
     return self;
+}
+
+
+- (IBAction)circleMemberGesture:(id)sender {
+    [self peopleCountAction:nil];
 }
 
 - (IBAction)peopleCountAction:(id)sender {
@@ -75,8 +92,8 @@
 
 }
 - (void)setObject:(id)object {
-    if ([object isKindOfClass:[BSCircelModel class]]) {
-        BSCircelModel *circle = (BSCircelModel *)object;
+    if ([object isKindOfClass:[BSCircleModel class]]) {
+        BSCircleModel *circle = (BSCircleModel *)object;
         [self.avatarView setImageWithURL:circle.avatarUrl placeholder:kImageUserAvatar];
         self.circleIdLabel.text = circle.circleId;
         self.createdAtLabel.text = [circle.createdAt toDateString];

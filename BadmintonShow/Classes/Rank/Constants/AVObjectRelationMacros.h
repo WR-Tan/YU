@@ -16,5 +16,6 @@
 #define AVRelationUserGamesRelation             @"games"
 #define AVRelationSchoolPlayer                  @"player"
 #define AVRelationPlayers                       @"players"
+#define AVRelationCircles                       @"circles"
 
 #endif /* AVObjectRelationMacros_h */

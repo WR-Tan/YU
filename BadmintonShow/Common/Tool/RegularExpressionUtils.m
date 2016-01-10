@@ -9,6 +9,13 @@
 #import "RegularExpressionUtils.h"
 
 @implementation RegularExpressionUtils
+
++ (BOOL) validateNumberString:(NSString *)string {
+    NSString *numberStringRegex = @"^[0-9]*$";
+    NSPredicate *numberTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberStringRegex];
+    return [numberTest evaluateWithObject:string];
+}
+
 //邮箱
 + (BOOL) validateEmail:(NSString *)email
 {

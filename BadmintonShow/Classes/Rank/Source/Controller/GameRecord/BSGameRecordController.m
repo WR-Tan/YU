@@ -44,11 +44,6 @@
     
     self.title = @"比赛统计";
     
-    //  IOS7以上适配
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    
 #if 0
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"单打",@"双打"]];
     seg.selectedSegmentIndex = 0 ;
@@ -56,7 +51,7 @@
     seg.center = CGPointMake(50, 15);
     self.navigationItem.titleView = seg;
     self.seg = seg;
-#endif
+
  
     UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     scroll.contentSize = CGSizeMake(self.view.bounds.size.width * 2, self.view.bounds.size.height);
@@ -64,15 +59,19 @@
     scroll.delegate = self;
     scroll.pagingEnabled = YES;
     [self.view addSubview:scroll];
+#endif
     
 //    scroll.top -= 64;
     
     BSSingleGameRecordController *singleVC = [[BSSingleGameRecordController alloc] init];
     [self addChildViewController:singleVC];
+    [self.view addSubview:singleVC.view];
+    
+#if 0
     singleVC.view.frame = scroll.bounds;
     [scroll addSubview:singleVC.view];
     
-#if 0
+
     BSDoubleGameRecordController *doubleVC = [[BSDoubleGameRecordController alloc] init];
     [self addChildViewController:doubleVC];
     doubleVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, scroll.height);

@@ -20,10 +20,13 @@
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
-        self.view.backgroundColor = [UIColor whiteColor];
+        //  这个方法会导致view提前加载（调用viewDiaLoad方法）
+//        self.view.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
+
+
 
 //- (void)viewWillDisappear:(BOOL)animated {
 //    [super viewWillDisappear:animated];
@@ -96,6 +99,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
 
     if([CommonUtils iOS7]){
         self.edgesForExtendedLayout = UIRectEdgeNone;

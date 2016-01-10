@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *rankImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *genderImageView;
+@property (weak, nonatomic) IBOutlet UILabel *jionTime;
 
 @end
 
@@ -52,6 +53,7 @@
         
 //        NSString *genderIcon = [userModel.genderStr isEqualToString:@"F"] ? @"userinfo_icon_female" : @"userinfo_icon_male";
 //        self.genderImageView.image = UIImageNamed(genderIcon);
+        self.jionTime.text = nil;
     }
     
 }

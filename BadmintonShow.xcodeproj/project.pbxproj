@@ -532,14 +532,6 @@
 		665570E71C2EE62300FA6BD5 /* BSStatusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E31C2EE62300FA6BD5 /* BSStatusHelper.m */; };
 		665570E81C2EE62300FA6BD5 /* BSStatusLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */; };
 		665577651C2F04D000FA6BD5 /* BSCircleDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 665577631C2F04D000FA6BD5 /* BSCircleDetailController.m */; };
-		66557CF81C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CF61C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png */; };
-		66557CF91C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CF71C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png */; };
-		66557CFC1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CFA1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png */; };
-		66557CFD1C2F9E8F00FA6BD5 /* timeline_icon_unlike@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CFB1C2F9E8F00FA6BD5 /* timeline_icon_unlike@3x.png */; };
-		66557D021C2F9EA300FA6BD5 /* timeline_icon_like_disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CFE1C2F9EA300FA6BD5 /* timeline_icon_like_disable@2x.png */; };
-		66557D031C2F9EA300FA6BD5 /* timeline_icon_like_disable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557CFF1C2F9EA300FA6BD5 /* timeline_icon_like_disable@3x.png */; };
-		66557D041C2F9EA300FA6BD5 /* timeline_icon_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557D001C2F9EA300FA6BD5 /* timeline_icon_like@2x.png */; };
-		66557D051C2F9EA300FA6BD5 /* timeline_icon_like@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66557D011C2F9EA300FA6BD5 /* timeline_icon_like@3x.png */; };
 		66557D081C2FAFDC00FA6BD5 /* BSCreateCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D071C2FAFDC00FA6BD5 /* BSCreateCircleController.m */; };
 		66557D131C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D121C2FB4A200FA6BD5 /* BSSelectCircleTypeController.m */; };
 		66557D241C2FD5D300FA6BD5 /* BSCircleDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 66557D161C2FD5D300FA6BD5 /* BSCircleDetailHeader.m */; };
@@ -586,6 +578,8 @@
 		667EC7791C22B8460077F4CF /* BSGameRecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7631C22B8460077F4CF /* BSGameRecordDetailCell.m */; };
 		667EC77A1C22B8460077F4CF /* BSGameRecordDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667EC7641C22B8460077F4CF /* BSGameRecordDetailCell.xib */; };
 		667EC77B1C22B8460077F4CF /* BSRankHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 667EC7661C22B8460077F4CF /* BSRankHeader.m */; };
+		669B65531C4145B70057EDF8 /* BSMyCircleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 669B65521C4145B70057EDF8 /* BSMyCircleHeaderView.m */; };
+		669B65551C4145CB0057EDF8 /* BSMyCircleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 669B65541C4145CB0057EDF8 /* BSMyCircleHeaderView.xib */; };
 		66A612971C2C260600A285B1 /* BSAddGameRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A6128E1C2C260600A285B1 /* BSAddGameRecordController.m */; };
 		66A612981C2C260600A285B1 /* BSChoosePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612901C2C260600A285B1 /* BSChoosePlayerViewController.m */; };
 		66A612991C2C260600A285B1 /* BSChooseSinglePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A612921C2C260600A285B1 /* BSChooseSinglePlayerController.m */; };
@@ -628,12 +622,20 @@
 		66E721771C2CDEB0005240E7 /* BSTLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721761C2CDEB0005240E7 /* BSTLModel.m */; };
 		66E7217A1C2CE279005240E7 /* BSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E721791C2CE279005240E7 /* BSBaseModel.m */; };
 		66E721801C2CE9F7005240E7 /* BSTLLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */; };
+		66EF98521C3D11FE008978F8 /* BSMyCircleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EF98511C3D11FE008978F8 /* BSMyCircleHeader.m */; };
+		66EF98541C3D120D008978F8 /* BSMyCircleHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EF98531C3D120D008978F8 /* BSMyCircleHeader.xib */; };
+		66EF98581C3D16D9008978F8 /* BSMyCircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EF98561C3D16D9008978F8 /* BSMyCircleCell.m */; };
+		66EF98591C3D16D9008978F8 /* BSMyCircleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EF98571C3D16D9008978F8 /* BSMyCircleCell.xib */; };
+		66EF98621C3D574D008978F8 /* BSCircleMemberController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EF985F1C3D574D008978F8 /* BSCircleMemberController.m */; };
+		66EF98631C3D574D008978F8 /* BSMyCirclesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EF98611C3D574D008978F8 /* BSMyCirclesController.m */; };
+		66EF98671C3D57D9008978F8 /* BSSearchCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EF98651C3D57D9008978F8 /* BSSearchCircleController.m */; };
+		66EF98681C3D57D9008978F8 /* BSSearchCircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66EF98661C3D57D9008978F8 /* BSSearchCircleController.xib */; };
 		66F04CF01C27D226003FE2FF /* BSSkyLadderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CEE1C27D225003FE2FF /* BSSkyLadderTableViewCell.m */; };
 		66F04CF11C27D226003FE2FF /* BSSkyLadderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F04CEF1C27D225003FE2FF /* BSSkyLadderTableViewCell.xib */; };
 		66F04CF41C27DC88003FE2FF /* BSSkyLadderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CF31C27DC88003FE2FF /* BSSkyLadderHeaderView.m */; };
 		66F04CF61C27DC98003FE2FF /* BSSkyLadderHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F04CF51C27DC98003FE2FF /* BSSkyLadderHeaderView.xib */; };
 		66F04CF91C27EB2E003FE2FF /* BSRankDataBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CF81C27EB2E003FE2FF /* BSRankDataBusiness.m */; };
-		66F04CFC1C27ED2F003FE2FF /* BSBaseBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CFB1C27ED2F003FE2FF /* BSBaseBusiness.m */; };
+		66F04CFC1C27ED2F003FE2FF /* BSCommonBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CFB1C27ED2F003FE2FF /* BSCommonBusiness.m */; };
 		66F04CFF1C28078B003FE2FF /* BSTimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04CFE1C28078B003FE2FF /* BSTimeManager.m */; };
 		66F04D021C281CCD003FE2FF /* BSGameRecordHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F04D011C281CCD003FE2FF /* BSGameRecordHeaderView.m */; };
 		66F04D041C281CDB003FE2FF /* BSGameRecordHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F04D031C281CDB003FE2FF /* BSGameRecordHeaderView.xib */; };
@@ -644,7 +646,7 @@
 		66F402D41C2C3F0C00B5E555 /* BSCircleBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402D31C2C3F0C00B5E555 /* BSCircleBusiness.m */; };
 		66F402D81C2C408100B5E555 /* BSJionCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */; };
 		66F402D91C2C408100B5E555 /* BSJionCircleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */; };
-		66F402DF1C2C507C00B5E555 /* BSCircelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402DE1C2C507C00B5E555 /* BSCircelModel.m */; };
+		66F402DF1C2C507C00B5E555 /* BSCircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F402DE1C2C507C00B5E555 /* BSCircleModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1459,14 +1461,6 @@
 		665570E51C2EE62300FA6BD5 /* BSStatusLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSStatusLayout.m; sourceTree = "<group>"; };
 		665577621C2F04D000FA6BD5 /* BSCircleDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleDetailController.h; sourceTree = "<group>"; };
 		665577631C2F04D000FA6BD5 /* BSCircleDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleDetailController.m; sourceTree = "<group>"; };
-		66557CF61C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_comment@2x.png"; sourceTree = "<group>"; };
-		66557CF71C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_comment@3x.png"; sourceTree = "<group>"; };
-		66557CFA1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_unlike@2x.png"; sourceTree = "<group>"; };
-		66557CFB1C2F9E8F00FA6BD5 /* timeline_icon_unlike@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_unlike@3x.png"; sourceTree = "<group>"; };
-		66557CFE1C2F9EA300FA6BD5 /* timeline_icon_like_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_like_disable@2x.png"; sourceTree = "<group>"; };
-		66557CFF1C2F9EA300FA6BD5 /* timeline_icon_like_disable@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_like_disable@3x.png"; sourceTree = "<group>"; };
-		66557D001C2F9EA300FA6BD5 /* timeline_icon_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_like@2x.png"; sourceTree = "<group>"; };
-		66557D011C2F9EA300FA6BD5 /* timeline_icon_like@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline_icon_like@3x.png"; sourceTree = "<group>"; };
 		66557D061C2FAFDC00FA6BD5 /* BSCreateCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCreateCircleController.h; sourceTree = "<group>"; };
 		66557D071C2FAFDC00FA6BD5 /* BSCreateCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCreateCircleController.m; sourceTree = "<group>"; };
 		66557D111C2FB4A200FA6BD5 /* BSSelectCircleTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSelectCircleTypeController.h; sourceTree = "<group>"; };
@@ -1551,6 +1545,9 @@
 		667EC7641C22B8460077F4CF /* BSGameRecordDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSGameRecordDetailCell.xib; sourceTree = "<group>"; };
 		667EC7651C22B8460077F4CF /* BSRankHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSRankHeader.h; sourceTree = "<group>"; };
 		667EC7661C22B8460077F4CF /* BSRankHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSRankHeader.m; sourceTree = "<group>"; };
+		669B65511C4145B70057EDF8 /* BSMyCircleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMyCircleHeaderView.h; sourceTree = "<group>"; };
+		669B65521C4145B70057EDF8 /* BSMyCircleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyCircleHeaderView.m; sourceTree = "<group>"; };
+		669B65541C4145CB0057EDF8 /* BSMyCircleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSMyCircleHeaderView.xib; sourceTree = "<group>"; };
 		66A6128D1C2C260600A285B1 /* BSAddGameRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAddGameRecordController.h; sourceTree = "<group>"; };
 		66A6128E1C2C260600A285B1 /* BSAddGameRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAddGameRecordController.m; sourceTree = "<group>"; };
 		66A6128F1C2C260600A285B1 /* BSChoosePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSChoosePlayerViewController.h; sourceTree = "<group>"; };
@@ -1633,6 +1630,19 @@
 		66E721791C2CE279005240E7 /* BSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseModel.m; sourceTree = "<group>"; };
 		66E7217E1C2CE9F7005240E7 /* BSTLLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTLLayout.h; sourceTree = "<group>"; };
 		66E7217F1C2CE9F7005240E7 /* BSTLLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTLLayout.m; sourceTree = "<group>"; };
+		66EF98501C3D11FE008978F8 /* BSMyCircleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMyCircleHeader.h; sourceTree = "<group>"; };
+		66EF98511C3D11FE008978F8 /* BSMyCircleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyCircleHeader.m; sourceTree = "<group>"; };
+		66EF98531C3D120D008978F8 /* BSMyCircleHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSMyCircleHeader.xib; sourceTree = "<group>"; };
+		66EF98551C3D16D9008978F8 /* BSMyCircleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMyCircleCell.h; sourceTree = "<group>"; };
+		66EF98561C3D16D9008978F8 /* BSMyCircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyCircleCell.m; sourceTree = "<group>"; };
+		66EF98571C3D16D9008978F8 /* BSMyCircleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSMyCircleCell.xib; sourceTree = "<group>"; };
+		66EF985E1C3D574D008978F8 /* BSCircleMemberController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleMemberController.h; sourceTree = "<group>"; };
+		66EF985F1C3D574D008978F8 /* BSCircleMemberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleMemberController.m; sourceTree = "<group>"; };
+		66EF98601C3D574D008978F8 /* BSMyCirclesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMyCirclesController.h; sourceTree = "<group>"; };
+		66EF98611C3D574D008978F8 /* BSMyCirclesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMyCirclesController.m; sourceTree = "<group>"; };
+		66EF98641C3D57D9008978F8 /* BSSearchCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSearchCircleController.h; sourceTree = "<group>"; };
+		66EF98651C3D57D9008978F8 /* BSSearchCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSearchCircleController.m; sourceTree = "<group>"; };
+		66EF98661C3D57D9008978F8 /* BSSearchCircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSSearchCircleController.xib; sourceTree = "<group>"; };
 		66F04CEC1C2795BC003FE2FF /* BSDBSQLString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSDBSQLString.h; sourceTree = "<group>"; };
 		66F04CED1C27D225003FE2FF /* BSSkyLadderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSkyLadderTableViewCell.h; sourceTree = "<group>"; };
 		66F04CEE1C27D225003FE2FF /* BSSkyLadderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSkyLadderTableViewCell.m; sourceTree = "<group>"; };
@@ -1642,8 +1652,8 @@
 		66F04CF51C27DC98003FE2FF /* BSSkyLadderHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSSkyLadderHeaderView.xib; sourceTree = "<group>"; };
 		66F04CF71C27EB2E003FE2FF /* BSRankDataBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSRankDataBusiness.h; sourceTree = "<group>"; };
 		66F04CF81C27EB2E003FE2FF /* BSRankDataBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSRankDataBusiness.m; sourceTree = "<group>"; };
-		66F04CFA1C27ED2F003FE2FF /* BSBaseBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseBusiness.h; sourceTree = "<group>"; };
-		66F04CFB1C27ED2F003FE2FF /* BSBaseBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseBusiness.m; sourceTree = "<group>"; };
+		66F04CFA1C27ED2F003FE2FF /* BSCommonBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCommonBusiness.h; sourceTree = "<group>"; };
+		66F04CFB1C27ED2F003FE2FF /* BSCommonBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCommonBusiness.m; sourceTree = "<group>"; };
 		66F04CFD1C28078B003FE2FF /* BSTimeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTimeManager.h; sourceTree = "<group>"; };
 		66F04CFE1C28078B003FE2FF /* BSTimeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTimeManager.m; sourceTree = "<group>"; };
 		66F04D001C281CCD003FE2FF /* BSGameRecordHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSGameRecordHeaderView.h; sourceTree = "<group>"; };
@@ -1662,8 +1672,8 @@
 		66F402D51C2C408100B5E555 /* BSJionCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSJionCircleViewController.h; sourceTree = "<group>"; };
 		66F402D61C2C408100B5E555 /* BSJionCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSJionCircleViewController.m; sourceTree = "<group>"; };
 		66F402D71C2C408100B5E555 /* BSJionCircleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSJionCircleViewController.xib; sourceTree = "<group>"; };
-		66F402DD1C2C507C00B5E555 /* BSCircelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircelModel.h; sourceTree = "<group>"; };
-		66F402DE1C2C507C00B5E555 /* BSCircelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircelModel.m; sourceTree = "<group>"; };
+		66F402DD1C2C507C00B5E555 /* BSCircleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleModel.h; sourceTree = "<group>"; };
+		66F402DE1C2C507C00B5E555 /* BSCircleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleModel.m; sourceTree = "<group>"; };
 		B188B1BC2BE8455C932E8A36 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D1945C8900BD47FAC5384220 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F04F77C79960B37F45D59C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2535,8 +2545,8 @@
 				34C34CD71C0DB47900B72AF9 /* Badminton */,
 				34C34CD81C0DB47900B72AF9 /* Other */,
 				342460D91C00143700755C09 /* AVBussiness */,
-				66F04CFA1C27ED2F003FE2FF /* BSBaseBusiness.h */,
-				66F04CFB1C27ED2F003FE2FF /* BSBaseBusiness.m */,
+				66F04CFA1C27ED2F003FE2FF /* BSCommonBusiness.h */,
+				66F04CFB1C27ED2F003FE2FF /* BSCommonBusiness.m */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -3194,14 +3204,6 @@
 		345D35C91B2D0B1A004C226A = {
 			isa = PBXGroup;
 			children = (
-				66557CFA1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png */,
-				66557CFB1C2F9E8F00FA6BD5 /* timeline_icon_unlike@3x.png */,
-				66557CF61C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png */,
-				66557CF71C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png */,
-				66557CFE1C2F9EA300FA6BD5 /* timeline_icon_like_disable@2x.png */,
-				66557CFF1C2F9EA300FA6BD5 /* timeline_icon_like_disable@3x.png */,
-				66557D001C2F9EA300FA6BD5 /* timeline_icon_like@2x.png */,
-				66557D011C2F9EA300FA6BD5 /* timeline_icon_like@3x.png */,
 				345D35D41B2D0B1A004C226A /* BadmintonShow */,
 				345D36861B2D15D4004C226A /* Resources */,
 				345D35E81B2D0B1A004C226A /* BadmintonShowTests */,
@@ -3625,7 +3627,8 @@
 			children = (
 				6675D6801C1F204600C10DCA /* Resources */,
 				667EC7011C2194C80077F4CF /* Business */,
-				6675D6621C1F00D300C10DCA /* Controller */,
+				66EF985D1C3D574D008978F8 /* Cricle */,
+				6675D6621C1F00D300C10DCA /* MainController */,
 				6675D6691C1F00D300C10DCA /* Model */,
 				6675D66A1C1F00D300C10DCA /* View */,
 			);
@@ -3633,7 +3636,7 @@
 			path = Profiles;
 			sourceTree = "<group>";
 		};
-		6675D6621C1F00D300C10DCA /* Controller */ = {
+		6675D6621C1F00D300C10DCA /* MainController */ = {
 			isa = PBXGroup;
 			children = (
 				6675D6631C1F00D300C10DCA /* BSProfileController.h */,
@@ -3663,6 +3666,7 @@
 				66E491261C2696CF00EF332A /* PAFFSelectCityViewController.h */,
 				66E491271C2696CF00EF332A /* PAFFSelectCityViewController.m */,
 			);
+			name = MainController;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -3690,6 +3694,15 @@
 				66724D431C2075F500DC2A7D /* BSProfileEditCell.m */,
 				663D15471C2538C100E2AA46 /* CNCityPickerView.h */,
 				663D15481C2538C100E2AA46 /* CNCityPickerView.m */,
+				66EF98501C3D11FE008978F8 /* BSMyCircleHeader.h */,
+				66EF98511C3D11FE008978F8 /* BSMyCircleHeader.m */,
+				66EF98531C3D120D008978F8 /* BSMyCircleHeader.xib */,
+				66EF98551C3D16D9008978F8 /* BSMyCircleCell.h */,
+				66EF98561C3D16D9008978F8 /* BSMyCircleCell.m */,
+				66EF98571C3D16D9008978F8 /* BSMyCircleCell.xib */,
+				669B65511C4145B70057EDF8 /* BSMyCircleHeaderView.h */,
+				669B65521C4145B70057EDF8 /* BSMyCircleHeaderView.m */,
+				669B65541C4145CB0057EDF8 /* BSMyCircleHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3791,8 +3804,8 @@
 				667EC7551C22B8460077F4CF /* BSMatchModel.m */,
 				667EC7561C22B8460077F4CF /* BSPlayerScore.h */,
 				667EC7571C22B8460077F4CF /* BSPlayerScore.m */,
-				66F402DD1C2C507C00B5E555 /* BSCircelModel.h */,
-				66F402DE1C2C507C00B5E555 /* BSCircelModel.m */,
+				66F402DD1C2C507C00B5E555 /* BSCircleModel.h */,
+				66F402DE1C2C507C00B5E555 /* BSCircleModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4071,6 +4084,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		66EF985D1C3D574D008978F8 /* Cricle */ = {
+			isa = PBXGroup;
+			children = (
+				66EF985E1C3D574D008978F8 /* BSCircleMemberController.h */,
+				66EF985F1C3D574D008978F8 /* BSCircleMemberController.m */,
+				66EF98601C3D574D008978F8 /* BSMyCirclesController.h */,
+				66EF98611C3D574D008978F8 /* BSMyCirclesController.m */,
+				66EF98641C3D57D9008978F8 /* BSSearchCircleController.h */,
+				66EF98651C3D57D9008978F8 /* BSSearchCircleController.m */,
+				66EF98661C3D57D9008978F8 /* BSSearchCircleController.xib */,
+			);
+			name = Cricle;
+			path = Controller/Cricle;
+			sourceTree = "<group>";
+		};
 		66F402BD1C2C2FD500B5E555 /* GameRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -4201,6 +4229,7 @@
 				0409DA9A1BCA97BC00B659B8 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				0409DA491BCA97BC00B659B8 /* rabbit_1_cover@2x.png in Resources */,
 				0409DA321BCA97BC00B659B8 /* rabbit_0.gif in Resources */,
+				669B65551C4145CB0057EDF8 /* BSMyCircleHeaderView.xib in Resources */,
 				3487B2C31B3951F600BB9843 /* WeChat.png in Resources */,
 				342462811C00148B00755C09 /* bottom_bar_normal@2x.png in Resources */,
 				342462701C00148B00755C09 /* tusijia15.gif in Resources */,
@@ -4208,7 +4237,6 @@
 				0409DA631BCA97BC00B659B8 /* tusiji_10.gif in Resources */,
 				0409DA3E1BCA97BC00B659B8 /* rabbit_14_cover@2x.png in Resources */,
 				3487B2DB1B396AE300BB9843 /* PasswordIcon@2x.png in Resources */,
-				66557CFD1C2F9E8F00FA6BD5 /* timeline_icon_unlike@3x.png in Resources */,
 				3424628B1C00148B00755C09 /* ok_selected@2x.png in Resources */,
 				0409DA421BCA97BC00B659B8 /* rabbit_16_cover@2x.png in Resources */,
 				342462971C00148B00755C09 /* menu_background@2x.png in Resources */,
@@ -4221,12 +4249,9 @@
 				0409DA9E1BCA97BC00B659B8 /* RecordCancel@2x.png in Resources */,
 				349B48BD1B36AFCD0016E02C /* 李宗伟.jpg in Resources */,
 				0409DA621BCA97BC00B659B8 /* tusiji_1.gif in Resources */,
-				66557CF91C2F9E8300FA6BD5 /* timeline_icon_comment@3x.png in Resources */,
-				66557CFC1C2F9E8F00FA6BD5 /* timeline_icon_unlike@2x.png in Resources */,
 				3424627C1C00148B00755C09 /* input_bg_bottom@2x.png in Resources */,
 				3424626E1C00148B00755C09 /* tusijia13.gif in Resources */,
 				345D36571B2D0BD0004C226A /* Toast.xib in Resources */,
-				66557D041C2F9EA300FA6BD5 /* timeline_icon_like@2x.png in Resources */,
 				667EC7371C22B2CC0077F4CF /* BSRank.xcassets in Resources */,
 				0409DA791BCA97BC00B659B8 /* tusiji_6_cover@2x.png in Resources */,
 				0409DA601BCA97BC00B659B8 /* tusiji_0.gif in Resources */,
@@ -4244,7 +4269,6 @@
 				66F04CF61C27DC98003FE2FF /* BSSkyLadderHeaderView.xib in Resources */,
 				0409DAA91BCA97BC00B659B8 /* SECoreTextView.bundle in Resources */,
 				3424629E1C00148B00755C09 /* tabbar_contacts_active@2x.png in Resources */,
-				66557D031C2F9EA300FA6BD5 /* timeline_icon_like_disable@3x.png in Resources */,
 				663D154B1C2538D500E2AA46 /* address.plist in Resources */,
 				342462991C00148B00755C09 /* splash_screen.png in Resources */,
 				3487B2781B385ADB00BB9843 /* Taufik.jpg in Resources */,
@@ -4337,6 +4361,7 @@
 				3424628D1C00148B00755C09 /* rounded_icon.png in Resources */,
 				342462341C00148B00755C09 /* CDConvNameVC.xib in Resources */,
 				0409DA911BCA97BC00B659B8 /* msg_chat_voice_unread.png in Resources */,
+				66EF98541C3D120D008978F8 /* BSMyCircleHeader.xib in Resources */,
 				0409DA821BCA97BC00B659B8 /* face_HL@2x.png in Resources */,
 				342462921C00148B00755C09 /* menu_add_friend@2x.png in Resources */,
 				0409DA851BCA97BC00B659B8 /* input-bar-background.png in Resources */,
@@ -4374,6 +4399,7 @@
 				349EF2A61B42AE54003A1C4E /* LinDan-1@2x.png in Resources */,
 				3424624F1C00148B00755C09 /* default_user_avatar@2x.png in Resources */,
 				0409DAA01BCA97BC00B659B8 /* RecordingSignal001@2x.png in Resources */,
+				66EF98681C3D57D9008978F8 /* BSSearchCircleController.xib in Resources */,
 				3487B2751B385ADB00BB9843 /* Gade.jpg in Resources */,
 				0409DA2B1BCA97BC00B659B8 /* contacts_add_friend@2x.png in Resources */,
 				0409DAAB1BCA97BC00B659B8 /* SenderVoiceNodePlaying000@2x.png in Resources */,
@@ -4440,7 +4466,6 @@
 				0409DA861BCA97BC00B659B8 /* input-bar-background@2x.png in Resources */,
 				3424627B1C00148B00755C09 /* image_placeholder@2x.png in Resources */,
 				0409DA6F1BCA97BC00B659B8 /* tusiji_1_cover@2x.png in Resources */,
-				66557CF81C2F9E8300FA6BD5 /* timeline_icon_comment@2x.png in Resources */,
 				342462841C00148B00755C09 /* cancel@2x.png in Resources */,
 				660F70271C1AF13100D970B3 /* LoginModule.xcassets in Resources */,
 				342462831C00148B00755C09 /* bottom_bar_separator@2x.png in Resources */,
@@ -4448,12 +4473,11 @@
 				0409DA881BCA97BC00B659B8 /* input-bar-flat@2x.png in Resources */,
 				342462821C00148B00755C09 /* bottom_bar_selected@2x.png in Resources */,
 				0409DA5D1BCA97BC00B659B8 /* rabbit_8_cover@2x.png in Resources */,
-				66557D021C2F9EA300FA6BD5 /* timeline_icon_like_disable@2x.png in Resources */,
 				3424629B1C00148B00755C09 /* profile@2x.png in Resources */,
-				66557D051C2F9EA300FA6BD5 /* timeline_icon_like@3x.png in Resources */,
 				342462771C00148B00755C09 /* tusijia8.gif in Resources */,
 				342462951C00148B00755C09 /* menu_add_scan@2x.png in Resources */,
 				0409DAAE1BCA97BC00B659B8 /* SenderVoiceNodePlaying003@2x.png in Resources */,
+				66EF98591C3D16D9008978F8 /* BSMyCircleCell.xib in Resources */,
 				34CDABF01C129C35000AB551 /* ConfirmImage.xcassets in Resources */,
 				0409DA431BCA97BC00B659B8 /* rabbit_17.gif in Resources */,
 				0409DA651BCA97BC00B659B8 /* tusiji_11.gif in Resources */,
@@ -4528,6 +4552,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0409D9EE1BCA97BC00B659B8 /* XHEmotion.m in Sources */,
+				66EF98521C3D11FE008978F8 /* BSMyCircleHeader.m in Sources */,
 				667EC7721C22B8460077F4CF /* BSPlayerScore.m in Sources */,
 				0409DA101BCA97BC00B659B8 /* XHMessageStatusView.m in Sources */,
 				0409D9FB1BCA97BC00B659B8 /* SETextAttachment.m in Sources */,
@@ -4566,9 +4591,11 @@
 				66AEC6E61C26A52A00580E0B /* BSBaseContactTableViewController.m in Sources */,
 				667EC76A1C22B8460077F4CF /* BSConfirmGameTableViewController.m in Sources */,
 				663D15331C24F61D00E2AA46 /* PAFFDatePicker.m in Sources */,
+				66EF98621C3D574D008978F8 /* BSCircleMemberController.m in Sources */,
 				66557D081C2FAFDC00FA6BD5 /* BSCreateCircleController.m in Sources */,
 				349EF2241B3D043C003A1C4E /* RegularExpressionUtils.m in Sources */,
 				667EC76D1C22B8460077F4CF /* BSGameRecordDetailController.m in Sources */,
+				66EF98631C3D574D008978F8 /* BSMyCirclesController.m in Sources */,
 				345417E61C15BECF0030E990 /* BSGameTipCell.m in Sources */,
 				667EC7791C22B8460077F4CF /* BSGameRecordDetailCell.m in Sources */,
 				663D15301C24F61D00E2AA46 /* BSBaseCell.m in Sources */,
@@ -4645,7 +4672,7 @@
 				342462481C00148B00755C09 /* CDUtils.m in Sources */,
 				3424624C1C00148B00755C09 /* CDAddRequest.m in Sources */,
 				0409D9CB1BCA97BC00B659B8 /* UIImage+Utility.m in Sources */,
-				66F402DF1C2C507C00B5E555 /* BSCircelModel.m in Sources */,
+				66F402DF1C2C507C00B5E555 /* BSCircleModel.m in Sources */,
 				0409D9D81BCA97BC00B659B8 /* XHVoiceRecordHelper.m in Sources */,
 				66F402C61C2C2FD500B5E555 /* BSSingleGameRecordController.m in Sources */,
 				66557D261C2FD5D300FA6BD5 /* BSCircleMenuView.m in Sources */,
@@ -4672,6 +4699,7 @@
 				3424623A1C00148B00755C09 /* CDLoginVC.m in Sources */,
 				66AEC7071C26DBAF00580E0B /* BSFriendListViewController.m in Sources */,
 				342462381C00148B00755C09 /* CDEntryBaseVC.m in Sources */,
+				669B65531C4145B70057EDF8 /* BSMyCircleHeaderView.m in Sources */,
 				665570E81C2EE62300FA6BD5 /* BSStatusLayout.m in Sources */,
 				0409D9E21BCA97BC00B659B8 /* XHCacheManager.m in Sources */,
 				0409D9DF1BCA97BC00B659B8 /* XHDisplayMediaViewController.m in Sources */,
@@ -4696,7 +4724,7 @@
 				345D36531B2D0BD0004C226A /* ProfileTool.m in Sources */,
 				342462B11C00148B00755C09 /* CDTextField.m in Sources */,
 				342462C91C00148B00755C09 /* NewFeatureController.m in Sources */,
-				66F04CFC1C27ED2F003FE2FF /* BSBaseBusiness.m in Sources */,
+				66F04CFC1C27ED2F003FE2FF /* BSCommonBusiness.m in Sources */,
 				0409DA191BCA97BC00B659B8 /* XHEmotionSectionBar.m in Sources */,
 				0409DA091BCA97BC00B659B8 /* XHSoundManager.m in Sources */,
 				0409D9C21BCA97BC00B659B8 /* LZConversationCell.m in Sources */,
@@ -4800,6 +4828,7 @@
 				0409D9BA1BCA97BC00B659B8 /* CDChatManager.m in Sources */,
 				667EC7341C22ABCF0077F4CF /* BSProfileUserModel.m in Sources */,
 				663D15341C24F61D00E2AA46 /* PAFFDatePickerDateModel.m in Sources */,
+				66EF98671C3D57D9008978F8 /* BSSearchCircleController.m in Sources */,
 				667EC7751C22B8460077F4CF /* BSConfirmGameCell.m in Sources */,
 				0409D9D61BCA97BC00B659B8 /* XHPhotographyHelper.m in Sources */,
 				342462A51C00148B00755C09 /* CDButton.m in Sources */,
@@ -4853,6 +4882,7 @@
 				344D017D1C17417C000B8DD6 /* UIView+Frame.m in Sources */,
 				0409D9F91BCA97BC00B659B8 /* SELinkText.m in Sources */,
 				340025DB1C19E18700E93215 /* YYTableViewCell.m in Sources */,
+				66EF98581C3D16D9008978F8 /* BSMyCircleCell.m in Sources */,
 				345D36511B2D0BD0004C226A /* ImageCache.m in Sources */,
 				667EC7731C22B8460077F4CF /* BSAddGameRecordCell.m in Sources */,
 				66A612971C2C260600A285B1 /* BSAddGameRecordController.m in Sources */,

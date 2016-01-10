@@ -16,4 +16,5 @@
 
 @interface BSProfileEditCell : BSBaseTableViewCell
 @property (nonatomic, weak) id <BSProfileEditCellDelegate> delegate;
+- (void)setAvatar:(UIImage *)image;
 @end

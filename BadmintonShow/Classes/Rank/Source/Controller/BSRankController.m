@@ -19,6 +19,7 @@
 #import "BSCircleRankingController.h"
 #import "BSTimeLineViewController.h"
 #import "BSProfileUserModel.h"
+#import "BSCommonBusiness.h"
 
 
 @interface BSRankController () <UITableViewDelegate,UITableViewDataSource>{
@@ -49,7 +50,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self constructTableView];
+    [BSCommonBusiness fetchUserInBackground:^(BSProfileUserModel *profileUserMoel, NSError *err) {
+        [self.tableView reloadData];
+    }];
+    
+#if 0
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addGameRecord)];
+#endif
 }
 - (void)constructTableView{
     //  TableView
@@ -67,19 +74,11 @@
     self.tableView.backgroundColor = kTableViewBackgroudColor;
     [self.view addSubview:self.tableView];
     
-    NSLog(@"kScreenHeight = %f",kScreenHeight);
     if (kScreenHeight <= 568) {
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 140, 0);
     }
 }
-
-- (void)addGameRecord{
-    BSAddGameRecordController *add = [[BSAddGameRecordController alloc] init];
-    [self.navigationController pushViewController:add animated:YES];
-}
-
-
-
+ 
 
 #pragma mark TableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -96,19 +95,24 @@
     if (!_header)  {
         _header = [[BSRankHeader alloc] init];
     }
-    _header.frame = CGRectMake(0, 0, kScreenWidth, 205);
+    _header.frame = CGRectMake(0, 0, kScreenWidth, 215);
     [_header.icon setImageWithURL:[NSURL URLWithString:AppContext.user.avatarUrl] placeholder:UIImageNamed(kBSAvatarPlaceHolder)];
     _header.name.text = AppContext.user.userName ? :@"未登录";
-    _header.ranking.text =  [@(AppContext.user.score) stringValue];
+    _header.ranking.text =  [NSString stringWithFormat:@"%ld",(long)AppContext.user.score];
     _header.backgroundColor = [UIColor whiteColor];
-    _header.introduce.text = AppContext.user.desc;
+    _header.introduce.text = AppContext.user.desc.length ? AppContext.user.desc : @"还没有签名？ 快去添加吧";
+    
+    UIView *bottomLineView = [UIView new];
+    bottomLineView.frame = CGRectMake(0, 215 - 0.5, kScreenWidth, 0.5);
+    bottomLineView.backgroundColor = [UIColor colorWithHexString:@"#CCCCCC"];
+    [_header addSubview:bottomLineView];
     
     return section ? nil : _header;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return section ? 20 : 225;
+    return section ? 20 : 235;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -129,6 +133,7 @@
     NSString *title = sectionData[indexPath.row];
 
     cell.textLabel.text = title;
+    cell.textLabel.font = kBSFontSize(15);
     
     return cell;
 }

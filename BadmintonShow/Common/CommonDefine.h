@@ -57,5 +57,6 @@ typedef void (^BSIdResultBlock)(id object, NSError *error);
 
 
 #define kNotificationKeyUserChanged  @"UserChanged"
+#define kQueryLimit 20
 
 #endif

@@ -8,60 +8,64 @@
 
 #import "BSSwitchCircleView.h"
 
+static  NSUInteger rowHeight = 40;
 
 @interface BSSwitchCircleView () <UITableViewDelegate, UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (strong, nonatomic) UITableView *tableView;
+@property (nonatomic, assign) NSInteger selectedRow;
 @end
 
 @implementation BSSwitchCircleView
 
+#pragma mark - public
+
++ (BSSwitchCircleView *)switchView {
+    BSSwitchCircleView *switchView = [[BSSwitchCircleView  alloc] init];
+    
+    
+    return switchView;
+}
+
+- (void)setDataArr:(NSMutableArray *)dataArr {
+    _dataArr = dataArr;
+}
+
+#pragma mark - private
+
 - (id)init{
-    self = [[[NSBundle mainBundle] loadNibNamed:@"BSSwitchCircleView" owner:nil options:nil] lastObject];
-    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.layer.borderWidth = 1.0f;
+    self = [super init];
+    if (!self) return nil;
+    
+    self.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64);
+    CGFloat decimal = 200/256.0;
+    self.backgroundColor = [UIColor colorWithRed:decimal green:decimal blue:decimal alpha:0.5];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.dataArr = @[@[@"公司",@"学校",@"城市",@"小区"]/*,@[@"桂八"]*/].mutableCopy;
+    self.tableView.scrollEnabled = NO;
+    self.tableView.tableFooterView = [UIView new];
+    [self addSubview:self.tableView];
+    
+    self.dataArr = @[].mutableCopy;
     return self;
 }
 
-- (NSMutableArray *)dataArr {
-    if (!_dataArr) {
-        _dataArr = [NSMutableArray array];
-    }
-    return _dataArr;
-}
-
-+ (BSSwitchCircleView *)switchView {
-    BSSwitchCircleView *switchView = [[BSSwitchCircleView alloc] init];
-    CGFloat width = 100;
-    CGFloat height = 200;
-    CGFloat x = (kScreenWidth - width) / 2;
-    CGFloat y = 5;
-    switchView.frame = CGRectMake(x, y, width, height);
-    return switchView;
+- (void)reloadDataWith:(NSArray *)dataArr {
+    self.dataArr = dataArr.mutableCopy;
+    self.tableView.height = rowHeight * dataArr.count;
+    [self.tableView reloadData];
 }
 
 #pragma mark - TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArr.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *sectionData = self.dataArr[section];
-    return sectionData.count;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return rowHeight;
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    NSArray *sectionData = self.dataArr[section];
-//    return sectionData.count ? @"私密圈" : nil;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 20.0f;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -69,10 +73,15 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId ];
     if (!cell) {
         cell = [[UITableViewCell alloc]  initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.textLabel.font = kBSFontSize(14);
+    }
+    BSCircleModel *circle = self.dataArr[indexPath.row];
+    if ([circle isKindOfClass:[BSCircleModel class]]) {
+        cell.textLabel.text = circle.name;
     }
     
-    NSArray *sectionData = self.dataArr[indexPath.section];
-    cell.textLabel.text = sectionData[indexPath.row];
+    cell.accessoryType = (indexPath.row == _selectedRow) ?
+            UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -80,17 +89,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // BSCircelModel
-//    NSArray *sectionData = self.dataArr[indexPath.section];
-//    BSCircelModel *circle = sectionData[indexPath.row];
+    _selectedRow = indexPath.row;
+    [self.tableView reloadData];
+    
+    // BSCircleModel
+    BSCircleModel *circle = self.dataArr[indexPath.row];
     
     if ([self.delegate respondsToSelector:@selector(switchView:didSelectCircle:)]) {
-        [self.delegate switchView:self didSelectCircle:nil];
+        [self.delegate switchView:self didSelectCircle:circle];
     }
 }
 
 
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self removeFromSuperview];
+}
 
 
 @end

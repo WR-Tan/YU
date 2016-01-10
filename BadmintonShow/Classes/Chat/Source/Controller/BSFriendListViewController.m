@@ -9,6 +9,7 @@
 #import "BSFriendListViewController.h"
 #import "BSAddFriendViewController.h"
 #import "CDAddFriendVC.h"
+#import "BSProfileUserModel.h"
 
 @interface BSFriendListViewController ()
 
@@ -36,13 +37,9 @@
 }
 
 - (void)addContact{
-//    
     BSAddFriendViewController * add = [ [BSAddFriendViewController alloc] init ];
     [[self navigationController] pushViewController:add animated:YES];
-    
-    
-//    CDAddFriendVC *controller = [[CDAddFriendVC alloc] init];
-//    [[self navigationController] pushViewController:controller animated:YES];
 }
+
 
 @end

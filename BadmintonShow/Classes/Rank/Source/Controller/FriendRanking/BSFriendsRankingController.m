@@ -29,17 +29,44 @@
 
 - (void)loadRankData {
     [SVProgressHUD show];
+//    _querySuccessCount = 0;
+//    _querySkip = 0;
     [BSRankDataBusiness queryFriendRankDataWithBlock:^(NSArray *objects, NSError *error) {
         [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
         if (error) {
             [self.view addSubview:self.showErrorLabel];
             return ;
         }
-        [self.showErrorLabel removeFromSuperview];
-        
+
+//        _querySuccessCount = 1;
+//        _querySkip = kQueryLimit;
         _rankArray = objects.mutableCopy;
+        
+        [self.showErrorLabel removeFromSuperview];
         [self.tableView reloadData];
     }];
+}
+
+- (void)loadMoreData {
+//    [BSRankDataBusiness queryFriendRankDataWithLimit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
+//        [SVProgressHUD dismiss];
+//        [self.tableView.mj_footer endRefreshing];
+//        if (error) {
+//            [self.view addSubview:self.showErrorLabel];
+//            return ;
+//        }
+//        
+//        _querySuccessCount ++ ;
+//        _querySkip = kQueryLimit * _querySuccessCount;
+//        [_rankArray addObjectsFromArray:objects];
+//        
+//        [self.showErrorLabel removeFromSuperview];
+//        [self.tableView reloadData];
+//    }];
+
+    
+    
 }
 
 

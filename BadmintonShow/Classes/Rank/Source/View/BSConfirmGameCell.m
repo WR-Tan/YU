@@ -14,6 +14,12 @@
 - (void)awakeFromNib {
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone ;
+    self.aAvatarImageView.layer.cornerRadius = 36;
+    self.aAvatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.aAvatarImageView.clipsToBounds = YES;
+    self.bAvatarImageView.layer.cornerRadius = 36;
+    self.bAvatarImageView.clipsToBounds = YES;
+    self.bAvatarImageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

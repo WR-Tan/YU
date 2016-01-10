@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BSMyCircleHeader">
+            <rect key="frame" x="0.0" y="0.0" width="304" height="107"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAt-F6-UBX" userLabel="RightView">
+                    <rect key="frame" x="152" y="0.0" width="152" height="107"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTF-Be-oRH">
+                            <rect key="frame" x="50" y="40" width="52" height="28"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="创建圈子"/>
+                            <connections>
+                                <action selector="createCircle:" destination="iN0-l3-epB" eventType="touchUpInside" id="Aue-VL-3IB"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="KTF-Be-oRH" firstAttribute="centerY" secondItem="KAt-F6-UBX" secondAttribute="centerY" id="408-tu-GTR"/>
+                        <constraint firstItem="KTF-Be-oRH" firstAttribute="centerX" secondItem="KAt-F6-UBX" secondAttribute="centerX" id="uiK-1D-btL"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RrL-f5-DBB" userLabel="LeftView">
+                    <rect key="frame" x="0.0" y="0.0" width="152" height="107"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hb-MS-VUQ">
+                            <rect key="frame" x="50" y="39" width="52" height="28"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="加入圈子"/>
+                            <connections>
+                                <action selector="jionCircleAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="5bP-7D-cbA"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="9hb-MS-VUQ" firstAttribute="centerY" secondItem="RrL-f5-DBB" secondAttribute="centerY" id="7BL-qy-ep3"/>
+                        <constraint firstItem="9hb-MS-VUQ" firstAttribute="centerX" secondItem="RrL-f5-DBB" secondAttribute="centerX" id="ShR-5Q-pcW"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="KAt-F6-UBX" secondAttribute="bottom" id="27E-uL-tUb"/>
+                <constraint firstItem="KAt-F6-UBX" firstAttribute="leading" secondItem="RrL-f5-DBB" secondAttribute="trailing" id="8zm-WV-Cx2"/>
+                <constraint firstAttribute="trailing" secondItem="KAt-F6-UBX" secondAttribute="trailing" id="Ocn-6E-VTR"/>
+                <constraint firstItem="KAt-F6-UBX" firstAttribute="width" secondItem="RrL-f5-DBB" secondAttribute="width" id="QPP-YK-HoU"/>
+                <constraint firstItem="KAt-F6-UBX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="R3M-XD-138"/>
+                <constraint firstAttribute="bottom" secondItem="RrL-f5-DBB" secondAttribute="bottom" id="bM8-29-ZuQ"/>
+                <constraint firstItem="RrL-f5-DBB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bkd-9H-QRo"/>
+                <constraint firstItem="RrL-f5-DBB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jVh-au-qQe"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="89" y="-23.5"/>
+        </view>
+    </objects>
+</document>
