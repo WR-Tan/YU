@@ -31,6 +31,7 @@
          
          NSMutableArray *friends = [NSMutableArray arrayWithArray:objects];
          [friends addObject:AppContext.user];
+
          block(friends,nil);
      }];
 }

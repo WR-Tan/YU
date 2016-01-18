@@ -11,6 +11,7 @@
 
 @interface BSCircleDetailHeader ()
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
+@property (weak, nonatomic) IBOutlet UILabel *circleNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *circleIdLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -37,6 +38,8 @@
     self = [[[NSBundle mainBundle] loadNibNamed:@"BSCircleDetailHeader" owner:nil options:nil] lastObject];
     self.avatarView.layer.cornerRadius = 96 / 2.0;
     self.avatarView.clipsToBounds = YES;
+    self.avatarView.contentMode = UIViewContentModeScaleAspectFill;
+
     self.creatorAvatarView.layer.cornerRadius = 48 / 2.0;
     self.creatorAvatarView.clipsToBounds = YES;
     self.adminOneAvatarView.layer.cornerRadius = 48 / 2.0;
@@ -94,7 +97,8 @@
 - (void)setObject:(id)object {
     if ([object isKindOfClass:[BSCircleModel class]]) {
         BSCircleModel *circle = (BSCircleModel *)object;
-        [self.avatarView setImageWithURL:circle.avatarUrl placeholder:kImageUserAvatar];
+        [self.avatarView setImageWithURL:circle.avatarUrl placeholder:UIImageNamed(@"iconfont-kequntoushi")];
+        self.circleNameLabel.text = circle.name;
         self.circleIdLabel.text = circle.circleId;
         self.createdAtLabel.text = [circle.createdAt toDateString];
         self.addressLabel.text = circle.address; 

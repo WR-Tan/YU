@@ -12,5 +12,7 @@
 
 @property (nonatomic, copy) NSString *gameObjectId ;
 
+/// 如果是自己发送的，不能确认
+//@property (nonatomic, assign) BOOL shouldBeConfirmed ;
 
 @end

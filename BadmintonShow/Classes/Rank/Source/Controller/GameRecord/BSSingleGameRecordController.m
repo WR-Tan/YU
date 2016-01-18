@@ -17,15 +17,17 @@
 #import "BSDBManager.h"
 #import "BSGameBusiness.h"
 #import "SVProgressHUD.h"
+#import "MJRefresh.h"
 
 @interface BSSingleGameRecordController () <UITableViewDataSource,UITableViewDelegate>{
     NSMutableArray *_gameRecordData;
+    NSInteger _querySkip;
+    NSInteger _querySuccessCount;
 }
 @property (nonatomic, strong) BSGameRecordHeaderView *header;
 @property (nonatomic, strong) AVUser *oppUser;
 @property (nonatomic, strong) AVUser *myUser;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UILabel *showErrorLabel;
 @end
 
 @implementation BSSingleGameRecordController
@@ -47,7 +49,7 @@
 }
 
 
-- (void)constructTableView{
+- (void)constructTableView{ 
     //  TableView
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
@@ -55,39 +57,66 @@
     if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-//    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, -64, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.backgroundColor = kTableViewBackgroudColor;
+    self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
     
-    if ( kSystemVersion < 7) {
-        self.tableView.top -= 64;
-        self.tableView.height += 20;
-    }
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self initData];
+    }];
+    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreData];
+    }];
 }
 
 - (void)initData{
-    
-#if 0
-    [BSGameBusiness queryGameFromDBWithBlock:^(NSArray *objects, NSError *error) {
-        _gameRecordData = objects.mutableCopy;
-        [self.tableView reloadData];
-    }];
-#endif
-    
-    //    用户上下拉刷新的时候，再去获取数据
+    _querySuccessCount = 0;
+    _querySkip = 0;
     [SVProgressHUD show];
-    [BSGameBusiness queryGameFromNetWithBlock:^(NSArray *objects, NSError *error) {
+    [BSGameBusiness queryGameFromNetWithLimit:kQueryLimit skip:_querySkip Block:^(NSArray *objects, NSError *error) {
         [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
         if (error) {
-            [self.view addSubview:self.showErrorLabel];
+            [SVProgressHUD showErrorWithStatus:@"获取比赛记录失败，请检查网络"];
             return ;
         }
-        [self.showErrorLabel removeFromSuperview];
+        
+        _querySuccessCount = 1;
+        _querySkip = kQueryLimit;
         
         _gameRecordData = objects.mutableCopy;
         [self.tableView reloadData];
     }];
+}
+
+
+
+- (void)loadMoreData {
+    // 第一次加载。下拉刷新
+    [BSGameBusiness queryGameFromNetWithLimit:kQueryLimit skip:_querySkip Block:^(NSArray *objects, NSError *error) {
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_footer endRefreshing];
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:@"获取比赛记录失败，请检查网络"];
+            return ;
+        }
+        
+        _querySuccessCount ++ ;
+        _querySkip = kQueryLimit * _querySuccessCount;
+        
+        [_gameRecordData addObjectsFromArray:objects];
+        [self.tableView reloadData];
+        
+    }];
+    
+    
+    
 }
 
 
@@ -127,7 +156,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 85;
+    return 75;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -144,26 +173,14 @@
 #pragma mark - TableView代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
-    [self.navigationController pushViewController:detail animated:YES];
+//    BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
+//    [self.navigationController pushViewController:detail animated:YES];
 }
 
 
 
 #pragma mark - lazy
 
-- (UILabel *)showErrorLabel {
-    if (!_showErrorLabel) {
-        _showErrorLabel = [[UILabel alloc] init];;
-        _showErrorLabel.text = @"获取排名失败，请检查网络";
-        _showErrorLabel.textAlignment = NSTextAlignmentCenter;
-        CGFloat labelWidth = 300 ;
-        CGFloat labelHeight = 100;
-        _showErrorLabel.bounds = CGRectMake(0, 0, labelWidth, labelHeight);
-        _showErrorLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 50);
-    }
-    return _showErrorLabel;
-}
 
 
 @end

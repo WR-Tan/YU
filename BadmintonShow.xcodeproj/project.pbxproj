@@ -511,12 +511,21 @@
 		34CDABF01C129C35000AB551 /* ConfirmImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34CDABEF1C129C35000AB551 /* ConfirmImage.xcassets */; };
 		34CDABFB1C12A0B9000AB551 /* BSHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CDABFA1C12A0B9000AB551 /* BSHomePageViewController.m */; };
 		34CE470C1B39A6E000C1612F /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 34CE470B1B39A6E000C1612F /* eye.png */; };
+		6601EC071C4354D500AACC0F /* BSMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6601EC061C4354D500AACC0F /* BSMessageViewController.m */; };
+		6601EC0B1C4355AD00AACC0F /* BSMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6601EC091C4355AD00AACC0F /* BSMessageCell.m */; };
+		6601EC0C1C4355AD00AACC0F /* BSMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6601EC0A1C4355AD00AACC0F /* BSMessageCell.xib */; };
+		6601EC0F1C4355FB00AACC0F /* BSMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6601EC0E1C4355FB00AACC0F /* BSMessageModel.m */; };
+		6601EC121C4385A800AACC0F /* BSCircleAddMemberController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6601EC111C4385A800AACC0F /* BSCircleAddMemberController.m */; };
 		660F70271C1AF13100D970B3 /* LoginModule.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 660F70261C1AF13100D970B3 /* LoginModule.xcassets */; };
 		661400841C312AC500C5718D /* BSSwitchCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 661400831C312AC500C5718D /* BSSwitchCircleView.m */; };
 		661400861C312ADC00C5718D /* BSSwitchCircleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661400851C312ADC00C5718D /* BSSwitchCircleView.xib */; };
 		6614009A1C31631100C5718D /* BSPlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 661400991C31631100C5718D /* BSPlayerDetailViewController.m */; };
 		6614009D1C31638200C5718D /* BSPlayerDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6614009C1C31638200C5718D /* BSPlayerDetailHeader.m */; };
 		6614009F1C3163C600C5718D /* BSPlayerDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6614009E1C3163C600C5718D /* BSPlayerDetailHeader.xib */; };
+		6627A10D1C468AF3005BC436 /* BSChatMatchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6627A10C1C468AF3005BC436 /* BSChatMatchView.xib */; };
+		6627A11D1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627A11C1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.m */; };
+		6627A1271C48085A005BC436 /* BSResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6627A1251C48085A005BC436 /* BSResetPasswordController.m */; };
+		6627A1281C48085A005BC436 /* BSResetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6627A1261C48085A005BC436 /* BSResetPasswordController.xib */; };
 		663D15301C24F61D00E2AA46 /* BSBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D15251C24F61D00E2AA46 /* BSBaseCell.m */; };
 		663D15311C24F61D00E2AA46 /* BSBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D15271C24F61D00E2AA46 /* BSBaseTableViewCell.m */; };
 		663D15331C24F61D00E2AA46 /* PAFFDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 663D152D1C24F61D00E2AA46 /* PAFFDatePicker.m */; };
@@ -1423,6 +1432,15 @@
 		34CDABF91C12A0B9000AB551 /* BSHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSHomePageViewController.h; sourceTree = "<group>"; };
 		34CDABFA1C12A0B9000AB551 /* BSHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSHomePageViewController.m; sourceTree = "<group>"; };
 		34CE470B1B39A6E000C1612F /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
+		6601EC051C4354D500AACC0F /* BSMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMessageViewController.h; sourceTree = "<group>"; };
+		6601EC061C4354D500AACC0F /* BSMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMessageViewController.m; sourceTree = "<group>"; };
+		6601EC081C4355AD00AACC0F /* BSMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMessageCell.h; sourceTree = "<group>"; };
+		6601EC091C4355AD00AACC0F /* BSMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMessageCell.m; sourceTree = "<group>"; };
+		6601EC0A1C4355AD00AACC0F /* BSMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSMessageCell.xib; sourceTree = "<group>"; };
+		6601EC0D1C4355FB00AACC0F /* BSMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSMessageModel.h; sourceTree = "<group>"; };
+		6601EC0E1C4355FB00AACC0F /* BSMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSMessageModel.m; sourceTree = "<group>"; };
+		6601EC101C4385A800AACC0F /* BSCircleAddMemberController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCircleAddMemberController.h; sourceTree = "<group>"; };
+		6601EC111C4385A800AACC0F /* BSCircleAddMemberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCircleAddMemberController.m; sourceTree = "<group>"; };
 		660F70261C1AF13100D970B3 /* LoginModule.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LoginModule.xcassets; sourceTree = "<group>"; };
 		661400821C312AC500C5718D /* BSSwitchCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSwitchCircleView.h; sourceTree = "<group>"; };
 		661400831C312AC500C5718D /* BSSwitchCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSwitchCircleView.m; sourceTree = "<group>"; };
@@ -1432,6 +1450,12 @@
 		6614009B1C31638200C5718D /* BSPlayerDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPlayerDetailHeader.h; sourceTree = "<group>"; };
 		6614009C1C31638200C5718D /* BSPlayerDetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPlayerDetailHeader.m; sourceTree = "<group>"; };
 		6614009E1C3163C600C5718D /* BSPlayerDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSPlayerDetailHeader.xib; sourceTree = "<group>"; };
+		6627A10C1C468AF3005BC436 /* BSChatMatchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSChatMatchView.xib; sourceTree = "<group>"; };
+		6627A11B1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSLoginWithPhoneNumberController.h; sourceTree = "<group>"; };
+		6627A11C1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSLoginWithPhoneNumberController.m; sourceTree = "<group>"; };
+		6627A1241C48085A005BC436 /* BSResetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSResetPasswordController.h; sourceTree = "<group>"; };
+		6627A1251C48085A005BC436 /* BSResetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSResetPasswordController.m; sourceTree = "<group>"; };
+		6627A1261C48085A005BC436 /* BSResetPasswordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSResetPasswordController.xib; sourceTree = "<group>"; };
 		663D15241C24F61D00E2AA46 /* BSBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseCell.h; sourceTree = "<group>"; };
 		663D15251C24F61D00E2AA46 /* BSBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBaseCell.m; sourceTree = "<group>"; };
 		663D15261C24F61D00E2AA46 /* BSBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBaseTableViewCell.h; sourceTree = "<group>"; };
@@ -2883,6 +2907,7 @@
 			children = (
 				3424619A1C00148B00755C09 /* BSChatMatchView.h */,
 				3424619B1C00148B00755C09 /* BSChatMatchView.m */,
+				6627A10C1C468AF3005BC436 /* BSChatMatchView.xib */,
 				3424619C1C00148B00755C09 /* CDBadgeLabel.h */,
 				3424619D1C00148B00755C09 /* CDBadgeLabel.m */,
 				3424619E1C00148B00755C09 /* CDButton.h */,
@@ -3020,8 +3045,13 @@
 				342461D31C00148B00755C09 /* BSLoginController.m */,
 				342461D41C00148B00755C09 /* BSRegisterController.h */,
 				342461D51C00148B00755C09 /* BSRegisterController.m */,
+				6627A11B1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.h */,
+				6627A11C1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.m */,
 				342461D61C00148B00755C09 /* BSRegisterUserNameController.h */,
 				342461D71C00148B00755C09 /* BSRegisterUserNameController.m */,
+				6627A1241C48085A005BC436 /* BSResetPasswordController.h */,
+				6627A1251C48085A005BC436 /* BSResetPasswordController.m */,
+				6627A1261C48085A005BC436 /* BSResetPasswordController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3665,6 +3695,8 @@
 				66C74C4B1C25A968007E2D3F /* BSSelectSchoolController.m */,
 				66E491261C2696CF00EF332A /* PAFFSelectCityViewController.h */,
 				66E491271C2696CF00EF332A /* PAFFSelectCityViewController.m */,
+				6601EC051C4354D500AACC0F /* BSMessageViewController.h */,
+				6601EC061C4354D500AACC0F /* BSMessageViewController.m */,
 			);
 			name = MainController;
 			path = Controller;
@@ -3677,6 +3709,8 @@
 				6675D6721C1F05BA00C10DCA /* BSProfileModel.m */,
 				667EC7321C22ABCF0077F4CF /* BSProfileUserModel.h */,
 				667EC7331C22ABCF0077F4CF /* BSProfileUserModel.m */,
+				6601EC0D1C4355FB00AACC0F /* BSMessageModel.h */,
+				6601EC0E1C4355FB00AACC0F /* BSMessageModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3703,6 +3737,9 @@
 				669B65511C4145B70057EDF8 /* BSMyCircleHeaderView.h */,
 				669B65521C4145B70057EDF8 /* BSMyCircleHeaderView.m */,
 				669B65541C4145CB0057EDF8 /* BSMyCircleHeaderView.xib */,
+				6601EC081C4355AD00AACC0F /* BSMessageCell.h */,
+				6601EC091C4355AD00AACC0F /* BSMessageCell.m */,
+				6601EC0A1C4355AD00AACC0F /* BSMessageCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4094,6 +4131,8 @@
 				66EF98641C3D57D9008978F8 /* BSSearchCircleController.h */,
 				66EF98651C3D57D9008978F8 /* BSSearchCircleController.m */,
 				66EF98661C3D57D9008978F8 /* BSSearchCircleController.xib */,
+				6601EC101C4385A800AACC0F /* BSCircleAddMemberController.h */,
+				6601EC111C4385A800AACC0F /* BSCircleAddMemberController.m */,
 			);
 			name = Cricle;
 			path = Controller/Cricle;
@@ -4147,6 +4186,7 @@
 				345D35CF1B2D0B1A004C226A /* Frameworks */,
 				345D35D01B2D0B1A004C226A /* Resources */,
 				0D075ABBF2BB0D7C0EC370FE /* Copy Pods Resources */,
+				BA0016F693C6D4ADF95D78E1 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4187,6 +4227,7 @@
 				TargetAttributes = {
 					345D35D11B2D0B1A004C226A = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 23UCRX8JT2;
 					};
 					345D35E41B2D0B1A004C226A = {
 						CreatedOnToolsVersion = 6.1;
@@ -4290,6 +4331,7 @@
 				667EC77A1C22B8460077F4CF /* BSGameRecordDetailCell.xib in Resources */,
 				3424628A1C00148B00755C09 /* ok@2x.png in Resources */,
 				0409DA891BCA97BC00B659B8 /* input-field-cover.png in Resources */,
+				6601EC0C1C4355AD00AACC0F /* BSMessageCell.xib in Resources */,
 				345D36A01B2D233C004C226A /* f_static_083.png in Resources */,
 				667EC7741C22B8460077F4CF /* BSAddGameRecordCell.xib in Resources */,
 				342462721C00148B00755C09 /* tusijia3.gif in Resources */,
@@ -4299,6 +4341,7 @@
 				342462BB1C00148B00755C09 /* BSNearbyPlayerCell.xib in Resources */,
 				0409DAB11BCA97BC00B659B8 /* sharemore_location@2x.png in Resources */,
 				0409DA951BCA97BC00B659B8 /* MultiSelectedPanelBkg@2x.png in Resources */,
+				6627A1281C48085A005BC436 /* BSResetPasswordController.xib in Resources */,
 				0409DAB41BCA97BC00B659B8 /* sharemore_pic@2x.png in Resources */,
 				342462931C00148B00755C09 /* menu_add_newmessage@2x.png in Resources */,
 				3457AD0C1BB0739E00D3ACA6 /* user-green-128*128.png in Resources */,
@@ -4451,6 +4494,7 @@
 				342462A01C00148B00755C09 /* tabbar_me_active@2x.png in Resources */,
 				0409DA311BCA97BC00B659B8 /* defaultSettings.plist in Resources */,
 				0409DA7A1BCA97BC00B659B8 /* tusiji_7.gif in Resources */,
+				6627A10D1C468AF3005BC436 /* BSChatMatchView.xib in Resources */,
 				342462961C00148B00755C09 /* menu_add_voip@2x.png in Resources */,
 				0409DA3B1BCA97BC00B659B8 /* rabbit_13.gif in Resources */,
 				0409DA2D1BCA97BC00B659B8 /* contacts_add_photo@2x.png in Resources */,
@@ -4544,6 +4588,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		BA0016F693C6D4ADF95D78E1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -4557,6 +4616,7 @@
 				0409DA101BCA97BC00B659B8 /* XHMessageStatusView.m in Sources */,
 				0409D9FB1BCA97BC00B659B8 /* SETextAttachment.m in Sources */,
 				3424624D1C00148B00755C09 /* CDUser.m in Sources */,
+				6601EC121C4385A800AACC0F /* BSCircleAddMemberController.m in Sources */,
 				342462B71C00148B00755C09 /* BSNearbyPlayerController.m in Sources */,
 				66BA62F51C240205006A1DA9 /* BSAppContext.m in Sources */,
 				66A6129A1C2C260600A285B1 /* BSChooseTeamPlayerController.m in Sources */,
@@ -4820,6 +4880,7 @@
 				0409D9F51BCA97BC00B659B8 /* LKBadgeView.m in Sources */,
 				3424622E1C00148B00755C09 /* MCMutipleSectionTC.m in Sources */,
 				66C74C5B1C2676E0007E2D3F /* BSAddTeamController.m in Sources */,
+				6601EC071C4354D500AACC0F /* BSMessageViewController.m in Sources */,
 				0409D9E81BCA97BC00B659B8 /* XHMessageVideoConverPhotoFactory.m in Sources */,
 				342462331C00148B00755C09 /* CDConvNameVC.m in Sources */,
 				0409DA111BCA97BC00B659B8 /* XHMessageTableView.m in Sources */,
@@ -4832,6 +4893,7 @@
 				667EC7751C22B8460077F4CF /* BSConfirmGameCell.m in Sources */,
 				0409D9D61BCA97BC00B659B8 /* XHPhotographyHelper.m in Sources */,
 				342462A51C00148B00755C09 /* CDButton.m in Sources */,
+				6601EC0F1C4355FB00AACC0F /* BSMessageModel.m in Sources */,
 				66724D441C2075F500DC2A7D /* BSProfileEditCell.m in Sources */,
 				3424623C1C00148B00755C09 /* CDRegisterVC.m in Sources */,
 				66E491281C2696CF00EF332A /* PAFFSelectCityViewController.m in Sources */,
@@ -4865,6 +4927,7 @@
 				0409DA031BCA97BC00B659B8 /* SETextSelectionView.m in Sources */,
 				345D364F1B2D0BD0004C226A /* CommonUtils.m in Sources */,
 				342462431C00148B00755C09 /* CDSettingVC.m in Sources */,
+				6627A1271C48085A005BC436 /* BSResetPasswordController.m in Sources */,
 				0409D9BE1BCA97BC00B659B8 /* CDMessageHelper.m in Sources */,
 				667EC7671C22B8460077F4CF /* BSGameBusiness.m in Sources */,
 				0409D9DA1BCA97BC00B659B8 /* XHBaseTableViewController.m in Sources */,
@@ -4898,9 +4961,11 @@
 				66AEC70A1C26DBC300580E0B /* BSChatBuiness.m in Sources */,
 				345D364C1B2D0BD0004C226A /* UITableViewCell+x.m in Sources */,
 				342460DC1C00144B00755C09 /* BSAVBusiness.m in Sources */,
+				6601EC0B1C4355AD00AACC0F /* BSMessageCell.m in Sources */,
 				0409D9C91BCA97BC00B659B8 /* UIImage+Resize.m in Sources */,
 				667EC7701C22B8460077F4CF /* BSGameModel.m in Sources */,
 				0409D9F81BCA97BC00B659B8 /* SELineLayout.m in Sources */,
+				6627A11D1C47F7E1005BC436 /* BSLoginWithPhoneNumberController.m in Sources */,
 				342E69841C143C2300C0D60E /* BSGameGIFCollectionHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4953,8 +5018,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhihua li (BPSW5B9GZE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhihua li (BPSW5B9GZE)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -4997,8 +5062,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhihua li (BPSW5B9GZE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhihua li (BPSW5B9GZE)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5022,14 +5087,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhihua li (BPSW5B9GZE)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pingan.abcdef;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thousandBlade.yuxiu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -5039,15 +5105,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhihua li (BPSW5B9GZE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhihua li (BPSW5B9GZE)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pingan.abcdef;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thousandBlade.yuxiu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

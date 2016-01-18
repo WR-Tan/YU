@@ -16,20 +16,25 @@
 @implementation BSCircleBusiness
 
 + (void)queryMyCirclesWithBlock:(BSArrayResultBlock)block {
-    AVRelation *circleRelation = [[AVUser currentUser] relationforKey:AVRelationCircles];
-    [[circleRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            block(nil, error);
-            return ;
-        }
-        
-        NSMutableArray *arrM = [NSMutableArray array];
-        for (AVObject *circle in objects) {
-            BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
-            [arrM addObject:model];
-        }
-        block(arrM, nil);
+    
+    [[AVUser currentUser] refreshInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+        AVRelation *circleRelation = [[AVUser currentUser] relationforKey:AVRelationCircles];
+        AVQuery *query = [circleRelation query];
+        query.cachePolicy = kAVCachePolicyIgnoreCache;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (error) {
+                block(nil, error);
+                return ;
+            }
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (AVObject *circle in objects) {
+                BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
+                [arrM addObject:model];
+            }
+            block(arrM, nil);
+        }];
     }];
+    
 }
 
 
@@ -69,7 +74,7 @@
     }];
 }
 
-+ (void)queryCircleWithCategory:(NSString *)category isOpen:(BOOL)isOpen block:(BSArrayResultBlock)block {
++ (void)queryCircleWithCategory:(NSString *)category isOpen:(BOOL)isOpen limit:(NSInteger)limit skip:(NSInteger)skip block:(BSArrayResultBlock)block {
     NSDictionary *dict = [self circleCateogry];
     NSString *categoryKey = dict[category] ? : nil;
     
@@ -78,7 +83,8 @@
         [query whereKey:AVPropertyType equalTo:categoryKey];
     }
     [query whereKey:AVPropertyOpen equalTo:@(isOpen)];
-    query.limit = 20;
+    query.limit = limit;
+    query.skip = skip;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
        
         if (error) {
@@ -151,7 +157,7 @@
             BSCircleModel *model = [BSCircleModel modelWithAVObject:circle];
             block(model, nil);
             
-            //  Circle's players relation...
+            //  Circle's players relation
             AVRelation *relationForPlayersInCircle = [circle relationforKey:AVRelationPlayers];
             [relationForPlayersInCircle addObject:[AVUser currentUser]];
             [circle  saveInBackground];
@@ -339,5 +345,40 @@
     }];
 }
 
++ (void)quitCircle:(BSCircleModel *)circle block:(BSBooleanResultBlock)block {
+    AVRelation *circleRelation = [[AVUser currentUser] relationforKey:AVRelationCircles];
+    AVObject *circleObj = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId];
+    [circleRelation removeObject:circleObj];
+    [[AVUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (error) {
+            block(NO,error);
+            return ;
+        }
+        
+        block(succeeded, nil);
+    }];
+}
+
+
++ (void)addUser:(AVUser *)user toCircle:(BSCircleModel *)circle block:(BSBooleanResultBlock)block {
+    if (!user) return;
+    
+    AVRelation *circleRelation = [user relationforKey:AVRelationCircles];
+    AVObject *circleObj = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId];
+    [circleRelation addObject:circleObj];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (error) {
+            block(NO,error);
+            return ;
+        }
+        
+        block(succeeded, nil);
+    }];
+
+    
+    
+}
 
 @end

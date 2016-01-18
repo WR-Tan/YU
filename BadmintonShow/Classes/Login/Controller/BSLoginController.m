@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "BSAVBusiness+Register.h"
 #import "SVProgressHUD.h"
+#import "BSLoginWithPhoneNumberController.h"
+#import "BSResetPasswordController.h"
 
 @interface BSLoginController ()<UITextFieldDelegate>
 
@@ -32,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *notRegistBtn;
 @property (weak, nonatomic) IBOutlet UIButton *findPsdBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *loginWithPhoneNum;
+
 @end
 
 @implementation BSLoginController
@@ -45,7 +49,7 @@
     self.inputBgView.layer.cornerRadius =  2;
     self.inputBgView.clipsToBounds = YES ;
     self.topLineView.hidden = YES;
-    self.bottomLineView.hidden = YES;
+//    self.bottomLineView.hidden = YES;
     
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 6, 0, 6) ;
     
@@ -62,11 +66,17 @@
     [self.registBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
     
+   
+    
+    
+    
     UIImage *notRegistImage = [[UIImage imageNamed:@"poi_btn_positioning_background"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
     [self.notRegistBtn setBackgroundImage:notRegistImage forState:UIControlStateNormal];
     
     
     [self.findPsdBtn  setBackgroundImage:notRegistImage forState:UIControlStateNormal];
+    
+    [self.loginWithPhoneNum setBackgroundImage:notRegistImage forState:UIControlStateNormal];
 }
 
 
@@ -109,8 +119,16 @@
     }];
 }
 
-- (IBAction)forgetPassword:(id)sender {
+- (IBAction)loginWithPhoneNum:(id)sender {
     
+    BSLoginWithPhoneNumberController *loginWithPhone = [[BSLoginWithPhoneNumberController alloc] initWithNibName:@"BSRegisterController" bundle:nil];
+    [self.navigationController pushViewController:loginWithPhone animated:YES];
+}
+
+
+- (IBAction)forgetPassword:(id)sender {
+    BSResetPasswordController *resetPsw = [[BSResetPasswordController alloc] initWithNibName:@"BSResetPasswordController" bundle:nil];
+    [self.navigationController pushViewController:resetPsw animated:YES];
 }
 
 

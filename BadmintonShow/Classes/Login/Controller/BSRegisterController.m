@@ -18,11 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIView *phoneBgView;
 @property (weak, nonatomic) IBOutlet UIView *verifyCodeBgView;
 
-@property (weak, nonatomic) IBOutlet UITextField *phoneNumTF;
-@property (weak, nonatomic) IBOutlet UITextField *verifyCodeTF;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTF;
-@property (weak, nonatomic) IBOutlet UIButton *verifyCodeBtn;
-@property (strong, nonatomic) NSTimer *timer;
+
 @end
 
 @implementation BSRegisterController
@@ -56,6 +52,11 @@
     UIImage *loginImageHightlighted = [[UIImage imageNamed:@"common_button_green_highlighted"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
     [self.verifyCodeBtn setBackgroundImage:loginImage forState:UIControlStateNormal];
     [self.verifyCodeBtn setBackgroundImage:loginImageHightlighted forState:UIControlStateHighlighted];
+    
+    UIImage *registImage = [[UIImage imageNamed:@"common_button_blue"] resizableImageWithCapInsets:inset resizingMode:UIImageResizingModeStretch];
+    [self.nextStepButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.nextStepButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [self.nextStepButton setBackgroundImage:registImage forState:UIControlStateNormal];
 }
 
 
@@ -76,16 +77,9 @@
     [self.view endEditing:YES];
     
     NSString *phoneNum =  _phoneNumTF.text ;
-    if (phoneNum.length != 11) {
-        [MBProgressHUD showText:@"手机号码应为11位数字" atView:self.view animated:YES];
+    if (![self verifyInputWith:phoneNum]) {
         return;
-    }
-    
-    BOOL isPhoneNum = [RegularExpressionUtils validateMobile:phoneNum];
-    if (!isPhoneNum) {
-        [MBProgressHUD showText:@"手机号错误，请填写手机号" atView:self.view animated:YES];
-        return;
-    }
+    };
     
     self.verifyCodeBtn.enabled = NO;
     
@@ -101,6 +95,60 @@
         }
     } repeats:YES];
     
+    
+    [self checkIfVerifiedPhone:phoneNum block:^(BOOL succeeded, NSError *error) {
+        
+         if (!succeeded) {
+             [self.timer fire];
+             self.verifyCodeBtn.enabled = YES;
+             [self.verifyCodeBtn setTitle:originBtnTitle forState:UIControlStateNormal];
+             
+            return ;
+        }
+        
+        // 没有通过验证的手机才进行验证。
+        [self sendSMSTo:phoneNum];
+    }];
+}
+
+
+- (BOOL)verifyInputWith:(NSString *)phoneNum{
+    if (phoneNum.length != 11) {
+        [MBProgressHUD showText:@"手机号码应为11位数字" atView:self.view animated:YES];
+        return NO;
+    }
+    
+    BOOL isPhoneNum = [RegularExpressionUtils validateMobile:phoneNum];
+    if (!isPhoneNum) {
+        [MBProgressHUD showText:@"手机号错误，请填写手机号" atView:self.view animated:YES];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)checkIfVerifiedPhone:(NSString *)phoneNum block:(BSBooleanResultBlock)block{
+    AVQuery *query = [AVQuery queryWithClassName:AVClassUser];
+    [query whereKey:AVPropertyMobilePhoneNumer equalTo:phoneNum];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+       
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:@"网络请求失败，请检查网络"];
+            block(NO, error);
+            return ;
+        }
+        
+        if (objects.count) {
+            [SVProgressHUD showInfoWithStatus:@"手机号码注册过了"];
+            block(NO, nil);
+            return;
+        }
+        
+        block(YES, nil);
+    }];
+}
+
+
+- (void)sendSMSTo:(NSString *)phoneNum{
     //发送验证码
     [AVOSCloud requestSmsCodeWithPhoneNumber:phoneNum callback:^(BOOL succeeded, NSError *error) {
         //  发送成功

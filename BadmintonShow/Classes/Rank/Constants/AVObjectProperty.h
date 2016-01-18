@@ -93,4 +93,10 @@
 #define AVPropertyPeopleCount   @"peopleCount"
 #define AVPropertyCircleId      @"circleId"
 
+#define AVPropertyMobilePhoneNumer @"mobilePhoneNumber"
+
+#define AVPropertyGameCount     @"gameCount"
+#define AVPropertyWinningPercentage @"winningPercentage"
+
+
 #endif /* AVObjectProperty_h */

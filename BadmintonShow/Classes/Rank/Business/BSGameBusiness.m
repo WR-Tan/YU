@@ -61,13 +61,15 @@
 }
 
 
-+ (void)queryGameFromNetWithBlock:(BSArrayResultBlock)block {
++ (void)queryGameFromNetWithLimit:(NSInteger)limit skip:(NSInteger)skip Block:(BSArrayResultBlock)block {
     AVRelation *relation  = [[AVUser currentUser] relationforKey:AVRelationUserGamesRelation];
     AVQuery *query = [relation query] ;
     [query includeKey:@"aRankScore"];
     [query includeKey:@"bRankScore"];
     [query includeKey:@"aPlayer"];
     [query includeKey:@"bPlayer"];
+    query.limit = limit;
+    query.skip = skip;
     [query addDescendingOrder:AVPropertyCreatedAt];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
@@ -89,6 +91,12 @@
     [BSDBManager fetchMyGamesBlock:block];
 }
 
++ (BOOL)validateScoreInGame:(BSGameModel *)game {
+    
+    
+    
+    return YES;
+}
 
 @end
 

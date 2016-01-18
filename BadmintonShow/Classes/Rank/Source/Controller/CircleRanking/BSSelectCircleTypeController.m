@@ -28,7 +28,7 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -39,7 +39,7 @@ static NSString *cellId = @"BSCreateCircleTypeCell";
     
     BSCreateCircleTypeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId ];
     
-    //#warning 暂时只做公开的吧，私密的下个版本做。
+#warning 暂时只做公开的吧，私密的下个版本做。
     static NSString *openName = @"公开圈";
     static NSString *openMark = @"（创建一个公开的排名圈子）";
     static NSString *openDesc = @"        每个人都可以加入到你创建的公开圈子，前提是他/她的分类圈子(比如：公司)还没有加入其他公司的圈子。如果要加入另一个，必须退出之前对应分类圈子";

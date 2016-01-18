@@ -45,7 +45,8 @@
                AVPropertyAccessSchoolTime:object[AVPropertyAccessSchoolTime]?:@"",
                AVPropertyScore:object[AVPropertyScore]};
         [BSUserDefaultStorage setObject:userDict forKey:UserObjectIdKey(object.objectId)];
-        BSProfileUserModel *profileUser = [BSProfileUserModel modelWithDictionary:userDict];
+//        BSProfileUserModel *profileUser = [BSProfileUserModel modelWithDictionary:userDict];
+        BSProfileUserModel *profileUser = [BSProfileUserModel modelFromAVUser:[AVUser currentUser]];
         if (profileUser) AppContext.user = profileUser;
         block(profileUser,nil);
     }];

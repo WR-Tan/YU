@@ -18,6 +18,7 @@
 #import "BSCommonTool.h"
 #import "BSFriendListViewController.h"
 #import "BSChoosePlayerViewController.h"
+#import "RegularExpressionUtils.h"
 
 @interface BSAddGameRecordController ()<BSAddGameRecordCellDelegate,UITableViewDataSource,UITableViewDelegate,BSChooseSinglePlayerControllerDelegate,
     BSChoosePlayerViewControllerDelegate>{
@@ -148,33 +149,33 @@
 }
 
 
-#if 0
-    // 暂时不事先这个了方法了。跟谁聊天，才能发送比赛给对方。
-#pragma mark - Cell Delegate
--(void)presentFriendListVC{
-    
-    BSChoosePlayerViewController *choosePlayerVC = [[BSChoosePlayerViewController alloc] init];
-    choosePlayerVC.title = @"请选择对手";
-    choosePlayerVC.delegate = self;
-    [self.navigationController pushViewController:choosePlayerVC animated:YES];
-    
-
-    if (self.gameType == BMTGameTypeManSingle ||      //   如果是单打，则选择对手
-        self.gameType == BMTGameTypeWomanSingle ) {
-      
-        BSChooseSinglePlayerController *singleVC = [[BSChooseSinglePlayerController alloc] init];
-        singleVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
-        singleVC.delegate = self;
-        [self.navigationController pushViewController:singleVC animated:YES];
-        
-    } else {  // 选择双打对手
-        BSChooseTeamPlayerController *teamVC = [[BSChooseTeamPlayerController alloc] init];
-        teamVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
-        [self.navigationController pushViewController:teamVC animated:YES];
-    }
-
-}
-#endif
+//#if 0
+//    // 暂时不事先这个了方法了。跟谁聊天，才能发送比赛给对方。
+//#pragma mark - Cell Delegate
+//-(void)presentFriendListVC{
+//    
+//    BSChoosePlayerViewController *choosePlayerVC = [[BSChoosePlayerViewController alloc] init];
+//    choosePlayerVC.title = @"请选择对手";
+//    choosePlayerVC.delegate = self;
+//    [self.navigationController pushViewController:choosePlayerVC animated:YES];
+//    
+//
+//    if (self.gameType == BMTGameTypeManSingle ||      //   如果是单打，则选择对手
+//        self.gameType == BMTGameTypeWomanSingle ) {
+//      
+//        BSChooseSinglePlayerController *singleVC = [[BSChooseSinglePlayerController alloc] init];
+//        singleVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
+//        singleVC.delegate = self;
+//        [self.navigationController pushViewController:singleVC animated:YES];
+//        
+//    } else {  // 选择双打对手
+//        BSChooseTeamPlayerController *teamVC = [[BSChooseTeamPlayerController alloc] init];
+//        teamVC.title = [NSString stringWithFormat:@"请选择%@对手",_titleDict[@(self.gameType)]];
+//        [self.navigationController pushViewController:teamVC animated:YES];
+//    }
+//
+//}
+//#endif
 
 - (void)gameSettings{
     BSSetGameTypeController *setGameVC = [[BSSetGameTypeController alloc] init];
@@ -194,6 +195,7 @@
     gameObj[@"gameType"]   = @(game.gameType);
     gameObj[@"aScore"]     = @([game.aScore integerValue]) ;//  玩家A的每场比赛得分
     gameObj[@"bScore"]     = @([game.bScore integerValue]);//  玩家B的每场比赛得分
+    gameObj[AVPropertyCreator] = [AVUser currentUser];
     [gameObj setObject:[AVUser currentUser] forKey:@"aPlayer"];
     [gameObj setObject:opponentPlayer forKey:@"bPlayer"];
     return gameObj;
@@ -204,7 +206,50 @@
         [SVProgressHUD showErrorWithStatus:@"请填写比分"];
         return  NO ;
     }
+    
+    if (![RegularExpressionUtils validateNumberString:game.aScore] ||
+        ![RegularExpressionUtils validateNumberString:game.bScore] ) {
+        [SVProgressHUD showErrorWithStatus:@"分数必须是整数"];
+        return  NO ;
+    }
+    
+    if ([game.aScore isEqualToString:game.bScore]) {
+        [SVProgressHUD showErrorWithStatus:@"分数不能相同"];
+        return  NO ;
+    }
+    
+    NSInteger aScore = [game.aScore integerValue];
+    NSInteger bScore = [game.bScore integerValue];
+    
+    NSInteger maxScore = MAX(aScore, bScore);
+    NSInteger minScore = MIN(aScore, bScore);
+    NSInteger delta = maxScore - minScore;
+    
+    if (maxScore < 11 || maxScore > 30 ) {
+        [SVProgressHUD showErrorWithStatus:@"比分不能低于11分，不能高于30分,请重新输入"];
+        return  NO ;
+    }
+    
+    if (minScore < 0) {
+        [SVProgressHUD showErrorWithStatus:@"比分不能小于0,请重新输入"];
+        return  NO ;
+    }
+    
+    if (delta != 2 && maxScore != 30) {
+        [SVProgressHUD showErrorWithStatus:@"比分差距不符合羽毛球规则,请重新输入"];
+        return NO;
+    }
+    
+    
+    if (delta == 1 && maxScore == 30) {
+        return  YES;
+    }
+    
     return YES;
+///////////////////////////////////////////////////////////////
+    
+    
+    
 }
 
 

@@ -14,46 +14,11 @@ FOUNDATION_EXPORT const unsigned char AVOSCloudVersionString[];
 
 // Platform
 #define AVOS_IOS_ONLY (TARGET_OS_IPHONE)
-#define AVOS_OSX_ONLY (TARGET_OS_MAC && !TARGET_OS_IPHONE)
-
-#define AVOS_TARGET_OS_OSX (TARGET_OS_MAC && !TARGET_OS_IOS && !TARGET_OS_WATCH && !TARGET_OS_TV)
-#define AVOS_TARGET_OS_IOS (TARGET_OS_IOS && !TARGET_OS_WATCH && !TARGET_OS_TV)
-
-#ifndef AV_IOS_UNAVAILABLE
-#  ifdef __IOS_UNAVILABLE
-#    define AV_IOS_UNAVAILABLE __IOS_UNAVAILABLE
-#  else
-#    define AV_IOS_UNAVAILABLE
-#  endif
-#endif
-
-#ifndef AV_OSX_UNAVAILABLE
-#  if TARGET_OS_MAC
-#    define AV_OSX_UNAVAILABLE __OSX_UNAVAILABLE
-#  else
-#    define AV_OSX_UNAVAILABLE
-#  endif
-#endif
-
-#ifndef AV_WATCH_UNAVAILABLE
-#  ifdef __WATCHOS_UNAVAILABLE
-#    define AV_WATCH_UNAVAILABLE __WATCHOS_UNAVAILABLE
-#  else
-#    define AV_WATCH_UNAVAILABLE
-#  endif
-#endif
-
-#ifndef AV_TV_UNAVAILABLE
-#  ifdef __TVOS_PROHIBITED
-#    define AV_TV_UNAVAILABLE __TVOS_PROHIBITED
-#  else
-#    define AV_TV_UNAVAILABLE
-#  endif
-#endif
+#define AVOS_OSX_ONLY (TARGET_OS_MAC && !(TARGET_OS_IPHONE))
 
 #if AVOS_IOS_ONLY
 #import <UIKit/UIKit.h>
-#elif AVOS_OSX_ONLY
+#else
 #import <Cocoa/Cocoa.h>
 @compatibility_alias UIImage NSImage;
 @compatibility_alias UIColor NSColor;

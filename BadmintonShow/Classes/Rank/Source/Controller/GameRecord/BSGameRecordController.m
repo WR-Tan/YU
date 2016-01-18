@@ -8,7 +8,7 @@
 
 #import "BSGameRecordController.h"
 #import "BSGameRecordCell.h"
-#import "BSGameRecordDetailController.h"
+//#import "BSGameRecordDetailController.h"
 #import "BSAddGameRecordController.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "BSGameModel.h"
@@ -39,11 +39,16 @@
     return self;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"比赛统计";
-    
 #if 0
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"单打",@"双打"]];
     seg.selectedSegmentIndex = 0 ;
@@ -131,9 +136,9 @@
 
 #pragma mark - TableView代理
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
-    [self.navigationController pushViewController:detail animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    BSGameRecordDetailController *detail = [[BSGameRecordDetailController alloc] init ];
+//    [self.navigationController pushViewController:detail animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

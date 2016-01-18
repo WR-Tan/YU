@@ -57,14 +57,16 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-
-    //  TableView
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     if ([self respondsToSelector:@selector( setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+
+    //  TableView
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView.height -= 64;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.backgroundColor = kTableViewBackgroudColor;
     [self.view addSubview:self.tableView];
@@ -119,7 +121,7 @@ static NSString *CellIdentifier = @"BSSkyLadderTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

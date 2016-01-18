@@ -25,7 +25,7 @@
 
 + (void)saveCircleAvatarWithId:(NSString *)objectId image:(UIImage *)image block:(BSIdResultBlock)block;
 
-+ (void)queryCircleWithCategory:(NSString *)category isOpen:(BOOL)isOpen block:(BSArrayResultBlock)block ;
++ (void)queryCircleWithCategory:(NSString *)category isOpen:(BOOL)isOpen limit:(NSInteger)limit skip:(NSInteger)skip block:(BSArrayResultBlock)block ;
 
 //  获取Circle的User，和圈子的人数。
 + (void)fetchUserInBackgroundWithCircle:(BSCircleModel *)circle block:(BSIdResultBlock)block;
@@ -48,8 +48,11 @@
 /// 查询圈子，使用circleId，或者name
 + (void)queryCircleWIthNameOrId:(NSString *)nameOrId block:(BSArrayResultBlock)block;
  
+// 退出群（其他人创建的）
++ (void)quitCircle:(BSCircleModel *)circle block:(BSBooleanResultBlock)block;
 
-
+//  添加成员（好友）入群
++ (void)addUser:(AVUser *)user toCircle:(BSCircleModel *)circle block:(BSBooleanResultBlock)block;
 
 @end
 

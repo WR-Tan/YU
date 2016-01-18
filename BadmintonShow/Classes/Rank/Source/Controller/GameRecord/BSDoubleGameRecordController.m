@@ -73,10 +73,10 @@
 #endif
     
     //    用户上下拉刷新的时候，再去获取数据
-    [BSGameBusiness queryGameFromNetWithBlock:^(NSArray *objects, NSError *error) {
-        _gameRecordData = objects.mutableCopy;
-        [self.tableView reloadData];
-    }];
+//    [BSGameBusiness queryGameFromNetWithBlock:^(NSArray *objects, NSError *error) {
+//        _gameRecordData = objects.mutableCopy;
+//        [self.tableView reloadData];
+//    }];
 }
 
 

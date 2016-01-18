@@ -27,6 +27,7 @@
 #import "BSSettingViewController.h"
 #import "BSCommonBusiness.h"
 #import "BSMyCirclesController.h"
+#import "BSMessageViewController.h"
 
 @interface BSProfileController ()<BSProfileEditViewControllerDelegate>
 //UITableViewDelegate,UITableViewDataSource,
@@ -43,7 +44,7 @@
     if (self) {
         self.title = @"我的";
         self.hidesBottomBarWhenPushed = NO;
-        self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
+        self.tabBarItem.image = [UIImage imageNamed:@"iconfont-profile"];
         _dataArr = [NSMutableArray array];
         
     }
@@ -92,8 +93,10 @@
 //    BSProfileModel *collection = BSProfileModel(@"AliPay",@"我的装备",nil,@"BSMyEquipmentViewController");
 //    [_dataArr addObject:@[data,team,collection]];
 
+//    BSProfileModel *message = BSProfileModel(@"more_icon_message",@"消息",nil,@"BSMessageViewController");
+//    [_dataArr addObject:@[message]];
     
-    BSProfileModel *circle = BSProfileModel(@"AliPay",@"我的圈子",nil,@"BSMyCirclesController");  
+    BSProfileModel *circle = BSProfileModel(@"iconfont-group",@"我的圈子",nil,@"BSMyCirclesController");
         [_dataArr addObject:@[circle]];
     
     //  附近
@@ -102,7 +105,7 @@
 //    BSProfileModel *groupNearby = BSProfileModel(@"AliPay",@"羽秀`圈子",@"到组织,找高手",clasName);
 //    [_dataArr addObject:@[peopleNearby,teamNearby,groupNearby]];
 
-    BSProfileModel *setting = BSProfileModel(@"AliPay",@"设置",nil,@"BSSettingViewController");
+    BSProfileModel *setting = BSProfileModel(@"iconfont-setting",@"设置",nil,@"BSSettingViewController");
     [_dataArr addObject:@[setting]];
      
     [self.tableView reloadData];
@@ -204,7 +207,6 @@
     if (class) {
         UIViewController *ctrl = class.new ;
         ctrl.view.backgroundColor = [UIColor whiteColor];
-        ctrl.title = profile.title;
         [self.navigationController pushViewController:ctrl animated:YES];
     }
 

@@ -18,6 +18,26 @@
 @implementation BSChatMatchView
 
 
++ (instancetype)matchView {
+    BSChatMatchView *matchView = [[BSChatMatchView alloc] init];
+    matchView.frame = CGRectMake(0, 0, 170, 80);
+    
+    UIColor *borderColor = UIColorHex(F0F0F0);
+    matchView.layer.borderColor = borderColor.CGColor;
+    matchView.layer.borderWidth = CGFloatPixelCeil(0.5);
+    
+    matchView.layer.cornerRadius = 4;
+    matchView.clipsToBounds = YES;
+
+    return matchView;
+}
+
+
+- (id)init{
+    self = [[[NSBundle mainBundle] loadNibNamed:@"BSChatMatchView" owner:nil options:nil] lastObject];
+    return self;
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {

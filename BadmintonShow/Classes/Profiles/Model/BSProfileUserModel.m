@@ -60,7 +60,9 @@
                                AVPropertyScore: user[AVPropertyScore]?:@"",
                                AVPropertyIsFollowee: user[AVPropertyIsFollowee]?:@(NO),
                                AVPropertyIsFollower: user[AVPropertyIsFollower]?:@(NO),
-                               AVPropertyIsFriend: user[AVPropertyIsFriend]?:@(NO)
+                               AVPropertyIsFriend: user[AVPropertyIsFriend]?:@(NO),
+                               AVPropertyGameCount: user[AVPropertyGameCount]?:@(0),
+                               AVPropertyWinningPercentage: user[AVPropertyWinningPercentage]?:@(0)
                                };
     BSProfileUserModel *profileUser = [BSProfileUserModel modelWithDictionary:userDict];
     

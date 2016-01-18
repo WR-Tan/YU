@@ -9,6 +9,7 @@
 #import "BSCircleMemberController.h"
 #import "BSRankDataBusiness.h"
 #import "BSCircleModel.h"
+#import "MJRefresh.h"
 
 @interface BSCircleMemberController ()
 
@@ -20,6 +21,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.circle.name;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadRankData];
+    }];
 }
 
 - (void)loadRankData{
@@ -28,7 +32,9 @@
 
 /// 查询某个圈子所有玩家排名。
 - (void)queryRankingInCircle:(BSCircleModel *)circle{
-    [BSRankDataBusiness queryRankingInCircle:circle  limit:10 skip:10 block:^(NSArray *objects, NSError *error) {
+    _querySuccessCount = 0;
+    _querySkip = 0;
+    [BSRankDataBusiness queryRankingInCircle:self.circle limit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
             
@@ -36,14 +42,39 @@
                 [SVProgressHUD showErrorWithStatus:@"请求数据错误.."];
                 return ;
             }
-            
             if (!objects) return;
+            
+            _querySuccessCount = 1;
+            _querySkip = kQueryLimit;
+            
             _rankArray = objects.mutableCopy;
             [self.tableView reloadData];
         });
     }];
 }
 
+
+- (void)loadMoreData {
+    // 第一次加载。下拉刷新
+    [BSRankDataBusiness queryRankingInCircle:self.circle limit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+            
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"请求数据错误.."];
+                return ;
+            }
+            if (!objects) return;
+            
+            _querySuccessCount ++ ;
+            _querySkip = kQueryLimit * _querySuccessCount;
+            
+            [_rankArray addObjectsFromArray:objects];
+            [self.tableView reloadData];
+        });
+    }];
+    
+}
 
 
 /*

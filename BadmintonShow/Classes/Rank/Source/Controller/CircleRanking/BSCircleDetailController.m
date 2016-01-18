@@ -11,9 +11,10 @@
 #import "BSCircleBusiness.h"
 #import "BSPhotoPicker.h"
 #import "BSCircleMemberController.h"
+#import "BSCircleAddMemberController.h"
 
 
-@interface BSCircleDetailController () <BSCircleDetailHeaderDelegate>
+@interface BSCircleDetailController () <BSCircleDetailHeaderDelegate,BSCircleAddMemberControllerDelegate>
 @property (nonatomic, strong) BSCircleDetailHeader *header;
 @property (nonatomic, strong) UIButton *jionButton;
 @end
@@ -29,7 +30,7 @@
 
 - (void)constructBaseView{
     
-    self.title = self.circle.name;
+    self.title = @"详情"; //self.circle.name;
     self.tableView.backgroundColor = [UIColor whiteColor];
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -46,7 +47,28 @@
     [button addTarget:self  action:@selector(queryIfJionedCricleCategory) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     self.jionButton = button;
+    
+//    if (![self.circle.creator.objectId isEqualToString:AppContext.user.objectId]) return;
+    
+    //
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"邀请"  style:UIBarButtonItemStyleDone target:self action:@selector(addMember)];
 }
+
+//- (void)addMember{
+//    BSCircleAddMemberController *addMemberVC = [[BSCircleAddMemberController alloc] init];
+//    addMemberVC.delegate = self;
+//    [self.navigationController pushViewController:addMemberVC animated:YES];
+//}
+//
+//- (void)didSelectedUser:(AVUser *)user {
+//     [BSCircleBusiness addUser:user toCircle:self.circle block:^(BOOL succeeded, NSError *error) {
+//         
+//         if (error) {
+//             [SVProgressHUD showErrorWithStatus:@"添加失败，请检查网络"];
+//         }
+//     }];
+//}
+
 
 - (void)updateCircle{
     BOOL isCreatorSelf = [self.circle.creator.objectId isEqualToString:AppContext.user.objectId];
@@ -75,27 +97,26 @@
     
     self.jionButton.enabled = NO;
     //  查询是否加入了某个分类圈:公司、学校、、、
-    [BSCircleBusiness queryIfJionCategoryCircle:self.circle.type block:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:@"请求数据失败.."];
-            return;
-        }
+//    [BSCircleBusiness queryIfJionCategoryCircle:self.circle.type block:^(BOOL succeeded, NSError *error) {
+//        if (error) {
+//            [SVProgressHUD showErrorWithStatus:@"请求数据失败.."];
+//            return;
+//        }
+    
         
-        
-        /// 暂时可以加入对应的其他公司/学校/公开圈吧。别太复杂
-#if 0
-        if (!error && succeeded == NO) {
-            NSString *circleType = [[self typeDict] objectForKey:self.circle.type] ? : @"";
-            NSString *title = [NSString stringWithFormat:@"你已经加入了%@分类圈，目前只支持加入一个分类圈(公开圈)中。如需加入当前圈子，请退出之前对应的分类圈",circleType];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:nil  delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-            [alert show];
-            return ;
-        }
-#endif
+/// 暂时可以加入对应的其他公司/学校/公开圈吧。别太复杂
+//        if (!error && succeeded == NO) {
+//            NSString *circleType = [[self typeDict] objectForKey:self.circle.type] ? : @"";
+//            NSString *title = [NSString stringWithFormat:@"你已经加入了%@分类圈，目前只支持加入一个分类圈(公开圈)中。如需加入当前圈子，请退出之前对应的分类圈",circleType];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:nil  delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//            [alert show];
+//            return ;
+//        }
+
         
         //  符合加入条件！
         [self queryIfJionInCircle];
-    }];
+//    }];
 }
 
 - (NSDictionary *)typeDict{
@@ -125,9 +146,9 @@
 }
 
 - (void)jionCircle {
-    
+    [SVProgressHUD show];
     [BSCircleBusiness jionCircel:self.circle object:^(BOOL succeeded, NSError *error) {
-        
+
         if (error || !succeeded) {
             [SVProgressHUD showErrorWithStatus:@"加入失败"];
             return ;
@@ -136,9 +157,7 @@
         [SVProgressHUD showSuccessWithStatus:@"加入成功"];
         NSInteger index=[[self.navigationController viewControllers]indexOfObject:self];
         [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:index-2]animated:YES];
-        if (self.block) {
-            self.block();
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jionedNewCircle" object:nil];
     }];
     
     

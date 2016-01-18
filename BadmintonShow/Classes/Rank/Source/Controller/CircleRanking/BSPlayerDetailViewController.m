@@ -41,6 +41,7 @@ NSString *hasRequestedStr = @"已经请求过了";
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitle:@"添加好友" forState:UIControlStateNormal];
     [button addTarget:self  action:@selector(makeFriend) forControlEvents:UIControlEventTouchUpInside];
+    button.hidden = YES;
     [self.view addSubview:button];
     self.addOrChatButton = button;
 }
@@ -54,8 +55,7 @@ NSString *hasRequestedStr = @"已经请求过了";
 
 
 - (void)queryFriendShip {
-    [SVProgressHUD show];
-    
+//    [SVProgressHUD show];
     AVUser *user = [AVUser user];
     user.objectId = self.player.objectId;
     

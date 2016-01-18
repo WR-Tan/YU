@@ -25,6 +25,7 @@
     // Initialization code
     self.iconView.layer.cornerRadius = 60 / 2 ;
     self.iconView.clipsToBounds = YES;
+    self.iconView.contentMode = UIViewContentModeScaleAspectFill;
     
     self.playerCountLabel.layer.cornerRadius = 2;
     self.playerCountLabel.clipsToBounds = YES;
@@ -41,11 +42,11 @@
 - (void)setObject:(id)object {
     if ([object isKindOfClass:[BSCircleModel class]]) {
         BSCircleModel *circle = (BSCircleModel *)object;
-        [self.iconView setImageWithURL:circle.avatarUrl  placeholder:kImageUserAvatar];
+        [self.iconView setImageWithURL:circle.avatarUrl  placeholder:UIImageNamed(@"iconfont-kequntoushi")];
         self.nameLabel.text = circle.name;
         self.IDLabel.text = circle.circleId;
         self.descLabel.text = circle.desc;
-        self.playerCountLabel.text = @"1999人";
+//        self.playerCountLabel.text = @"1999人";
     }
     
 }

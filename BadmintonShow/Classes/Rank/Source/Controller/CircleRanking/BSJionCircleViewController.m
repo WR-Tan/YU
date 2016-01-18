@@ -12,11 +12,16 @@
 #import "BSCircleResultCell.h"
 #import "BSCircleDetailController.h"
 #import "SVProgressHUD.h"
+#import "MJRefresh.h"
 
 @interface BSJionCircleViewController () <UITableViewDelegate, UITableViewDataSource>{
-    NSMutableArray *_circleTypeArrM;
+    NSMutableArray *_circleTypes;
     NSMutableDictionary *_circleDict;
     NSUInteger _selectType;
+    
+    NSInteger _querySkip ;
+    NSInteger _querySuccessCount;
+    NSMutableDictionary *_circleRequestSuccessDict;
 }
 @property (weak, nonatomic) IBOutlet UITableView *circleTypeTableView;
 @property (weak, nonatomic) IBOutlet UITableView *circleResultTableView;
@@ -32,10 +37,15 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     self = [super init];
     if (self) {
        self = [self initWithNibName:@"BSJionCircleViewController" bundle:nil];
-        _circleTypeArrM  = @[@"所有",@"公司",@"学校",@"城市",@"区域",@"小区",@"球会",@"其他"].mutableCopy;
+        _circleTypes  = @[@"所有",@"公司",@"学校",@"城市",@"区域",@"小区",@"球会",@"其他"].mutableCopy;
+        _circleRequestSuccessDict = [NSMutableDictionary dictionary];
+        for (NSString *key in _circleTypes) {
+            [_circleRequestSuccessDict setObject:@0 forKey:key];
+        }
+        
         _selectType = 0;
         _circleDict = [NSMutableDictionary dictionary];
-        for (NSString *key in _circleTypeArrM) {
+        for (NSString *key in _circleTypes) {
             NSMutableArray *resultArray = [NSMutableArray array];
             [_circleDict setObject:resultArray forKey:key];
         }
@@ -58,19 +68,38 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     self.circleResultTableView.tableFooterView = [UIView new];
     [self.circleTypeTableView registerNib:[UINib nibWithNibName:@"BSJionCircleCategoryCell" bundle:nil] forCellReuseIdentifier:circleCategoryCellId];
     [self.circleResultTableView registerNib:[UINib nibWithNibName:@"BSCircleResultCell" bundle:nil] forCellReuseIdentifier:circleResultCellId];
+    self.circleResultTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadDataFromNet];
+    }];
+    self.circleResultTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreData];
+    }];
+
 }
 
 
 
 - (void)loadDataFromNet{
-    NSString *category = _circleTypeArrM[_selectType];  // @"小区";
+    NSString *category = _circleTypes[_selectType];  // @"小区";
     self.title = category;
-    [BSCircleBusiness queryCircleWithCategory:category isOpen:YES block:^(NSArray *objects, NSError *error) {
-        
+    
+    // 第一次加载。下拉刷新
+    _querySuccessCount = 0;
+    _querySkip = 0;
+    
+    [BSCircleBusiness queryCircleWithCategory:category isOpen:YES limit:kQueryLimit skip:_querySkip  block:^(NSArray *objects, NSError *error) {
+        [self.circleResultTableView.mj_header endRefreshing];
         if (error) {
             [SVProgressHUD  showErrorWithStatus:@"请求数据错误.."];
             return ;
         }
+        
+        _querySuccessCount = 1;
+        _querySkip = kQueryLimit;
+         
+        [_circleRequestSuccessDict setObject:@(_querySuccessCount) forKey:_circleTypes[_selectType]];
+        
+        self.circleResultTableView.mj_footer.hidden = !objects.count;
         
         if (objects) {
             [_circleDict setObject:objects.mutableCopy forKey:category];
@@ -79,13 +108,38 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     }];
 }
 
+- (void)loadMoreData{
+    NSString *category = _circleTypes[_selectType];  // @"小区";
+
+    [BSCircleBusiness queryCircleWithCategory:category isOpen:YES limit:kQueryLimit skip:_querySkip  block:^(NSArray *objects, NSError *error) {
+        [self.circleResultTableView.mj_footer endRefreshing];
+        if (error) {
+            [SVProgressHUD  showErrorWithStatus:@"请求数据错误.."];
+            return ;
+        }
+        
+        if (!objects) return;
+
+        _querySuccessCount ++ ;
+        _querySkip = kQueryLimit * _querySuccessCount;
+        
+        NSMutableArray *circleArr = _circleDict[category];
+        if (circleArr) {
+            [circleArr addObjectsFromArray:objects];
+        }
+        
+        [self.circleResultTableView reloadData];
+    }];
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (tableView == self.circleTypeTableView) {
-        return _circleTypeArrM.count;
+        return _circleTypes.count;
     }
 
-    NSMutableArray *resultArr = _circleDict[_circleTypeArrM[_selectType]];
+    NSMutableArray *resultArr = _circleDict[_circleTypes[_selectType]];
     return resultArr.count;
 }
 
@@ -105,14 +159,14 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     
     if (tableView == self.circleTypeTableView) {
         BSJionCircleCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:circleCategoryCellId];
-        cell.titleLabel.text = _circleTypeArrM[indexPath.row];
+        cell.titleLabel.text = _circleTypes[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         return cell;
     } else {
 
         BSCircleResultCell *cell = [tableView dequeueReusableCellWithIdentifier:circleResultCellId];
         
-        NSMutableArray *resultArr = _circleDict[_circleTypeArrM[_selectType]];
+        NSMutableArray *resultArr = _circleDict[_circleTypes[_selectType]];
         if (indexPath.row < resultArr.count) {
             BSCircleModel *circle = resultArr[indexPath.row];
             [cell setObject:circle];
@@ -127,7 +181,10 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
     if (tableView == self.circleResultTableView) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        NSMutableArray *resultArr = _circleDict[_circleTypeArrM[_selectType]];
+        NSMutableArray *resultArr = _circleDict[_circleTypes[_selectType]];
+        
+        if (indexPath.row >= resultArr.count) return;
+        
         BSCircleModel *circle = resultArr[indexPath.row];
         
         BSCircleDetailController *detailVC = [[BSCircleDetailController alloc] init];
@@ -139,7 +196,13 @@ static NSString *circleResultCellId = @"BSCircleResultCell";
  
     //  点击了圈子类型，查询圈子
     _selectType = indexPath.row;
-    [self loadDataFromNet];
+    
+    NSInteger circleSuccessCount = [_circleRequestSuccessDict[_circleTypes[_selectType]] integerValue];
+    
+    [self.circleResultTableView reloadData];
+    if (circleSuccessCount == 0) {
+        [self loadDataFromNet];
+    }
 }
 
 

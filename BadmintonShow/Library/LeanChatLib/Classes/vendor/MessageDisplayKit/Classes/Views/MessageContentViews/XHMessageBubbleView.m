@@ -112,7 +112,7 @@
             break;
             
         case XHBubbleMessageMediaTypeGame: {
-            bubbleSize = CGSizeMake(200, 80);
+            bubbleSize = CGSizeMake(200, 60);
             break;
         }
             
@@ -364,8 +364,10 @@
         }
         
         if (!_matchView) {
-            _matchView = [BSChatMatchView new];
-            _matchView.frame = CGRectMake(20, 20, 50, 50);
+            _matchView = [BSChatMatchView matchView];
+            CGFloat x = 0; //20
+            CGFloat y = 20;
+            _matchView.frame = CGRectMake(x , y, _matchView.width, _matchView.height);
             [self addSubview:_matchView];
         }
         
@@ -450,11 +452,11 @@
             break;
         }
         case XHBubbleMessageMediaTypeGame:{
-            CGFloat newWidth = 200;
+            CGFloat newWidth = 170;
             CGFloat newHeight = kMatchViewHeight ;
-            CGFloat newX = CGRectGetMaxX(bubbleFrame) - 2  - newWidth;
-            self.matchView.frame = CGRectMake(newX, 0, newWidth, newHeight);
-
+            CGFloat newX = (self.message.bubbleMessageType == XHBubbleMessageTypeSending) ? (CGRectGetMaxX(bubbleFrame) - newWidth) : ( bubbleFrame.origin.x );
+            self.matchView.frame = CGRectMake(newX, 10, newWidth, newHeight);
+ 
             break;
         }
             

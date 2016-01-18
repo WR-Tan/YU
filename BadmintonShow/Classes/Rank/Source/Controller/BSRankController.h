@@ -11,4 +11,6 @@
 @interface BSRankController : BSBaseViewController
 @property (nonatomic, strong) UITableView *tableView ;
 
+- (void)updateUser;
+
 @end

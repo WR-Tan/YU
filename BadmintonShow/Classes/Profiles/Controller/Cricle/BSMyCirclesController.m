@@ -17,26 +17,35 @@
 #import "BSCircleDetailController.h"
 #import "BSSearchCircleController.h"
 #import "BSMyCircleHeaderView.h"
+#import "MJRefresh.h"
 
-@interface BSMyCirclesController () < BSMyCircleHeaderDelegate>
+@interface BSMyCirclesController () < BSMyCircleHeaderDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) UIView *sectionHeader;
 @property (nonatomic, strong) NSMutableArray *circlesArr;
 @property (nonatomic, strong) BSCircleMenuView *menuView;
+@property (nonatomic, strong) BSCircleModel *toDeleteCircle;
 @end
 
 static NSString * cellId = @"BSMyCircleCell";
 
 @implementation BSMyCirclesController
 
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     [self constructBaseView];
     [self queryJionedCircles];
+    [self addObserver];
 }
 
 - (void)constructBaseView{
+    self.title = @"圈子";
+    
     BSMyCircleHeader *header = [BSMyCircleHeader new];
     header.delegate = self;
     self.tableView.tableHeaderView = header;
@@ -44,6 +53,9 @@ static NSString * cellId = @"BSMyCircleCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"BSMyCircleCell" bundle:nil] forCellReuseIdentifier:cellId];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchCircle)];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self queryJionedCircles];
+    }];
 }
 
 - (void)searchCircle{
@@ -52,9 +64,10 @@ static NSString * cellId = @"BSMyCircleCell";
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
-/// 获取用户加入了什么圈子.  内部做缓存
+/// 获取用户加入了什么圈子.
 - (void)queryJionedCircles{
     [BSCircleBusiness queryMyCirclesWithBlock:^(NSArray *objects, NSError *error) {
+        [self.tableView.mj_header endRefreshing];
         if (error) {
             [SVProgressHUD showErrorWithStatus:@"获取分类出错"];
             return ;
@@ -67,6 +80,8 @@ static NSString * cellId = @"BSMyCircleCell";
 
 - (void)handleCircles:(NSArray *)circles{
 
+    [self.circlesArr removeAllObjects];
+    
     NSMutableArray *myCircles = [NSMutableArray array];
     NSMutableArray *jionedCircles = [NSMutableArray array];
     
@@ -89,6 +104,14 @@ static NSString * cellId = @"BSMyCircleCell";
 }
 
 
+- (void)addObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCircles) name:@"jionedNewCircle" object:nil];
+}
+
+- (void)refreshCircles{
+    [self queryJionedCircles];
+}
+
 #pragma mark - Table View DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -101,7 +124,6 @@ static NSString * cellId = @"BSMyCircleCell";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    return self.sectionHeader;
     BSMyCircleHeaderView *header = [BSMyCircleHeaderView sectionHeader];
     header.title = section == 0 ? @"我创建的" : @"我加入的";
     return header;
@@ -129,7 +151,7 @@ static NSString * cellId = @"BSMyCircleCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     NSMutableArray *sectionArray = self.circlesArr[indexPath.section];
     BSCircleModel *circle = [sectionArray objectAtIndex:indexPath.row];
     
@@ -140,6 +162,35 @@ static NSString * cellId = @"BSMyCircleCell";
     }];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.section ;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"退出";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle != UITableViewCellEditingStyleDelete) return;
+    if (indexPath.section == 0) return;
+    
+    NSMutableArray *sectionArray = self.circlesArr[indexPath.section];
+    BSCircleModel *circle = sectionArray[indexPath.row];
+    self.toDeleteCircle = circle;
+    
+    NSString *message = [NSString stringWithFormat:@"你确定要退出\"%@\"吗？",circle.name];
+    
+    [UIAlertView showWithTitle:@"退出圈子" message:message cancelButtonTitle:@"取消"
+             otherButtonTitles:@[@"确定"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                  if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
+                     [self quitCircle:self.toDeleteCircle];
+                     [sectionArray removeObjectAtIndex:indexPath.row];
+                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                 }
+             }];
+}
+
 
 #pragma mark - 加入圈子
 
@@ -161,6 +212,15 @@ static NSString * cellId = @"BSMyCircleCell";
     }
 }
 
+
+
+- (void)quitCircle:(BSCircleModel *)circle{
+    
+    [BSCircleBusiness quitCircle:circle block:^(BOOL succeeded, NSError *error) {
+        if (!error) return ;
+        [SVProgressHUD showErrorWithStatus:@"退出失败，请检查网络"];
+    }];
+}
 
 
 #pragma mark - lazy
@@ -198,6 +258,10 @@ static NSString * cellId = @"BSMyCircleCell";
         _circlesArr = [NSMutableArray array];
     }
     return _circlesArr;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -1,0 +1,42 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D4FF811C3F3D55E172D1C5B39435029D0BFC462D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++7550" : {
+
+    },
+    "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++4995" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D4FF811C3F3D55E172D1C5B39435029D0BFC462D" : 0,
+    "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++7550" : 0,
+    "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++4995" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DA9F509A-12CD-4FC4-8983-5ED5BDA23A90",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D4FF811C3F3D55E172D1C5B39435029D0BFC462D" : "YU\/",
+    "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++7550" : "YU\/BadmintonShow\/Classes\/Public\/PublicView\/DatePicker\/",
+    "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++4995" : "YU\/BadmintonShow\/Classes\/AppBaseModule\/Classes\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "BadmintonShow",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "BadmintonShow.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/swelzh\/YU.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D4FF811C3F3D55E172D1C5B39435029D0BFC462D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/svn-app.paic.com.cn\/svn\/ff_app_cms",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++4995"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/svn-app.paic.com.cn\/svn\/ff_app_cms",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "fb9f1597-db29-4f3a-95cc-3b3b33f1fc0c++7550"
+    }
+  ]
+}

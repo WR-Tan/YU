@@ -225,8 +225,8 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
             break;
         }
+            //  发送比分
         case XHBubbleMessageMediaTypeGame:{
-            
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             [self.messageBubbleView.matchView addGestureRecognizer:tapGestureRecognizer];
             break;

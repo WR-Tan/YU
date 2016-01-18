@@ -120,7 +120,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)initBottomMenuAndEmotionView {
     NSMutableArray *shareMenuItems = [NSMutableArray array];
-    NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video", @"BadmintonRacket"];
+    NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video", @"iconfont-bisai-1"];
     NSArray *plugTitle = @[@"照片", @"拍摄", @"比赛"];
     for (NSString *plugIcon in plugIcons) {
         XHShareMenuItem *shareMenuItem = [[XHShareMenuItem alloc] initWithNormalIconImage:[UIImage imageNamed:plugIcon] title:[plugTitle objectAtIndex:[plugIcons indexOfObject:plugIcon]]];
@@ -142,7 +142,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (LZStatusView *)clientStatusView {
     if (_clientStatusView == nil) {
-        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 64, self.messageTableView.frame.size.width, kLZStatusViewHight)];
+        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 0, self.messageTableView.frame.size.width, kLZStatusViewHight)];
         _clientStatusView.hidden = YES;
     }
     return _clientStatusView;

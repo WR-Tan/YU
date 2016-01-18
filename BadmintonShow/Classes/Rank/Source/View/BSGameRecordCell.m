@@ -16,11 +16,11 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone ;
     
-    self.playerAIcon.layer.cornerRadius = 48 / 2;
+    self.playerAIcon.layer.cornerRadius = 40 / 2;
     self.playerAIcon.clipsToBounds = YES ;
     self.playerAIcon.contentMode = UIViewContentModeScaleAspectFill;
     
-    self.playerBIcon.layer.cornerRadius = 48 / 2;
+    self.playerBIcon.layer.cornerRadius = 40 / 2;
     self.playerBIcon.clipsToBounds = YES ;
     self.playerBIcon.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -45,9 +45,12 @@
         self.creatAt.text = time;
     }
     
+
     BOOL isAWin = ([model.aScore integerValue] > [model.bScore integerValue]);
-    self.winLabel.backgroundColor = isAWin ? [UIColor redColor] : [UIColor greenColor];
-    self.winLabel.textColor = isAWin ? [UIColor whiteColor] : [UIColor blackColor];
+    //    UIColor *winColor = UIColorHex(7b7b7b);
+    //    self.winLabel.backgroundColor = isAWin ? [UIColor redColor] : loseColor;
+    self.winLabel.backgroundColor = [UIColor whiteColor];
+    self.winLabel.textColor = isAWin ? [UIColor redColor] : [UIColor grayColor];
     self.winLabel.text = isAWin ? @"胜" : @"败" ;
 }
 

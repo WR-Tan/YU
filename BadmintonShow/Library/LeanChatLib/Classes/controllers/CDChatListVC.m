@@ -115,7 +115,7 @@ static NSString *cellIdentifier = @"ContactCell";
     [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
         dispatch_block_t finishBlock = ^{
             [self stopRefreshControl:refreshControl];
-            if ([self filterError:error]) {
+            if (!error) { //([self filterError:error]) {
                 self.conversations = conversations.mutableCopy;
                 [self.tableView reloadData];
                 if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
@@ -128,7 +128,7 @@ static NSString *cellIdentifier = @"ContactCell";
         
         if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
             [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
-                if ([self filterError:error]) {
+                if (!error) {  // ([self filterError:error]) {
                     finishBlock();
                 } else {
                     [self stopRefreshControl:refreshControl];

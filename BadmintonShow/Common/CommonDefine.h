@@ -40,7 +40,7 @@ alpha:1.0]
 
 #define  kTableViewBackgroudColor RGB(250,250,250)
 #define  kBackgroudColor  kTableViewBackgroudColor
-#define  kDetailLabelFont [UIFont systemFontOfSize:15]
+#define  kDetailLabelFont [UIFont systemFontOfSize:14]
 #define  kDetailLabelFontLarge [UIFont systemFontOfSize:16]
 
 #define kBSDefaultFont    [UIFont systemFontOfSize:16]
@@ -50,6 +50,8 @@ alpha:1.0]
 #define UIImageNamed(name)  [UIImage imageNamed:(name)]
 #define kDefaultUserAvatar   @"bs_def_userAvatar"
 #define kImageUserAvatar  UIImageNamed(kBSAvatarPlaceHolder)
+#define kImageCircleAvatar UIImageNamed(@"iconfont-group")
+
 
 typedef void (^BSArrayResultBlock)(NSArray *objects, NSError *error);
 typedef void (^BSBooleanResultBlock)(BOOL succeeded, NSError *error);

@@ -42,7 +42,8 @@ typedef NS_ENUM(NSUInteger, BSUserVerifyType){
 @property (nonatomic, assign) NSInteger mbLevel ;
 @property (nonatomic, assign) NSInteger rankLevel ;
 @property (nonatomic, assign) double score;
-@property (nonatomic, assign) double winRate;
+@property (nonatomic, assign) double winningPercentage;
+//@property (nonatomic, assign) double winRate;
 @property (nonatomic, assign) int gameCount;
 
 //  Profile Edit

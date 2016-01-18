@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) BSGameModel *game ;
 
++ (instancetype)matchView;
+
 @end

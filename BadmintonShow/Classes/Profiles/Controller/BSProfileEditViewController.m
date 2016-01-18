@@ -121,6 +121,8 @@
     
     self.signatureItem.detail = AppContext.user.desc;
     
+    self.schoolItem.detail = AppContext.user.school;
+    
     NSString *accessSchoolYear = [[AppContext.user .accessSchoolTime componentsSeparatedByString:@"-"] firstObject];
     if (accessSchoolYear.length >= 4) {
          accessSchoolYear = [accessSchoolYear substringWithRange:NSMakeRange(2, 2)];

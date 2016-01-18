@@ -9,6 +9,7 @@
 #import "BSFriendsRankingController.h"
 #import "BSRankDataBusiness.h"
 #import "SVProgressHUD.h"
+#import "BSProfileUserModel.h"
 
 @interface BSFriendsRankingController ()
 
@@ -38,15 +39,25 @@
             [self.view addSubview:self.showErrorLabel];
             return ;
         }
-
-//        _querySuccessCount = 1;
-//        _querySkip = kQueryLimit;
-        _rankArray = objects.mutableCopy;
         
-        [self.showErrorLabel removeFromSuperview];
-        [self.tableView reloadData];
+        [self arrary:objects sortUserByScore:^(NSMutableArray *arr) {
+            _rankArray = arr;
+            [self.showErrorLabel removeFromSuperview];
+            [self.tableView reloadData];
+        }];
     }];
 }
+
+
+- (void)arrary:(NSArray *)array sortUserByScore:(void(^)(NSMutableArray *arr))block{
+    
+    NSMutableArray *descentArr = array.mutableCopy;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:AVPropertyScore ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    [descentArr sortUsingDescriptors:sortDescriptors];
+    block(descentArr);
+}
+
 
 - (void)loadMoreData {
 //    [BSRankDataBusiness queryFriendRankDataWithLimit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {

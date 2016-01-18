@@ -94,24 +94,13 @@ static  NSString *kAVOSCloudKey = @"OTdaWMltiPg9WNcY7SEvK9HC";
     NSString *key = (NSString *)kCFBundleVersionKey;
     NSString *version = [NSBundle mainBundle].infoDictionary[key];
     NSString *saveVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    if ([version isEqualToString:saveVersion]) { // 不是第一次使用这个版本
-        
-        application.statusBarHidden = NO;
-        if ([AVUser currentUser]) {
-            self.window.rootViewController = self.tabBarCtl;
-            [self toMain]; // 主要是设置聊天
-        } else {
-            self.window.rootViewController =  [[UINavigationController alloc] initWithRootViewController:self.loginCtl];
-        }
-    } else {// 将新版本号写入沙盒
-        [[NSUserDefaults standardUserDefaults] setObject:version forKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        self.window.rootViewController = [[NewFeatureController alloc] init];
-    }
     
-
-//    UIViewController *VC =  [[BSRegisterUserNameController alloc] init];
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:VC ];
+    if ([AVUser currentUser]) {
+        self.window.rootViewController = self.tabBarCtl;
+        [self toMain]; // 主要是设置聊天
+    } else {
+        self.window.rootViewController =  [[UINavigationController alloc] initWithRootViewController:self.loginCtl];
+    }   
 }
 
 

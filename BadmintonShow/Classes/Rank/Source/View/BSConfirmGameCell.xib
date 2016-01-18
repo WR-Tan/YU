@@ -77,14 +77,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C_68" translatesAutoresizingMaskIntoConstraints="NO" id="Mq7-Nh-3EL">
-                        <rect key="frame" x="306" y="213" width="60" height="30"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="60" id="4El-39-nSP"/>
-                            <constraint firstAttribute="height" constant="30" id="G1m-sk-l6I"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年11月23日   下午10:23" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DE-Zy-a6t">
                         <rect key="frame" x="10" y="10" width="202" height="18"/>
                         <animations/>
@@ -125,6 +117,14 @@
                             <constraint firstAttribute="height" constant="72" id="xan-uW-eYW"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C_68" translatesAutoresizingMaskIntoConstraints="NO" id="Mq7-Nh-3EL">
+                        <rect key="frame" x="306" y="10" width="60" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="4El-39-nSP"/>
+                            <constraint firstAttribute="height" constant="30" id="G1m-sk-l6I"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <animations/>
                 <constraints>
@@ -155,6 +155,7 @@
                     <constraint firstItem="rYV-VZ-gto" firstAttribute="top" secondItem="O1b-Xt-Wop" secondAttribute="bottom" constant="15" id="o2m-V0-2Zp"/>
                     <constraint firstItem="84M-kr-xng" firstAttribute="centerY" secondItem="tob-MT-Rqx" secondAttribute="centerY" id="orE-pw-BWP"/>
                     <constraint firstItem="wvp-av-q5w" firstAttribute="centerY" secondItem="rYV-VZ-gto" secondAttribute="centerY" constant="-3" id="qO4-4z-Yxm"/>
+                    <constraint firstItem="Mq7-Nh-3EL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="qcp-Rm-cbW"/>
                     <constraint firstItem="84M-kr-xng" firstAttribute="leading" secondItem="tob-MT-Rqx" secondAttribute="trailing" constant="5" id="rcT-Hn-ojy"/>
                     <constraint firstItem="gZc-4s-WaZ" firstAttribute="leading" secondItem="KJM-0N-c7L" secondAttribute="trailing" constant="34.5" id="spj-mR-sh4"/>
                     <constraint firstItem="gZc-4s-WaZ" firstAttribute="top" secondItem="3DE-Zy-a6t" secondAttribute="bottom" constant="50" id="tkf-f6-bod"/>
@@ -168,6 +169,7 @@
                         <exclude reference="WX2-T2-taL"/>
                         <exclude reference="QqH-B9-BFN"/>
                         <exclude reference="aPE-9I-FOm"/>
+                        <exclude reference="da3-mb-bCo"/>
                         <exclude reference="f1T-Bo-1HR"/>
                         <exclude reference="n85-Mg-0RF"/>
                     </mask>

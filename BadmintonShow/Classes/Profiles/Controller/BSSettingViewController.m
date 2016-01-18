@@ -29,11 +29,11 @@
     _dataArr = [NSMutableArray array];
     self.title = @"设置";
     
-    BSProfileModel *howToUse = BSProfileModel(nil,@"如何使用",nil,nil);
+//    BSProfileModel *howToUse = BSProfileModel(nil,@"如何使用",nil,nil);
     BSProfileModel *about = BSProfileModel(nil,@"关于羽秀",nil,@"BSAboutUsViewController");
     BSProfileModel *feedBack = BSProfileModel(nil,@"意见反馈",nil,@"BSFeedBackViewController");
-    BSProfileModel *praise = BSProfileModel(nil,@"给个好评",nil,nil);
-    [_dataArr addObject:@[howToUse,about,feedBack,praise]];
+//    BSProfileModel *praise = BSProfileModel(nil,@"给个好评",nil,nil);
+    [_dataArr addObject:@[about,feedBack]];
     
     [self.tableView reloadData];
 }
@@ -132,7 +132,7 @@
         
         if ([class.className isEqualToString:@"BSFeedBackViewController"] ) {
             BSFeedBackViewController *feedbackVC = class.new;
-            feedbackVC.tipText = @"感谢你给我们提供的宝贵意见，我们提供QQ群(299265891)供用户交流，欢迎加入交流 👫🏸👫🏸👫😀😀😀";
+            feedbackVC.tipText = @"感谢您给我们提供的宝贵意见。交流反馈QQ群：299265891，期待您加入 👫🏸👫🏸👫";
             feedbackVC.title = profile.title;
             feedbackVC.limitCount = 200 ;
             feedbackVC.delegate = self;
@@ -148,6 +148,11 @@
 }
 
 - (void)resetMessage:(NSString *)message Tag:(int)tag {
+    if (message.length < 5) {
+        [SVProgressHUD showInfoWithStatus:@"输入的意见不能少于5个字"];
+        return;
+    }
+    
     [BSProfileBusiness uploadFeedback:message block:^(BOOL succeeded, NSError *error) {
         
         if (succeeded) {

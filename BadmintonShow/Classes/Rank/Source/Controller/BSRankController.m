@@ -26,6 +26,7 @@
     NSMutableArray *_data;
     NSMutableArray *_classArr;
     BSRankHeader *_header;
+    NSArray *_images;
 }
 @end
 
@@ -37,12 +38,12 @@
     if (self) {
         self.title = @"羽秀";
         self.hidesBottomBarWhenPushed = NO;
-        self.tabBarItem.image = [UIImage imageNamed:@"tabbar_chat_active"];
+        self.tabBarItem.image = [UIImage imageNamed:@"tabbar_yuxiu"];
         _data = [@[@[@"比赛记录"],@[@"好友排名",@"圈子排名",@"羽秀天梯"]] mutableCopy];
+        _images = @[@[@"iconfont-dayumaoqiu"],@[@"iconfont-pengyou-1",@"iconfont-quanzi",@"iconfont-bisai"]];
         _classArr = @[@[@"BSGameRecordController"],@[@"BSFriendsRankingController",@"BSCircleRankingController",@"BSSkyLadderViewController"]].mutableCopy;
 //        @[@"广场"]
 //        ,@[@"BSTimeLineViewController"]
-        
     }
     return self;
 }
@@ -72,13 +73,27 @@
 
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.backgroundColor = kTableViewBackgroudColor;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self updateUser];
+    }];
     [self.view addSubview:self.tableView];
     
     if (kScreenHeight <= 568) {
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 140, 0);
     }
 }
- 
+
+- (void)updateUser {
+    [BSCommonBusiness fetchUserInBackground:^(BSProfileUserModel *profileUserMoel, NSError *err) {
+        [self.tableView.mj_header endRefreshing];
+        if (err) {
+            [SVProgressHUD showErrorWithStatus:@"请求数据错误，请检测网络"];
+            return ;
+        }
+        [self.tableView reloadData];
+    }];
+}
+
 
 #pragma mark TableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -132,6 +147,11 @@
     NSArray *sectionData = _data[indexPath.section];
     NSString *title = sectionData[indexPath.row];
 
+    NSArray *imageArr = _images[indexPath.section];
+    cell.imageView.image = [UIImage imageNamed:imageArr[indexPath.row]];
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    cell.imageView.clipsToBounds = YES;
+    
     cell.textLabel.text = title;
     cell.textLabel.font = kBSFontSize(15);
     

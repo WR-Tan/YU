@@ -53,7 +53,7 @@
         _idLabel.text = user.yuxiuId ? [NSString stringWithFormat:@"ID: %@",user.yuxiuId]: @"" ;
         _gameCountLabel.text = [@(user.gameCount) stringValue];
         _scoreLabel.text = [NSString stringWithFormat:@"%ld",(long)user.score ];
-        _winRateLabel.text = [NSString stringWithFormat:@"%.2f%%",user.winRate];
+        _winRateLabel.text = [NSString stringWithFormat:@"%ld%%",(long)(user.winningPercentage *100)];
         
         NSString *occqupied = (user.company ? : user.school) ? : @"无";
         _shoolOrCompanyNameLabel.text = occqupied;
