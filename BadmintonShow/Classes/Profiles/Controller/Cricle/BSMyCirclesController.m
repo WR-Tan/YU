@@ -73,7 +73,6 @@ static NSString * cellId = @"BSMyCircleCell";
             return ;
         }
         if (!objects.count)  return;
-        
         [self handleCircles:objects];
     }];
 }

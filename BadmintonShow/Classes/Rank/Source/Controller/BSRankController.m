@@ -51,14 +51,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self constructTableView];
-    [BSCommonBusiness fetchUserInBackground:^(BSProfileUserModel *profileUserMoel, NSError *err) {
-        [self.tableView reloadData];
-    }];
-    
+    [self updateUser];
+    [self addObserver];
 #if 0
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addGameRecord)];
 #endif
 }
+
+
+
 - (void)constructTableView{
     //  TableView
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
@@ -83,6 +84,7 @@
     }
 }
 
+
 - (void)updateUser {
     [BSCommonBusiness fetchUserInBackground:^(BSProfileUserModel *profileUserMoel, NSError *err) {
         [self.tableView.mj_header endRefreshing];
@@ -92,6 +94,10 @@
         }
         [self.tableView reloadData];
     }];
+}
+
+- (void)addObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUser) name:kNotificationKeyUserUpdated object:nil];
 }
 
 
@@ -172,7 +178,9 @@
     }
 }
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 

@@ -35,6 +35,7 @@
     _querySuccessCount = 0;
     _querySkip = 0;
     
+    [SVProgressHUD show];
     [BSRankDataBusiness queryRankUserDataWithLimit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [SVProgressHUD dismiss];
@@ -54,6 +55,7 @@
 }
 
 - (void)loadMoreData{
+    [SVProgressHUD show];
     [BSRankDataBusiness queryRankUserDataWithLimit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
         [self.tableView.mj_footer endRefreshing];
         [SVProgressHUD dismiss];

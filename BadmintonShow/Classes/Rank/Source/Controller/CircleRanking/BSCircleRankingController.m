@@ -70,6 +70,7 @@ static NSTimeInterval animationTime = 0.5;
 
 /// 获取用户加入了什么圈子.  内部做缓存
 - (void)queryJionedCircles{
+    [SVProgressHUD show];
     [BSCircleBusiness queryMyCirclesWithBlock:^(NSArray *objects, NSError *error) {
         [self.tableView.mj_header endRefreshing];
         
@@ -101,6 +102,7 @@ static NSTimeInterval animationTime = 0.5;
     _querySuccessCount = 0;
     _querySkip = 0;
     
+    [SVProgressHUD show];
     [BSRankDataBusiness queryRankingInCircle:self.selectedCircle limit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
@@ -109,6 +111,7 @@ static NSTimeInterval animationTime = 0.5;
                 [SVProgressHUD showErrorWithStatus:@"请求数据错误.."];
                 return ;
             }
+            [SVProgressHUD dismiss];
             if (!objects) return;
             
             _querySuccessCount = 1;
@@ -123,14 +126,17 @@ static NSTimeInterval animationTime = 0.5;
 
 - (void)loadMoreData{
     // 第一次加载。下拉刷新
+        [SVProgressHUD show];
     [BSRankDataBusiness queryRankingInCircle:self.selectedCircle limit:kQueryLimit skip:_querySkip block:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView.mj_footer endRefreshing];
+            
             
             if (error) {
                 [SVProgressHUD showErrorWithStatus:@"请求数据错误.."];
                 return ;
             }
+            [SVProgressHUD dismiss];
             if (!objects) return;
             
             _querySuccessCount ++ ;

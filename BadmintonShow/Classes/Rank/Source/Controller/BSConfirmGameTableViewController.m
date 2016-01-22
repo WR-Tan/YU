@@ -127,6 +127,7 @@ static NSString *cellId = @"BSConfirmGameCellId";
 
 #pragma mark - IBAction
 - (void)confirmAction:(id)sender{
+    
     //  1.如果比赛还未被加载！
     if (!self.gameObject) {
         [SVProgressHUD showInfoWithStatus:@"比赛数据尚未加载，请检查网络"];
@@ -154,8 +155,10 @@ static NSString *cellId = @"BSConfirmGameCellId";
         if (succeeded) {
             [SVProgressHUD showSuccessWithStatus:@"确认比赛成功"];
             self.myGame.isConfirmed = YES ;
+
             [self.tableView reloadData];
             [self debugMessage];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyUserUpdated object:nil];
         }
     }];
 }
