@@ -67,6 +67,8 @@ typedef NS_ENUM(NSUInteger, BSUserVerifyType){
 
 @property (nonatomic, assign) BSUserVerifyType userVerifyType;
 
+// Allow Rank
+@property (nonatomic, assign, getter=isAllowAppUseData) BOOL allowAppUseData;
 
 
 

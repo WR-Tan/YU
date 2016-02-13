@@ -43,6 +43,7 @@
         gameModel.bRankScore = [object[@"aRankScore"] stringValue] ? : @"";  //  玩家B的排名分数
     }
     
+    gameModel.creator = [BSProfileUserModel modelFromAVUser:object[AVPropertyCreator]];
     
   
     

@@ -29,7 +29,14 @@
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChatController) name:kNotificationKeyUserChanged object:nil];
+}
 
+- (void)changeChatController{
+    [self buildTabBar];
+}
 
 - (void)buildTabBar
 {
@@ -55,16 +62,17 @@
     chatNav.tabBarItem = chatItem;
     
 
-    
     BSProfileController *mine  = [[BSProfileController alloc] init];
     BSNavigationController *mineNav = [[BSNavigationController alloc] initWithRootViewController:mine];
-//    UITabBarItem *mineItem = [[UITabBarItem alloc] initWithTitle:@"我" image:nil tag:0];
-//    UIImage *userImage = [UIImage imageNamed:@"user"];
     UITabBarItem *mineItem = [[UITabBarItem alloc] initWithTitle:@"我" image:userImage selectedImage:userImage];
     mineNav.tabBarItem = mineItem;
  
     
     self.viewControllers = @[rankNav,chatNav,mineNav];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

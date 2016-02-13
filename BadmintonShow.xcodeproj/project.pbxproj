@@ -5095,6 +5095,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thousandBlade.yuxiu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ff992830-6ccd-4575-abb7-d80ebb2b0c07";
@@ -5114,6 +5115,8 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BadmintonShow/BSCommon_prefix.pch";
 				INFOPLIST_FILE = BadmintonShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thousandBlade.yuxiu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ff992830-6ccd-4575-abb7-d80ebb2b0c07";

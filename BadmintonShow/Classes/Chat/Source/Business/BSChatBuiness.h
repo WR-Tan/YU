@@ -41,6 +41,11 @@ typedef void (^BSResultBlock)(id object, NSError *error);
  */
 + (void)queryUserModelForFollowersAndFolloweeWithBlock:(BSArrayResultBlock)block ;
 
+/*!
+ * 查找朋友（粉丝+关注） && 同意App使用用户数据
+ */
++ (void)queryUserModelForFollowersAndFolloweesAllowAppuserDataWithBlock:(BSArrayResultBlock)block ;
+
 /**
  *  @author lizhihua, 15-12-20 21:12:34
  *  @brief 查询指定用户，只会返回一个用户。

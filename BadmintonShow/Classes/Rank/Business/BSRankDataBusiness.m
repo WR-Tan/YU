@@ -23,7 +23,8 @@
 
 
 + (void)queryFriendRankDataWithBlock:(BSArrayResultBlock)block {
-     [BSChatBuiness queryUserModelForFollowersAndFolloweeWithBlock:^(NSArray *objects, NSError *error) {
+    
+     [BSChatBuiness queryUserModelForFollowersAndFolloweesAllowAppuserDataWithBlock:^(NSArray *objects, NSError *error) {
          if (error) {
              block(nil, error);
              return ;
@@ -48,6 +49,7 @@
 + (void)queryRankingInCircle:(BSCircleModel *)circle limit:(NSInteger)limit skip:(NSInteger)skip block:(BSArrayResultBlock)block {
     AVObject *circleObject = [AVObject objectWithoutDataWithClassName:AVClassCircle objectId:circle.objectId];
     AVQuery *query = [AVRelation reverseQuery:AVClassUser relationKey:AVRelationCircles childObject:circleObject];
+     [query whereKey:AVPropertyAllowAppUseData equalTo:@(YES)];
     query.limit = limit;
     query.skip = skip;
     [query addDescendingOrder:AVPropertyScore];
@@ -66,7 +68,7 @@
     AVQuery *rankQuery = [AVQuery queryWithClassName:AVClassUser];
     [rankQuery whereKey:property equalTo:SZU];
 //    rankQuery.limit = 200 ;
-//    
+    [rankQuery whereKey:AVPropertyAllowAppUseData equalTo:@(YES)];
     [rankQuery addDescendingOrder:AVPropertyScore];
     [rankQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
@@ -94,6 +96,7 @@
 + (void)queryRankUserDataWithLimit:(NSInteger)limit skip:(NSInteger)skip block:(BSArrayResultBlock)block{
 
     AVQuery *rankQuery = [AVQuery queryWithClassName:AVClassUser];
+    [rankQuery whereKey:AVPropertyAllowAppUseData equalTo:@(YES)];
     rankQuery.limit = limit ;
     rankQuery.skip = skip;
     [rankQuery addDescendingOrder:AVPropertyScore];

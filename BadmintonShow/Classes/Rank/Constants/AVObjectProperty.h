@@ -98,5 +98,7 @@
 #define AVPropertyGameCount     @"gameCount"
 #define AVPropertyWinningPercentage @"winningPercentage"
 
+#define AVPropertyAllowAppUseData     @"allowAppUseData"
+
 
 #endif /* AVObjectProperty_h */

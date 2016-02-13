@@ -29,6 +29,23 @@
     }];
 }
 
+
+/*!
+ * 查找朋友中同意App使用数据进行排名的用户
+ */
++ (void)queryFollowersAllowAppUseDataWithBlock:(BSArrayResultBlock)block {
+    AVUser *user = [AVUser currentUser];
+    AVQuery *q = [user followerQuery];
+    q.cachePolicy = kAVCachePolicyNetworkElseCache;
+    [q findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
+        if (error == nil) {
+            [[CDCacheManager manager] registerUsers:objects];
+        }
+        block(objects, error);
+    }];
+}
+
+
 + (void)queryFolloweesWithBlock:(BSArrayResultBlock)block {
     AVUser *user = [AVUser currentUser];
     AVQuery *q = [user followeeQuery];
@@ -40,6 +57,22 @@
         block(objects, error);
     }];
 }
+
+/*!
+ * 查找朋友中同意App使用数据进行排名的用户
+ */
++ (void)queryFolloweesAllowAppUseDataWithBlock:(BSArrayResultBlock)block {
+    AVUser *user = [AVUser currentUser];
+    AVQuery *q = [user followeeQuery];
+    q.cachePolicy = kAVCachePolicyNetworkElseCache;
+    [q findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
+        if (error == nil) {
+            [[CDCacheManager manager] registerUsers:objects];
+        }
+        block(objects, error);
+    }];
+}
+
 
 
 + (void)queryFriendsWithBlock:(BSArrayResultBlock)block {
@@ -141,6 +174,35 @@
         }];
     }];
 }
+
+
+//  查询数据是BSProfileUserModel &&  用户允许被查看信息
++ (void)queryUserModelForFollowersAndFolloweesAllowAppuserDataWithBlock:(BSArrayResultBlock)block {
+    
+    [self queryFolloweesAllowAppUseDataWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            block(nil, error);
+            return ;
+        }
+        [self queryFollowersAllowAppUseDataWithBlock:^(NSArray *obj, NSError *err) {  //  2. 查询自己关注的人AVUser
+            if (error) {
+                block(nil, err);
+                return ;
+            }
+            NSArray *friends = [self selectUnionFromFollowees:objects followers:obj];
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (AVUser *user in friends) {
+                BSProfileUserModel *model = [BSProfileUserModel modelFromAVUser:user];
+                if (model.isAllowAppUseData) {
+                    [arrM addObject:model];
+                }
+            }
+            [BSDBManager saveUsers:arrM];
+            block(arrM,nil);
+        }];
+    }];
+}
+
 
 
 + (NSArray *)selectUnionFromFollowees:(NSArray *)followeesArr followers:(NSArray *)followersArr {

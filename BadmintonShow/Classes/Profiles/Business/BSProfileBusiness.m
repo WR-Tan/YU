@@ -36,7 +36,7 @@
 + (void)saveUserInBackgroundWithBlock:(void (^)(id result, NSError *err))block {
     [[AVUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {   // 保存成功
-            block(nil,nil);
+            block(@(YES),nil);
         } else {    //  保存失败
             block(nil,error);
         }

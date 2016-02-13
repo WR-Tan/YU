@@ -103,13 +103,17 @@ static NSString *cellId = @"BSConfirmGameCellId";
         self.myGame = [BSGameModel modelWithAVObject:objects[0]];
         self.oppUser.objectId = self.myGame.bPlayer.objectId;
         self.gameObject = objects[0];
+        NSLog(@"%@",objects);
         
         BOOL isSelf = [[self.gameObject[AVPropertyCreator] objectId] isEqualToString:AppContext.user.objectId];
-        if (isSelf) {
-            [self modifyConfirmButtonWith:YES ];
+        BOOL isConfirmed = [self.gameObject[AVPropertyIsConfirmed] boolValue];
+        if (isSelf || isConfirmed) {
+//            [self modifyConfirmButtonWith:YES ];
+            self.navigationItem.rightBarButtonItem = nil;
         }else {
-            BOOL isConfirmed = [self.gameObject[AVPropertyIsConfirmed] boolValue];
-            [self modifyConfirmButtonWith:isConfirmed];
+           
+//            [self modifyConfirmButtonWith:isConfirmed];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确认" style:UIBarButtonItemStyleDone target:self action:@selector(confirmAction:)];
         }
 
         [self.tableView reloadData];
@@ -134,9 +138,15 @@ static NSString *cellId = @"BSConfirmGameCellId";
         return;
     }
     
-    //  2.如果比赛已经被确认！
+    //  3.如果比赛已经被确认！
     if ( self.myGame.isConfirmed ) {
         [SVProgressHUD showInfoWithStatus:@"你已经确认比赛了"];
+        return;
+    }
+    
+    //  2.如果创建人是自己
+    if ([self.myGame.creator.objectId isEqualToString:AppContext.user.objectId]) {
+        [SVProgressHUD showInfoWithStatus:@"不能确认自己创建的比赛"];
         return;
     }
     

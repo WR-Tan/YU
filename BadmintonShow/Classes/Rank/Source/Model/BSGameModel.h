@@ -35,6 +35,8 @@ typedef NS_ENUM(NSInteger,BSGameType){ // 比赛类型
 @property (nonatomic, strong) BSProfileUserModel *aPlayer;
 @property (nonatomic, strong) BSProfileUserModel *bPlayer;
 
+@property (nonatomic, strong) BSProfileUserModel *creator;
+
 @property (nonatomic, copy) NSString *aScore ;  //  玩家A的平台分数
 @property (nonatomic, copy) NSString *bScore ;  //  玩家B的平台分数
 

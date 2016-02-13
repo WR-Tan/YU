@@ -20,6 +20,8 @@
 #import "BSTimeLineViewController.h"
 #import "BSProfileUserModel.h"
 #import "BSCommonBusiness.h"
+#import "UIAlertView+x.h"
+#import "BSProfileBusiness.h"
 
 
 @interface BSRankController () <UITableViewDelegate,UITableViewDataSource>{
@@ -167,7 +169,40 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    //
+    if (!indexPath.section) {
+        [self selectActionWithIndex:indexPath];
+    }
+    // 设计用户数据
+    else {
+        if (AppContext.user.allowAppUseData) {
+            [self selectActionWithIndex:indexPath];
+        }
+        else {
+            [UIAlertView showWithTitle:@"是否同意羽秀记录您的比赛数据，并使用你的数据进行排名" message:@"如果您不允许羽秀App使用您的比赛数据，则无法进行排名" cancelButtonTitle:@"取消" otherButtonTitles:@[@"允许"] tapBlock:^(UIAlertView * _Nonnull alertView, NSInteger buttonIndex) {
+                
+                if (!buttonIndex) return ;
+                
+                [BSProfileBusiness saveUserObject:@YES key:AVPropertyAllowAppUseData block:^(id result, NSError *err) {
+                    
+                    if (result) {
+                        AppContext.user.allowAppUseData = YES;
+                        [self selectActionWithIndex:indexPath];
+                    } else {
+                        [SVProgressHUD showErrorWithStatus:@"请求失败，请检查网络"];
+                    }
+                }];
+            }];
+        }
+    }
+    
+    
+    
+   
+}
 
+- (void)selectActionWithIndex:(NSIndexPath *)indexPath {
     NSArray *sectionData = _classArr[indexPath.section];
     NSString  *className = sectionData[indexPath.row];
     Class class = NSClassFromString(className);

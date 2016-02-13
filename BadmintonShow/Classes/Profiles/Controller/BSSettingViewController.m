@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "BSFeedBackViewController.h"
+#import "CDChatManager.h"
 
 @interface BSSettingViewController () <UIAlertViewDelegate, BSSetTextViewControllerDelegate> {
     NSMutableArray *_dataArr;
@@ -83,6 +84,9 @@
              AppDelegate *delegate = [UIApplication sharedApplication].delegate;
              [delegate toLogin];
              [self.navigationController popToRootViewControllerAnimated:YES];
+             [[CDChatManager manager]  closeWithCallback:^(BOOL succeeded, NSError *error) {
+                 
+             }];
          } else {
              [SVProgressHUD showErrorWithStatus:@"退出失败，请重试。(若重试仍无法退出，请关闭程序的后台运行，重新打开并退出)"];
          }
