@@ -19,6 +19,7 @@
 @interface BSSettingViewController () <UIAlertViewDelegate, BSSetTextViewControllerDelegate> {
     NSMutableArray *_dataArr;
 }
+@property (nonatomic, strong) UISwitch *mySwitch;
 @end
 
 @implementation BSSettingViewController
@@ -32,9 +33,10 @@
     
 //    BSProfileModel *howToUse = BSProfileModel(nil,@"如何使用",nil,nil);
     BSProfileModel *about = BSProfileModel(nil,@"关于羽秀",nil,@"BSAboutUsViewController");
+    BSProfileModel *allowance = BSProfileModel(nil,@"允许羽秀使用我的数据进行排名",nil,nil);
     BSProfileModel *feedBack = BSProfileModel(nil,@"意见反馈",nil,@"BSFeedBackViewController");
 //    BSProfileModel *praise = BSProfileModel(nil,@"给个好评",nil,nil);
-    [_dataArr addObject:@[about,feedBack]];
+    [_dataArr addObject:@[about,feedBack,allowance]];
     
     [self.tableView reloadData];
 }
@@ -113,17 +115,49 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    NSArray  *sectionData = _dataArr[indexPath.section];
+    
     BSProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BSProfileCell"];
     if (!cell) {
         cell = [[BSProfileCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:@"BSProfileCell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    NSArray  *sectionData = _dataArr[indexPath.section];
+    
     cell.object = sectionData[indexPath.row];
+    
+    if (indexPath.row <= 1) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryView = nil;
+    }else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = self.mySwitch;
+    }
+    
+    
     return cell;
 }
 
+- (UISwitch *)mySwitch {
+    if (!_mySwitch) {
+        _mySwitch = [[UISwitch alloc] init];
+        [_mySwitch setOn: AppContext.user.isAllowAppUseData];
+        [_mySwitch addTarget:self action:@selector(allowUseCustomData:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _mySwitch;
+}
+
+- (void)allowUseCustomData:(UISwitch *)sender{
+    
+    [BSProfileBusiness saveUserObject:@(sender.isOn) key:AVPropertyAllowAppUseData block:^(id result, NSError *err) {
+        if (result) {
+            AppContext.user.allowAppUseData = sender.isOn;
+            [SVProgressHUD showSuccessWithStatus:@"已经允许羽秀使用我的数据"];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"请求失败，请检查网络"];
+        }
+    }];
+}
 
 #pragma mark - TableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -131,6 +165,8 @@
     
     NSArray  *sectionData = _dataArr[indexPath.section];
     BSProfileModel *profile = sectionData[indexPath.row];
+    
+    // 点击跳转时事件
     Class class = NSClassFromString(profile.className);
     if (class) {
         
@@ -149,6 +185,9 @@
         ctrl.title = profile.title;
         [self.navigationController pushViewController:ctrl animated:YES];
     }
+    
+    
+    
 }
 
 - (void)resetMessage:(NSString *)message Tag:(int)tag {

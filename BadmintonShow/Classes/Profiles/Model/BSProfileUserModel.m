@@ -107,4 +107,12 @@
 //    return  profileUser;
 //}
 
+- (BOOL)isAllowAppUseData {
+    return [[[NSUserDefaults standardUserDefaults] valueForKey:@"allowUseCustomData"] boolValue];
+}
+
+- (void)setAllowAppUseData:(BOOL)allowAppUseData {
+    [[NSUserDefaults standardUserDefaults] setValue:@(allowAppUseData) forKey:@"allowUseCustomData"];
+}
+
 @end
